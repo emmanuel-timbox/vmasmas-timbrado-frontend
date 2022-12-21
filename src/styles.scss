@@ -1,0 +1,55 @@
+@use "igniteui-angular/theming" as *;
+// Uncomment the following lines if you want to add a custom palette:
+// $primary: #731963 !default;
+// $secondary: #ce5712 !default;
+// $app-palette: palette($primary, $secondary);
+
+/* autoprefixer grid: on */
+
+// @include core();
+// @include typography($font-family: $material-typeface, $type-scale: $material-type-scale);
+// @include theme($default-palette);
+// CSS Reset, comment out if not required or using a different module
+@import 'minireset.css/minireset';
+@import './assets/plugins/fontawesome-free/css/all.min.css';
+@import './assets/dist/css/adminlte.min.css';
+
+
+@import 'ng-wizard/themes/ng_wizard.min.css';
+
+/* Optional */
+/* If a theme other than default is used, the css file for that theme is required. */
+@import 'ng-wizard/themes/ng_wizard_theme_arrows.min.css';
+@import 'ng-wizard/themes/ng_wizard_theme_circles.min.css';
+@import 'ng-wizard/themes/ng_wizard_theme_dots.min.css';
+
+@import './assets/dist/css/select2_custom.css';
+
+body {
+  background-image: linear-gradient(310deg, #141415e3, #15212F);
+  font-family: sans-serif;
+}
+
+.ng-wizard-theme-default .step-content {
+  padding: 10px;
+  border: 0px solid #D4D4D4;
+  background-color: #454d55 !important;
+  text-align: left;
+}
+
+.ng-wizard-theme-default .ng-wizard-toolbar {
+  background: #454d55;
+  border-radius: 0 !important;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding: 10px;
+  margin-bottom: 0 !important
+}
+
+.ng-wizard-theme-dots>ul.step-anchor {
+  position: relative;
+  background: #454d55;
+  border: 0 solid #ccc !important;
+  list-style: none
+}
+

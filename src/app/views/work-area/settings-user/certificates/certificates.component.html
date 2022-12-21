@@ -1,0 +1,47 @@
+<div class="row">
+
+  <div class="col-sm-4">
+    <div class="card card-outline card-danger">
+      <div class="card-header">
+        <h4>Datos del Certificado</h4>
+      </div>
+      <div class="card-body">
+        
+        <div class="text-center">
+          <img class="profile-user-img img-fluid " src="../../../../assets/images/logos/certificate_file.png">
+        </div>
+        <p class="text-muted text-center">Numero de Certificado:</p>
+        <h3 class="profile-username text-center">300012392320302390</h3>
+        <ul class="list-group list-group-unbordered mb-3">
+          <li class="list-group-item">
+            <b>Identidad:</b> <a class="float-right">ESCUELA KEMPER URGATE SA DE CV</a>
+          </li>
+          <li class="list-group-item">
+            <b>Verificado por:</b> <a class="float-right">AC UAT</a>
+          </li>
+          <li class="list-group-item">
+            <b>Caduca:</b> <a class="float-right">13/06/23</a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-8">
+    <div class="card card-outline card-danger">
+      <div class="card-header">
+        <h4>Cargar Certificado</h4>
+      </div>
+      <div class="card-body">
+        <ngx-dropzone (change)="onSelect($event)" style="background: none">
+          <ngx-dropzone-label class="text-success">Cargar archivo</ngx-dropzone-label>
+          <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
+      </div>
+    </div>
+  </div>
+
+</div>

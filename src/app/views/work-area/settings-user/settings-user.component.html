@@ -1,0 +1,422 @@
+<div class="row">
+
+  <div class="col-sm-12">
+    <div class="card card-outline card-danger">
+      <div class="card-header">
+        <h4>Datos Fiscales</h4>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>Nombre o razon social:</label>
+              <input type="text" class="form-control" id="razon-social-emisor">
+            </div>
+            <div class="form-group col-md-3">
+              <label>R.F.C:</label>
+              <input type="text" class="form-control" id="rfc-emisor">
+            </div>
+            <div class="form-group col-md-3">
+              <label>Lugar de expedicion:</label>
+              <input type="text" class="form-control" id="lugar-expedicion-emisor">
+            </div>
+            <div class="form-group col-md-2">
+              <label>Regimen fiscal:</label>
+              <select class="form-control" id="sucursal_editar" name="uso-cfdi-receptor">
+                <option selected>Seleccione un opcion</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <a class="btn btn-secondary btn_cancelar mr-1" data-dismiss="modal" aria-label="Close">
+              Cancelar
+            </a>
+            <a class="btn btn-primary" href="#">Guardar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card card-outline card-danger">
+      <div class="card-header">
+        <h4>Lista de Personas Fiscales</h4>
+      </div>
+      <div class="card-body">
+        <div class="card-body table-responsive">
+          <table datatable [dtOptions]="dtOptions" class="table row-border">
+            <thead>
+              <tr>
+                <th>RFC</th>
+                <th>Nombre o razon social</th>
+                <th>Regimen fiscal</th>
+                <th>Lugar de Expedicion</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Foo</td>
+                <td>Bar</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2345">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                    data-placement="right" title="Eliminar Receptor">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Someone</td>
+                <td>Youknow</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2346">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Iamout</td>
+                <td>Ofinspiration</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2347">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Yoda</td>
+                <td>Skywalker</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2348">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Patrick</td>
+                <td>Dupont</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2349">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Barack</td>
+                <td>Obama</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2350">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>François</td>
+                <td>Holland</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2351">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>Michel</td>
+                <td>Popo</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2352">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>Chuck</td>
+                <td>Norris</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2353">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>Simon</td>
+                <td>Robin</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2354">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td>Louis</td>
+                <td>Lin</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
+                    routerLink="/panel/receiver/R-w2355">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>12</td>
+                <td>Zelda</td>
+                <td>Link</td>
+                <td>70000</td>
+                <td class="text-center">
+                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)" onclick=""
+                    routerLink="/panel/receiver/R-w2356">
+                    <i class="fas fa-users-cog"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Administracion de Certificados"
+                    routerLink="/panel/certificate/R-w2345">
+                    <i class="fas fa-file"></i>
+                  </a>
+                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
+                    data-bs-target="#modal-nuevo-receptor">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                    data-placement="right" title="Desactivar empleado">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" data-bs-backdrop="static" id="modal-nuevo-receptor" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Receptor</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label>Nombre o razon social:</label>
+              <input type="text" class="form-control" id="razon-social-receptor">
+            </div>
+            <div class="form-group col-md-4">
+              <label>R.F.C:</label>
+              <input type="text" class="form-control" id="rfc-receptior">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Lugar de expedicion</label>
+              <input type="text" class="form-control" id="domicilio-fiscal-receptor">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Regimen fiscal:</label>
+              <select class="form-control" id="sucursal_editar" name="uso-cfdi-receptor">
+                <option selected>Seleccione un opcion</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
