@@ -1,0 +1,163 @@
+[
+  {
+    "regime": "601",
+    "fisica": 0,
+    "moral": 1,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "603",
+    "fisica": 0,
+    "moral": 1,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "605",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "606",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "608",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "609",
+    "fisica": 0,
+    "moral": 1,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "610",
+    "fisica": 1,
+    "moral": 1,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "611",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "612",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "614",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "616",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "620",
+    "fisica": 0,
+    "moral": 1,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "621",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "622",
+    "fisica": 0,
+    "moral": 1,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "623",
+    "fisica": 0,
+    "moral": 1,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "624",
+    "fisica": 0,
+    "moral": 1,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "628",
+    "fisica": 0,
+    "moral": 1,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "607",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "629",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "630",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "615",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2017-08-21 17:01:08",
+    "updated_at": "2017-08-21 17:01:08"
+  },
+  {
+    "regime": "625",
+    "fisica": 1,
+    "moral": 0,
+    "created_at": "2020-07-04 03:24:00",
+    "updated_at": "2020-07-04 03:24:06"
+  },
+  {
+    "regime": "626",
+    "fisica": 1,
+    "moral": 1,
+    "created_at": "2022-01-01 00:00:00",
+    "updated_at": null
+  }
+]

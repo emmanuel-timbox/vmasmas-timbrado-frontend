@@ -1,40 +1,67 @@
 <div class="row">
-
   <div class="col-sm-12">
+
     <div class="card card-outline card-danger">
       <div class="card-header">
         <h4>Datos Fiscales</h4>
       </div>
       <div class="card-body">
-        <form>
+        <form [formGroup]="formNewEmitter" (ngSubmit)="createTaxPeople()">
           <div class="form-row">
-            <div class="form-group col-md-4">
+
+            <div class="form-group col-md-5">
               <label>Nombre o razon social:</label>
-              <input type="text" class="form-control" id="razon-social-emisor">
+              <input type="text" class="form-control is-valid" formControlName="bussinessName"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['bussinessName'].errors }">
+              <div *ngIf="submittedCreate && f['bussinessName'].errors" class="invalid-feedback">
+                <div *ngIf="f['bussinessName'].errors['required']">Razon social del Emisor es requerido</div>
+                <div *ngIf="f['bussinessName'].errors['maxLength']">Razon social del Emisor debe tener que ser menor a
+                  150 caracteres</div>
+              </div>
             </div>
-            <div class="form-group col-md-3">
-              <label>R.F.C:</label>
-              <input type="text" class="form-control" id="rfc-emisor">
-            </div>
-            <div class="form-group col-md-3">
-              <label>Lugar de expedicion:</label>
-              <input type="text" class="form-control" id="lugar-expedicion-emisor">
-            </div>
+
             <div class="form-group col-md-2">
-              <label>Regimen fiscal:</label>
-              <select class="form-control" id="sucursal_editar" name="uso-cfdi-receptor">
-                <option selected>Seleccione un opcion</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+              <label>R.F.C:</label>
+              <input type="text" class="form-control is-valid" formControlName="rfc"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['rfc'].errors }">
+              <div *ngIf="submittedCreate && f['rfc'].errors" class="invalid-feedback">
+                <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
+                <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+              </div>
             </div>
+
+            <div class="form-group col-md-2">
+              <label>Lugar de expedicion:</label>
+              <input type="text" class="form-control is-valid" formControlName="expeditionPlace"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['expeditionPlace'].errors }">
+              <div *ngIf="submittedCreate && f['expeditionPlace'].errors" class="invalid-feedback">
+                <div *ngIf="f['expeditionPlace'].errors['required']">Lugar de expedicion del Emisor es requerido</div>
+                <div *ngIf="f['expeditionPlace'].errors['minlength']">Lugar de expedicion no debe ser menor a 5
+                  caracteres</div>
+                <div *ngIf="f['expeditionPlace'].errors['maxlength']">Lugar de expedicion no debe ser mayor a
+                  5caracteres</div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Regimen fiscal:</label>
+              <select class="form-control is-valid" formControlName="taxRegime"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['taxRegime'].errors }">
+                <option value="" selected>Seleccione un opcion</option>
+                <option *ngFor="let item of jsonDataTaxRegiment" value="{{item.regime}}">{{item.regime}}</option>
+              </select>
+              <div *ngIf="submittedCreate && f['taxRegime'].errors" class="invalid-feedback">
+                <div *ngIf="f['taxRegime'].errors['required']">Regimen fiscal del Emisor es requerido</div>
+              </div>
+            </div>
+
           </div>
           <div class="d-flex justify-content-end">
-            <a class="btn btn-secondary btn_cancelar mr-1" data-dismiss="modal" aria-label="Close">
+            <a class="btn btn-secondary btn_cancelar mr-1" (click)="resetFormCreate()">
               Cancelar
             </a>
-            <a class="btn btn-primary" href="#">Guardar</a>
+            <button class="btn btn-primary" type="submit">Guardar</button>
           </div>
         </form>
       </div>
@@ -46,339 +73,57 @@
       </div>
       <div class="card-body">
         <div class="card-body table-responsive">
-          <table datatable [dtOptions]="dtOptions" class="table row-border">
-            <thead>
-              <tr>
-                <th>RFC</th>
-                <th>Nombre o razon social</th>
-                <th>Regimen fiscal</th>
-                <th>Lugar de Expedicion</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Foo</td>
-                <td>Bar</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2345">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                    data-placement="right" title="Eliminar Receptor">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Someone</td>
-                <td>Youknow</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2346">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Iamout</td>
-                <td>Ofinspiration</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2347">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Yoda</td>
-                <td>Skywalker</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2348">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Patrick</td>
-                <td>Dupont</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2349">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Barack</td>
-                <td>Obama</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2350">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>François</td>
-                <td>Holland</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2351">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>Michel</td>
-                <td>Popo</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2352">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td>Chuck</td>
-                <td>Norris</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2353">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>Simon</td>
-                <td>Robin</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2354">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>11</td>
-                <td>Louis</td>
-                <td>Lin</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)"
-                    routerLink="/panel/receiver/R-w2355">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>Zelda</td>
-                <td>Link</td>
-                <td>70000</td>
-                <td class="text-center">
-                  <a id="btn_editar_empleado" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Editar o agregar Proveedores (Receptores)" onclick=""
-                    routerLink="/panel/receiver/R-w2356">
-                    <i class="fas fa-users-cog"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-success btn-sm mr-2" data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Administracion de Certificados"
-                    routerLink="/panel/certificate/R-w2345">
-                    <i class="fas fa-file"></i>
-                  </a>
-                  <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-nuevo-receptor">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                    data-placement="right" title="Desactivar empleado">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="col-sm-12">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border">
+              <thead>
+                <tr>
+                  <th>RFC</th>
+                  <th>Nombre o razon social</th>
+                  <th>Regimen fiscal</th>
+                  <th>Lugar de Expedicion</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let emitter of dataEmitters; let i = index">
+
+                  <td>{{emitter.rfc}}</td>
+                  <td>{{emitter.bussiness_name}}</td>
+                  <td>{{emitter.tax_regime}}</td>
+                  <td>{{emitter.expedition_place}}</td>
+                  <td class="text-center">
+                    <a class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                      title="Mostrar proveedores (Receptores)" routerLink="/panel/receiver/{{emitter.slug}}">
+                      <i class="fas fa-users-cog"></i>
+                    </a>
+                    <a class="btn btn-light btn-sm mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                      title="Administracion de Certificados" routerLink="/panel/certificate/{{emitter.slug}}">
+                      <i class="fas fa-certificate"></i>
+                    </a>
+                    <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmitter(emitter)">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a *ngIf="emitter.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                      data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmitter(emitter.slug, i)">
+                      <i class="fa fa-window-close"></i>
+                    </a>
+                    <a *ngIf="emitter.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
+                      data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmitter(emitter.slug, i)">
+                      <i class="fa fa-check"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
-<div class="modal fade" data-bs-backdrop="static" id="modal-nuevo-receptor" tabindex="-1"
+<div #editModal class="modal fade" data-bs-backdrop="static" id="modal-nuevo-receptor" tabindex="-1"
   aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
@@ -386,37 +131,71 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Receptor</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form>
+
+      <form [formGroup]="formEditEmitter" (submit)="editDataEmiiter()">
+        <div class="modal-body">
           <div class="form-row">
+
             <div class="form-group col-md-8">
               <label>Nombre o razon social:</label>
-              <input type="text" class="form-control" id="razon-social-receptor">
+              <input type="text" class="form-control is-valid" formControlName="bussinessName"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['bussinessName'].errors }"
+                [(ngModel)]="dataEmitterEdit.bussiness_name">
+              <div *ngIf="submittedEdit && fEdit['bussinessName'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['bussinessName'].errors['required']">Razon social del Emisor es requerido</div>
+                <div *ngIf="fEdit['bussinessName'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
+                  a 150 caracteres</div>
+              </div>
             </div>
+
             <div class="form-group col-md-4">
               <label>R.F.C:</label>
-              <input type="text" class="form-control" id="rfc-receptior">
+              <input type="text" class="form-control is-valid" formControlName="rfc"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['rfc'].errors }" [(ngModel)]="dataEmitterEdit.rfc">
+              <div *ngIf="submittedEdit && fEdit['rfc'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['rfc'].errors['required']">RFC del Emisor es requerido</div>
+                <div *ngIf="fEdit['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                <div *ngIf="fEdit['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+              </div>
             </div>
+
             <div class="form-group col-md-4">
               <label>Lugar de expedicion</label>
-              <input type="text" class="form-control" id="domicilio-fiscal-receptor">
+              <input type="text" class="form-control is-valid" formControlName="expeditionPlace"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['expeditionPlace'].errors }"
+                [(ngModel)]="dataEmitterEdit.expedition_place">
+              <div *ngIf="submittedEdit && fEdit['expeditionPlace'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['expeditionPlace'].errors['required']">Lugar de expedicion del Emisor es requerido
+                </div>
+                <div *ngIf="fEdit['expeditionPlace'].errors['minlength']">Lugar de expedicion no debe ser menor a 5
+                  caracteres</div>
+                <div *ngIf="fEdit['expeditionPlace'].errors['maxlength']">Lugar de expedicion no debe ser mayor a 5
+                  caracteres</div>
+              </div>
             </div>
+
             <div class="form-group col-md-4">
               <label>Regimen fiscal:</label>
-              <select class="form-control" id="sucursal_editar" name="uso-cfdi-receptor">
-                <option selected>Seleccione un opcion</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <select class="form-control is-valid" formControlName="taxRegime"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxRegime'].errors }" [(ngModel)]="dataEmitterEdit.tax_regime">
+                <option *ngFor="let item of jsonDataTaxRegiment"
+                  [selected]="item.regime == dataEmitterEdit.tax_regimen" > {{item.regime}} </option>
               </select>
+              <div *ngIf="submittedEdit && fEdit['taxRegime'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['taxRegime'].errors['required']">Regimen fiscal del Emisor es requerido</div>
+              </div>
             </div>
+
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
+        </div>
+
+        <div class="modal-footer">
+          <a class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</a>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+
+      </form>
+
     </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { MainComponent } from './main.component';
 import { FragmentsTemplateModule } from './../fragments-template/fragments-template.module';
@@ -14,6 +15,9 @@ import { NgSelect2Module } from 'ng-select2';
 import { ReceiversComponent } from './settings-user/receivers/receivers.component';
 import { CertificatesComponent } from './settings-user/certificates/certificates.component';
 import { InputMaskModule } from '@ngneat/input-mask';
+import { AuthInterceptor } from '../../interceptors/HttpErrorInterceptor'
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,13 @@ import { InputMaskModule } from '@ngneat/input-mask';
     DataTablesModule,
     NgxDropzoneModule,
     NgSelect2Module,
-    InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true })
+    HttpClientModule,
+    InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),
+    ReactiveFormsModule,
+    FormsModule
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   exports: [
     WelcomeComponent,

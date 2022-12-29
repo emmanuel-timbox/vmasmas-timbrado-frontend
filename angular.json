@@ -30,7 +30,8 @@
             "styles": [
               "src/styles.scss",
               "node_modules/select2/dist/css/select2.min.css",
-              "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+              "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
+              "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
             "scripts": [
               "node_modules/hammerjs/hammer.min.js",
@@ -39,7 +40,8 @@
               "node_modules/select2/dist/js/select2.min.js",
               "src/assets/dist/js/adminlte.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.min.js",
-              "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"
+              "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js",
+              "node_modules/sweetalert2/dist/sweetalert2.js"
             ]
           },
           "configurations": {
