@@ -100,7 +100,7 @@
                       title="Administracion de Certificados" routerLink="/panel/certificate/{{emitter.slug}}">
                       <i class="fas fa-certificate"></i>
                     </a>
-                    <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmitter(emitter)">
+                    <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmitter(emitter, i)">
                       <i class="fa fa-edit"></i>
                     </a>
                     <a *ngIf="emitter.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
@@ -139,31 +139,29 @@
             <div class="form-group col-md-8">
               <label>Nombre o razon social:</label>
               <input type="text" class="form-control is-valid" formControlName="bussinessName"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['bussinessName'].errors }"
-                [(ngModel)]="dataEmitterEdit.bussiness_name">
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['bussinessName'].errors }">
               <div *ngIf="submittedEdit && fEdit['bussinessName'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['bussinessName'].errors['required']">Razon social del Emisor es requerido</div>
                 <div *ngIf="fEdit['bussinessName'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
                   a 150 caracteres</div>
               </div>
             </div>
-
+            
             <div class="form-group col-md-4">
               <label>R.F.C:</label>
               <input type="text" class="form-control is-valid" formControlName="rfc"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['rfc'].errors }" [(ngModel)]="dataEmitterEdit.rfc">
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['rfc'].errors }">
               <div *ngIf="submittedEdit && fEdit['rfc'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['rfc'].errors['required']">RFC del Emisor es requerido</div>
                 <div *ngIf="fEdit['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
                 <div *ngIf="fEdit['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
               </div>
             </div>
-
+            
             <div class="form-group col-md-4">
               <label>Lugar de expedicion</label>
               <input type="text" class="form-control is-valid" formControlName="expeditionPlace"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['expeditionPlace'].errors }"
-                [(ngModel)]="dataEmitterEdit.expedition_place">
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['expeditionPlace'].errors }">
               <div *ngIf="submittedEdit && fEdit['expeditionPlace'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['expeditionPlace'].errors['required']">Lugar de expedicion del Emisor es requerido
                 </div>
@@ -173,18 +171,19 @@
                   caracteres</div>
               </div>
             </div>
-
+            
             <div class="form-group col-md-4">
               <label>Regimen fiscal:</label>
               <select class="form-control is-valid" formControlName="taxRegime"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxRegime'].errors }" [(ngModel)]="dataEmitterEdit.tax_regime">
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxRegime'].errors }">
                 <option *ngFor="let item of jsonDataTaxRegiment"
-                  [selected]="item.regime == dataEmitterEdit.tax_regimen" > {{item.regime}} </option>
+                  [selected]="item.regime == selectedTaxRegime"  > {{item.regime}} </option>
               </select>
               <div *ngIf="submittedEdit && fEdit['taxRegime'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['taxRegime'].errors['required']">Regimen fiscal del Emisor es requerido</div>
               </div>
             </div>
+            
 
           </div>
         </div>

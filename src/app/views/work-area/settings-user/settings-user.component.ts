@@ -2,10 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Emitter } from 'src/app/models/emitter.model';
 import { TaxPeapleService } from '../../../services/tax-people.service';
 import { environment } from '../../../../environments/environment';
-import { AbstractControl, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { SweetAlertsService } from '../../../services/sweet-alert.service'
-import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { data } from 'jquery';
 
 declare let bootstrap: any
 
@@ -18,8 +18,7 @@ declare let bootstrap: any
 export class SettingsUserComponent implements OnInit {
   @ViewChild('editModal') editModal!: ElementRef;
 
-  dtElement!: DataTableDirective;
-  dtInstance!: Promise<DataTables.Api>;
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   submittedCreate = false;
@@ -27,29 +26,31 @@ export class SettingsUserComponent implements OnInit {
   jsonDataTaxRegiment: any;
   dataEmitters: any;
   dataEmitterEdit: any;
-  nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   formNewEmitter: FormGroup = new FormGroup({});
   formEditEmitter: FormGroup = new FormGroup({});
-
+  indexArrayEmitter!: number;
+  slugEmitterUpdate!: string;
+  selectedTaxRegime!: string;
   constructor(private _service: TaxPeapleService, private formBuilder: FormBuilder,
     private swal: SweetAlertsService) { }
 
   ngOnInit(): void {
-    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    });
-
     this.formNewEmitter = this.formBuilder.group(this._service.getDataValidateEmitter());
     this.formEditEmitter = this.formBuilder.group(this._service.getDataValidateEmitter());
     this.getTaxRegimenCat();
     this.getDataEmitters();
-    this.dataEmitterEdit = {};
     this.dtOptions = {
       language: {
         url: 'https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
       }
     }
+  }
+
+  ngAfterViewInit(): void {
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
   }
 
   ngOnDestroy(): void {
@@ -79,9 +80,9 @@ export class SettingsUserComponent implements OnInit {
         if (result.code == 200) {
           this.swal.successAlert('Los datos del Emisor se guardaron de manera correcta');
           this.resetFormCreate();
-          this.createNewRow(emitter)
+          this.createNewRow(emitter);
         } else {
-          this.swal.infoAlert('¡Verifica!', result.message);
+          this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar los datos de manera correcta');
           this.resetFormCreate();
         }
       },
@@ -93,34 +94,57 @@ export class SettingsUserComponent implements OnInit {
     this._service.editStatusEmitter(slugEmitter).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response))
-        this.dataEmitters[index] = result.data
+        if (result.code == 200) {
+          this.dataEmitters[index] = result.data
+          this.swal.successAlert('El estatus se actualizo de manera correcta');
+        } else {
+          this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar el estatus');
+        }
+
       },
       error: error => { console.log(error) }
     });
   }
 
-  editDataEmiiter(): void{ 
-    
+  editDataEmiiter(): void {
     this.submittedEdit = true;
-
     if (this.formEditEmitter.invalid) { return }
-  
-   console.log(this.formEditEmitter)
-    
-    // const emitter: Emitter = { 
-    //   bussinessName: this.formEditEmitter.value
-    // }
-    // this._service.editEmitter()
+    const emmiter: Emitter = {
+      bussinessName: this.formEditEmitter.value.bussinessName,
+      rfc: this.formEditEmitter.value.rfc,
+      expeditionPlace: this.formEditEmitter.value.expeditionPlace,
+      taxRegime: this.formEditEmitter.value.taxRegime
+    }
+    this._service.editEmitter(emmiter, this.slugEmitterUpdate).subscribe({
+      next: response => {
+        let result = JSON.parse(JSON.stringify(response));
+        if (result.code == 200) {
+          this.dataEmitters[this.indexArrayEmitter] = result.data
+          this.swal.successAlert('Los datos se actualizaron de manera correcta');
+        } else {
+          this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar los datos');
+        }
+      },
+      error: error => { console.log(error) }
+    })
+  }
+
+  showModalEditEmitter(dataEmitter: any, index: number): void {
+    new bootstrap.Modal(this.editModal.nativeElement).show();
+    this.indexArrayEmitter = index;
+    this.slugEmitterUpdate = dataEmitter.slug;
+    this.selectedTaxRegime = dataEmitter.tax_regime
+    this.formEditEmitter.setValue({
+      bussinessName: dataEmitter.bussiness_name,
+      rfc: dataEmitter.rfc,
+      expeditionPlace: dataEmitter.expedition_place,
+      taxRegime: dataEmitter.tax_regime
+    });
   }
 
   resetFormCreate(): void {
     this.submittedCreate = false;
     this.formNewEmitter.reset();
-  }
-
-  showModalEditEmitter(dataEmitter: any): void {
-    new bootstrap.Modal(this.editModal.nativeElement).show();
-    this.dataEmitterEdit = dataEmitter;
   }
 
   private getTaxRegimenCat(): any {
