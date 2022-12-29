@@ -164,13 +164,14 @@ export class SettingsUserComponent implements OnInit {
   }
 
   private createNewRow(newEmitter: any): void {
+    console.log(newEmitter);
     this.dataEmitters.push({
       rfc: newEmitter.rfc,
       bussiness_name: newEmitter.bussiness_name,
       tax_regime: newEmitter.tax_regime,
       expedition_place: newEmitter.expedition_place,
       status: newEmitter.status,
-      slug: newEmitter.status
+      slug: newEmitter.slug
     });
   }
 
