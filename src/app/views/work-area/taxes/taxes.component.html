@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body table-responsive">
+      <div class="card-body ">
         <form>
           <div class="form-row mb-5">
             <div class="form-group col-md-6">
@@ -39,185 +39,190 @@
           </div>
         </form>
 
-        <table datatable [dtOptions]="dt1Options" class="table row-border hover">
-          <thead>
-            <tr>
-              <th>Nombre impuesto</th>
-              <th>Tasa impuesto</th>
-              <th class="text-center">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Foo</td>
-              <td>Bar</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="tooltip"
-                  data-bs-placement="right" title="Ver o editar datos del Receptor">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                  data-placement="right" title="Eliminar Receptor">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Someone</td>
-              <td>Youknow</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Iamout</td>
-              <td>Ofinspiration</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Yoda</td>
-              <td>Skywalker</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Patrick</td>
-              <td>Dupont</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Barack</td>
-              <td>Obama</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>François</td>
-              <td>Holland</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Michel</td>
-              <td>Popo</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Chuck</td>
-              <td>Norris</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Simon</td>
-              <td>Robin</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Louis</td>
-              <td>Lin</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Zelda</td>
-              <td>Link</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="row"> 
+          <div class="col-sm-12 table-responsive">
+            <table datatable [dtOptions]="dt1Options" class="table row-border hover">
+              <thead>
+                <tr>
+                  <th>Nombre impuesto</th>
+                  <th>Tasa impuesto</th>
+                  <th class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Foo</td>
+                  <td>Bar</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="tooltip"
+                      data-bs-placement="right" title="Ver o editar datos del Receptor">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                      data-placement="right" title="Eliminar Receptor">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Someone</td>
+                  <td>Youknow</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Iamout</td>
+                  <td>Ofinspiration</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Yoda</td>
+                  <td>Skywalker</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Patrick</td>
+                  <td>Dupont</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Barack</td>
+                  <td>Obama</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>François</td>
+                  <td>Holland</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Michel</td>
+                  <td>Popo</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Chuck</td>
+                  <td>Norris</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Simon</td>
+                  <td>Robin</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Louis</td>
+                  <td>Lin</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Zelda</td>
+                  <td>Link</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
       </div>
     </div>
 
@@ -239,199 +244,204 @@
           </div>
         </div>
       </div>
-      <div class="card-body table-responsive">
-        <table datatable [dtOptions]="dt2Options" class="table row-border hover">
-          <thead>
-            <tr>
-              <th>Clave producto</th>
-              <th>Clave unidad</th>
-              <th>Descripcion</th>
-              <th class="text-center">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Foo</td>
-              <td>Bar</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="tooltip"
-                  data-bs-placement="right" title="Ver o editar datos del Receptor">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                  data-placement="right" title="Eliminar Receptor">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Someone</td>
-              <td>Youknow</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Iamout</td>
-              <td>Ofinspiration</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Yoda</td>
-              <td>Skywalker</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Patrick</td>
-              <td>Dupont</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Barack</td>
-              <td>Obama</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>François</td>
-              <td>Holland</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>Michel</td>
-              <td>Popo</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>Chuck</td>
-              <td>Norris</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>Simon</td>
-              <td>Robin</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>Louis</td>
-              <td>Lin</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>Zelda</td>
-              <td>Link</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 table-responsive">
+            <table datatable [dtOptions]="dt2Options" class="table row-border hover">
+              <thead>
+                <tr>
+                  <th>Clave producto</th>
+                  <th>Clave unidad</th>
+                  <th>Descripcion</th>
+                  <th class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Foo</td>
+                  <td>Bar</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="tooltip"
+                      data-bs-placement="right" title="Ver o editar datos del Receptor">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                      data-placement="right" title="Eliminar Receptor">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Someone</td>
+                  <td>Youknow</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Iamout</td>
+                  <td>Ofinspiration</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Yoda</td>
+                  <td>Skywalker</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Patrick</td>
+                  <td>Dupont</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Barack</td>
+                  <td>Obama</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>François</td>
+                  <td>Holland</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Michel</td>
+                  <td>Popo</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>Chuck</td>
+                  <td>Norris</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>Simon</td>
+                  <td>Robin</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>11</td>
+                  <td>Louis</td>
+                  <td>Lin</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>Zelda</td>
+                  <td>Link</td>
+                  <td class="text-center">
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
+                      data-placement="right" title="Ver o editar datos de la empleado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                      data-placement="right" title="Desactivar empleado">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
       </div>
     </div>
 
