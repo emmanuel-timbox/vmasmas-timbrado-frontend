@@ -3,50 +3,82 @@
   <div class="col-sm-6">
     <div class="card card-outline card-danger">
       <div class="card-header">
-        <h4>Datos Fiscales</h4>
+        <h4>Datos Receptores</h4>
       </div>
       <div class="card-body">
-        <form>
+       
+        <form [formGroup]="formNewReceiver" (ngSubmit)="createReceiver()">
+
           <div class="form-row">
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-5">
               <label>Nombre o razon social:</label>
-              <input type="text" class="form-control" id="razon-social-receptor">
+              <input type="text" class="form-control is-valid" formControlName="bussinessName"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['bussinessName'].errors }">
+              <div *ngIf="submittedCreate && f['bussinessName'].errors" class="invalid-feedback">
+                <div *ngIf="f['bussinessName'].errors['required']">Razon social del Emisor es requerido</div>
+              </div>
             </div>
             <div class="form-group col-md-4">
               <label>R.F.C:</label>
-              <input type="text" class="form-control" id="rfc-receptior">
+              <input type="text" class="form-control is-valid" formControlName="rfc"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['rfc'].errors }">
+              <div *ngIf="submittedCreate && f['rfc'].errors" class="invalid-feedback">
+                <div *ngIf="f['rfc'].errors['required']">RFC del Receptor es requerido</div>
+              </div>
             </div>
             <div class="form-group col-md-4">
               <label>Uso de CFDI:</label>
-              <select class="form-control" id="sucursal_editar" name="uso-cfdi-receptor">
+              <select class="form-control is-valid" id="cfdiUse" name="cfdiUse" 
+              [ngClass]="{ 'is-invalid': submittedCreate && f['cfdiUse'].errors }">
                 <option selected>Seleccione un opcion</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
               </select>
+              <div *ngIf="submittedCreate && f['cfdiUse'].errors" class="invalid-feedback">
+                <div *ngIf="f['cfdiUse'].errors['required']">Dato requerido</div>
+              </div>
             </div>
             <div class="form-group col-md-4">
               <label>Domicilio Fiscal</label>
-              <input type="text" class="form-control" id="domicilio-fiscal-receptor">
+              <input type="text" class="form-control is-valid" formControlName="receivingTaxDomicile"
+              [ngClass]="{ 'is-invalid': submittedCreate && f['receivingTaxDomicile'].errors }">
+            <div *ngIf="submittedCreate && f['receivingTaxDomicile'].errors" class="invalid-feedback">
+              <div *ngIf="f['receivingTaxDomicile'].errors['required']">Dato requerido</div>
+            </div>
             </div>
             <div class="form-group col-md-4">
               <label>Regimen Fiscal:</label>
-              <input type="text" class="form-control" id="regimen-fiscal-receptor">
+              <input type="text" class="form-control is-valid" formControlName="recipientTaxRegimen"
+              [ngClass]="{ 'is-invalid': submittedCreate && f['recipientTaxRegimen'].errors }">
+            <div *ngIf="submittedCreate && f['recipientTaxRegimen'].errors" class="invalid-feedback">
+              <div *ngIf="f['recipientTaxRegimen'].errors['required']">Dato requerido</div>
+            </div>
             </div>
             <div class="form-group col-md-6">
               <label>Número de registro de identidad tributaria</label>
-              <input type="text" class="form-control" id="regimen-fiscal-receptor">
+              <input type="text" class="form-control is-valid" formControlName="taxIdNumber"
+              [ngClass]="{ 'is-invalid': submittedCreate && f['taxIdNumber'].errors }">
+            <div *ngIf="submittedCreate && f['taxIdNumber'].errors" class="invalid-feedback">
+              <div *ngIf="f['taxIdNumber'].errors['required']">Dato requerido</div>
+            </div> 
             </div>
             <div class="form-group col-md-6">
               <label>Residencia Fiscal:</label>
-              <input type="text" class="form-control" id="regimen-fiscal-receptor">
+              <input type="text" class="form-control is-valid" formControlName="tax_residence"
+              [ngClass]="{ 'is-invalid': submittedCreate && f['tax_residence'].errors }">
+            <div *ngIf="submittedCreate && f['tax_residence'].errors" class="invalid-feedback">
+              <div *ngIf="f['tax_residence'].errors['required']">Dato requerido</div>
+            </div>
             </div>
           </div>
           <div class="d-flex justify-content-end">
             <a class="btn btn-secondary btn_cancelar mr-1" data-dismiss="modal" aria-label="Close">
               Cancelar
             </a>
-            <a class="btn btn-primary" href="#">Guardar</a>
+
+            <button class="btn btn-primary" type="submit">Guardar</button>
+
           </div>
         </form>
       </div>
@@ -71,193 +103,34 @@
         </div>
       </div>
       <div class="card-body table-responsive">
-        <table datatable [dtOptions]="dtOptions" class="table row-border hover">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table row-border hover">
           <thead>
             <tr>
               <th>RFC</th>
               <th>Nombre o razon social</th>
-              <th>Regimen fiscal</th>
+              <th>Uso de CDFI</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Foo</td>
-              <td>Bar</td>
+            <tr *ngFor="let receiver of dataReceivers; let i = index">
+
+              <td>{{receiver.rfc}}</td>
+              <td>{{receiver.bussiness_name}}</td>
+              <td>{{receiver.cfdi_use}}</td>
               <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="tooltip"
-                  data-bs-placement="right" title="Ver o editar datos del Receptor">
+             
+               
+                <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditReceiver(receiver, i)">
                   <i class="fa fa-edit"></i>
                 </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                  data-placement="right" title="Eliminar Receptor">
-                  <i class="fa fa-trash"></i>
+                <a *ngIf="receiver.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                  data-placement="right" title="Eliminar Receptor" (click)="editEstatusReceiver(receiver.slug, i)">
+                  <i class="fa fa-window-close"></i>
                 </a>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Someone</td>
-              <td>Youknow</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Iamout</td>
-              <td>Ofinspiration</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Yoda</td>
-              <td>Skywalker</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Patrick</td>
-              <td>Dupont</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Barack</td>
-              <td>Obama</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>François</td>
-              <td>Holland</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>Michel</td>
-              <td>Popo</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>Chuck</td>
-              <td>Norris</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>Simon</td>
-              <td>Robin</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>Louis</td>
-              <td>Lin</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>Zelda</td>
-              <td>Link</td>
-              <td class="text-center">
-                <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-toggle="tooltip"
-                  data-placement="right" title="Ver o editar datos de la empleado">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                  data-placement="right" title="Desactivar empleado">
-                  <i class="fa fa-trash"></i>
+                <a *ngIf="receiver.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
+                  data-placement="right" title="Eliminar Receptor" (click)="editEstatusReceiver(receiver.slug, i)">
+                  <i class="fa fa-check"></i>
                 </a>
               </td>
             </tr>
@@ -268,4 +141,93 @@
 
   </div>
 
+</div>
+
+
+<div #editModal class="modal fade" data-bs-backdrop="static" id="modal-nuevo-receptor" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Receptor</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form [formGroup]="formEditReceiver" (submit)="editDataReceiver()">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label>Nombre o razon social:</label>
+              <input type="text" class="form-control is-valid" formControlName="bussinessName"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['bussinessName'].errors }">
+              <div *ngIf="submittedCreate && f['bussinessName'].errors" class="invalid-feedback">
+                <div *ngIf="f['bussinessName'].errors['required']">Razon social del Emisor es requerido</div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>R.F.C:</label>
+              <input type="text" class="form-control is-valid" formControlName="rfc"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['rfc'].errors }">
+              <div *ngIf="submittedCreate && f['rfc'].errors" class="invalid-feedback">
+                <div *ngIf="f['rfc'].errors['required']">RFC del Receptor es requerido</div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Uso de CFDI:</label>
+              <select class="form-control is-valid" id="cfdiUse" name="cfdiUse" 
+              [ngClass]="{ 'is-invalid': submittedCreate && f['cfdiUse'].errors }">
+                <option selected>Seleccione un opcion</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+              <div *ngIf="submittedCreate && f['cfdiUse'].errors" class="invalid-feedback">
+                <div *ngIf="f['cfdiUse'].errors['required']">Dato requerido</div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Domicilio Fiscal</label>
+              <input type="text" class="form-control is-valid" formControlName="receivingTaxDomicile"
+              [ngClass]="{ 'is-invalid': submittedCreate && f['receivingTaxDomicile'].errors }">
+            <div *ngIf="submittedCreate && f['receivingTaxDomicile'].errors" class="invalid-feedback">
+              <div *ngIf="f['receivingTaxDomicile'].errors['required']">Dato requerido</div>
+            </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Regimen Fiscal:</label>
+              <input type="text" class="form-control is-valid" formControlName="recipientTaxRegimen"
+              [ngClass]="{ 'is-invalid': submittedCreate && f['recipientTaxRegimen'].errors }">
+            <div *ngIf="submittedCreate && f['recipientTaxRegimen'].errors" class="invalid-feedback">
+              <div *ngIf="f['recipientTaxRegimen'].errors['required']">Dato requerido</div>
+            </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Número de registro de identidad tributaria</label>
+              <input type="text" class="form-control is-valid" formControlName="taxIdNumber"
+              [ngClass]="{ 'is-invalid': submittedCreate && f['taxIdNumber'].errors }">
+            <div *ngIf="submittedCreate && f['taxIdNumber'].errors" class="invalid-feedback">
+              <div *ngIf="f['taxIdNumber'].errors['required']">Dato requerido</div>
+            </div> 
+            </div>
+            <div class="form-group col-md-6">
+              <label>Residencia Fiscal:</label>
+              <input type="text" class="form-control is-valid" formControlName="tax_residence"
+              [ngClass]="{ 'is-invalid': submittedCreate && f['tax_residence'].errors }">
+            <div *ngIf="submittedCreate && f['tax_residence'].errors" class="invalid-feedback">
+              <div *ngIf="f['tax_residence'].errors['required']">Dato requerido</div>
+            </div>
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="modal-footer">
+          <a class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</a>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
 </div>
