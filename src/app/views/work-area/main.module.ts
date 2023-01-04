@@ -18,6 +18,8 @@ import { InputMaskModule } from '@ngneat/input-mask';
 import { AuthInterceptor } from '../../interceptors/HttpErrorInterceptor'
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
+import { XmlCertificateComponent } from './create-xml/xml-certificate/xml-certificate.component';
+import { XmlVaucherComponent } from './create-xml/xml-vaucher/xml-vaucher.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { FormsModule }   from '@angular/forms';
     TaxesComponent,
     ReceiversComponent,
     CertificatesComponent,
+    XmlCertificateComponent,
+    XmlVaucherComponent
   ],
   imports: [
     CommonModule,

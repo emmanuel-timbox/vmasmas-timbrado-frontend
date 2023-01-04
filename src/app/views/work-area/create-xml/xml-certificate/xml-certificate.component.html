@@ -1,0 +1,70 @@
+<form [formGroup]="formCertificate">
+  <div class="row">
+
+    <div class="col-sm-12" *ngIf="!haveCerticate">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>¡Revisar!</strong> El Emisor que selecciono no tiene un certificado registrado, si lo
+        quiere utilizar es necesario que registrar un certificado, lo puede realizar
+        dando click <a class="text-primary" routerLink="/panel/settings"><b>aqui</b></a>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row mb-2">
+
+        <div class="col-sm-12 mb-2">
+          <label>Seleccionar Emisor:</label>
+          <select class="form-control is-valid" (change)="setDataEmitterInput($event)">
+            <option selected value="">seleccione una opcion</option>
+            <option *ngFor="let emitter of emitterData" value="{{emitter.slug}}"> {{emitter.bussiness_name}} </option>
+          </select>
+        </div>
+
+        <div class="col-sm-12 mb-2">
+          <label>RFC:</label>
+          <input type="text" class="form-control is-valid" formControlName="rfc" [readonly]="true" 
+          [ngClass]="{ 'is-invalid': summitFormCert && f['bussinessName'].errors }">
+        </div>
+
+        <div class="col-sm-12 mb-2">
+          <label>Lugar de expedicion:</label>
+          <input type="text" class="form-control" formControlName="expeditionPlace" [readonly]="true">
+        </div>
+
+        <div class="col-sm-12">
+          <label>Numero de certificado:</label>
+          <input type="text" class="form-control" formControlName="certNumber" [readonly]="true">
+        </div>
+
+      </div>
+    </div>
+    
+    <div class="col-sm-6">
+      <div class="row">
+
+        <div class="col-sm-12">
+          <label>Regimen fiscal:</label>
+          <input type="text" class="form-control" formControlName="taxRegime" [readonly]="true">
+        </div>
+
+        <div class="col-sm-12 mb-2">
+          <label>Contraseña de llave</label>
+          <input type="password" class="form-control" formControlName="passwordKey">
+        </div>
+
+        <div class="col-sm-12">
+          <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".key">
+            <ngx-dropzone-label class="text-success">Cargar llave del certificaso(.key)</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <button type="submit" class="btn btn-success">Prueba</button>
+</form>
