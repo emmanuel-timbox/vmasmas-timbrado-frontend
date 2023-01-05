@@ -20,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
 import { XmlCertificateComponent } from './create-xml/xml-certificate/xml-certificate.component';
 import { XmlVaucherComponent } from './create-xml/xml-vaucher/xml-vaucher.component';
+import { XmlReceiverComponent } from './create-xml/xml-receiver/xml-receiver.component';
+import { XmlConceptsComponent } from './create-xml/xml-concepts/xml-concepts.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { XmlVaucherComponent } from './create-xml/xml-vaucher/xml-vaucher.compon
     ReceiversComponent,
     CertificatesComponent,
     XmlCertificateComponent,
-    XmlVaucherComponent
+    XmlVaucherComponent,
+    XmlReceiverComponent,
+    XmlConceptsComponent
   ],
   imports: [
     CommonModule,

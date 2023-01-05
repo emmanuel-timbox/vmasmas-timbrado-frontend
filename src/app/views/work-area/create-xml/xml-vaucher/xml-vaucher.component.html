@@ -1,34 +1,47 @@
-<div class="form-row">
-  <div class="form-group col-sm-4">
-    <label>Serie:</label>
-    <input type="text" class="form-control">
+<form [formGroup]="formReceiver">
+  <div class="form-row pt-3 pb-5 mb-5">
+
+    <div class="form-group col-sm-4">
+      <label>Serie:</label>
+      <input type="text" class="form-control" formControlName="serie">
+    </div>
+
+    <div class="form-group col-sm-4">
+      <label>Folio:</label>
+      <input type="text" class="form-control" formControlName="invoice">
+    </div>
+
+    <div class="form-group col-sm-4">
+      <label>Exportacion*:</label>
+      <select class="form-control is-valid" formControlName="export">
+        <option selected value="">Seleccione una opcion</option>
+        <option value="01">01 - No aplica</option>
+        <option value="01">02 - Definitiva con clave A1</option>
+        <option value="03">03 - Temporal</option>
+        <option value="04">04 - Definitiva con clave distinta a A1 o cuando no existe enajenación en términos del CFF
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <label>Moneda*:</label>
+      <select class="form-control is-valid" formControlName="coin">
+        <option selected value="">Seleccione una opcion</option>
+        <option *ngFor="let coin of currentCatalog" value="{{coin.moneda}}">
+          {{coin.moneda}} -- {{coin.descripcion}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <label>Tipo de comprobante:</label>
+      <select class="form-control is-valid" formControlName="voucherType">
+        <option selected value="">seleccione una opcion</option>
+        <option value="I">Ingreso</option>
+        <option value="E">Egreso</option>
+        <option value="N">Nomina</option>
+      </select>
+    </div>
+
   </div>
-  <div class="form-group col-sm-4">
-    <label>Folio:</label>
-    <input type="text" class="form-control">
-  </div>
-  <div class="form-group col-sm-4">
-    <label>Exportacion*:</label>
-    <input type="text" class="form-control">
-  </div>
-  <div class="form-group col-sm-4">
-    <label>Subtotal*:</label>
-    <input type="text" class="form-control">
-  </div>
-  <div class="form-group col-sm-4">
-    <label>Moneda*:</label>
-    <input type="text" class="form-control">
-  </div>
-  <div class="form-group col-sm-4">
-    <label>Total:</label>
-    <input type="text" class="form-control">
-  </div>
-  <div class="form-group col-sm-4">
-    <label>Tipo de comprobante:</label>
-    <input type="text" class="form-control">
-  </div>
-  <div class="form-group col-sm-4">
-    <label>Lugar de expedicion:</label>
-    <input type="text" class="form-control">
-  </div>
-</div>
+</form>

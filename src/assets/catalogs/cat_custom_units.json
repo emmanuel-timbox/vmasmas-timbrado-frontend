@@ -1,0 +1,117 @@
+[
+  {
+    "id": 1,
+    "unidad_medida": "01",
+    "descripcion": "KILO  "
+  },
+  {
+    "id": 2,
+    "unidad_medida": "02",
+    "descripcion": "GRAMO  "
+  },
+  {
+    "id": 3,
+    "unidad_medida": "03",
+    "descripcion": "METRO LINEAL  "
+  },
+  {
+    "id": 4,
+    "unidad_medida": "04",
+    "descripcion": "METRO CUADRADO  "
+  },
+  {
+    "id": 5,
+    "unidad_medida": "05",
+    "descripcion": "METRO CUBICO  "
+  },
+  {
+    "id": 6,
+    "unidad_medida": "06",
+    "descripcion": "PIEZA"
+  },
+  {
+    "id": 7,
+    "unidad_medida": "07",
+    "descripcion": "CABEZA  "
+  },
+  {
+    "id": 8,
+    "unidad_medida": "08",
+    "descripcion": "LITRO  "
+  },
+  {
+    "id": 9,
+    "unidad_medida": "09",
+    "descripcion": "PAR  "
+  },
+  {
+    "id": 10,
+    "unidad_medida": "10",
+    "descripcion": "KILOWATT  "
+  },
+  {
+    "id": 11,
+    "unidad_medida": "11",
+    "descripcion": "MILLAR  "
+  },
+  {
+    "id": 12,
+    "unidad_medida": "12",
+    "descripcion": "JUEGO  "
+  },
+  {
+    "id": 13,
+    "unidad_medida": "13",
+    "descripcion": "KILOWATT/HORA  "
+  },
+  {
+    "id": 14,
+    "unidad_medida": "14",
+    "descripcion": "TONELADA"
+  },
+  {
+    "id": 15,
+    "unidad_medida": "15",
+    "descripcion": "BARRIL  "
+  },
+  {
+    "id": 16,
+    "unidad_medida": "16",
+    "descripcion": "GRAMO NETO  "
+  },
+  {
+    "id": 17,
+    "unidad_medida": "17",
+    "descripcion": "DECENAS  "
+  },
+  {
+    "id": 18,
+    "unidad_medida": "18",
+    "descripcion": "CIENTOS"
+  },
+  {
+    "id": 19,
+    "unidad_medida": "19",
+    "descripcion": "DOCENAS  "
+  },
+  {
+    "id": 20,
+    "unidad_medida": "20",
+    "descripcion": "CAJA  "
+  },
+  {
+    "id": 21,
+    "unidad_medida": "21",
+    "descripcion": "BOTELLA"
+  },
+  {
+    "id": 22,
+    "unidad_medida": "99",
+    "descripcion": "SERVICIO"
+  },
+  {
+    "id": 23,
+    "unidad_medida": "22",
+    "descripcion": "CARAT"
+  }
+]

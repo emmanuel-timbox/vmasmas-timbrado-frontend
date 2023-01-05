@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "uso_cfdi": "G01",
+    "descripcion": "Adquisición de mercancias",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 2,
+    "uso_cfdi": "G02",
+    "descripcion": "Devoluciones, descuentos o bonificaciones",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 3,
+    "uso_cfdi": "G03",
+    "descripcion": "Gastos en general",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 4,
+    "uso_cfdi": "I01",
+    "descripcion": "Construcciones",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 5,
+    "uso_cfdi": "I02",
+    "descripcion": "Mobilario y equipo de oficina por inversiones",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 6,
+    "uso_cfdi": "I03",
+    "descripcion": "Equipo de transporte",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 7,
+    "uso_cfdi": "I04",
+    "descripcion": "Equipo de computo y accesorios",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 8,
+    "uso_cfdi": "I05",
+    "descripcion": "Dados, troqueles, moldes, matrices y herramental",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 9,
+    "uso_cfdi": "I06",
+    "descripcion": "Comunicaciones telefónicas",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 10,
+    "uso_cfdi": "I07",
+    "descripcion": "Comunicaciones satelitales",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 11,
+    "uso_cfdi": "I08",
+    "descripcion": "Otra maquinaria y equipo",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,606,612,620,621,622,623,624,625,626"
+  },
+  {
+    "id": 12,
+    "uso_cfdi": "D01",
+    "descripcion": "Honorarios médicos, dentales y gastos hospitalarios.",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 13,
+    "uso_cfdi": "D02",
+    "descripcion": "Gastos médicos por incapacidad o discapacidad",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 14,
+    "uso_cfdi": "D03",
+    "descripcion": "Gastos funerales.",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 15,
+    "uso_cfdi": "D04",
+    "descripcion": "Donativos",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 16,
+    "uso_cfdi": "D05",
+    "descripcion": "Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 17,
+    "uso_cfdi": "D06",
+    "descripcion": "Aportaciones voluntarias al SAR.",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 18,
+    "uso_cfdi": "D07",
+    "descripcion": "Primas por seguros de gastos médicos.",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 19,
+    "uso_cfdi": "D08",
+    "descripcion": "Gastos de transportación escolar obligatoria.",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 20,
+    "uso_cfdi": "D09",
+    "descripcion": "Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 21,
+    "uso_cfdi": "D10",
+    "descripcion": "Pagos por servicios educativos (colegiaturas)",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605,606,608,611,612,614,607,615,625"
+  },
+  {
+    "id": 22,
+    "uso_cfdi": "P01",
+    "descripcion": "Por definir",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": null
+  },
+  {
+    "id": 23,
+    "uso_cfdi": "CP01",
+    "descripcion": "Pagos",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,605,606,608,610,611,612,614,616,620,621,622,623,624,607,615,625,626"
+  },
+  {
+    "id": 24,
+    "uso_cfdi": "CN01",
+    "descripcion": "Nómina",
+    "fisica": 1,
+    "moral": 0,
+    "reg_fiscal": "605"
+  },
+  {
+    "id": 25,
+    "uso_cfdi": "S01",
+    "descripcion": "Sin efectos fiscales",
+    "fisica": 1,
+    "moral": 1,
+    "reg_fiscal": "601,603,605,606,608,610,611,612,614,616,620,621,622,623,624,607,615,625,626"
+  }
+]

@@ -29,7 +29,7 @@ export class XmlCertificateService {
       bussinessName: [''],
       rfc: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
       expeditionPlace: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern(this.nonWhitespaceRegExp)]],
-      taxRegime: ['', Validators.required],
+      taxRegime: ['', [Validators.required]],
       certNumber: ['', [Validators.required]],
       passwordKey: ['']
     }

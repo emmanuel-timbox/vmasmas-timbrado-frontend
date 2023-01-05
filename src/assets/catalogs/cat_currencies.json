@@ -1,0 +1,1604 @@
+[
+  {
+    "id": 1,
+    "moneda": "AED",
+    "descripcion": "Dirham de EAU",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 5.302090,
+    "id_serie": "SF57797"
+  },
+  {
+    "id": 2,
+    "moneda": "AFN",
+    "descripcion": "Afghani",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 3,
+    "moneda": "ALL",
+    "descripcion": "Lek",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 4,
+    "moneda": "AMD",
+    "descripcion": "Dram armenio",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 5,
+    "moneda": "ANG",
+    "descripcion": "FlorÃ\u00ADn antillano neerlandÃ©s",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 6,
+    "moneda": "AOA",
+    "descripcion": "Kwanza",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 7,
+    "moneda": "ARS",
+    "descripcion": "Peso Argentino",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.440000,
+    "id_serie": null
+  },
+  {
+    "id": 8,
+    "moneda": "AUD",
+    "descripcion": "DÃ³lar Australiano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 13.200700,
+    "id_serie": "SF57753"
+  },
+  {
+    "id": 9,
+    "moneda": "AWG",
+    "descripcion": "Aruba Florin",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 10,
+    "moneda": "AZN",
+    "descripcion": "Azerbaijanian Manat",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 11,
+    "moneda": "BAM",
+    "descripcion": "Convertibles marca",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 12,
+    "moneda": "BBD",
+    "descripcion": "DÃ³lar de Barbados",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 9.735750,
+    "id_serie": "SF57759"
+  },
+  {
+    "id": 13,
+    "moneda": "BDT",
+    "descripcion": "Taka",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 14,
+    "moneda": "BGN",
+    "descripcion": "Lev bÃºlgaro",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 15,
+    "moneda": "BHD",
+    "descripcion": "Dinar de Bahrein",
+    "decimales": 3,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 16,
+    "moneda": "BIF",
+    "descripcion": "Burundi Franc",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 17,
+    "moneda": "BMD",
+    "descripcion": "DÃ³lar de Bermudas",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 19.471500,
+    "id_serie": "SF57763"
+  },
+  {
+    "id": 18,
+    "moneda": "BND",
+    "descripcion": "DÃ³lar de Brunei",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 19,
+    "moneda": "BOB",
+    "descripcion": "Boliviano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 2.819470,
+    "id_serie": "SF57765"
+  },
+  {
+    "id": 20,
+    "moneda": "BOV",
+    "descripcion": "Mvdol",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 21,
+    "moneda": "BRL",
+    "descripcion": "Real brasileÃ±o",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 3.684010,
+    "id_serie": "SF57767"
+  },
+  {
+    "id": 22,
+    "moneda": "BSD",
+    "descripcion": "DÃ³lar de las Bahamas",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 19.471500,
+    "id_serie": "SF57755"
+  },
+  {
+    "id": 23,
+    "moneda": "BTN",
+    "descripcion": "Ngultrum",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 24,
+    "moneda": "BWP",
+    "descripcion": "Pula",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 25,
+    "moneda": "BYR",
+    "descripcion": "Rublo bielorruso",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 26,
+    "moneda": "BZD",
+    "descripcion": "DÃ³lar de Belice",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 9.735750,
+    "id_serie": "SF57761"
+  },
+  {
+    "id": 27,
+    "moneda": "CAD",
+    "descripcion": "Dolar Canadiense",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 14.364130,
+    "id_serie": "SF57771"
+  },
+  {
+    "id": 28,
+    "moneda": "CDF",
+    "descripcion": "Franco congoleÃ±o",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 29,
+    "moneda": "CHE",
+    "descripcion": "WIR Euro",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 30,
+    "moneda": "CHF",
+    "descripcion": "Franco Suizo",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 21.040900,
+    "id_serie": "SF57905"
+  },
+  {
+    "id": 31,
+    "moneda": "CHW",
+    "descripcion": "Franc WIR",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 32,
+    "moneda": "CLF",
+    "descripcion": "Unidad de Fomento",
+    "decimales": 4,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 33,
+    "moneda": "CLP",
+    "descripcion": "Peso chileno",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": 0.022780,
+    "id_serie": "SF57773"
+  },
+  {
+    "id": 34,
+    "moneda": "CNY",
+    "descripcion": "Yuan Renminbi",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 2.810300,
+    "id_serie": "SF290383"
+  },
+  {
+    "id": 35,
+    "moneda": "COP",
+    "descripcion": "Peso Colombiano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 4.014240,
+    "id_serie": "SF57777"
+  },
+  {
+    "id": 36,
+    "moneda": "COU",
+    "descripcion": "Unidad de Valor real",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 37,
+    "moneda": "CRC",
+    "descripcion": "ColÃ³n costarricense",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.032910,
+    "id_serie": "SF57783"
+  },
+  {
+    "id": 38,
+    "moneda": "CUC",
+    "descripcion": "Peso Convertible",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 39,
+    "moneda": "CUP",
+    "descripcion": "Peso Cubano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.811960,
+    "id_serie": "SF57785"
+  },
+  {
+    "id": 40,
+    "moneda": "CVE",
+    "descripcion": "Cabo Verde Escudo",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 41,
+    "moneda": "CZK",
+    "descripcion": "Corona checa",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.859860,
+    "id_serie": "SF57881"
+  },
+  {
+    "id": 42,
+    "moneda": "DJF",
+    "descripcion": "Franco de Djibouti",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 43,
+    "moneda": "DKK",
+    "descripcion": "Corona danesa",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 2.792800,
+    "id_serie": "SF57789"
+  },
+  {
+    "id": 44,
+    "moneda": "DOP",
+    "descripcion": "Peso Dominicano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.346590,
+    "id_serie": "SF57889"
+  },
+  {
+    "id": 45,
+    "moneda": "DZD",
+    "descripcion": "Dinar argelino",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.142140,
+    "id_serie": "SF57749"
+  },
+  {
+    "id": 46,
+    "moneda": "EGP",
+    "descripcion": "Libra egipcia",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.786650,
+    "id_serie": "SF57793"
+  },
+  {
+    "id": 47,
+    "moneda": "ERN",
+    "descripcion": "Nakfa",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 48,
+    "moneda": "ETB",
+    "descripcion": "Birr etÃ\u00ADope",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 49,
+    "moneda": "EUR",
+    "descripcion": "Euro",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 20.530800,
+    "id_serie": "SF46410"
+  },
+  {
+    "id": 50,
+    "moneda": "FJD",
+    "descripcion": "DÃ³lar de Fiji",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 8.783590,
+    "id_serie": "SF57809"
+  },
+  {
+    "id": 51,
+    "moneda": "FKP",
+    "descripcion": "Libra malvinense",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 52,
+    "moneda": "GBP",
+    "descripcion": "Libra Esterlina",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 23.337500,
+    "id_serie": "SF46407"
+  },
+  {
+    "id": 53,
+    "moneda": "GEL",
+    "descripcion": "Lari",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 54,
+    "moneda": "GHS",
+    "descripcion": "Cedi de Ghana",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 55,
+    "moneda": "GIP",
+    "descripcion": "Libra de Gibraltar",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 56,
+    "moneda": "GMD",
+    "descripcion": "Dalasi",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 57,
+    "moneda": "GNF",
+    "descripcion": "Franco guineano",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 58,
+    "moneda": "GTQ",
+    "descripcion": "Quetzal",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 2.480670,
+    "id_serie": "SF57817"
+  },
+  {
+    "id": 59,
+    "moneda": "GYD",
+    "descripcion": "DÃ³lar guyanÃ©s",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.093070,
+    "id_serie": "SF57819"
+  },
+  {
+    "id": 60,
+    "moneda": "HKD",
+    "descripcion": "Dolar De Hong Kong",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 2.495080,
+    "id_serie": "SF57825"
+  },
+  {
+    "id": 61,
+    "moneda": "HNL",
+    "descripcion": "Lempira",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.788600,
+    "id_serie": "SF57823"
+  },
+  {
+    "id": 62,
+    "moneda": "HRK",
+    "descripcion": "Kuna",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 63,
+    "moneda": "HTG",
+    "descripcion": "Gourde",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 64,
+    "moneda": "HUF",
+    "descripcion": "FlorÃ\u00ADn",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.051790,
+    "id_serie": "SF57827"
+  },
+  {
+    "id": 65,
+    "moneda": "IDR",
+    "descripcion": "Rupia",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 1.250270,
+    "id_serie": "SF57831"
+  },
+  {
+    "id": 66,
+    "moneda": "ILS",
+    "descripcion": "Nuevo Shekel IsraelÃ\u00AD",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 5.519780,
+    "id_serie": "SF57837"
+  },
+  {
+    "id": 67,
+    "moneda": "INR",
+    "descripcion": "Rupia india",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.235610,
+    "id_serie": "SF57829"
+  },
+  {
+    "id": 68,
+    "moneda": "IQD",
+    "descripcion": "Dinar iraquÃ\u00AD",
+    "decimales": 3,
+    "variacion": 500,
+    "tipo_cambio": 0.013440,
+    "id_serie": "SF57833"
+  },
+  {
+    "id": 69,
+    "moneda": "IRR",
+    "descripcion": "Rial iranÃ\u00AD",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 70,
+    "moneda": "ISK",
+    "descripcion": "Corona islandesa",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 71,
+    "moneda": "JMD",
+    "descripcion": "DÃ³lar Jamaiquino",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.128510,
+    "id_serie": "SF57839"
+  },
+  {
+    "id": 72,
+    "moneda": "JOD",
+    "descripcion": "Dinar jordano",
+    "decimales": 3,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 73,
+    "moneda": "JPY",
+    "descripcion": "Yen",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": 0.148300,
+    "id_serie": "SF46406"
+  },
+  {
+    "id": 74,
+    "moneda": "KES",
+    "descripcion": "ChelÃ\u00ADn keniano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.157720,
+    "id_serie": "SF57845"
+  },
+  {
+    "id": 75,
+    "moneda": "KGS",
+    "descripcion": "Som",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 76,
+    "moneda": "KHR",
+    "descripcion": "Riel",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 77,
+    "moneda": "KMF",
+    "descripcion": "Franco Comoro",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 78,
+    "moneda": "KPW",
+    "descripcion": "Corea del Norte ganÃ³",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 79,
+    "moneda": "KRW",
+    "descripcion": "Won",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": 15.448690,
+    "id_serie": "SF57781"
+  },
+  {
+    "id": 80,
+    "moneda": "KWD",
+    "descripcion": "Dinar kuwaitÃ\u00AD",
+    "decimales": 3,
+    "variacion": 500,
+    "tipo_cambio": 63.615340,
+    "id_serie": "SF57847"
+  },
+  {
+    "id": 81,
+    "moneda": "KYD",
+    "descripcion": "DÃ³lar de las Islas CaimÃ¡n",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 82,
+    "moneda": "KZT",
+    "descripcion": "Tenge",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 83,
+    "moneda": "LAK",
+    "descripcion": "Kip",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 84,
+    "moneda": "LBP",
+    "descripcion": "Libra libanesa",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 85,
+    "moneda": "LKR",
+    "descripcion": "Rupia de Sri Lanka",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 86,
+    "moneda": "LRD",
+    "descripcion": "DÃ³lar liberiano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 87,
+    "moneda": "LSL",
+    "descripcion": "Loti",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 88,
+    "moneda": "LYD",
+    "descripcion": "Dinar libio",
+    "decimales": 3,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 89,
+    "moneda": "MAD",
+    "descripcion": "Dirham marroquÃ\u00AD",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 1.861480,
+    "id_serie": "SF57859"
+  },
+  {
+    "id": 90,
+    "moneda": "MDL",
+    "descripcion": "Leu moldavo",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 91,
+    "moneda": "MGA",
+    "descripcion": "Ariary malgache",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 92,
+    "moneda": "MKD",
+    "descripcion": "Denar",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 93,
+    "moneda": "MMK",
+    "descripcion": "Kyat",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 94,
+    "moneda": "MNT",
+    "descripcion": "Tugrik",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 95,
+    "moneda": "MOP",
+    "descripcion": "Pataca",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 96,
+    "moneda": "MRO",
+    "descripcion": "Ouguiya",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 97,
+    "moneda": "MUR",
+    "descripcion": "Rupia de Mauricio",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 98,
+    "moneda": "MVR",
+    "descripcion": "Rupia",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 99,
+    "moneda": "MWK",
+    "descripcion": "Kwacha",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 100,
+    "moneda": "MXN",
+    "descripcion": "Peso Mexicano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 1.000000,
+    "id_serie": null
+  },
+  {
+    "id": 101,
+    "moneda": "MXV",
+    "descripcion": "MÃ©xico Unidad de InversiÃ³n (UDI)",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 102,
+    "moneda": "MYR",
+    "descripcion": "Ringgit malayo",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 4.421980,
+    "id_serie": "SF57855"
+  },
+  {
+    "id": 103,
+    "moneda": "MZN",
+    "descripcion": "Mozambique Metical",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 104,
+    "moneda": "NAD",
+    "descripcion": "DÃ³lar de Namibia",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 105,
+    "moneda": "NGN",
+    "descripcion": "Naira",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.042250,
+    "id_serie": "SF57863"
+  },
+  {
+    "id": 106,
+    "moneda": "NIO",
+    "descripcion": "CÃ³rdoba Oro",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 107,
+    "moneda": "NOK",
+    "descripcion": "Corona noruega",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 1.974410,
+    "id_serie": "SF57865"
+  },
+  {
+    "id": 108,
+    "moneda": "NPR",
+    "descripcion": "Rupia nepalÃ\u00AD",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 109,
+    "moneda": "NZD",
+    "descripcion": "DÃ³lar de Nueva Zelanda",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 12.311830,
+    "id_serie": "SF57867"
+  },
+  {
+    "id": 110,
+    "moneda": "OMR",
+    "descripcion": "Rial omanÃ\u00AD",
+    "decimales": 3,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 111,
+    "moneda": "PAB",
+    "descripcion": "Balboa",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 19.471500,
+    "id_serie": "SF57871"
+  },
+  {
+    "id": 112,
+    "moneda": "PEN",
+    "descripcion": "Nuevo Sol",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 5.109520,
+    "id_serie": "SF57875"
+  },
+  {
+    "id": 113,
+    "moneda": "PGK",
+    "descripcion": "Kina",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 114,
+    "moneda": "PHP",
+    "descripcion": "Peso filipino",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.349320,
+    "id_serie": "SF57811"
+  },
+  {
+    "id": 115,
+    "moneda": "PKR",
+    "descripcion": "Rupia de PakistÃ¡n",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 116,
+    "moneda": "PLN",
+    "descripcion": "Zloty",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 4.435610,
+    "id_serie": "SF57877"
+  },
+  {
+    "id": 117,
+    "moneda": "PYG",
+    "descripcion": "GuaranÃ\u00AD",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": 2.652020,
+    "id_serie": "SF57873"
+  },
+  {
+    "id": 118,
+    "moneda": "QAR",
+    "descripcion": "Qatar Rial",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 119,
+    "moneda": "RON",
+    "descripcion": "Leu rumano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 120,
+    "moneda": "RSD",
+    "descripcion": "Dinar serbio",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 121,
+    "moneda": "RUB",
+    "descripcion": "Rublo ruso",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.268900,
+    "id_serie": "SF57807"
+  },
+  {
+    "id": 122,
+    "moneda": "RWF",
+    "descripcion": "Franco ruandÃ©s",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 123,
+    "moneda": "SAR",
+    "descripcion": "Riyal saudÃ\u00AD",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 5.181370,
+    "id_serie": "SF57747"
+  },
+  {
+    "id": 124,
+    "moneda": "SBD",
+    "descripcion": "DÃ³lar de las Islas SalomÃ³n",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 125,
+    "moneda": "SCR",
+    "descripcion": "Rupia de Seychelles",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 126,
+    "moneda": "SDG",
+    "descripcion": "Libra sudanesa",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 127,
+    "moneda": "SEK",
+    "descripcion": "Corona sueca",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 1.867710,
+    "id_serie": "SF57903"
+  },
+  {
+    "id": 128,
+    "moneda": "SGD",
+    "descripcion": "Dolar De Singapur",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 14.514060,
+    "id_serie": "SF57897"
+  },
+  {
+    "id": 129,
+    "moneda": "SHP",
+    "descripcion": "Libra de Santa Helena",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 130,
+    "moneda": "SLL",
+    "descripcion": "Leona",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 131,
+    "moneda": "SOS",
+    "descripcion": "ChelÃ\u00ADn somalÃ\u00AD",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 132,
+    "moneda": "SRD",
+    "descripcion": "DÃ³lar de Suriname",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 133,
+    "moneda": "SSP",
+    "descripcion": "Libra sudanesa Sur",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 134,
+    "moneda": "STD",
+    "descripcion": "Dobra",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 135,
+    "moneda": "SVC",
+    "descripcion": "Colon El Salvador",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 136,
+    "moneda": "SYP",
+    "descripcion": "Libra Siria",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 137,
+    "moneda": "SZL",
+    "descripcion": "Lilangeni",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 138,
+    "moneda": "THB",
+    "descripcion": "Baht",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.563310,
+    "id_serie": "SF57909"
+  },
+  {
+    "id": 139,
+    "moneda": "TJS",
+    "descripcion": "Somoni",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 140,
+    "moneda": "TMT",
+    "descripcion": "TurkmenistÃ¡n nuevo manat",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 141,
+    "moneda": "TND",
+    "descripcion": "Dinar tunecino",
+    "decimales": 3,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 142,
+    "moneda": "TOP",
+    "descripcion": "Pa'anga",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 143,
+    "moneda": "TRY",
+    "descripcion": "Lira turca",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 1.040170,
+    "id_serie": "SF57917"
+  },
+  {
+    "id": 144,
+    "moneda": "TTD",
+    "descripcion": "DÃ³lar de Trinidad y Tobago",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 2.868150,
+    "id_serie": "SF57915"
+  },
+  {
+    "id": 145,
+    "moneda": "TWD",
+    "descripcion": "Nuevo dÃ³lar de TaiwÃ¡n",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.633600,
+    "id_serie": "SF57911"
+  },
+  {
+    "id": 146,
+    "moneda": "TZS",
+    "descripcion": "Shilling tanzano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 147,
+    "moneda": "UAH",
+    "descripcion": "Hryvnia",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 0.527680,
+    "id_serie": "SF57919"
+  },
+  {
+    "id": 148,
+    "moneda": "UGX",
+    "descripcion": "Shilling de Uganda",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 149,
+    "moneda": "USD",
+    "descripcion": "Dolar americano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 19.356800,
+    "id_serie": "SF46405"
+  },
+  {
+    "id": 150,
+    "moneda": "USN",
+    "descripcion": "DÃ³lar estadounidense (dÃ\u00ADa siguiente)",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 151,
+    "moneda": "UYI",
+    "descripcion": "Peso Uruguay en Unidades Indexadas (URUIURUI)",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 152,
+    "moneda": "UYU",
+    "descripcion": "Peso Uruguayo",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 153,
+    "moneda": "UZS",
+    "descripcion": "UzbekistÃ¡n Sum",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 154,
+    "moneda": "VEF",
+    "descripcion": "BolÃ\u00ADvar",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 1.151740,
+    "id_serie": "SF57925"
+  },
+  {
+    "id": 155,
+    "moneda": "VND",
+    "descripcion": "Dong",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": 0.823840,
+    "id_serie": "SF57927"
+  },
+  {
+    "id": 156,
+    "moneda": "VUV",
+    "descripcion": "Vatu",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 157,
+    "moneda": "WST",
+    "descripcion": "Tala",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 158,
+    "moneda": "XAF",
+    "descripcion": "Franco CFA BEAC",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 159,
+    "moneda": "XAG",
+    "descripcion": "Plata",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 160,
+    "moneda": "XAU",
+    "descripcion": "Oro",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 161,
+    "moneda": "XBA",
+    "descripcion": "Unidad de Mercados de Bonos Unidad Europea Composite (EURCO)",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 162,
+    "moneda": "XBB",
+    "descripcion": "Unidad Monetaria de Bonos de Mercados Unidad Europea (UEM-6)",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 163,
+    "moneda": "XBC",
+    "descripcion": "Mercados de Bonos Unidad Europea unidad de cuenta a 9 (UCE-9)",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 164,
+    "moneda": "XBD",
+    "descripcion": "Mercados de Bonos Unidad Europea unidad de cuenta a 17 (UCE-17)",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 165,
+    "moneda": "XCD",
+    "descripcion": "DÃ³lar del Caribe Oriental",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 166,
+    "moneda": "XDR",
+    "descripcion": "DEG (Derechos Especiales de Giro)",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": 25.913450,
+    "id_serie": "SF57787"
+  },
+  {
+    "id": 167,
+    "moneda": "XOF",
+    "descripcion": "Franco CFA BCEAO",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 168,
+    "moneda": "XPD",
+    "descripcion": "Paladio",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 169,
+    "moneda": "XPF",
+    "descripcion": "Franco CFP",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 170,
+    "moneda": "XPT",
+    "descripcion": "Platino",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 171,
+    "moneda": "XSU",
+    "descripcion": "Sucre",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 172,
+    "moneda": "XTS",
+    "descripcion": "CÃ³digos reservados especÃ\u00ADficamente para propÃ³sitos de prueba",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 173,
+    "moneda": "XUA",
+    "descripcion": "Unidad ADB de Cuenta",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 174,
+    "moneda": "XXX",
+    "descripcion": "Los cÃ³digos asignados para las transacciones en que intervenga ninguna moneda",
+    "decimales": 0,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 175,
+    "moneda": "YER",
+    "descripcion": "Rial yemenÃ\u00AD",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 176,
+    "moneda": "ZAR",
+    "descripcion": "Rand",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": 1.144150,
+    "id_serie": "SF57883"
+  },
+  {
+    "id": 177,
+    "moneda": "ZMW",
+    "descripcion": "Kwacha zambiano",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  },
+  {
+    "id": 178,
+    "moneda": "ZWL",
+    "descripcion": "Zimbabwe DÃ³lar",
+    "decimales": 2,
+    "variacion": 500,
+    "tipo_cambio": null,
+    "id_serie": null
+  }
+]

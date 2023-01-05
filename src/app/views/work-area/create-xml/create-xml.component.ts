@@ -29,21 +29,17 @@ export class CreateXmlComponent implements OnInit {
     }
   };
 
-  
-  
   constructor(private ngWizardService: NgWizardService, private _el: ElementRef) { }
 
   ngOnInit(): void {
     
   }
 
-
   resetWizard() {
     this.ngWizardService.reset();
   }
 
   stepChanged(args: StepChangedArgs) {
-    this.prueba();
     let steperIndex = args.step.index;
     let btnSummit = this._el.nativeElement.getElementsByClassName('btn-w-fanal-summit')
     this._el.nativeElement.getElementsByClassName('ng-wizard-btn-prev')[0].textContent = 'Previo'

@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000',
   slugUser: 'user-WFWSBBZOEXFS',
-  pathTaxRegimenCat: "assets/catalogs/cat_tax_regimes.json"
+  pathTaxRegimenCat: "assets/catalogs/cat_tax_regimes.json",
+  pathCatalogs: 'assets/catalogs'
 };
 
 /*

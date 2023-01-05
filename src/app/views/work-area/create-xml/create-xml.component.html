@@ -1,14 +1,17 @@
+{{formResultCertificate | json}}
+
+
 <div class="card card-outline card-danger">
   <div class="card-header">
     <h5 class="text-secondary">Generar Envío</h5>
   </div>
-  <div class="card-body">    
+  <div class="card-body">
 
     <form>
       <ng-wizard #ngWizardNative [config]="config" (stepChanged)="stepChanged($event)"
-        [className]="'ng-wizard-theme-default'">
+        [className]="'ng-wizard-theme-default'" style="border-radius: 5px;">
 
-        <ng-wizard-step [title]="'Certficaso'" [description]="'Carga de Certificado del Emisor'"
+        <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'"
           [canEnter]="isValidTypeBoolean" [canExit]="isValidFunctionReturnsBoolean.bind(this)">
           <app-xml-certificate (dataFormResult)="formResultCertificate = $event"></app-xml-certificate>
         </ng-wizard-step>
@@ -17,13 +20,12 @@
           <app-xml-vaucher></app-xml-vaucher>
         </ng-wizard-step>
 
-        <ng-wizard-step [title]="'Step 3'" [description]="'Step 3 description'"
-          [canEnter]="isValidFunctionReturnsObservable.bind(this)" [canExit]="isValidFunctionReturnsBoolean.bind(this)">
-          <span>Step 3 content</span>
+        <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
+          <app-xml-receiver></app-xml-receiver>
         </ng-wizard-step>
 
-        <ng-wizard-step [title]="'Step 4'" [description]="'Step 4 description'">
-          <span>Step 4 content</span>
+        <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">
+          <app-xml-concepts></app-xml-concepts>
         </ng-wizard-step>
 
         <ng-wizard-step [title]="'Step 5'" [description]="'Step 5 description'">
@@ -32,10 +34,6 @@
 
         <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'">
           <span>Step 6 content</span>
-        </ng-wizard-step>
-
-        <ng-wizard-step [title]="'Step 7'" [description]="'Step 7 description'">
-          <span>Step 7 content</span>
         </ng-wizard-step>
 
       </ng-wizard>

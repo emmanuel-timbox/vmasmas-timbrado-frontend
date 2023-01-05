@@ -1,5 +1,6 @@
 <form [formGroup]="formCertificate">
-  <div class="row">
+  
+  <div class="row pt-3 pb-3">
 
     <div class="col-sm-12" *ngIf="!haveCerticate">
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -22,34 +23,71 @@
 
         <div class="col-sm-12 mb-2">
           <label>RFC:</label>
-          <input type="text" class="form-control is-valid" formControlName="rfc" [readonly]="true" 
-          [ngClass]="{ 'is-invalid': summitFormCert && f['bussinessName'].errors }">
+          <input type="text" class="form-control is-valid" formControlName="rfc" [readonly]="true"
+            [ngClass]="{ 'is-invalid': summitFormCert && f['rfc'].errors }">
+
+          <div *ngIf="summitFormCert && f['rfc'].errors" class="invalid-feedback">
+            <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
+            <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+            <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+          </div>
+
         </div>
 
         <div class="col-sm-12 mb-2">
           <label>Lugar de expedicion:</label>
-          <input type="text" class="form-control" formControlName="expeditionPlace" [readonly]="true">
+          <input type="text" class="form-control is-valid" formControlName="expeditionPlace" [readonly]="true"
+            [ngClass]="{ 'is-invalid': summitFormCert && f['expeditionPlace'].errors }">
+
+          <div *ngIf="summitFormCert && f['expeditionPlace'].errors" class="invalid-feedback">
+            <div *ngIf="f['expeditionPlace'].errors['required']">Lugar de expedicion del Emisor es requerido</div>
+            <div *ngIf="f['expeditionPlace'].errors['minlength']">
+              Lugar de expedicion no debe ser menor a 5 caracteres
+            </div>
+            <div *ngIf="f['expeditionPlace'].errors['maxlength']">
+              Lugar de expedicion no debe ser mayor a 5caracteres
+            </div>
+          </div>
+
         </div>
 
         <div class="col-sm-12">
           <label>Numero de certificado:</label>
-          <input type="text" class="form-control" formControlName="certNumber" [readonly]="true">
+          <input type="text" class="form-control is-valid" formControlName="certNumber" [readonly]="true"
+            [ngClass]="{ 'is-invalid': summitFormCert && f['certNumber'].errors }">
+
+          <div *ngIf="summitFormCert && f['certNumber'].errors" class="invalid-feedback">
+            <div *ngIf="f['certNumber'].errors['required']">Lugar de expedicion del Emisor es requerido</div>
+          </div>
+
         </div>
 
       </div>
     </div>
-    
+
     <div class="col-sm-6">
       <div class="row">
 
         <div class="col-sm-12">
           <label>Regimen fiscal:</label>
-          <input type="text" class="form-control" formControlName="taxRegime" [readonly]="true">
+          <input type="text" class="form-control is-valid" formControlName="taxRegime" [readonly]="true"
+            [ngClass]="{ 'is-invalid': summitFormCert && f['taxRegime'].errors }">
+
+          <div *ngIf="summitFormCert && f['taxRegime'].errors" class="invalid-feedback">
+            <div *ngIf="f['taxRegime'].errors['required']">Lugar de expedicion del Emisor es requerido</div>
+          </div>
+
         </div>
 
         <div class="col-sm-12 mb-2">
           <label>Contraseña de llave</label>
-          <input type="password" class="form-control" formControlName="passwordKey">
+          <input type="password" class="form-control is-valid" formControlName="passwordKey"
+            [ngClass]="{ 'is-invalid': summitFormCert && f['passwordKey'].errors }">
+
+          <div *ngIf="summitFormCert && f['passwordKey'].errors" class="invalid-feedback">
+            <div *ngIf="f['passwordKey'].errors['required']">Lugar de expedicion del Emisor es requerido</div>
+          </div>
+
         </div>
 
         <div class="col-sm-12">
@@ -65,6 +103,5 @@
     </div>
 
   </div>
-
-  <button type="submit" class="btn btn-success">Prueba</button>
+  
 </form>

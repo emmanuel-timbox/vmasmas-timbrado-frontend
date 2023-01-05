@@ -21,7 +21,7 @@ export class XmlCertificateComponent implements OnInit {
   formCertificate: FormGroup = new FormGroup({});
 
   constructor(private _services: XmlCertificateService,
-    private _catologs_services: CatalogsService, 
+    private _catologs_services: CatalogsService,
     private sweetAlets: SweetAlertsService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -30,7 +30,15 @@ export class XmlCertificateComponent implements OnInit {
     this.getEmitters();
   }
 
+  // form de emitir datos desde el componente de hijo hacia el padre.
+  // this.dataFormResult.emit(this.formCertificate.value) 
+
   get f(): { [key: string]: AbstractControl } { return this.formCertificate.controls; }
+
+  registrerEmitterNode(): void {
+    this.summitFormCert = true;
+    if (this.formCertificate.invalid) { return }
+  }
 
   getEmitters(): any {
     this._services.getEmitterData().subscribe({
@@ -69,15 +77,14 @@ export class XmlCertificateComponent implements OnInit {
       this.formCertificate.reset();
     }
 
-    this.dataFormResult.emit(this.formCertificate.value)
   }
 
   getListTaxRegimes(): void {
-    this._catologs_services.getTaxRegimenCat().subscribe({ 
-      next: response => { 
+    this._catologs_services.getTaxRegimenCat().subscribe({
+      next: response => {
         console.log(response)
       },
-      error: error => { console.log(error)}
+      error: error => { console.log(error) }
     });
   }
 
