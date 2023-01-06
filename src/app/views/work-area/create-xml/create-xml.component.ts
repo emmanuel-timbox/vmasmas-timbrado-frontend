@@ -9,8 +9,8 @@ import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, S
 })
 
 export class CreateXmlComponent implements OnInit {
-  
-  formResultCertificate: any
+
+  slugEmitterSelect!: string;
   isValidTypeBoolean: boolean = true;
   stepStates = {
     normal: STEP_STATE.normal,
@@ -31,9 +31,7 @@ export class CreateXmlComponent implements OnInit {
 
   constructor(private ngWizardService: NgWizardService, private _el: ElementRef) { }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void { }
 
   resetWizard() {
     this.ngWizardService.reset();
@@ -59,10 +57,5 @@ export class CreateXmlComponent implements OnInit {
   isValidFunctionReturnsObservable(args: StepValidationArgs) {
     return of(true);
   }
-
-  prueba(): void { 
-    console.log(this.formResultCertificate);
-  }
-
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
 import { CatalogsService } from 'src/app/services/catalogs.service';
 
 @Component({
@@ -8,9 +9,11 @@ import { CatalogsService } from 'src/app/services/catalogs.service';
 })
 export class XmlReceiverComponent implements OnInit {
 
+  @Input() slugEmitter!: string;
+
   constructor(private _catalogs: CatalogsService) { }
 
-  catCfdiUsage!: any;
+  CfdiUsageCat!: any;
 
   ngOnInit(): void {
     this.getCfdiUsagesCat
@@ -19,11 +22,10 @@ export class XmlReceiverComponent implements OnInit {
   private getCfdiUsagesCat(): void {
     this._catalogs.getCfdiUsagesCat().subscribe({
       next: response => {
-        this.catCfdiUsage = response
+        this.CfdiUsageCat = response
       },
       error: error => { console.log(error) }
     })
   }
-
 
 }

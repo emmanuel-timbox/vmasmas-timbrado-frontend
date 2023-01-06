@@ -1,6 +1,3 @@
-{{formResultCertificate | json}}
-
-
 <div class="card card-outline card-danger">
   <div class="card-header">
     <h5 class="text-secondary">Generar Envío</h5>
@@ -13,7 +10,7 @@
 
         <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'"
           [canEnter]="isValidTypeBoolean" [canExit]="isValidFunctionReturnsBoolean.bind(this)">
-          <app-xml-certificate (dataFormResult)="formResultCertificate = $event"></app-xml-certificate>
+          <app-xml-certificate (seletedEmitterSlug)="slugEmitterSelect = $event"></app-xml-certificate>
         </ng-wizard-step>
 
         <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'">
@@ -21,7 +18,7 @@
         </ng-wizard-step>
 
         <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
-          <app-xml-receiver></app-xml-receiver>
+          <app-xml-receiver [slugEmitter]="slugEmitterSelect"></app-xml-receiver>
         </ng-wizard-step>
 
         <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">

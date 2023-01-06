@@ -12,7 +12,8 @@ import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 
 export class XmlCertificateComponent implements OnInit {
 
-  @Output() dataFormResult = new EventEmitter<any>()
+  //hay que declarar que el componente puede emitir datas a otro componente
+  @Output() seletedEmitterSlug = new EventEmitter<any>(); 
 
   files: File[] = [];
   emitterData: any;
@@ -21,17 +22,14 @@ export class XmlCertificateComponent implements OnInit {
   formCertificate: FormGroup = new FormGroup({});
 
   constructor(private _services: XmlCertificateService,
-    private _catologs_services: CatalogsService,
-    private sweetAlets: SweetAlertsService, private formBuilder: FormBuilder) { }
+    private _catalogs: CatalogsService, private _sweetAlets: SweetAlertsService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.haveCerticate = true;
     this.formCertificate = this.formBuilder.group(this._services.getDataValidateCerticate())
     this.getEmitters();
   }
-
-  // form de emitir datos desde el componente de hijo hacia el padre.
-  // this.dataFormResult.emit(this.formCertificate.value) 
 
   get f(): { [key: string]: AbstractControl } { return this.formCertificate.controls; }
 
@@ -47,7 +45,7 @@ export class XmlCertificateComponent implements OnInit {
         if (result.code == 200) {
           this.emitterData = result.data;
         } else {
-          this.sweetAlets.infoAlert('¡Verifica!', 'No se encuentra registrados Emisores');
+          this._sweetAlets.infoAlert('¡Verifica!', 'No se encuentra registrados Emisores');
         }
       },
       error: error => { console.log(error) }
@@ -57,7 +55,6 @@ export class XmlCertificateComponent implements OnInit {
   setDataEmitterInput(event: Event): void {
     let dataEmitter!: any
     let slug: string = (event.target as HTMLInputElement).value;
-
     if (slug == '') { this.formCertificate.reset(); }
 
     dataEmitter = this.emitterData.find((x: any) => x.slug == slug);
@@ -76,11 +73,11 @@ export class XmlCertificateComponent implements OnInit {
       this.haveCerticate = false;
       this.formCertificate.reset();
     }
-
+    this.seletedEmitterSlug.emit(slug)
   }
 
   getListTaxRegimes(): void {
-    this._catologs_services.getTaxRegimenCat().subscribe({
+    this._catalogs.getTaxRegimenCat().subscribe({
       next: response => {
         console.log(response)
       },

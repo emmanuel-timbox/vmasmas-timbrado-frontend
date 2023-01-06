@@ -4,15 +4,12 @@ import { environment } from '../../environments/environment';
 import { Receiver } from '../models/receiver.model';
 import { Validators } from '@angular/forms';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class ReceiverService {
 
-apiUrl: string = environment.apiUrl;
-//  pathTaxRegimenCat: string = environment.pathTaxRegimenCat
+  apiUrl: string = environment.apiUrl;
   userSlug: string = environment.slugUser;
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   httpOptions = {
@@ -22,20 +19,17 @@ apiUrl: string = environment.apiUrl;
     })
   };
 
-
   constructor(private httpClient: HttpClient) { }
- 
+
   getDataValidateReceiver() {
     return {
-      bussinessName: ['', [Validators.required]],
-      rfc: ['', [Validators.required]],
-      cfdiUse : ['G01'],
-      receivingTaxDomicile : ['', [Validators.required]],
-      recipientTaxRegimen : ['', [Validators.required]],
-      taxIdNumber : ['', [Validators.required]],
-      tax_residence : ['', [Validators.required]],
-      // expeditionPlace: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern(this.nonWhitespaceRegExp)]],
-      // taxRegime: ['', Validators.required]
+      bussinessName: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      rfc: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      cfdiUse: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      receivingTaxDomicile: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      recipientTaxRegimen: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      taxIdNumber: ['', [Validators.pattern(this.nonWhitespaceRegExp)]],
+      taxResidence: ['', [Validators.pattern(this.nonWhitespaceRegExp)]]
     }
   }
 
@@ -51,7 +45,7 @@ apiUrl: string = environment.apiUrl;
     return this.httpClient.get(`${this.apiUrl}/receiver_configs/${slugUser}`)
   }
 
-  editReceiver(receiver: Receiver, slugReceiver: string) { 
+  editReceiver(receiver: Receiver, slugReceiver: string) {
     return this.httpClient.put(`${this.apiUrl}/receiver_configs/${slugReceiver}`, receiver)
   }
 

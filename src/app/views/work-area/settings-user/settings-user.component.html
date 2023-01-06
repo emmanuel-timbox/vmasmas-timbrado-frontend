@@ -174,11 +174,13 @@
             
             <div class="form-group col-md-4">
               <label>Regimen fiscal:</label>
-              <select class="form-control is-valid" formControlName="taxRegime"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxRegime'].errors }">
+
+              <select class="form-control is-valid" formControlName="taxRegime" [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxRegime'].errors }">
                 <option *ngFor="let item of jsonDataTaxRegiment"
-                  [selected]="item.regime == selectedTaxRegime"  > {{item.regime}} </option>
+                  [selected]="item.regime == selectedTaxRegime"  > {{item.regime}} 
+                </option>
               </select>
+
               <div *ngIf="submittedEdit && fEdit['taxRegime'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['taxRegime'].errors['required']">Regimen fiscal del Emisor es requerido</div>
               </div>
