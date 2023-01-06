@@ -11,12 +11,12 @@ export class Receiver {
     tax_residence?: string;
     status?: number;
     slugReceiver?: string;
-    slugUser?: string;
+    slugEmitter?: string;
 
     constructor(issuerId: number, rfc: string, bussinessName: string, 
         cfdiUse: string, receivingTaxDomicile: string, recipientTaxRegimen: string, 
         taxIdNumber: string, tax_residence: string, status: number, slugReceiver: string, 
-        slugUser: string) {
+        slugEmitter: string) {
 
         this.issuerId = issuerId;
         this.rfc = rfc;
@@ -28,7 +28,7 @@ export class Receiver {
         this.tax_residence = tax_residence;
         this.status = status;
         this.slugReceiver = slugReceiver;
-        this.slugUser = slugUser;
+        this.slugEmitter = slugEmitter;
     }
 
 }
