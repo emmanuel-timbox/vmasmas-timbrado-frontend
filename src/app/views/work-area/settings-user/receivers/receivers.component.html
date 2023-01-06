@@ -94,12 +94,6 @@
           <div class="col-md-12 d-flex justify-content-start align-items-center">
             <h5>Lista de Receptores</h5>
           </div>
-          <!-- <div class="col-md-6 d-flex justify-content-end">
-            <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal"
-              title="Agregar nuevo Receptor" data-bs-target="#modal-nuevo-receptor">
-              <i class="fas fa-user-plus"></i>
-            </button>
-          </div> -->
         </div>
       </div>
       <div class="card-body table-responsive">
@@ -152,7 +146,6 @@
       <form [formGroup]="formEditReceiver" (submit)="editDataReceiver()">
         <div class="modal-body">
 
-
           <div class="form-row">
 
             <div class="form-group col-md-8">
@@ -174,11 +167,11 @@
             </div>
 
             <div class="form-group col-md-4">
-              <label>Uso de CFDI: asfdasdf</label>
+              <label>Uso de CFDI:</label>
               <select class="form-control is-valid" formControlName="cfdiUse"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['cfdiUse'].errors }">
-                <option *ngFor="let usageCfdi of cfdiUsageCat" [selected]=" usageCfdi.uso_cfdi == selectedCfdiUse">
-                  {{usageCfdi.uso_cfdi}} -- {{usageCfdi.descripcion}}
+                <option *ngFor="let usageCfdi of cfdiUsageCat" [selected]="usageCfdi.uso_cfdi == selectedCfdiUse">
+                  {{usageCfdi.uso_cfdi}}
                 </option>
               </select>
               <div *ngIf="submittedEdit && fEdit['cfdiUse'].errors" class="invalid-feedback">
@@ -197,28 +190,30 @@
 
             <div class="form-group col-md-4">
               <label>Regimen Fiscal:</label>
-              <input type="text" class="form-control is-valid" formControlName="recipientTaxRegimen"
+              <select type="text" class="form-control is-valid" formControlName="recipientTaxRegimen"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['recipientTaxRegimen'].errors }">
-              <div *ngIf="submittedEdit && fEdit['recipientTaxRegimen'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['recipientTaxRegimen'].errors['required']">Dato requerido</div>
+                <option value="" selected>Seleccione un opcion</option>
+                <option *ngFor="let taxRegime of taxRegimesCat" [selected]="taxRegime.regime == selectedTaxRegime">
+                  {{taxRegime.regime}}
+                </option>
+              </select>
+
+              <div *ngIf="submittedCreate && f['recipientTaxRegimen'].errors" class="invalid-feedback">
+                <div *ngIf="f['recipientTaxRegimen'].errors['required']">Dato requerido</div>
               </div>
             </div>
 
-
-            <div class="form-group col-md-8">
-              <label>Nombre o razon social:</label>
+            <div class="form-group col-md-6">
+              <label>Número de registro de identidad fiscal:</label>
               <input type="text" class="form-control is-valid" formControlName="taxIdNumber">
-
             </div>
 
             <div class="form-group col-md-6">
               <label>Residencia Fiscal:</label>
               <input type="text" class="form-control is-valid" formControlName="taxResidence">
-
             </div>
 
           </div>
-
         </div>
 
         <div class="modal-footer">

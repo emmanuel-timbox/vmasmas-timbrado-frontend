@@ -20,8 +20,7 @@ declare let bootstrap: any;
 export class ReceiversComponent implements OnInit {
   @ViewChild('editModal') editModal!: ElementRef;
 
-  files: File[] = [];
-  slug!: string | null;
+  slugUrl: string = "";
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   submittedCreate = false;
@@ -31,10 +30,10 @@ export class ReceiversComponent implements OnInit {
   dataReceiversEdit: any;
   indexArrayReceiver!: number;
   slugReceiverUpdate!: string;
-  selectedTaxRegime!: string;
   cfdiUsageCat!: any;
   taxRegimesCat!: any;
   selectedCfdiUse!: string;
+  selectedTaxRegime!: string;
   formNewReceiver: FormGroup = new FormGroup({});
   formEditReceiver: FormGroup = new FormGroup({});
 
@@ -55,7 +54,7 @@ export class ReceiversComponent implements OnInit {
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    this.slug = this.route.snapshot.paramMap.get('slug');
+    this.slugUrl = `${this.route.snapshot.paramMap.get('slug')}` ;
     this.formNewReceiver = this.formBuilder.group(this._service.getDataValidateReceiver());
     this.formEditReceiver = this.formBuilder.group(this._service.getDataValidateReceiver());
     this.dtOptions = {
@@ -76,8 +75,7 @@ export class ReceiversComponent implements OnInit {
   get fEdit(): { [key: string]: AbstractControl } { return this.formEditReceiver.controls; }
 
   createReceiver(): void {
-    
-    
+  
     this.submittedCreate = true;
 
     if (this.formNewReceiver.invalid) { return }
@@ -90,7 +88,7 @@ export class ReceiversComponent implements OnInit {
       recipientTaxRegimen: this.formNewReceiver.value.recipientTaxRegimen,
       taxIdNumber: this.formNewReceiver.value.taxIdNumber,
       tax_residence: this.formNewReceiver.value.taxResidence,
-      slugUser: environment.slugUser
+      slugEmitter: this.slugUrl
     };
 
     this._service.insertDataReceiver(receiver).subscribe({
@@ -137,14 +135,14 @@ export class ReceiversComponent implements OnInit {
       receivingTaxDomicile: this.formEditReceiver.value.receivingTaxDomicile,
       recipientTaxRegimen: this.formEditReceiver.value.recipientTaxRegimen,
       taxIdNumber: this.formEditReceiver.value.taxIdNumber,
-      tax_residence: this.formEditReceiver.value.taxResidence,
-      slugUser: environment.slugUser
+      tax_residence: this.formEditReceiver.value.taxResidence
     };
 
     this._service.editReceiver(receiver, this.slugReceiverUpdate).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response));
         if (result.code == 200) {
+          console.log(result.data)
           this.dataReceivers[this.indexArrayReceiver] = result.data
           this.swal.successAlert('Los datos se actualizaron de manera correcta');
         } else {
@@ -173,8 +171,8 @@ export class ReceiversComponent implements OnInit {
     new bootstrap.Modal(this.editModal.nativeElement).show();
     this.indexArrayReceiver = index;
     this.slugReceiverUpdate = dataReceiver.slug;
-    this.selectedCfdiUse = dataReceiver.cfdi_use;
-    
+    this.selectedCfdiUse = dataReceiver.cfdi_use
+    this.selectedTaxRegime = dataReceiver.recipient_tax_regimen
     this.formEditReceiver.setValue({
       bussinessName: dataReceiver.bussiness_name,
       rfc: dataReceiver.rfc,
@@ -184,7 +182,6 @@ export class ReceiversComponent implements OnInit {
       taxIdNumber: dataReceiver.tax_id_number,
       taxResidence: dataReceiver.tax_residence,
     });
-
   }
 
   resetFormCreate(): void {
@@ -193,7 +190,7 @@ export class ReceiversComponent implements OnInit {
   }
 
   private getDataReceivers() {
-    this._service.getDataReceiver(environment.slugUser).subscribe({
+    this._service.getDataReceiver(this.slugUrl).subscribe({
       next: response => {
         this.dataReceivers = JSON.parse(JSON.stringify(response)).data;
         this.dtTrigger.next(null);
@@ -203,13 +200,12 @@ export class ReceiversComponent implements OnInit {
   }
 
   private createNewRow(newReceiver: any): void {
-    console.log(newReceiver)
     this.dataReceivers.push({
-      rfc: newReceiver.rfc, //1
-      bussiness_name: newReceiver.bussiness_name, //1
-      cfdi_use: newReceiver.cfdi_use, //1
-      recipient_tax_regimen: newReceiver.recipient_tax_regimen, //1
-      receiving_tax_domicile: newReceiver.receiving_tax_domicile, //1
+      rfc: newReceiver.rfc,
+      bussiness_name: newReceiver.bussiness_name,
+      cfdi_use: newReceiver.cfdi_use,
+      recipient_tax_regimen: newReceiver.recipient_tax_regimen,
+      receiving_tax_domicile: newReceiver.receiving_tax_domicile,
       status: newReceiver.status,
       slug: newReceiver.slug,
       tax_id_number: newReceiver.tax_id_number,
