@@ -5,36 +5,57 @@
   <div class="card-body">
 
     <form>
-      <ng-wizard #ngWizardNative [config]="config" (stepChanged)="stepChanged($event)"
-        [className]="'ng-wizard-theme-default'" style="border-radius: 5px;">
+      <div class="row">
+        <div class="col-sm-12">
+          <ng-wizard #ngWizardNative [config]="config" [className]="'ng-wizard-theme-default'">
+            <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'">
+              <app-xml-certificate (emitFormCertificate)="receiveFormCertificate = $event"
+                (emitterSlugEmitter)="slugEmitterSelect = $event"></app-xml-certificate>
+            </ng-wizard-step>
 
-        <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'"
-          [canEnter]="isValidTypeBoolean" [canExit]="isValidFunctionReturnsBoolean.bind(this)">
-          <app-xml-certificate (seletedEmitterSlug)="slugEmitterSelect = $event"></app-xml-certificate>
-        </ng-wizard-step>
+            <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'">
+              <app-xml-vaucher></app-xml-vaucher>
+            </ng-wizard-step>
 
-        <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'">
-          <app-xml-vaucher></app-xml-vaucher>
-        </ng-wizard-step>
+            <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
+              <app-xml-receiver></app-xml-receiver>
+            </ng-wizard-step>
 
-        <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
-          <app-xml-receiver [slugEmitter]="slugEmitterSelect"></app-xml-receiver>
-        </ng-wizard-step>
+            <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">
+              <app-xml-concepts></app-xml-concepts>
+            </ng-wizard-step>
 
-        <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">
-          <app-xml-concepts></app-xml-concepts>
-        </ng-wizard-step>
+            <ng-wizard-step [title]="'Step 5'" [description]="'Step 5 description'">
+              <span>Step 5 content</span>
+            </ng-wizard-step>
 
-        <ng-wizard-step [title]="'Step 5'" [description]="'Step 5 description'">
-          <span>Step 5 content</span>
-        </ng-wizard-step>
+            <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'">
+              <span>Step 6 content</span>
+            </ng-wizard-step>
+          </ng-wizard>
 
-        <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'">
-          <span>Step 6 content</span>
-        </ng-wizard-step>
+          <div class="col-sm-12 d-flex justify-content-end custom-toolbar-ng-wizard">
+            <div class="btn-group pb-2 pt-0">
+              <button (click)="showPreviousStep()" class="btn btn-secondary" [disabled]="disableButtonPreview">
+                <i class="fas fa-angle-left"></i> Preevio
+              </button>
+              <button (click)="showNextStep()" class="btn btn-secondary mr-2" [disabled]="disabledButtonNext">
+                Siguiente <i class="fas fa-angle-right"></i>
+              </button>
+            </div>
+            <div class="btn-group pb-2 pt-0">
+              <button (click)="resetWizard()" class="btn btn-danger">
+                Reiniciar
+              </button>
+              <button (click)="saveData()" class="btn btn-success" *ngIf="showBottonFinish">
+                Guardar
+              </button>
+            </div>
+          </div>
 
-      </ng-wizard>
+        </div>
+
+      </div>
     </form>
-
   </div>
 </div>

@@ -11,9 +11,9 @@ import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 })
 
 export class XmlCertificateComponent implements OnInit {
-
   //hay que declarar que el componente puede emitir datas a otro componente
-  @Output() seletedEmitterSlug = new EventEmitter<any>(); 
+  @Output() emitFormCertificate = new EventEmitter<any>(); 
+  @Output() emitterSlugEmitter = new EventEmitter<string>();
 
   files: File[] = [];
   emitterData: any;
@@ -35,6 +35,10 @@ export class XmlCertificateComponent implements OnInit {
 
   registrerEmitterNode(): void {
     this.summitFormCert = true;
+    this.emitFormCertificate.emit({
+      formCerticate: this.formCertificate.value,
+      isInValid: this.formCertificate.invalid
+    })
     if (this.formCertificate.invalid) { return }
   }
 
@@ -56,9 +60,7 @@ export class XmlCertificateComponent implements OnInit {
     let dataEmitter!: any
     let slug: string = (event.target as HTMLInputElement).value;
     if (slug == '') { this.formCertificate.reset(); }
-
     dataEmitter = this.emitterData.find((x: any) => x.slug == slug);
-
     if (dataEmitter.certificate_number != null) {
       this.haveCerticate = true;
       this.formCertificate.setValue({
@@ -73,7 +75,7 @@ export class XmlCertificateComponent implements OnInit {
       this.haveCerticate = false;
       this.formCertificate.reset();
     }
-    this.seletedEmitterSlug.emit(slug)
+    this.emitterSlugEmitter.emit(slug)
   }
 
   getListTaxRegimes(): void {

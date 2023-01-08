@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { CatalogsService } from 'src/app/services/catalogs.service';
+import { XmlReceiverService } from 'src/app/services/create-xml/xml-receiver.service';
 
 @Component({
   selector: 'app-xml-receiver',
@@ -9,14 +9,23 @@ import { CatalogsService } from 'src/app/services/catalogs.service';
 })
 export class XmlReceiverComponent implements OnInit {
 
-  @Input() slugEmitter!: string;
-
-  constructor(private _catalogs: CatalogsService) { }
+  constructor(private _catalogs: CatalogsService, private _services: XmlReceiverService) { }
 
   CfdiUsageCat!: any;
+  receiversList: any;
 
   ngOnInit(): void {
-    this.getCfdiUsagesCat
+    this.getCfdiUsagesCat;
+  }
+
+  getReceivers(slug: string): void {
+    this._services.getReceivers(slug).subscribe({
+      next: response => {
+        console.log(response)
+        this.receiversList = JSON.parse(JSON.stringify(response)).data;
+      },
+      error: error => { console.log(error) }
+    })
   }
 
   private getCfdiUsagesCat(): void {
