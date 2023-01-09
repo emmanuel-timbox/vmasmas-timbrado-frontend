@@ -1,5 +1,5 @@
 <form [formGroup]="formCertificate">
-  
+
   <div class="row pt-3 pb-3">
 
     <div class="col-sm-12" *ngIf="!haveCerticate">
@@ -57,7 +57,7 @@
             [ngClass]="{ 'is-invalid': summitFormCert && f['certNumber'].errors }">
 
           <div *ngIf="summitFormCert && f['certNumber'].errors" class="invalid-feedback">
-            <div *ngIf="f['certNumber'].errors['required']">Lugar de expedicion del Emisor es requerido</div>
+            <div *ngIf="f['certNumber'].errors['required']">El numero de certificado es requerido</div>
           </div>
 
         </div>
@@ -74,7 +74,7 @@
             [ngClass]="{ 'is-invalid': summitFormCert && f['taxRegime'].errors }">
 
           <div *ngIf="summitFormCert && f['taxRegime'].errors" class="invalid-feedback">
-            <div *ngIf="f['taxRegime'].errors['required']">Lugar de expedicion del Emisor es requerido</div>
+            <div *ngIf="f['taxRegime'].errors['required']">Regimen fiscal del Emisor es requerido</div>
           </div>
 
         </div>
@@ -85,23 +85,26 @@
             [ngClass]="{ 'is-invalid': summitFormCert && f['passwordKey'].errors }">
 
           <div *ngIf="summitFormCert && f['passwordKey'].errors" class="invalid-feedback">
-            <div *ngIf="f['passwordKey'].errors['required']">Lugar de expedicion del Emisor es requerido</div>
+            <div *ngIf="f['passwordKey'].errors['required']">Contraseña de la llave del certificado es requerido</div>
           </div>
 
         </div>
 
         <div class="col-sm-12">
-          <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".key">
+          <ngx-dropzone (change)="onSelect($event)" style="background: none">
             <ngx-dropzone-label class="text-success">Cargar llave del certificaso(.key)</ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" >
               <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
             </ngx-dropzone-preview>
           </ngx-dropzone>
+          <div class="invalid-feedback-file" *ngIf="files.length == 0">
+            <div>Hay que cargar el archivo .Key del Certificado.</div>
+          </div>
         </div>
 
       </div>
     </div>
 
   </div>
-  
+
 </form>

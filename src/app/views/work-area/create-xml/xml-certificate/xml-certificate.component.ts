@@ -12,7 +12,7 @@ import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 
 export class XmlCertificateComponent implements OnInit {
   //hay que declarar que el componente puede emitir datas a otro componente
-  @Output() emitFormCertificate = new EventEmitter<any>(); 
+  @Output() emitFormCertificate = new EventEmitter<any>();
   @Output() emitterSlugEmitter = new EventEmitter<string>();
 
   files: File[] = [];
@@ -33,27 +33,20 @@ export class XmlCertificateComponent implements OnInit {
 
   get f(): { [key: string]: AbstractControl } { return this.formCertificate.controls; }
 
-  registrerEmitterNode(): void {
+  //Esta funcion se ejecuta desde de el componente padre (CreateXml)
+   registrerEmitterNode(){
+    let notExistfile: boolean = this.files.length == 0 ? true : false;
+    let invalid: boolean = (this.formCertificate.invalid || notExistfile) ? true : false
+
+
     this.summitFormCert = true;
     this.emitFormCertificate.emit({
       formCerticate: this.formCertificate.value,
-      isInValid: this.formCertificate.invalid
-    })
-    if (this.formCertificate.invalid) { return }
-  }
-
-  getEmitters(): any {
-    this._services.getEmitterData().subscribe({
-      next: response => {
-        let result = JSON.parse(JSON.stringify(response));
-        if (result.code == 200) {
-          this.emitterData = result.data;
-        } else {
-          this._sweetAlets.infoAlert('¡Verifica!', 'No se encuentra registrados Emisores');
-        }
-      },
-      error: error => { console.log(error) }
+      isInValid: invalid,
+      file: this.files[0]
     });
+
+    if (invalid) { return }
   }
 
   setDataEmitterInput(event: Event): void {
@@ -78,6 +71,20 @@ export class XmlCertificateComponent implements OnInit {
     this.emitterSlugEmitter.emit(slug)
   }
 
+  getEmitters(): any {
+    this._services.getEmitterData().subscribe({
+      next: response => {
+        let result = JSON.parse(JSON.stringify(response));
+        if (result.code == 200) {
+          this.emitterData = result.data;
+        } else {
+          this._sweetAlets.infoAlert('¡Verifica!', 'No se encuentra registrados Emisores');
+        }
+      },
+      error: error => { console.log(error) }
+    });
+  }
+
   getListTaxRegimes(): void {
     this._catalogs.getTaxRegimenCat().subscribe({
       next: response => {
@@ -87,11 +94,11 @@ export class XmlCertificateComponent implements OnInit {
     });
   }
 
-  onSelect(event: { addedFiles: any }) {
+  onSelect(event: { addedFiles: any }): void {
     this.files.push(...event.addedFiles);
   }
 
-  onRemove(event: File) {
+  onRemove(event: File): void {
     this.files.splice(this.files.indexOf(event), 1);
   }
 

@@ -11,11 +11,12 @@ import { XmlReceiverComponent } from './xml-receiver/xml-receiver.component';
 })
 
 export class CreateXmlComponent implements OnInit {
-  
-  //De esta manera puedo acceder a los metodos de padre (createXML) a sus componete hijos (todos 
+
+  //De esta manera puedo acceder a los metodos de padre (createXML) a sus componete hijos (todos
   //los coponente que se encuentra en carpeta de create-xml).
   @ViewChild(XmlCertificateComponent) certificateComponent!: XmlCertificateComponent;
   @ViewChild(XmlReceiverComponent) reciverComponent!: XmlReceiverComponent;
+
 
   slugEmitterSelect!: string;
   showBottonFinish: boolean = false;
@@ -63,21 +64,20 @@ export class CreateXmlComponent implements OnInit {
     switch (this.numberStep) {
       case 0:
         this.certificateComponent.registrerEmitterNode();
-        canNext = this.receiveFormCertificate.isInValid
+        console.log(this.receiveFormCertificate);
+        canNext = this.receiveFormCertificate.isInValid;
         break;
 
       case 1:
-
+        
         break;
 
       case 2:
 
         break;
-
       case 3:
 
-        break;
-
+        break
       case 4:
 
         break;
@@ -86,9 +86,9 @@ export class CreateXmlComponent implements OnInit {
 
         break;
     }
-
-    if (!canNext) { this.ngWizardService.next(); }
-
+    // por cuestiones de test se comenta
+    // if (!canNext) { this.ngWizardService.next(); }
+    this.ngWizardService.next();
   }
 
   resetWizard() {
