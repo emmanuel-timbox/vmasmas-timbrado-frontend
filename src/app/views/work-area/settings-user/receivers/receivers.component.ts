@@ -1,13 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReceiverService } from '../../../../services/receiver.service';
-import { environment } from '../../../../../environments/environment';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { SweetAlertsService } from '../../../../services/sweet-alert.service'
 import { Subject } from 'rxjs';
 import { Receiver } from 'src/app/models/receiver.model';
 import { CatalogsService } from 'src/app/services/catalogs.service';
-import { data } from 'jquery';
 
 declare let bootstrap: any;
 
