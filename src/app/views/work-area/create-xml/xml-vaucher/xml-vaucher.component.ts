@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { CatalogsService } from 'src/app/services/catalogs.service';
-import { XmlReceiverService } from 'src/app/services/create-xml/xml-receiver.service';
+import { XmlVaucherService } from './../../../../services/create-xml/xml-vaucher.service';
 
 @Component({
   selector: 'app-xml-vaucher',
@@ -9,24 +9,37 @@ import { XmlReceiverService } from 'src/app/services/create-xml/xml-receiver.ser
   styleUrls: ['./xml-vaucher.component.scss']
 })
 export class XmlVaucherComponent implements OnInit {
+  @Output() emitterVaucher = new EventEmitter<any>();
 
-  formReceiver: FormGroup = new FormGroup({});
+  formVaucher: FormGroup = new FormGroup({});
+  summitForm: boolean = false;
 
-  constructor(private _services: XmlReceiverService,private _catalogs: CatalogsService, private formBuilder: FormBuilder) { }
+  constructor(private _services: XmlVaucherService, private _catalogs: CatalogsService,
+    private formBuilder: FormBuilder) { }
 
   currentCatalog!: any
 
   ngOnInit(): void {
     this.getCurrentCatalog();
-    this.formReceiver = this.formBuilder.group(this._services.getDataValidateReceiver());
+    this.formVaucher = this.formBuilder.group(this._services.getDataValidateReceiver());
+  }
+
+  get f(): { [key: string]: AbstractControl } { return this.formVaucher.controls; }
+
+  registerFormVaucher() {
+    this.summitForm = true;
+    this.emitterVaucher.emit({
+      formVaucher: this.formVaucher.value,
+      isInvalid: this.formVaucher.invalid
+    });
+
+    if (this.formVaucher.invalid) { return }
   }
 
   private getCurrentCatalog(): void {
-    this._catalogs.getCurrenciesCat().subscribe({ 
-      next: response => { 
-        this.currentCatalog = response
-      },
-      error: error => { console.log(error)}
+    this._catalogs.getCurrenciesCat().subscribe({
+      next: response => { this.currentCatalog = response },
+      error: error => { console.log(error) }
     })
   }
 

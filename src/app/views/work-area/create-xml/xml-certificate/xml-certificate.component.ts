@@ -34,10 +34,9 @@ export class XmlCertificateComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } { return this.formCertificate.controls; }
 
   //Esta funcion se ejecuta desde de el componente padre (CreateXml)
-   registrerEmitterNode(){
+  registrerEmitterNode() {
     let notExistfile: boolean = this.files.length == 0 ? true : false;
     let invalid: boolean = (this.formCertificate.invalid || notExistfile) ? true : false
-
 
     this.summitFormCert = true;
     this.emitFormCertificate.emit({

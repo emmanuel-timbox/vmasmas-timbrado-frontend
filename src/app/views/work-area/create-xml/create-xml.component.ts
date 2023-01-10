@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, STEP_STATE, THEME, TOOLBAR_BUTTON_POSITION, } from 'ng-wizard';
+import { NgWizardConfig, NgWizardService,  STEP_STATE, THEME } from 'ng-wizard';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { XmlCertificateComponent } from './xml-certificate/xml-certificate.component';
 import { XmlReceiverComponent } from './xml-receiver/xml-receiver.component';
+import { XmlVaucherComponent } from './xml-vaucher/xml-vaucher.component';
 
 @Component({
   selector: 'app-create-xml',
@@ -15,8 +16,8 @@ export class CreateXmlComponent implements OnInit {
   //De esta manera puedo acceder a los metodos de padre (createXML) a sus componete hijos (todos
   //los coponente que se encuentra en carpeta de create-xml).
   @ViewChild(XmlCertificateComponent) certificateComponent!: XmlCertificateComponent;
+  @ViewChild(XmlVaucherComponent) vaucherComponent!: XmlVaucherComponent;
   @ViewChild(XmlReceiverComponent) reciverComponent!: XmlReceiverComponent;
-
 
   slugEmitterSelect!: string;
   showBottonFinish: boolean = false;
@@ -26,6 +27,8 @@ export class CreateXmlComponent implements OnInit {
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   receiveFormCertificate!: any;
+  reciverFormVaucher!: any;
+  receiverFormReceiver!: any;
 
   stepStates = {
     normal: STEP_STATE.normal,
@@ -42,7 +45,7 @@ export class CreateXmlComponent implements OnInit {
     },
   };
 
-  constructor(private ngWizardService: NgWizardService) { }
+  constructor(private ngWizardService: NgWizardService, private swalAlert: SweetAlertsService) { }
 
   ngOnInit(): void {
     this.ngWizardService.stepChanged().subscribe({
@@ -64,20 +67,24 @@ export class CreateXmlComponent implements OnInit {
     switch (this.numberStep) {
       case 0:
         this.certificateComponent.registrerEmitterNode();
-        console.log(this.receiveFormCertificate);
+        this.reciverComponent.getReceivers(this.slugEmitterSelect);
         canNext = this.receiveFormCertificate.isInValid;
         break;
 
       case 1:
-        
+        this.vaucherComponent.registerFormVaucher();
+        canNext = this.reciverFormVaucher.isInValid;
         break;
 
       case 2:
-
+        this.reciverComponent.registrerReceiveNode();
+        canNext = this.receiverFormReceiver.isInvalid;
         break;
+
       case 3:
 
         break
+
       case 4:
 
         break;

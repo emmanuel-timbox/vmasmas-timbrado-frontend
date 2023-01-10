@@ -1,19 +1,31 @@
-<form [formGroup]="formReceiver">
+<form [formGroup]="formVaucher">
   <div class="form-row pt-3 pb-5 mb-5">
 
     <div class="form-group col-sm-4">
       <label>Serie:</label>
-      <input type="text" class="form-control" formControlName="serie">
+      <input type="text" class="form-control is-valid" formControlName="serie"
+        [ngClass]="{ 'is-invalid': summitForm && f['serie'].errors }">
+
+      <div *ngIf="summitForm && f['serie'].errors" class="invalid-feedback">
+        <div *ngIf="f['serie'].errors['required']">El campo de Serie es requerido</div>
+      </div>
+
     </div>
 
     <div class="form-group col-sm-4">
       <label>Folio:</label>
-      <input type="text" class="form-control" formControlName="invoice">
+      <input type="text" class="form-control is-valid" formControlName="invoice"
+        [ngClass]="{ 'is-invalid': summitForm && f['invoice'].errors }">
+
+      <div *ngIf="summitForm && f['invoice'].errors" class="invalid-feedback">
+        <div *ngIf="f['invoice'].errors['required']">El campo de Filio es requerido</div>
+      </div>
     </div>
 
     <div class="form-group col-sm-4">
       <label>Exportacion*:</label>
-      <select class="form-control is-valid" formControlName="export">
+      <select class="form-control is-valid" formControlName="export"
+        [ngClass]="{ 'is-invalid': summitForm && f['export'].errors }">
         <option selected value="">Seleccione una opcion</option>
         <option value="01">01 - No aplica</option>
         <option value="01">02 - Definitiva con clave A1</option>
@@ -21,27 +33,42 @@
         <option value="04">04 - Definitiva con clave distinta a A1 o cuando no existe enajenación en términos del CFF
         </option>
       </select>
+
+      <div *ngIf="summitForm && f['export'].errors" class="invalid-feedback">
+        <div *ngIf="f['export'].errors['required']">El campo de Exportacion es requerido</div>
+      </div>
     </div>
 
     <div class="form-group col-sm-4">
       <label>Moneda*:</label>
-      <select class="form-control is-valid" formControlName="coin">
+      <select class="form-control is-valid is-valid" formControlName="coin"
+        [ngClass]="{ 'is-invalid': summitForm && f['coin'].errors }">
         <option selected value="">Seleccione una opcion</option>
         <option *ngFor="let coin of currentCatalog" value="{{coin.moneda}}">
           {{coin.moneda}} -- {{coin.descripcion}}
         </option>
       </select>
+
+      <div *ngIf="summitForm && f['coin'].errors" class="invalid-feedback">
+        <div *ngIf="f['coin'].errors['required']">El campo de Moneda es requerido</div>
+      </div>
     </div>
 
     <div class="form-group col-sm-4">
       <label>Tipo de comprobante:</label>
-      <select class="form-control is-valid" formControlName="voucherType">
+      <select class="form-control is-valid" formControlName="voucherType"
+        [ngClass]="{ 'is-invalid': summitForm && f['voucherType'].errors }">
         <option selected value="">seleccione una opcion</option>
         <option value="I">Ingreso</option>
         <option value="E">Egreso</option>
         <option value="N">Nomina</option>
       </select>
+
+      <div *ngIf="summitForm && f['voucherType'].errors" class="invalid-feedback">
+        <div *ngIf="f['voucherType'].errors['required']">El campo de Moneda es requerido</div>
+      </div>
     </div>
 
   </div>
+
 </form>

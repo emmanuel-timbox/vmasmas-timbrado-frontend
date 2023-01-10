@@ -8,17 +8,18 @@
       <div class="row">
         <div class="col-sm-12">
           <ng-wizard #ngWizardNative [config]="config" [className]="'ng-wizard-theme-default'">
+
             <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'">
               <app-xml-certificate (emitFormCertificate)="receiveFormCertificate = $event"
                 (emitterSlugEmitter)="slugEmitterSelect = $event"></app-xml-certificate>
             </ng-wizard-step>
 
             <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'">
-              <app-xml-vaucher></app-xml-vaucher>
+              <app-xml-vaucher (emitterVaucher)="reciverFormVaucher = $event"></app-xml-vaucher>
             </ng-wizard-step>
 
             <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
-              <app-xml-receiver></app-xml-receiver>
+              <app-xml-receiver (emitterReceiver)="receiverFormReceiver = $event"></app-xml-receiver>
             </ng-wizard-step>
 
             <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">

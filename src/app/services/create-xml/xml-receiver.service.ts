@@ -8,17 +8,20 @@ import { environment } from 'src/environments/environment';
 })
 export class XmlReceiverService {
 
-  apiUrl: string  = environment.apiUrl;
+  apiUrl: string = environment.apiUrl;
+  nonWhitespaceRegExp: RegExp = new RegExp("\\S");
 
   constructor(private httpClient: HttpClient) { }
 
   getDataValidateReceiver() {
     return {
-      serie: ['', [Validators.required]],
-      invoice: ['', [Validators.required]],
-      export: ['', [Validators.required]],
-      coin: ['', [Validators.required]],
-      voucherType: ['', [Validators.required]]
+      bussinessName: [''],
+      rfc: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      cfdiUse: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      taxDomicile: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      taxRegime: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      taxResidence: [''],
+      fiscalIdNumber: ['']
     }
   }
 
