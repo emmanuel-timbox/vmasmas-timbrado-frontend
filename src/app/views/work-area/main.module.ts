@@ -22,6 +22,7 @@ import { XmlCertificateComponent } from './create-xml/xml-certificate/xml-certif
 import { XmlVaucherComponent } from './create-xml/xml-vaucher/xml-vaucher.component';
 import { XmlReceiverComponent } from './create-xml/xml-receiver/xml-receiver.component';
 import { XmlConceptsComponent } from './create-xml/xml-concepts/xml-concepts.component';
+import { ConceptsComponent } from './taxes/concepts/concepts.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { XmlConceptsComponent } from './create-xml/xml-concepts/xml-concepts.com
     XmlCertificateComponent,
     XmlVaucherComponent,
     XmlReceiverComponent,
-    XmlConceptsComponent
+    XmlConceptsComponent,
+    ConceptsComponent
   ],
   imports: [
     CommonModule,

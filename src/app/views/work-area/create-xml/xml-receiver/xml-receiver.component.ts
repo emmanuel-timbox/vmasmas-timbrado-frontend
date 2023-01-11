@@ -33,8 +33,7 @@ export class XmlReceiverComponent implements OnInit {
     this.emitterReceiver.emit({
       formReceiver: this.formReceiver,
       isInvalid: this.formReceiver.invalid
-    })
-    alert('Hola mundo')
+    });
     if (this.formReceiver.invalid) { return }
   }
 

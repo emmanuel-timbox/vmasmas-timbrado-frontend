@@ -23,14 +23,12 @@ export class ConceptService {
 
   getDataValidateConcept() {
     return {
-
-        userId: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-        productKey: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-        idNumber: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-        unitKey: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-        unit: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-        description: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-        taxObject: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      productKey: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      idNumber: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      unitKey: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      unit: [''],
+      description: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      taxObject: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
     }
   }
 
