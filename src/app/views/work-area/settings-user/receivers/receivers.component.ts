@@ -73,7 +73,7 @@ export class ReceiversComponent implements OnInit {
   get fEdit(): { [key: string]: AbstractControl } { return this.formEditReceiver.controls; }
 
   createReceiver(): void {
-  
+
     this.submittedCreate = true;
 
     if (this.formNewReceiver.invalid) { return }
@@ -125,7 +125,7 @@ export class ReceiversComponent implements OnInit {
     this.submittedEdit = true;
 
     if (this.formEditReceiver.invalid) { return }
-    
+
     const receiver: Receiver = {
       bussinessName: this.formEditReceiver.value.bussinessName,
       rfc: this.formEditReceiver.value.rfc,
@@ -151,14 +151,14 @@ export class ReceiversComponent implements OnInit {
     })
   }
 
-  getCfdiUsageCat() {
+  private getCfdiUsageCat() {
     this._catalogs.getCfdiUsagesCat().subscribe({
       next: response => { this.cfdiUsageCat = response },
       error: error => { console.log(error) }
     })
   }
 
-  getTaxRegimeCat() {
+  private getTaxRegimeCat() {
     this._catalogs.getTaxRegimenCat().subscribe({
       next: response => { this.taxRegimesCat = response },
       error: error => { console.log(error) }

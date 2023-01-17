@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { Emitter } from 'src/app/models/emitter.model';
 import { TaxPeapleService } from '../../../services/tax-people.service';
 import { environment } from '../../../../environments/environment';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { SweetAlertsService } from '../../../services/sweet-alert.service'
-import { Subject } from 'rxjs';
-import { data } from 'jquery';
+
+
 
 declare let bootstrap: any
 

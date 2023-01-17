@@ -32,11 +32,11 @@ export class TaxPeapleService {
   }
 
   insertDataEmitter(emitter: Emitter) {
-    return this.httpClient.post(`${this.apiUrl}/tax_data_configs`, emitter, this.httpOptions);
+    return this.httpClient.post(`${this.apiUrl}/emitter_configs`, emitter, this.httpOptions);
   }
 
   editStatusEmitter(slugEmitter: string) {
-    return this.httpClient.delete(`${this.apiUrl}/tax_data_configs/${slugEmitter}`)
+    return this.httpClient.delete(`${this.apiUrl}/emitter_configs/${slugEmitter}`)
   }
 
   getTaxRegimenCat() {
@@ -44,11 +44,11 @@ export class TaxPeapleService {
   }
 
   getDataEmitter(slugUser: string) {
-    return this.httpClient.get(`${this.apiUrl}/tax_data_configs/${slugUser}`)
+    return this.httpClient.get(`${this.apiUrl}/emitter_configs/${slugUser}`)
   }
 
-  editEmitter(emitter: Emitter, slugEmitter: string) { 
-    return this.httpClient.put(`${this.apiUrl}/tax_data_configs/${slugEmitter}`, emitter)
+  editEmitter(emitter: Emitter, slugEmitter: string) {
+    return this.httpClient.put(`${this.apiUrl}/emitter_configs/${slugEmitter}`, emitter)
   }
 
 }

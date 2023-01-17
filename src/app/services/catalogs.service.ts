@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 
 export class CatalogsService {
-  
+
   pathTaxRegimenCat: string = environment.pathTaxRegimenCat
   pathCatalogs: string = environment.pathCatalogs
 
@@ -18,11 +18,15 @@ export class CatalogsService {
     return this.httpClient.get(this.pathTaxRegimenCat);
   }
 
-  getCurrenciesCat() { 
+  getCurrenciesCat() {
     return this.httpClient.get(`${this.pathCatalogs}/cat_currencies.json`);
   }
 
-  getCfdiUsagesCat() { 
+  getCfdiUsagesCat() {
     return this.httpClient.get(`${this.pathCatalogs}/cat_cfdi_usages.json`);
+  }
+
+  getTaxesCat() {
+    return this.httpClient.get(`${this.pathCatalogs}/cat_tax_rates.json`)
   }
 }

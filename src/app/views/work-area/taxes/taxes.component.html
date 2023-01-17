@@ -11,37 +11,57 @@
         </div>
       </div>
       <div class="card-body ">
-        <form>
+
+        <form [formGroup]="formTax" (submit)="registrerTax()">
           <div class="form-row mb-5">
-            <div class="form-group col-md-6">
+
+            <div class="form-group col-md-8">
+
               <label>Impuesto</label>
-              <select class="form-control" id="sucursal_editar" name="uso-cfdi-receptor">
-                <option selected>Seleccione un opcion</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <select class="form-control" id="sucursal_editar" name="uso-cfdi-receptor"
+                (change)="setDataInputs($event)">
+                <option value="" [selected]="seletedOption">Seleccione un opcion</option>
+                <option *ngFor="let tax of taxesCat " value="{{tax[0]}}">{{tax[1].name}}</option>
               </select>
+
             </div>
+
             <div class="form-group col-md-4">
+
               <label>Tasa impuesto</label>
-              <input type="number" class="form-control">
+              <input type="number" class="form-control" formControlName="minimumValue" [readonly]="isReadonly" min="0">
+
             </div>
-            <div class="form-group col-md-2 mt-4 pt-2">
+
+            <div class="form-group col-md-6">
+
+              <label>Valor maximo</label>
+              <input type="number" class="form-control" formControlName="maximumValue" [readonly]="true">
+
+            </div>
+
+            <div class="form-group col-md-4 mt-4 pt-2">
               <a type="button" class="btn btn-secondary mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
-                title="Cancelar">
+                title="Cancelar" (click)="resetForm()">
                 <i class="fas fa-times"></i>
               </a>
-              <a type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="right"
+              <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                 title="Guardar cambios">
                 <i class="fas fa-save"></i>
-              </a>
+              </button>
             </div>
+
+            <div class="col-sm-12" *ngIf="!isValid">
+              <div class="invalid-feedback-custom">{{messageError}}</div>
+            </div>
+
+
           </div>
         </form>
 
         <div class="row">
           <div class="col-sm-12 table-responsive">
-            <table datatable [dtOptions]="dt1Options" class="table row-border hover">
+            <table datatable [dtOptions]="dtOptions" class="table row-border hover">
               <thead>
                 <tr>
                   <th>Nombre impuesto</th>
@@ -76,216 +96,7 @@
   </div>
 
   <div class="col-sm-6">
-
-    <div class="card card-outline card-danger">
-      <div class="card-header">
-        <div class="row">
-          <div class="col-md-6 d-flex justify-content-start align-items-center">
-            <h5>Lista de Conceptos</h5>
-          </div>
-          <div class="col-md-6 d-flex justify-content-end">
-            <button type="button" class="btn btn-sm btn-success text-white" data-bs-toggle="modal"
-              title="Agregar nuevo Concepto" data-bs-target="#modal-nuevo-receptor">
-              <i class="fas fa-plus"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-12 table-responsive">
-
-            <table datatable [dtOptions]="dt2Options" class="table row-border hover" [dtTrigger]="dtTrigger">
-              <thead>
-                <tr>
-                  <th>Clave producto</th>
-                  <th>Clave unidad</th>
-                  <th>Descripcion</th>
-                  <th class="text-center">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let concept of dataConcepts; let i = index">
-                  <td>{{concept.product_key}}</td>
-                  <td>{{concept.unit_key}}</td>
-                  <td>{{concept.description}}</td>
-                  <td class="text-center">
-                    <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditReceiver(concept, i)">
-                      <i class="fa fa-edit"></i>
-                    </a>
-                    <a *ngIf="concept.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                      data-placement="right" title="Eliminar Receptor" (click)="editEstatusConcept(concept.slug, i)">
-                      <i class="fa fa-window-close"></i>
-                    </a>
-                    <a *ngIf="concept.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                      data-placement="right" title="Eliminar Receptor" (click)="editEstatusConcept(concept.slug,i)">
-                      <i class="fa fa-check"></i>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-
+    <app-concepts></app-concepts>
   </div>
 
-</div>
-
-<div class="modal fade" data-bs-backdrop="static" id="modal-nuevo-receptor" tabindex="-1"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content">
-
-      <form [formGroup]="formNewConcept" (ngSubmit)="createConcept()">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Concepto</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label>Clave de producto:</label>
-              <input type="text" class="form-control is-valid" formControlName="productKey"
-                [ngClass]="{ 'is-invalid': submittedCreate && f['productKey'].errors }">
-              <div *ngIf="submittedCreate && f['productKey'].errors" class="invalid-feedback">
-                <div *ngIf="f['productKey'].errors['required']">Razon social del Emisor es requerido</div>
-              </div>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Clave de Unidad:</label>
-              <input type="text" class="form-control is-valid" formControlName="unitKey"
-                [ngClass]="{ 'is-invalid': submittedCreate && f['unitKey'].errors }">
-              <div *ngIf="submittedCreate && f['unitKey'].errors" class="invalid-feedback">
-                <div *ngIf="f['unitKey'].errors['required']">La Clave de unidad es requerido</div>
-              </div>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Unidad:</label>
-              <input type="text" class="form-control is-valid" formControlName="unit">
-            </div>
-            <div class="form-group col-md-8">
-              <label>Descripcion:</label>
-              <input type="text" class="form-control is-valid" formControlName="description"
-                [ngClass]="{ 'is-invalid': submittedCreate && f['description'].errors }">
-              <div *ngIf="submittedCreate && f['description'].errors" class="invalid-feedback">
-                <div *ngIf="f['description'].errors['required']">Razon social del Emisor es requerido</div>
-              </div>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Objecto Impuesto</label>
-              <input type="text" class="form-control is-valid" formControlName="taxObject"
-                [ngClass]="{ 'is-invalid': submittedCreate && f['taxObject'].errors }">
-              <div *ngIf="submittedCreate && f['taxObject'].errors" class="invalid-feedback">
-                <div *ngIf="f['taxObject'].errors['required']">Razon social del Emisor es requerido</div>
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Numero de Identificacion</label>
-              <input type="text" class="form-control is-valid" formControlName="idNumber">
-            </div>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-            (click)="resetFormCreate()">Cerrar</button>
-          <button class="btn btn-primary" type="submit">Guardar</button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-</div>
-
-<div #editModal class="modal fade" data-bs-backdrop="static" id="modal-nuevo-receptor" tabindex="-1"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-
-      <form [formGroup]="formEditConcept" (ngSubmit)="editDataConcept()">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Concepto</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-          <div class="form-row">
-            <div class="form-group col-md-4">
-
-              <label>Clave de Producto:</label>
-              <input type="text" class="form-control is-valid" formControlName="productKey"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['productKey'].errors }">
-
-              <div *ngIf="submittedEdit && fEdit['productKey'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['productKey'].errors['required']">Razon social del Emisor es requerido</div>
-              </div>
-
-            </div>
-            <div class="form-group col-md-4">
-              <label>Clave de Unidad:</label>
-              <input type="text" class="form-control is-valid" formControlName="unitKey"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['unitKey'].errors }">
-
-              <div *ngIf="submittedEdit && fEdit['unitKey'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['unitKey'].errors['required']">Razon social del Emisor es requerido</div>
-              </div>
-
-            </div>
-            <div class="form-group col-md-4">
-              <label>Unidad:</label>
-              <input type="text" class="form-control is-valid" formControlName="unit"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['unit'].errors }">
-
-              <div *ngIf="submittedEdit && fEdit['unit'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['unit'].errors['required']">Razon social del Emisor es requerido</div>
-              </div>
-
-
-            </div>
-            <div class="form-group col-md-8">
-              <label>Descripcion:</label>
-              <input type="text" class="form-control is-valid" formControlName="description"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['description'].errors }">
-
-              <div *ngIf="submittedEdit && fEdit['description'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['description'].errors['required']">Razon social del Emisor es requerido</div>
-              </div>
-
-            </div>
-            <div class="form-group col-md-4">
-              <label>Objecto Impuesto</label>
-              <input type="text" class="form-control is-valid" formControlName="taxObject"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxObject'].errors }">
-
-              <div *ngIf="submittedEdit && fEdit['taxObject'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['taxObject'].errors['required']">Razon social del Emisor es requerido</div>
-              </div>
-
-            </div>
-            <div class="form-group col-md-6">
-              <label>Numero de Identificacion</label>
-              <input type="text" class="form-control is-valid" formControlName="idNumber"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['idNumber'].errors }">
-
-              <div *ngIf="submittedEdit && fEdit['idNumber'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['idNumber'].errors['required']">Razon social del Emisor es requerido</div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button class="btn btn-primary" type="submit">Guardar</button>
-        </div>
-      </form>
-
-    </div>
-  </div>
 </div>
