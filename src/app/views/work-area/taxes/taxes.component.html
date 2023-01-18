@@ -61,7 +61,7 @@
 
         <div class="row">
           <div class="col-sm-12 table-responsive">
-            <table datatable [dtOptions]="dtOptions" class="table row-border hover">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
               <thead>
                 <tr>
                   <th>Nombre impuesto</th>
@@ -70,21 +70,27 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Foo</td>
-                  <td>Bar</td>
+                <tr *ngFor="let tax of taxesData; let i = index">
+                  <td>{{tax.tax_name}}</td>
+                  <td>{{tax.tax_rate}}</td>
                   <td class="text-center">
                     <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="tooltip"
-                      data-bs-placement="right" title="Ver o editar datos del Receptor">
+                      data-bs-placement="right" title="Ver o editar datos del Receptor"
+                      *ngIf="tax.tax_name.includes('Rango')">
                       <i class="fa fa-edit"></i>
                     </a>
+
                     <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                      data-placement="right" title="Eliminar Receptor">
+                      data-placement="right" title="Eliminar Receptor" *ngIf="tax.status == 1"
+                      >
                       <i class="fa fa-trash"></i>
+                    </a>
+                    <a  class="btn btn-success btn-sm" data-bs-toggle="tooltip"
+                      data-placement="right" title="Eliminar Receptor" *ngIf="tax.status == 0">
+                      <i class="fa fa-check"></i>
                     </a>
                   </td>
                 </tr>
-
               </tbody>
             </table>
           </div>

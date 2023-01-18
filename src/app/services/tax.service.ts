@@ -21,11 +21,19 @@ export class TaxService {
   constructor(private httpClient: HttpClient) { }
 
   getDataValidateTax() {
-    return {  minimumValue: [''], maximumValue: [''] }
+    return { minimumValue: [''], maximumValue: [''] }
   }
 
   insertTax(tax: Tax) {
-    return this.httpClient.post(``, tax, this.httpOptions);
+    return this.httpClient.post(`${environment.apiUrl}/tax_configs`, tax, this.httpOptions);
+  }
+
+  editStatusTax(slug: string) {
+    return this.httpClient.delete(`${environment.apiUrl}/tax_configs/${slug}`)
+  }
+
+  getDataTaxes(slug: string) {
+    return this.httpClient.get(`${environment.apiUrl}/tax_configs/${slug}`);
   }
 
 }

@@ -146,7 +146,7 @@
                   a 150 caracteres</div>
               </div>
             </div>
-            
+
             <div class="form-group col-md-4">
               <label>R.F.C:</label>
               <input type="text" class="form-control is-valid" formControlName="rfc"
@@ -157,7 +157,7 @@
                 <div *ngIf="fEdit['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
               </div>
             </div>
-            
+
             <div class="form-group col-md-4">
               <label>Lugar de expedicion</label>
               <input type="text" class="form-control is-valid" formControlName="expeditionPlace"
@@ -171,13 +171,13 @@
                   caracteres</div>
               </div>
             </div>
-            
+
             <div class="form-group col-md-4">
               <label>Regimen fiscal:</label>
 
               <select class="form-control is-valid" formControlName="taxRegime" [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxRegime'].errors }">
                 <option *ngFor="let item of jsonDataTaxRegiment"
-                  [selected]="item.regime == selectedTaxRegime"  > {{item.regime}} 
+                  [selected]="item.regime == selectedTaxRegime"  > {{item.regime}}
                 </option>
               </select>
 
@@ -185,7 +185,7 @@
                 <div *ngIf="fEdit['taxRegime'].errors['required']">Regimen fiscal del Emisor es requerido</div>
               </div>
             </div>
-            
+
 
           </div>
         </div>
