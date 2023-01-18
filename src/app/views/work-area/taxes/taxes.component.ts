@@ -6,6 +6,7 @@ import { TaxService } from './../../../services/tax.service';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { CatalogsService } from 'src/app/services/catalogs.service';
 import { environment } from 'src/environments/environment';
+import { DataTableDirective } from 'angular-datatables';
 
 declare var bootstrap: any;
 
@@ -16,7 +17,7 @@ declare var bootstrap: any;
 })
 
 export class TaxesComponent implements OnInit {
-
+  @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
   @ViewChild('editModal') editModal!: ElementRef;
 
   taxesCat!: any;
@@ -39,11 +40,13 @@ export class TaxesComponent implements OnInit {
       lengthMenu: [5, 10, 25, 50, 100],
       pageLength: 5,
       language: { url: 'https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json' },
+      destroy: true
     };
 
     this.formTax = this.formBuilder.group(this._services.getDataValidateTax());
     this.getTaxesCat();
     this.getTaxes();
+
   }
 
   setDataInputs(event: Event): void {
@@ -100,13 +103,28 @@ export class TaxesComponent implements OnInit {
     this.createTax(tax);
   }
 
-  editTaxEstatus(slugTax: string, index: number): void {
-    this._services.editStatusTax(slugTax).subscribe({
-      next: response => {
-        let result = JSON.parse(JSON.stringify(response));
-      },
-      error: error => { console.log(error); }
-    })
+  deleteTax(slugTax: string, index: number): void {
+    let message = 'Borrar Impuesto'
+    this.swal.confirmationAlert(message).then((result: any) => {
+      if (result.isConfirmed) {
+
+        this._services.editStatusTax(slugTax).subscribe({
+          next: response => {
+            let result = JSON.parse(JSON.stringify(response));
+            if (result.code == 200) {
+              this.taxesData.splice(index, 1);
+              this.tableRerender();
+              this.swal.successAlert('El estatus se actualizo de manera correcta.');
+            } else {
+              this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar el estatus');
+            }
+          },
+          error: error => { console.log(error); }
+        });
+        
+      }
+    });
+
   }
 
   resetForm(): void {
@@ -141,6 +159,7 @@ export class TaxesComponent implements OnInit {
           this.swal.successAlert('Los datos se guardaron de manera correcta');
           this.resetForm();
           this.createNeWRow(result.data);
+          this.tableRerender()
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de menara correcta')
         }
@@ -154,7 +173,15 @@ export class TaxesComponent implements OnInit {
       tax_key: newEmitter.tax_key,
       tax_name: newEmitter.tax_name,
       tax_rate: newEmitter.tax_rate,
+      status: newEmitter.status,
       slug: newEmitter.slug
+    });
+  }
+
+  private tableRerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next(null);
     });
   }
 

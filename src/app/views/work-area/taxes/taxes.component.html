@@ -16,28 +16,22 @@
           <div class="form-row mb-5">
 
             <div class="form-group col-md-8">
-
               <label>Impuesto</label>
               <select class="form-control" id="sucursal_editar" name="uso-cfdi-receptor"
                 (change)="setDataInputs($event)">
                 <option value="" [selected]="seletedOption">Seleccione un opcion</option>
                 <option *ngFor="let tax of taxesCat " value="{{tax[0]}}">{{tax[1].name}}</option>
               </select>
-
             </div>
 
             <div class="form-group col-md-4">
-
               <label>Tasa impuesto</label>
               <input type="number" class="form-control" formControlName="minimumValue" [readonly]="isReadonly" min="0">
-
             </div>
 
             <div class="form-group col-md-6">
-
               <label>Valor maximo</label>
               <input type="number" class="form-control" formControlName="maximumValue" [readonly]="true">
-
             </div>
 
             <div class="form-group col-md-4 mt-4 pt-2">
@@ -54,7 +48,6 @@
             <div class="col-sm-12" *ngIf="!isValid">
               <div class="invalid-feedback-custom">{{messageError}}</div>
             </div>
-
 
           </div>
         </form>
@@ -74,20 +67,15 @@
                   <td>{{tax.tax_name}}</td>
                   <td>{{tax.tax_rate}}</td>
                   <td class="text-center">
-                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2" data-bs-toggle="tooltip"
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2 " data-bs-toggle="tooltip"
                       data-bs-placement="right" title="Ver o editar datos del Receptor"
-                      *ngIf="tax.tax_name.includes('Rango')">
+                      [ngClass]="{'disabled': !tax.tax_name.includes('Rango') }">
                       <i class="fa fa-edit"></i>
                     </a>
-
                     <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
                       data-placement="right" title="Eliminar Receptor" *ngIf="tax.status == 1"
-                      >
+                      (click)="deleteTax(tax.slug, i)">
                       <i class="fa fa-trash"></i>
-                    </a>
-                    <a  class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                      data-placement="right" title="Eliminar Receptor" *ngIf="tax.status == 0">
-                      <i class="fa fa-check"></i>
                     </a>
                   </td>
                 </tr>
