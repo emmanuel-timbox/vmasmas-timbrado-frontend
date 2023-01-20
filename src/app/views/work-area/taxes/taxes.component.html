@@ -31,7 +31,7 @@
 
             <div class="form-group col-md-6">
               <label>Valor maximo</label>
-              <input type="number" class="form-control" formControlName="maximumValue" [readonly]="true">
+              <input type="number" class="form-control" formControlName="maximumValue" [readonly]="true"  pattern="^\d+(?:\.\d{1,6})?$">
             </div>
 
             <div class="form-group col-md-4 mt-4 pt-2">
@@ -69,7 +69,7 @@
                   <td class="text-center">
                     <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2 " data-bs-toggle="tooltip"
                       data-bs-placement="right" title="Ver o editar datos del Receptor"
-                      [ngClass]="{'disabled': !tax.tax_name.includes('Rango') }">
+                      [ngClass]="{'disabled': !tax.tax_name.includes('Rango') }" (click)="showModalEditTax(tax, i)">
                       <i class="fa fa-edit"></i>
                     </a>
                     <a id="btn_desactivar_empleado" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
@@ -93,4 +93,40 @@
     <app-concepts></app-concepts>
   </div>
 
+</div>
+
+
+<div #editModal class="modal fade" data-bs-backdrop="static" id="modal-nuevo-receptor" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <form [formGroup]="formTaxEdit" (submit)="editTax()">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Concepto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Tasa impuesto</label>
+              <input type="number" class="form-control is-valid" formControlName="minimumValue">
+            </div>
+            <div class="form-group col-md-12">
+              <label>Valor maximo</label>
+              <input type="number" class="form-control is-valid" formControlName="maximumValue" readonly>
+            </div>
+            <div class="col-sm-12" *ngIf="!isValidEdit">
+              <div class="invalid-feedback-custom">{{messageError}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary" >Guardar</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
 </div>

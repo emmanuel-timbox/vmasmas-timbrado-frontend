@@ -1,14 +1,14 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 import { Tax } from './../../../models/tax.model';
 import { TaxService } from './../../../services/tax.service';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { CatalogsService } from 'src/app/services/catalogs.service';
 import { environment } from 'src/environments/environment';
-import { DataTableDirective } from 'angular-datatables';
 
-declare var bootstrap: any;
+declare let bootstrap: any
 
 @Component({
   selector: 'app-taxes',
@@ -23,13 +23,15 @@ export class TaxesComponent implements OnInit {
   taxesCat!: any;
   isReadonly: boolean = true
   isValid: boolean = true;
+  isValidEdit: boolean = true;
   seletedOption: boolean = false;
   messageError!: string;
   dataTaxSelected: any = null;
+  taxesData!: any;
   dtOptions: DataTables.Settings = {}; //tabal de impuestos
   dtTrigger: Subject<any> = new Subject<any>();
   formTax: FormGroup = new FormGroup({});
-  taxesData!: any;
+  formTaxEdit: FormGroup = new FormGroup({});
 
   constructor(private _services: TaxService, private _catalogs: CatalogsService,
     private formBuilder: FormBuilder, private swal: SweetAlertsService) { }
@@ -44,6 +46,7 @@ export class TaxesComponent implements OnInit {
     };
 
     this.formTax = this.formBuilder.group(this._services.getDataValidateTax());
+    this.formTaxEdit = this.formBuilder.group(this._services.getDataValidateTax());
     this.getTaxesCat();
     this.getTaxes();
 
@@ -51,7 +54,7 @@ export class TaxesComponent implements OnInit {
 
   setDataInputs(event: Event): void {
     let keyValue: string = (event.target as HTMLInputElement).value;
-    this.seletedOption = false
+    this.seletedOption = false;
 
     if (keyValue != '') {
       let dataSearchTax = this.taxesCat.find((x: any) => x[0] == keyValue);
@@ -65,10 +68,10 @@ export class TaxesComponent implements OnInit {
       this.resetForm();
       this.messageError = '*No ha seleccionado un valor de la lista de Impuestos.';
     }
+
   }
 
   registrerTax(): void {
-    let formData = this.formTax.value;
     let tax: Tax;
 
     if (this.dataTaxSelected == null) {
@@ -79,32 +82,52 @@ export class TaxesComponent implements OnInit {
     }
 
     if (this.dataTaxSelected.name.includes('Rango')) {
-      let isInvalid = formData.minimumValue > formData.maximumValue ? true : false
-      if (isInvalid) {
-        this.isValid = false;
-        this.messageError = "El de Tasa Impuesto no puede ser mayor a el Valor Maximo";
+      let validate = this.validateTaxes(this.formTax.value);
+
+      if (!validate.isValid) {
+        this.isValid = validate.isValid;
+        this.messageError = validate.message;
         return;
-      }
+       }
+
+       console.log('kljdsfkljasd;jf')
+
       tax = {
         taxKey: this.dataTaxSelected.id,
         taxName: this.dataTaxSelected.name,
-        taxRate: this.formTax.value.minimumValue,
+        taxRate: this.formTax.value.minimumValue == 0.000000 ? (0.00).toFixed(6) :
+          this.formTax.value.minimumValue.toFixed(6),
         slugUser: environment.slugUser
-      }
+      };
+
     } else {
+
       tax = {
         taxKey: this.dataTaxSelected.id,
         taxName: this.dataTaxSelected.name,
         taxRate: this.formTax.value.maximumValue,
         slugUser: environment.slugUser
-      }
+      };
+
     }
 
     this.createTax(tax);
   }
 
+  editTax() {
+    let validate = this.validateTaxes(this.formTaxEdit.value);
+
+    if (!validate.isValid) {
+      this.isValidEdit = validate.isValid;
+      this.messageError = validate.message;
+      return;
+    }
+
+    
+  }
+
   deleteTax(slugTax: string, index: number): void {
-    let message = 'Borrar Impuesto'
+    let message = 'Se borrara el Impuesto seleccionado.'
     this.swal.confirmationAlert(message).then((result: any) => {
       if (result.isConfirmed) {
 
@@ -121,16 +144,24 @@ export class TaxesComponent implements OnInit {
           },
           error: error => { console.log(error); }
         });
-        
+
       }
     });
-
   }
 
   resetForm(): void {
     this.formTax.reset();
     this.seletedOption = true;
     this.dataTaxSelected = null;
+  }
+
+  showModalEditTax(tax: any, index: number) {
+    new bootstrap.Modal(this.editModal.nativeElement).show();
+    let dataSearchTax = this.taxesCat.find((x: any) => x[1].name == tax.tax_name);
+    this.formTaxEdit.setValue({
+      minimumValue: tax.tax_rate,
+      maximumValue: dataSearchTax[1].val_max
+    });
   }
 
   private getTaxes(): void {
@@ -159,9 +190,9 @@ export class TaxesComponent implements OnInit {
           this.swal.successAlert('Los datos se guardaron de manera correcta');
           this.resetForm();
           this.createNeWRow(result.data);
-          this.tableRerender()
+          this.tableRerender();
         } else {
-          this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de menara correcta')
+          this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de menara correcta');
         }
 
       }, error: error => { console.log(error); }
@@ -183,6 +214,28 @@ export class TaxesComponent implements OnInit {
       dtInstance.destroy();
       this.dtTrigger.next(null);
     });
+  }
+
+  private validateTaxes(formTax: any): any {
+    const regex = /^\d+(?:\.\d{1,6})?$/;
+    let itsBiggerThat = formTax.minimumValue > formTax.maximumValue ? true : false;
+    let stringNumber = String(formTax.minimumValue);
+
+    if (stringNumber.match(regex) == null) {
+      return {
+        isValidE: false,
+        message: 'La cantidad de decimales no debe ser mayor a 6 digitos.'
+      };
+    }
+
+    if (itsBiggerThat) {
+      return {
+        isValid: false,
+        message: 'El valor de Tasa Impuesto no puede ser mayor a el Valor Maximo.'
+      };
+    }
+
+    return { isValid: true, message: null };
   }
 
 }

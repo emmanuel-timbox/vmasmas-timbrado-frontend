@@ -6,8 +6,6 @@ import { TaxPeapleService } from '../../../services/tax-people.service';
 import { environment } from '../../../../environments/environment';
 import { SweetAlertsService } from '../../../services/sweet-alert.service'
 
-
-
 declare let bootstrap: any
 
 @Component({
@@ -101,7 +99,6 @@ export class SettingsUserComponent implements OnInit {
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar el estatus');
         }
-
       },
       error: error => { console.log(error) }
     });

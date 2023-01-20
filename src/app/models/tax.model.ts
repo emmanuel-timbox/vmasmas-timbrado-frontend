@@ -1,7 +1,7 @@
 
 export class Tax {
 
-  
+
   taxKey?: string;
   taxName?: string;
   taxRate?: number;

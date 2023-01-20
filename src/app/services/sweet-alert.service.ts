@@ -33,13 +33,13 @@ export class SweetAlertsService {
   confirmationAlert(message: string) {
     return Swal.fire({
       title: '¿Esta seguro?',
-      text: `${message} ¡No prodra revertiresto!`,
+      text: `${message} ¡No prodra revertir esto!`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: '¡Si, borralo!',
       cancelButtonText: 'Cancelar'
-    })
+    });
   }
 }
