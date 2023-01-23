@@ -29,7 +29,11 @@ export class TaxService {
   }
 
   editStatusTax(slug: string) {
-    return this.httpClient.delete(`${environment.apiUrl}/tax_configs/${slug}`)
+    return this.httpClient.delete(`${environment.apiUrl}/tax_configs/${slug}`);
+  }
+
+  editTax(tax: Tax) {
+    return this.httpClient.put(`${environment.apiUrl}/tax_configs/${tax.slugTax}`, tax);
   }
 
   getDataTaxes(slug: string) {

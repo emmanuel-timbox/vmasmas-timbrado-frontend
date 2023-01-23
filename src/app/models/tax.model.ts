@@ -4,11 +4,11 @@ export class Tax {
 
   taxKey?: string;
   taxName?: string;
-  taxRate?: number;
+  taxRate?: string;
   slugTax?: string;
   slugUser?: string;
 
-  constructor(taxKey?: string, taxName?: string, taxRate?: number,
+  constructor(taxKey?: string, taxName?: string, taxRate?: string,
     slugTax?: string, slugUser?: string) {
     this.taxKey = taxKey; // 011
     this.taxName = taxName; //nombre

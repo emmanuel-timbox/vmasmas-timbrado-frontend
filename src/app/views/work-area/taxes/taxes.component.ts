@@ -27,6 +27,9 @@ export class TaxesComponent implements OnInit {
   seletedOption: boolean = false;
   messageError!: string;
   dataTaxSelected: any = null;
+  editSlug!: string;
+  editTaxName!: string;
+  arrayIndexTax!: number;
   taxesData!: any;
   dtOptions: DataTables.Settings = {}; //tabal de impuestos
   dtTrigger: Subject<any> = new Subject<any>();
@@ -88,9 +91,7 @@ export class TaxesComponent implements OnInit {
         this.isValid = validate.isValid;
         this.messageError = validate.message;
         return;
-       }
-
-       console.log('kljdsfkljasd;jf')
+      }
 
       tax = {
         taxKey: this.dataTaxSelected.id,
@@ -116,6 +117,7 @@ export class TaxesComponent implements OnInit {
 
   editTax() {
     let validate = this.validateTaxes(this.formTaxEdit.value);
+    let tax: Tax;
 
     if (!validate.isValid) {
       this.isValidEdit = validate.isValid;
@@ -123,7 +125,27 @@ export class TaxesComponent implements OnInit {
       return;
     }
 
-    
+    tax = {
+      slugUser: environment.slugUser,
+      slugTax: this.editSlug,
+      taxRate: this.formTaxEdit.value.minimumValue == 0.000000 ? (0.00).toFixed(6) :
+        Number(this.formTaxEdit.value.minimumValue).toFixed(6),
+      taxName: this.editTaxName
+    };
+
+    this._services.editTax(tax).subscribe({
+      next: response => {
+        let result = JSON.parse(JSON.stringify(response));
+        if (result.code == 200) {
+          this.taxesData[this.arrayIndexTax] = result.data;
+          this.tableRerender();
+        } else {
+          this.swal.infoAlert('¡Verifica!', result.message)
+        }
+      },
+      error: error => { console.log(error) }
+    });
+
   }
 
   deleteTax(slugTax: string, index: number): void {
@@ -158,6 +180,9 @@ export class TaxesComponent implements OnInit {
   showModalEditTax(tax: any, index: number) {
     new bootstrap.Modal(this.editModal.nativeElement).show();
     let dataSearchTax = this.taxesCat.find((x: any) => x[1].name == tax.tax_name);
+    this.editSlug = tax.slug;
+    this.arrayIndexTax = index;
+    this.editTaxName = dataSearchTax[1].name;
     this.formTaxEdit.setValue({
       minimumValue: tax.tax_rate,
       maximumValue: dataSearchTax[1].val_max
@@ -185,16 +210,15 @@ export class TaxesComponent implements OnInit {
     this._services.insertTax(dataTax).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response));
-
+        console.log(result)
         if (result.code == 200) {
           this.swal.successAlert('Los datos se guardaron de manera correcta');
           this.resetForm();
           this.createNeWRow(result.data);
           this.tableRerender();
         } else {
-          this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de menara correcta');
+          this.swal.infoAlert('¡Verifica!', result.message);
         }
-
       }, error: error => { console.log(error); }
     });
   }
