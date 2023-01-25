@@ -21,7 +21,7 @@ export class XmlCertificateService {
   constructor(private httpClient: HttpClient) { }
 
   getEmitterData() {
-    return this.httpClient.get(`${environment.apiUrl}/create_xml/${this.userSlug}`);
+    return this.httpClient.get(`${this.apiUrl}/create_xml/${this.userSlug}`);
   }
 
   getDataValidateCerticate() {

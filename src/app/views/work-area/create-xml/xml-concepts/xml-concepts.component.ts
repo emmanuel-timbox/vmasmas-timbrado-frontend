@@ -5,11 +5,15 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './xml-concepts.component.html',
   styleUrls: ['./xml-concepts.component.scss']
 })
+
 export class XmlConceptsComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
+
+  
 
 }

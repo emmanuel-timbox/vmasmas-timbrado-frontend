@@ -8,17 +8,19 @@ import { Certificate } from '../models/certificate.model';
 })
 export class CertificateService {
 
+  apiUrl = environment.apiUrl;
+
   constructor(private httpCliente: HttpClient) { }
 
   getCertificate(slug: string) {
-    return this.httpCliente.get(`${environment.apiUrl}/certificate/${slug}`)
+    return this.httpCliente.get(`${this.apiUrl}/certificate/${slug}`)
   }
 
   insertFile(formData: FormData) {
-    return this.httpCliente.post(`${environment.apiUrl}/certificate`, formData)
+    return this.httpCliente.post(`${this.apiUrl}/certificate`, formData)
   }
 
   updateFile(formData: FormData, slug: string) {
-    return this.httpCliente.put(`${environment.apiUrl}/certificate/${slug}`, formData);
+    return this.httpCliente.put(`${this.apiUrl}/certificate/${slug}`, formData);
   }
 }

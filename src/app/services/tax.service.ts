@@ -25,19 +25,19 @@ export class TaxService {
   }
 
   insertTax(tax: Tax) {
-    return this.httpClient.post(`${environment.apiUrl}/tax_configs`, tax, this.httpOptions);
+    return this.httpClient.post(`${this.apiUrl}/tax_configs`, tax, this.httpOptions);
   }
 
   editStatusTax(slug: string) {
-    return this.httpClient.delete(`${environment.apiUrl}/tax_configs/${slug}`);
+    return this.httpClient.delete(`${this.apiUrl}/tax_configs/${slug}`);
   }
 
   editTax(tax: Tax) {
-    return this.httpClient.put(`${environment.apiUrl}/tax_configs/${tax.slugTax}`, tax);
+    return this.httpClient.put(`${this.apiUrl}/tax_configs/${tax.slugTax}`, tax);
   }
 
   getDataTaxes(slug: string) {
-    return this.httpClient.get(`${environment.apiUrl}/tax_configs/${slug}`);
+    return this.httpClient.get(`${this.apiUrl}/tax_configs/${slug}`);
   }
 
 }

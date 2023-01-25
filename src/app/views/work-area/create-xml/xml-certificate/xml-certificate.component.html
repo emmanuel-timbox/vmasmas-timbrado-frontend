@@ -91,7 +91,7 @@
         </div>
 
         <div class="col-sm-12">
-          <ngx-dropzone (change)="onSelect($event)" style="background: none">
+          <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".key">
             <ngx-dropzone-label class="text-success">Cargar llave del certificaso(.key)</ngx-dropzone-label>
             <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" >
               <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
