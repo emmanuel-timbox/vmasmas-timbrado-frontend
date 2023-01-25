@@ -149,7 +149,7 @@ export class TaxesComponent implements OnInit {
   }
 
   deleteTax(slugTax: string, index: number): void {
-    let message = 'Se borrara el Impuesto seleccionado.'
+    let message = 'Se borrara el Impuesto seleccionado. ¡No prodra revertir esto!'
     this.swal.confirmationAlert(message).then((result: any) => {
       if (result.isConfirmed) {
 

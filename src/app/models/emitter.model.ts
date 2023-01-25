@@ -22,7 +22,6 @@ export class Emitter {
     this.status = status;
     this.slugEmitter = slugEmitter;
     this.slugUser = slugUser;
-    
   }
 
 }

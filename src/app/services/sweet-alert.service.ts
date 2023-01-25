@@ -30,15 +30,15 @@ export class SweetAlertsService {
     Swal.fire(mensaje, text, 'info')
   }
 
-  confirmationAlert(message: string) {
+  confirmationAlert(message: string, messageConfirmation?: string) {
     return Swal.fire({
       title: '¿Esta seguro?',
-      text: `${message} ¡No prodra revertir esto!`,
+      text: `${message}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '¡Si, borralo!',
+      confirmButtonText: messageConfirmation == undefined ? '¡Si, borralo!' : messageConfirmation,
       cancelButtonText: 'Cancelar'
     });
   }
