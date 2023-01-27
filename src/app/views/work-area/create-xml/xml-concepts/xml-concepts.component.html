@@ -31,7 +31,7 @@
 
     <div class="accordion" id="accordionExample" formArrayName="items" >
 
-      <div class="accordion-item accordion-item-bg " *ngFor="let item of getControls(); let i = index">
+      <div class="accordion-item accordion-item-bg " *ngFor="let item of itemsAccordion; let i = index">
 
         <h2 class="accordion-header" id="heading{{i}}">
           <button class="accordion-button" type="button" data-bs-toggle="collapse"
