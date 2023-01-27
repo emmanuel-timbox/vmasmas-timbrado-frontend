@@ -20,10 +20,6 @@ export class XmlCertificateService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getEmitterData() {
-    return this.httpClient.get(`${this.apiUrl}/create_xml/${this.userSlug}`);
-  }
-
   getDataValidateCerticate() {
     return {
       bussinessName: [''],
@@ -33,6 +29,10 @@ export class XmlCertificateService {
       certNumber: ['', [Validators.required]],
       passwordKey: ['', [Validators.required]]
     }
+  }
+
+  getEmitterData() {
+    return this.httpClient.get(`${this.apiUrl}/create_xml/${this.userSlug}`);
   }
 
 }

@@ -1,6 +1,7 @@
 <form [formGroup]="formReceiver" >
 
   <div class="form-row pt-3 pb-3">
+
     <div class="form-group col-sm-4">
       <label>Nombre de Proveerodor*:</label>
       <select class="form-control" (change)="setDataReceiverForm($event)">
@@ -8,6 +9,7 @@
         <option *ngFor="let receiver of receiversList" value="{{receiver.slug}}"> {{receiver.bussiness_name}} </option>
       </select>
     </div>
+
     <div class="form-group col-sm-4">
       <label>RFC*:</label>
       <input type="text" class="form-control" formControlName="rfc" readonly
@@ -16,8 +18,8 @@
       <div *ngIf="summitForm && f['rfc'].errors" class="invalid-feedback">
         <div *ngIf="f['rfc'].errors['required']">El RFC es requerido</div>
       </div>
-
     </div>
+
     <div class="form-group col-sm-4">
       <label>Uso de CFDI*:</label>
       <input type="text" class="form-control" formControlName="cfdiUse" readonly
@@ -26,8 +28,8 @@
       <div *ngIf="summitForm && f['cfdiUse'].errors" class="invalid-feedback">
         <div *ngIf="f['cfdiUse'].errors['required']">El Uso de CFDI es requerido</div>
       </div>
-
     </div>
+
     <div class="form-group col-sm-4">
       <label>Domicilio fiscal*:</label>
       <input type="text" class="form-control" formControlName="taxDomicile" readonly
@@ -36,8 +38,8 @@
       <div *ngIf="summitForm && f['taxDomicile'].errors" class="invalid-feedback">
         <div *ngIf="f['taxDomicile'].errors['required']">El Domicilio Fiscal es requerido</div>
       </div>
-
     </div>
+
     <div class="form-group col-sm-4">
       <label>Regimen Fiscal*:</label>
       <input type="text" class="form-control" formControlName="taxRegime" readonly
@@ -46,8 +48,8 @@
       <div *ngIf="summitForm && f['taxRegime'].errors" class="invalid-feedback">
         <div *ngIf="f['taxRegime'].errors['required']">El Regimen Fiscal es requerido</div>
       </div>
-
     </div>
+
     <div class="form-group col-sm-4">
       <label>Residencia Fiscal:</label>
       <input type="text" class="form-control" formControlName="taxResidence" readonly>
@@ -55,8 +57,8 @@
     <div class="form-group col-sm-4">
       <label>Número de registro de identidad fiscal:</label>
       <input type="text" class="form-control" formControlName="fiscalIdNumber" readonly>
-
     </div>
+
   </div>
 
 </form>

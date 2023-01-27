@@ -26,7 +26,7 @@ export class XmlReceiverService {
   }
 
   getReceivers(slugEmitter: string) {
-    return this.httpClient.get(`${this.apiUrl}/create_xml/${slugEmitter}/receivers_show`);
+    return this.httpClient.get(`${this.apiUrl}/create_xml/${slugEmitter}/show_receivers`);
   }
 
 }
