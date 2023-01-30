@@ -29,4 +29,8 @@ export class CatalogsService {
   getTaxesCat() {
     return this.httpClient.get(`${this.pathCatalogs}/cat_tax_rates.json`)
   }
+
+  getTaxObjectCat() {
+    return this.httpClient.get(`${this.pathCatalogs}/cat_tax_object.json`)
+  }
 }

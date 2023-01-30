@@ -1,0 +1,18 @@
+[
+  {
+    "id": "01",
+    "description": "No objeto de impuesto."
+  },
+  {
+    "id": "02",
+    "description": "Sí objeto de impuesto."
+  },
+  {
+    "id": "03",
+    "description": "Sí objeto del impuesto y no obligado al desglose."
+  },
+  {
+    "id": "04",
+    "description": "Sí objeto del impuesto y no causa impuesto."
+  }
+]

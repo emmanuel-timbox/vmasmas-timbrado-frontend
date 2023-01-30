@@ -1,7 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
-import { Select2OptionData } from 'ng-select2';
-import { Options } from 'select2';
 import { Subject } from 'rxjs';
 import { CatalogsService } from 'src/app/services/catalogs.service';
 import { Concept } from 'src/app/models/concept.model';
@@ -25,15 +23,12 @@ export class ConceptsComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   submittedCreate = false;
   submittedEdit = false;
-  jsonDataTaxRegiment: any;
   dataConcepts: any;
+  dataTaxObjectCat: any;
   dataConceptsEdit: any;
   indexArrayConcept!: number;
   slugConceptUpdate!: string;
-  cfdiUsageCat!: any;
-  taxRegimesCat!: any;
-  selectedCfdiUse!: string;
-  selectedTaxRegime!: string;
+  selectTaxObject!: string;
   formNewConcept: FormGroup = new FormGroup({});
   formEditConcept: FormGroup = new FormGroup({});
 
@@ -46,6 +41,7 @@ export class ConceptsComponent implements OnInit {
     this.formNewConcept = this.formBuilder.group(this._service.getDataValidateConcept());
     this.formEditConcept = this.formBuilder.group(this._service.getDataValidateConcept());
     this.getDataConcepts();
+    this.getTaxObjectCat();
   }
 
   ngAfterViewChecked() { }
@@ -137,8 +133,7 @@ export class ConceptsComponent implements OnInit {
     new bootstrap.Modal(this.editModal.nativeElement).show();
     this.indexArrayConcept = index;
     this.slugConceptUpdate = dataConcept.slug;
-    this.selectedCfdiUse = dataConcept.cfdi_use
-    this.selectedTaxRegime = dataConcept.recipient_tax_regimen
+    this.selectTaxObject = dataConcept.tax_object;
     this.formEditConcept.setValue({
       description: dataConcept.description,
       taxObject: dataConcept.tax_object,
@@ -154,15 +149,19 @@ export class ConceptsComponent implements OnInit {
     this.formNewConcept.reset();
   }
 
-  private getDataConcepts() {
+  private getDataConcepts(): void {
     this._service.getDataConcept(environment.slugUser).subscribe({
       next: (response) => {
         this.dataConcepts = JSON.parse(JSON.stringify(response)).data;
         this.dtTrigger.next(null);
-      },
-      error: (error) => {
-        console.log(error);
-      },
+      }, error: (error) => { console.log(error); },
+    });
+  }
+
+  private getTaxObjectCat(): void {
+    this._catalogs.getTaxObjectCat().subscribe({
+      next: response => { this.dataTaxObjectCat = response; },
+      error: error => { console.log(error); }
     });
   }
 

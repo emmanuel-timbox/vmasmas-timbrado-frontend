@@ -96,8 +96,15 @@
             </div>
             <div class="form-group col-md-4">
               <label>Objecto Impuesto</label>
-              <input type="text" class="form-control is-valid" formControlName="taxObject"
+
+              <select class="form-control" formControlName="taxObject"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['taxObject'].errors }">
+                <option value="">Seleccioné un impuesto</option>
+                <option *ngFor="let taxObject of dataTaxObjectCat" value="{{taxObject.id}}">
+                  {{taxObject.id}} - {{taxObject.description}}
+                </option>
+              </select>
+
               <div *ngIf="submittedCreate && f['taxObject'].errors" class="invalid-feedback">
                 <div *ngIf="f['taxObject'].errors['required']">Razon social del Emisor es requerido</div>
               </div>
@@ -177,8 +184,14 @@
             </div>
             <div class="form-group col-md-4">
               <label>Objecto Impuesto</label>
-              <input type="text" class="form-control is-valid" formControlName="taxObject"
+
+              <select class="form-control" formControlName="taxObject"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxObject'].errors }">
+                <option value="">Seleccioné un impuesto</option>
+                <option *ngFor="let taxObject of dataTaxObjectCat" value="{{taxObject.id}}" [selected]="taxObject.id == selectTaxObject">
+                  {{taxObject.id}} - {{taxObject.description}}
+                </option>
+              </select>
 
               <div *ngIf="submittedEdit && fEdit['taxObject'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['taxObject'].errors['required']">Razon social del Emisor es requerido</div>
