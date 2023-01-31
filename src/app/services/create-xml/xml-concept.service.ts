@@ -19,5 +19,8 @@ export class XmlConceptService {
     return this.httpClient.get(`${this.apiUrl}/create_xml/${this.slugUser}/show_concepts`);
   }
 
+  getTaxes() {
+    return this.httpClient.get(`${this.apiUrl}/create_xml/${this.slugUser}/show_taxes`)
+  }
 }
 
