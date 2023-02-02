@@ -6,7 +6,10 @@
         <div class="form-group col-md-6">
           <label>Seleccionar alguna de los Conceptos registrados:</label>
           <select class="form-control" formControlName="slugConcept">
-            <option value="">Selecciona una opcion</option>
+            <option value="">Llenado de Concepto de forma libre</option>
+            <option disabled>
+              ----------------------------------------------------------------------------------------
+            </option>
             <option *ngFor="let concept of dataConcepts" value="{{concept.slug}}">
               {{concept.product_key}} - {{concept.description}}
             </option>
@@ -27,6 +30,7 @@
   <div class="col-sm-12" [formGroup]="mainForm">
     <div class="accordion" id="accordionExample" formArrayName="concepts">
       <div class="accordion-item accordion-item-bg " *ngFor="let item of getControl.controls; let i = index">
+
         <div [formGroupName]="i">
           <h2 class="accordion-header" id="heading{{i}}">
             <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -71,7 +75,7 @@
                       <label class="label-color mb-0">Objecto Impuesto:</label>
                       <!-- <input type="text" class="form-control form-control-sm" formControlName="taxObject"> -->
 
-                      <select class="form-control" formControlName="taxObject">
+                      <select class="form-control form-control-sm" formControlName="taxObject">
                         <option value="">Selecciona una opcion</option>
                         <option *ngFor="let taxObject of dataTaxObjectCat" value="{{taxObject.id}}">
                           {{taxObject.id}} - {{taxObject.description}}
@@ -100,54 +104,57 @@
                     </div>
 
                     <div class="form-group col-md-12 pt-4 d-flex justify-content-end">
-                      <h3 class="label-color ">Importe: <b>$ {{getControl.value[i].amount}}</b></h3>
+                      <h5 class="label-color ">Importe del Concepto: <b>$ {{getControl.value[i].amount}}</b></h5>
                     </div>
 
                   </div>
                   <div class="form-row pt-2">
 
-                    <table class="table table-striped table-hover table-sm label-color ">
+                    <table class="table table-striped table-hover table-sm label-color " formArrayName="taxForm">
                       <thead>
                         <tr>
-                          <th class="size-row-table">Impuesto</th>
-                          <th class="size-row-table">Base</th>
-                          <th class="size-row-table">Tipo Factor</th>
-                          <th class="size-row-table">Tasa o Cuota</th>
-                          <th class="size-row-table">Importe</th>
+                          <th class="size-row-table text-center">Impuesto</th>
+                          <th class="size-row-table text-center">Base</th>
+                          <th class="size-row-table text-center">Tipo Factor</th>
+                          <th class="size-row-table text-center">Tasa o Cuota</th>
+                          <th class="size-row-table text-center">Importe</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th>
-                            <select class="form-control form-control-sm">
+                        <tr *ngFor="let taxControl of getControlTaxes(i).controls; let indexTax = index"
+                          [formGroupName]="indexTax">
+                          <td>
+                            <select class="form-control form-control-sm"
+                              (change)="setValuesFormTax($event, indexTax, i)">
                               <option value="">Selecciona una opcion</option>
                               <option *ngFor="let tax of dataTaxes" value="{{tax.slug}}">
                                 {{tax.tax_name}} - {{tax.tax_rate}}
                               </option>
                             </select>
-                          </th>
-                          <td>
-                            <input type="number" class="form-control form-control-sm" min="0"
-                              formControlName="discount">
                           </td>
                           <td>
-                            <input type="number" class="form-control form-control-sm" min="0"
-                              formControlName="discount">
+                            <input type="text" class="form-control form-control-sm"
+                              (keyup)="calculateAmountTaxForm(indexTax, i)" min="0" formControlName="base">
                           </td>
                           <td>
-                            <input type="number" class="form-control form-control-sm" min="0"
-                              formControlName="discount">
+                            <input type="text" class="form-control form-control-sm" min="0"
+                              formControlName="typeFactor">
                           </td>
                           <td>
-                            <h5 class="label-color "><b>$ 1000.00</b></h5>
+                            <input type="text" class="form-control form-control-sm"
+                              (keyup)="calculateAmountTaxForm(indexTax, i)" min="0" formControlName="shareRate">
+                          </td>
+                          <td>
+                            <h5 class="label-color "><b>$ {{taxControl.value.amount}}</b></h5>
                           </td>
                         </tr>
+                      </tbody>
                     </table>
 
-                    <div class="form-group col-md-4 pt-1">
+                    <div class="form-group col-md-12 pt-1">
                       <a type="button" class="btn btn-secondary mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
-                        title="Cancelar">
-                        <i class="fas fa-times"></i>
+                        title="Cancelar" (click)="deleteTaxForm(i)">
+                        <i class="fas fa-minus"></i>
                       </a>
                       <a type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Agregar" (click)="addTaxTable(i)">
@@ -155,9 +162,14 @@
                       </a>
                     </div>
 
-                  </div>
+                    <div class="form-group col-md-12 pt-1 d-flex justify-content-end">
+                      <a type="button" class="btn btn-danger mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Cancelar" (click)="deleteConcept(i)">
+                        Borrar Concepto <i class="fas fa-trash-alt"></i>
+                      </a>
+                    </div>
 
-                  {{getControl.value | json}}
+                  </div>
                 </div>
               </div>
             </div>
@@ -166,4 +178,13 @@
       </div>
     </div>
   </div>
+
+
+  <div class="col-sm-12 d-flex justify-content-end">
+    <h4 class="mr-4">Subtototal: <b>${{subtotal}}</b></h4>
+  </div>
+  <div class="col-sm-12 d-flex justify-content-end pr-3">
+    <h4 class="mr-4">Total: <b>${{total}}</b></h4>
+  </div>
+
 </div>
