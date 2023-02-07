@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { XmlConceptService } from './../../../../services/create-xml/xml-concept.service';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { CatalogsService } from 'src/app/services/catalogs.service';
-import { embryo } from '@igniteui/material-icons-extended';
 
 @Component({
   selector: 'app-xml-concepts',
@@ -106,6 +105,7 @@ export class XmlConceptsComponent implements OnInit {
 
   setValuesFormTax(event: Event, indexFormTax: number, indexFormConcept: number) {
     let keyValue: string = (event.target as HTMLInputElement).value;
+    let messageError: string;
 
     if (keyValue != '') {
       let tax: any = this.dataTaxes.find((x: any) => x.slug == keyValue);
@@ -122,16 +122,18 @@ export class XmlConceptsComponent implements OnInit {
       };
 
       if (this.existTypeTax(indexFormConcept, value)) {
-        let messageError = 'Ya se encuntro registrado este Impuesto previamente'
+        messageError = 'Ya se encuntro registrado este Impuesto previamente'
         this.swal.infoAlert('Se repite registro', messageError)
         return;
       }
 
       this.getControlTaxes(indexFormConcept).at(indexFormTax).patchValue(value);
     } else {
-      this.getControlTaxes(indexFormConcept).at(indexFormTax).patchValue({
-        tax: '', base: '', typeFactor: '', nodeType: '', shareRate: '', amount: ''
-      });
+      messageError = 'Favor de seleccionar un valor valido.'
+      this.swal.infoAlert('¡Verifica!', messageError);
+      // this.getControlTaxes(indexFormConcept).at(indexFormTax).patchValue({
+      //   tax: '', base: '', typeFactor: '', nodeType: '', shareRate: '', amount: ''
+      // });
     }
   }
 
@@ -217,7 +219,7 @@ export class XmlConceptsComponent implements OnInit {
         element.get('base').setValue(amount);
         let base = element.get('base').value;
         let shareRate = element.get('shareRate').value;
-        
+
         if (shareRate != '') element.get('amount').setValue((Number(base) * Number(shareRate)).toFixed(2));
       });
     }

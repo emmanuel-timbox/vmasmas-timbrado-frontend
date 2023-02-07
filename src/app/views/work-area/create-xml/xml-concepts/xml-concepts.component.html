@@ -122,7 +122,7 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let taxControl of getControlTaxes(i).controls; let indexTax = index"
-                          [formGroupName]="indexTax" >
+                          [formGroupName]="indexTax">
                           <td>
                             <select class="form-control form-control-sm"
                               (change)="setValuesFormTax($event, indexTax, i)">
@@ -134,15 +134,17 @@
                           </td>
                           <td>
                             <input type="text" class="form-control form-control-sm"
-                              (keyup)="calculateAmountTaxForm(indexTax, i)" min="0" formControlName="base">
+                              (keyup)="calculateAmountTaxForm(indexTax, i)" min="0" formControlName="base"
+                              [readonly]="true">
                           </td>
                           <td>
-                            <input type="text" class="form-control form-control-sm" min="0"
-                              formControlName="typeFactor">
+                            <input type="text" class="form-control form-control-sm" min="0" formControlName="typeFactor"
+                              [readonly]="true">
                           </td>
                           <td>
                             <input type="text" class="form-control form-control-sm"
-                              (keyup)="calculateAmountTaxForm(indexTax, i)" min="0" formControlName="shareRate">
+                              (keyup)="calculateAmountTaxForm(indexTax, i)" min="0" formControlName="shareRate"
+                              [readonly]="true">
                           </td>
                           <td>
                             <h5 class="label-color "><b>$ {{taxControl.value.amount}}</b></h5>
@@ -182,7 +184,7 @@
   {{mainForm.value | json}}
 
   <div class="col-sm-12 d-flex justify-content-end">
-    <h4 class="mr-4" >Subtototal: <b>${{subtotal}}</b></h4>
+    <h4 class="mr-4">Subtototal: <b>${{subtotal}}</b></h4>
   </div>
   <div class="col-sm-12 d-flex justify-content-end" *ngIf="discount != ''">
     <h4 class="mr-4">Descuento: <b>${{discount}}</b></h4>
