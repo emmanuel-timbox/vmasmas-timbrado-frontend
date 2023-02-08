@@ -1,6 +1,6 @@
 
 import { MainComponent } from './main.component';
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -9,6 +9,7 @@ import { SettingsUserComponent } from './settings-user/settings-user.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { ReceiversComponent } from './settings-user/receivers/receivers.component';
 import { CertificatesComponent } from './settings-user/certificates/certificates.component';
+import { EmployeComponent } from './employe/employe.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'taxes', component: TaxesComponent },
       { path: 'receiver/:slug', component: ReceiversComponent },
       { path: 'certificate/:slug', component: CertificatesComponent },
+      { path: 'employe', component: EmployeComponent },
     ],
   },
 ];

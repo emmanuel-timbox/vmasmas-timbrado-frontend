@@ -1,11 +1,39 @@
-<p>
-  {{name}}
-</p>
-
 <div class="row">
   <div class="col-sm-12">
-    <div class="form-group">
-      <input class="form-control" (keyup)="prueba($event)">
+
+    <div class="col-sm-10">
+      <div class="card card-outline card-danger">
+        <div class="card-header">
+          <h4>Cargar Excel</h4>
+        </div>
+        <div class="card-body">
+          <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".xlsx">
+            <ngx-dropzone-label class="text-success">Cargar archivo</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of excel" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+
+          <div *ngIf="!isValid">
+            <div class="invalid-feedback-custom">{{errorMessage}}</div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="col-sm-12">
+      <div class="card card-outline card-danger">
+        <div class="card-header">
+          <h4>Datos del excel </h4>
+        </div>
+        <div class="card-body">
+        </div>
+      </div>
+    </div>
+
+
+
+
+
   </div>
 </div>
