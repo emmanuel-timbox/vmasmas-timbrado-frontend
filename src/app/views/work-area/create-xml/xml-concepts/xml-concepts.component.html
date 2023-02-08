@@ -181,16 +181,13 @@
     </div>
   </div>
 
-  {{mainForm.value | json}}
-
   <div class="col-sm-12 d-flex justify-content-end">
     <h4 class="mr-4">Subtototal: <b>${{subtotal}}</b></h4>
   </div>
-  <div class="col-sm-12 d-flex justify-content-end" *ngIf="discount != ''">
+  <div class="col-sm-12 d-flex justify-content-end" *ngIf="discount != '0.00' ">
     <h4 class="mr-4">Descuento: <b>${{discount}}</b></h4>
   </div>
   <div class="col-sm-12 d-flex justify-content-end pr-3">
     <h4 class="mr-4">Total: <b>${{total}}</b></h4>
   </div>
-
 </div>

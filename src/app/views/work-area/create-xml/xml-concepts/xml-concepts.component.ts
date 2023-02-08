@@ -21,8 +21,9 @@ export class XmlConceptsComponent implements OnInit {
   selectTaxObject!: string;
   total!: string;
   subtotal!: string;
-  discount: string = '';
+  discount!: string;
   totalForTax!: any;
+  dataConcept!: any;
 
   constructor(private _service: XmlConceptService, private _catalogs: CatalogsService,
     private swal: SweetAlertsService, private formBuilder: FormBuilder) { }
@@ -32,7 +33,7 @@ export class XmlConceptsComponent implements OnInit {
     this.mainForm = this.formBuilder.group({ concepts: this.formBuilder.array([]) });
     this.total = (0).toFixed(2);
     this.subtotal = (0).toFixed(2);
-
+    this.discount = (0).toFixed(2);
     this.getConcepts();
     this.getTaxObjectCat();
     this.getTaxes();
@@ -128,6 +129,7 @@ export class XmlConceptsComponent implements OnInit {
       }
 
       this.getControlTaxes(indexFormConcept).at(indexFormTax).patchValue(value);
+      this.calculteTotal();
     } else {
       messageError = 'Favor de seleccionar un valor valido.'
       this.swal.infoAlert('¡Verifica!', messageError);
@@ -139,16 +141,25 @@ export class XmlConceptsComponent implements OnInit {
 
   deleteConcept(conceptIndex: number): void {
     let conceptForm = this.getControl.at(conceptIndex);
-    let quantity = conceptForm.get('quantity')?.value;
-    let unitValue = conceptForm.get('unitValue')?.value;
-    let subtotal = this.subtotal;
+    let quantity: number = Number(conceptForm.get('quantity')?.value);
+    let unitValue: number = Number(conceptForm.get('unitValue')?.value);
+    let discount: number = Number(conceptForm.get('discount')?.value);
+    let subtotal: number = Number(this.subtotal);
+    let totalAmounts: number = 0;
+    let amountConcept: number = Number(quantity * unitValue);
+
     this.getControl.removeAt(conceptIndex);
-    this.subtotal = (Number(subtotal) - (Number(quantity) * Number(unitValue))).toFixed(2);
+    this.subtotal = (subtotal - amountConcept).toFixed(2);
+    this.discount = String((Number(this.discount) - discount).toFixed(2));
+
+    conceptForm.value.taxForm.forEach((element: any) => { totalAmounts += Number(element.amount); });
+    this.total = (Number(this.total) - ((amountConcept + totalAmounts) - discount)).toFixed(2);
   }
 
   deleteTaxForm(indexConceptForm: number) {
     let lengthTaxForm = this.getControlTaxes(indexConceptForm);
     let lostIndex: number = lengthTaxForm.value.length - 1;
+
     if (lengthTaxForm != 0) {
       this.getControlTaxes(indexConceptForm).removeAt(lostIndex);
     }
@@ -157,14 +168,18 @@ export class XmlConceptsComponent implements OnInit {
   setAmount(index: number): void {
     let unitValue: number = this.getControl.value[index].unitValue;
     let quantity: number = this.getControl.value[index].quantity;
+    let total: number = 0;
+
     this.getControl.at(index).get('amount')?.setValue(Number(unitValue * quantity).toFixed(2));
     this.setBaseAndImportTax(index);
-    let total: number = 0;
+    // se va calculando el subtotal
     this.getControl.controls.forEach(element => {
       let amount: number = Number(element.get('quantity')?.value) * Number(element.get('unitValue')?.value);
       total += amount;
     });
+
     this.subtotal = String((total).toFixed(2));
+    this.calculteTotal();
   }
 
   calculateDiscont(index: number): void {
@@ -173,6 +188,7 @@ export class XmlConceptsComponent implements OnInit {
     let discount: number = this.getControl.value[index].discount;
     let total = Number((unitValue * quantity) - discount).toFixed(2);
     let totalDescount = 0;
+
     this.getControl.at(index).get('amount')?.setValue(total);
     this.setBaseAndImportTax(index);
     this.getControl.controls.forEach(element => {
@@ -180,17 +196,30 @@ export class XmlConceptsComponent implements OnInit {
       totalDescount += Number(discount);
     });
     this.discount = String(totalDescount.toFixed(2));
+
+    this.calculteTotal();
   }
 
   calculateAmountTaxForm(indexTaxForm: number, indexFormConcept: number) {
     let taxForm = this.getControlTaxes(indexFormConcept);
     let base: number = Number(taxForm.at(indexTaxForm).get('base').value);
     let shareRate: number = Number(taxForm.at(indexTaxForm).get('shareRate').value);
+
     taxForm.at(indexTaxForm).get('amount').setValue((base * shareRate).toFixed(2));
   }
 
-  calculteTotal() {
-    console.log('hola mungo');
+  private calculteTotal() {
+    let total: number = 0
+
+    this.getControl.value.forEach((formConcept: any) => {
+      let totalForTaxes: number = 0;
+      formConcept.taxForm.forEach((element: any) => {
+        totalForTaxes += Number(element.amount);
+      });
+      total += totalForTaxes;
+    });
+
+    this.total = (total + Number(this.subtotal) - Number(this.discount)).toFixed(2);
   }
 
   private getTaxObjectCat(): void {
@@ -238,7 +267,6 @@ export class XmlConceptsComponent implements OnInit {
         return;
       }
     });
-
     return exist;
   }
 
