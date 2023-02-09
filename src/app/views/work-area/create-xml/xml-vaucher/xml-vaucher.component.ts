@@ -11,15 +11,16 @@ import { XmlVaucherService } from './../../../../services/create-xml/xml-vaucher
 export class XmlVaucherComponent implements OnInit {
   @Output() emitterVaucher = new EventEmitter<any>();
 
+  currentCatalog!: any;
+  payMethodCatalog!: any;
   formVaucher: FormGroup = new FormGroup({});
   summitForm: boolean = false;
 
   constructor(private _services: XmlVaucherService, private _catalogs: CatalogsService,
     private formBuilder: FormBuilder) { }
 
-  currentCatalog!: any
-
   ngOnInit(): void {
+    this.getPayMethods();
     this.getCurrentCatalog();
     this.formVaucher = this.formBuilder.group(this._services.getDataValidateReceiver());
   }
@@ -34,6 +35,13 @@ export class XmlVaucherComponent implements OnInit {
     });
 
     if (this.formVaucher.invalid) { return }
+  }
+
+  private getPayMethods(){
+    this._catalogs.getPayMethodsCat().subscribe({
+      next: response => { this.payMethodCatalog = response },
+      error: error => { console.log(error) }
+    });
   }
 
   private getCurrentCatalog(): void {

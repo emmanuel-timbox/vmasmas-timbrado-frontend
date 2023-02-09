@@ -3,23 +3,12 @@
 
     <div class="form-group col-sm-4">
       <label>Serie:</label>
-      <input type="text" class="form-control is-valid" formControlName="serie"
-        [ngClass]="{ 'is-invalid': summitForm && f['serie'].errors }">
-
-      <div *ngIf="summitForm && f['serie'].errors" class="invalid-feedback">
-        <div *ngIf="f['serie'].errors['required']">El campo de Serie es requerido</div>
-      </div>
-
+      <input type="text" class="form-control is-valid" formControlName="serie">
     </div>
-
+    
     <div class="form-group col-sm-4">
       <label>Folio:</label>
-      <input type="text" class="form-control is-valid" formControlName="invoice"
-        [ngClass]="{ 'is-invalid': summitForm && f['invoice'].errors }">
-
-      <div *ngIf="summitForm && f['invoice'].errors" class="invalid-feedback">
-        <div *ngIf="f['invoice'].errors['required']">El campo de Filio es requerido</div>
-      </div>
+      <input type="text" class="form-control is-valid" formControlName="invoice">
     </div>
 
     <div class="form-group col-sm-4">
@@ -67,6 +56,26 @@
       <div *ngIf="summitForm && f['voucherType'].errors" class="invalid-feedback">
         <div *ngIf="f['voucherType'].errors['required']">El campo de Moneda es requerido</div>
       </div>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <label>Metodo de Pago</label>
+      <select class="form-control is-valid" formControlName="payMethod">
+        <option selected value="">Seleccione una opcion</option>
+        <option value="PUE">Pago en una sola exhibición - PUE</option>
+        <option value="PPD">Pago en parcialidades o diferido - PPD</option>
+      </select>
+    </div>
+
+
+    <div class="form-group col-sm-4">
+      <label>Forma de Pago</label>
+      <select class="form-control is-valid" formControlName="wayToPay">
+        <option selected value="">Seleccione una opcion</option>
+        <option value="PUE" *ngFor="let payMethod of payMethodCatalog" value="{{payMethod.forma_pago}}">
+          {{payMethod.forma_pago}} -- {{payMethod.descripcion}}
+        </option>
+      </select>
     </div>
 
   </div>

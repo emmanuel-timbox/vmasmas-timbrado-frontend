@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { XmlConceptService } from './../../../../services/create-xml/xml-concept.service';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
@@ -12,6 +12,8 @@ import { CatalogsService } from 'src/app/services/catalogs.service';
 
 export class XmlConceptsComponent implements OnInit {
 
+  @Output() emitterConcept = new EventEmitter<any>();
+
   dataConcepts!: any;
   itemsAccordion: any = []
   formAddConcept: FormGroup = new FormGroup({});
@@ -23,20 +25,33 @@ export class XmlConceptsComponent implements OnInit {
   subtotal!: string;
   discount!: string;
   totalForTax!: any;
-  dataConcept!: any;
+  resultData!: any;
 
   constructor(private _service: XmlConceptService, private _catalogs: CatalogsService,
     private swal: SweetAlertsService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.formAddConcept = this.formBuilder.group(this._service.getDataValidateConcept());
-    this.mainForm = this.formBuilder.group({ concepts: this.formBuilder.array([]) });
+    this.mainForm = this.formBuilder.group({
+      total: '', subtotal: '', discount: '',
+      concepts: this.formBuilder.array([])
+    });
     this.total = (0).toFixed(2);
     this.subtotal = (0).toFixed(2);
     this.discount = (0).toFixed(2);
     this.getConcepts();
     this.getTaxObjectCat();
     this.getTaxes();
+  }
+
+  regitrerConcept() {
+    let existConcepts: number = this.mainForm.value.concepts.length;
+    let isInvalid: boolean = existConcepts == 0 ? true : false;
+
+    this.mainForm.get('total')?.setValue(this.total);
+    this.mainForm.get('subtotal')?.setValue(this.subtotal);
+    this.mainForm.get('discount')?.setValue(this.discount);
+    this.emitterConcept.emit({ conceptForm: this.mainForm.value, isInvalid: isInvalid });
   }
 
   getConcepts(): void {

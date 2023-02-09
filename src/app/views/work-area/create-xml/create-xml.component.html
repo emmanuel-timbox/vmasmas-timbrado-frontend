@@ -23,14 +23,14 @@
             </ng-wizard-step>
 
             <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">
-              <app-xml-concepts></app-xml-concepts>
+              <app-xml-concepts (emitterConcept)="receiverFormConcept = $event"></app-xml-concepts>
             </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Step 5'" [description]="'Step 5 description'">
+            <ng-wizard-step [title]="'Step 5'" [description]="'Step 5 description'" *ngIf="isPayRoll">
               <span>Step 5 content</span>
             </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'">
+            <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'" *ngIf="isPayRoll">
               <span>Step 6 content</span>
             </ng-wizard-step>
           </ng-wizard>
@@ -55,8 +55,11 @@
           </div>
 
         </div>
-
       </div>
     </form>
   </div>
+
+  <a type="button" class="btn btn-success" (click)="createXml()">prueba</a>
+
 </div>
+

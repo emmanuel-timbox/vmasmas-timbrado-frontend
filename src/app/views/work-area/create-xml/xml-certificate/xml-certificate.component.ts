@@ -41,7 +41,7 @@ export class XmlCertificateComponent implements OnInit {
     this.summitFormCert = true;
     this.emitFormCertificate.emit({
       formCerticate: this.formCertificate.value,
-      isInValid: invalid,
+      isInvalid: invalid,
       file: this.files[0]
     });
 
