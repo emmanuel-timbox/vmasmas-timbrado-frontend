@@ -24,6 +24,7 @@ import { XmlReceiverComponent } from './create-xml/xml-receiver/xml-receiver.com
 import { XmlConceptsComponent } from './create-xml/xml-concepts/xml-concepts.component';
 import { ConceptsComponent } from './taxes/concepts/concepts.component';
 import { EmployeComponent } from './employe/employe.component';
+import { XmlPreviewComponent } from './create-xml/xml-preview/xml-preview.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { EmployeComponent } from './employe/employe.component';
     XmlReceiverComponent,
     XmlConceptsComponent,
     ConceptsComponent,
-    EmployeComponent
+    EmployeComponent,
+    XmlPreviewComponent
   ],
   imports: [
     CommonModule,
