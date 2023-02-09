@@ -29,6 +29,7 @@ export class CreateXmlComponent implements OnInit {
   isPayRoll: boolean = false
   numberStep!: number;
   stepTitle!: string;
+  cfdiJson!: any;
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   certificateData!: any;
@@ -114,8 +115,8 @@ export class CreateXmlComponent implements OnInit {
         break;
     }
     // por cuestiones de test se comenta
-    // if (!canNext) { this.ngWizardService.next(); }
-    this.ngWizardService.next();
+    if (!canNext) { this.ngWizardService.next(); }
+    // this.ngWizardService.next();
   }
 
   resetWizard() {
@@ -137,17 +138,16 @@ export class CreateXmlComponent implements OnInit {
           }
 
           this.conceptData = this.receiverFormConcept;
-
-          this.assembleConceptNode(this.conceptData.conceptForm);
+          this.cfdiJson = this.createXml();
 
         } else {
-
+          //esta parte se va generar xml pero de nomina
         }
       }
     });
   }
 
-  createXml(): void {
+  private createXml(): any {
     let dataCertificate = this.certificateData.formCerticate;
     let dataConcept = this.conceptData.conceptForm;
     let dataVaucher = this.vaucherData.formVaucher;
@@ -189,6 +189,9 @@ export class CreateXmlComponent implements OnInit {
       'cfdi:Conceptos': this.assembleConceptNode(dataConcept)
     };
 
+    let taxNode = this.assembleTaxtNode(dataConcept)
+    if (Object.keys(taxNode).length > 0) xmlJson['cfdi:Impuestos'] = this.assembleTaxtNode(dataConcept);
+
     // atributos condicionales o opcionales de nodos de Comprobante
     if (dataVaucher.invoice != '') xmlJson['@']['Folio'] = dataVaucher.invoice;
     if (dataVaucher.serie != '') xmlJson['@']['Serie'] = dataVaucher.serie;
@@ -200,13 +203,11 @@ export class CreateXmlComponent implements OnInit {
     if (dataReceiver.fiscalIdNumber != '') xmlJson['cfdi:Receptor']['@']['NumRegIdTrib'] = dataReceiver.fiscalIdNumber;
     if (dataReceiver.taxResidence != '') xmlJson['cfdi:Receptor']['@']['ResidenciaFiscal'] = dataReceiver.taxResidence;
 
-    console.log(JsonToXML.parse('cfdi:Comprobante', xmlJson))
+    return JsonToXML.parse('cfdi:Comprobante', xmlJson);
   }
 
   private assembleConceptNode(dataConcept: any): any {
     let conceptResult: any = { 'cfdi:Concepto': [] };
-
-    console.log(dataConcept)
 
     dataConcept.concepts.forEach((concept: any) => {
       let data: any = {
@@ -264,20 +265,97 @@ export class CreateXmlComponent implements OnInit {
         if (withholdings.length > 0) data['cfdi:Impuestos']['cfdi:Retenciones'] = { 'cfdi:Retencion': withholdings };
       }
 
-      conceptResult['cfdi:Concept'].push(data);
+      conceptResult['cfdi:Concepto'].push(data);
     });
 
     return conceptResult;
   }
 
-  // private assembleAmountNode(dataConcepts: any): any {
+  private assembleTaxtNode(dataConcepts: any): any {
+    let amountResult: any = {};
+    let transfers: any = [];
+    let withholdings: any = [];
 
-  //   let amountResult: any = { 'cfdi:Impuestos': {} };
+    dataConcepts.concepts.forEach((concept: any) => {
+      concept.taxForm.forEach((tax: any) => {
+        if (tax.nodeType == 'Traslado') transfers.push(tax);
+        if (tax.nodeType == 'Retencion') withholdings.push(tax);
+      });
+    });
 
-  //   dataConcepts.concepts.forEach((concept: any) => {
+    if (transfers.length > 0) {
+      let result: any = [];
+      let resultTransfers: any = this.agroupTransferTax(transfers);
 
-  //   });
+      resultTransfers.forEach((element: any) => {
+        let tax = {
+          '@': {
+            Base: element.base,
+            Impuesto: element.tax,
+            TipoFactor: element.typeFactor,
+            TasaOCuota: element.shareRate,
+            Importe: element.amount
+          }
+        };
+        result.push(tax);
+      });
 
-  // }
+      amountResult['cfdi:Traslados'] = { 'cfdi:Traslado': result };
+    }
+
+    if (withholdings.length > 0) {
+      let result: any = []
+      let resultWithholdings: any = this.agroupWithholdingsTax(withholdings);
+
+      resultWithholdings.forEach((element: any) => {
+        let tax = {
+          '@': {
+            Impuesto: element.tax,
+            Importe: element.amount
+          }
+        };
+        result.push(tax);
+      });
+
+      amountResult['cfdi:Retenciones'] = { 'cfdi:Retencion': result };
+    }
+
+    return amountResult;
+  }
+
+  private agroupTransferTax(rawTax: any): any {
+    const resultData = rawTax.reduce((arrGroup: any, current: any) => {
+
+      let thatItem: any = arrGroup.find((item: any) => (item.tax == current.tax
+        && item.typeFactor == current.typeFactor && item.shareRate == current.shareRate));
+
+      if (thatItem == undefined) arrGroup = [...arrGroup, { ...current }];
+      else {
+        current.amount = Number(current.amount);
+        thatItem.amount = Number(thatItem.amount);
+        thatItem.amount += current.amount;
+      }
+      return arrGroup;
+    }, []);
+
+    return resultData
+  }
+
+  private agroupWithholdingsTax(rawTax: any): any {
+    const resultData = rawTax.reduce((arrGroup: any, current: any) => {
+
+      let thatItem: any = arrGroup.find((item: any) => (item.tax == current.tax));
+
+      if (thatItem == undefined) arrGroup = [...arrGroup, { ...current }];
+      else {
+        current.amount = Number(current.amount);
+        thatItem.amount = Number(thatItem.amount);
+        thatItem.amount += current.amount;
+      }
+      return arrGroup;
+    }, []);
+
+    return resultData
+  }
 
 }
