@@ -13,8 +13,8 @@ export class XmlVaucherService {
 
   getDataValidateReceiver() {
     return {
-      serie: ['', [Validators.pattern(this.nonWhitespaceRegExp)]],
-      invoice: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      serie: [''],
+      invoice: [''],
       export: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
       coin: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
       voucherType: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],

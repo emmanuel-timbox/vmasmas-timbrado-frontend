@@ -29,7 +29,7 @@ export class CreateXmlComponent implements OnInit {
   isPayRoll: boolean = false
   numberStep!: number;
   stepTitle!: string;
-  cfdiJson!: any;
+  cfdi!: any;
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   certificateData!: any;
@@ -138,7 +138,8 @@ export class CreateXmlComponent implements OnInit {
           }
 
           this.conceptData = this.receiverFormConcept;
-          this.cfdiJson = this.createXml();
+          this.cfdi = this.createXml();
+          console.log(this.cfdi);
 
         } else {
           //esta parte se va generar xml pero de nomina
