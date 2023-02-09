@@ -31,7 +31,7 @@ export class XmlReceiverComponent implements OnInit {
   registrerReceiveNode() {
     this.summitForm = true;
     this.emitterReceiver.emit({
-      formReceiver: this.formReceiver,
+      formReceiver: this.formReceiver.value,
       isInvalid: this.formReceiver.invalid
     });
     if (this.formReceiver.invalid) { return }

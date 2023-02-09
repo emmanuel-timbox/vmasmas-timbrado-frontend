@@ -5,9 +5,7 @@ import { XmlCertificateComponent } from './xml-certificate/xml-certificate.compo
 import { XmlReceiverComponent } from './xml-receiver/xml-receiver.component';
 import { XmlVaucherComponent } from './xml-vaucher/xml-vaucher.component';
 import { XmlConceptsComponent } from './xml-concepts/xml-concepts.component';
-import * as xml2js from 'xml2js';
 import * as JsonToXML from 'js2xmlparser';
-import { data } from 'jquery';
 
 @Component({
   selector: 'app-create-xml',
@@ -137,7 +135,10 @@ export class CreateXmlComponent implements OnInit {
             this.swal.infoAlert('¡Revisa!', message);
             return;
           }
+
           this.conceptData = this.receiverFormConcept;
+
+          this.assembleConceptNode(this.conceptData.conceptForm);
 
         } else {
 
@@ -146,10 +147,11 @@ export class CreateXmlComponent implements OnInit {
     });
   }
 
-  createXml() {
+  createXml(): void {
     let dataCertificate = this.certificateData.formCerticate;
     let dataConcept = this.conceptData.conceptForm;
     let dataVaucher = this.vaucherData.formVaucher;
+    let dataReceiver = this.receiverData.formReceiver;
 
     let xmlJson: any = {
       '@': {
@@ -170,22 +172,112 @@ export class CreateXmlComponent implements OnInit {
       },
       'cfdi:Emisor': {
         '@': {
-          Rfc: '',
-          Nombre: '',
-          RegimenFiscal: ''
+          Rfc: dataCertificate.rfc,
+          Nombre: dataCertificate.bussinessName,
+          RegimenFiscal: dataCertificate.taxRegime
         }
-      }
+      },
+      'cfdi:Receptor': {
+        '@': {
+          Rfc: dataReceiver.rfc,
+          Nombre: dataReceiver.bussinessName,
+          DomicilioFiscalReceptor: dataReceiver.taxDomicile,
+          RegimenFiscalReceptor: dataReceiver.taxRegime,
+          UsoCFDI: dataReceiver.cfdiUse
+        }
+      },
+      'cfdi:Conceptos': this.assembleConceptNode(dataConcept)
     };
 
+    // atributos condicionales o opcionales de nodos de Comprobante
     if (dataVaucher.invoice != '') xmlJson['@']['Folio'] = dataVaucher.invoice;
     if (dataVaucher.serie != '') xmlJson['@']['Serie'] = dataVaucher.serie;
-    if (dataConcept.discount != '0.00')  xmlJson['@']['Descuento'] = dataConcept.discount;
-    if (dataVaucher.payMethod != '')  xmlJson['@']['FormaPago'] = dataVaucher.payMethod;
-    if (dataVaucher.wayToPay != '')  xmlJson['@']['MetodoPago'] = dataVaucher.wayToPay;
+    if (dataConcept.discount != '0.00') xmlJson['@']['Descuento'] = dataConcept.discount;
+    if (dataVaucher.payMethod != '') xmlJson['@']['FormaPago'] = dataVaucher.payMethod;
+    if (dataVaucher.wayToPay != '') xmlJson['@']['MetodoPago'] = dataVaucher.wayToPay;
 
-    console.log(xmlJson['@'])
+    //atributos opcionales del nodo de Receptor
+    if (dataReceiver.fiscalIdNumber != '') xmlJson['cfdi:Receptor']['@']['NumRegIdTrib'] = dataReceiver.fiscalIdNumber;
+    if (dataReceiver.taxResidence != '') xmlJson['cfdi:Receptor']['@']['ResidenciaFiscal'] = dataReceiver.taxResidence;
 
     console.log(JsonToXML.parse('cfdi:Comprobante', xmlJson))
   }
+
+  private assembleConceptNode(dataConcept: any): any {
+    let conceptResult: any = { 'cfdi:Concepto': [] };
+
+    console.log(dataConcept)
+
+    dataConcept.concepts.forEach((concept: any) => {
+      let data: any = {
+        '@': {
+          ClaveProdServ: concept.productKey,
+          Cantidad: concept.quantity,
+          ClaveUnidad: concept.unitKey,
+          Descripcion: concept.description,
+          ValorUnitario: concept.unitValue,
+          Importe: concept.amount,
+          ObjetoImp: concept.taxObject
+        }
+      };
+
+      if (concept.discount != '') data['@']['Descuento'] = concept.discount;
+      if (concept.idNumber != '') data['@']['NoIdentificacion'] = concept.idNumber;
+      if (concept.unit != '') data['@']['Unidad'] = concept.unit;
+
+      //Armado de impuestos por tipo Retencion o Traslado
+      if (concept.taxForm.length > 0) {
+        let transfers: any = [];
+        let withholdings: any = [];
+
+        data['cfdi:Impuestos'] = {};
+
+        concept.taxForm.forEach((tax: any) => {
+          if (tax.nodeType == 'Traslado') {
+            let transfer = {
+              '@': {
+                Base: tax.base,
+                Impuesto: tax.tax,
+                TipoFactor: tax.typeFactor,
+                TasaOCuota: tax.shareRate,
+                Importe: tax.amount
+              }
+            };
+            transfers.push(transfer);
+          }
+
+          if (tax.nodeType == 'Retencion') {
+            let retention = {
+              '@': {
+                Base: tax.base,
+                Impuesto: tax.tax,
+                TipoFactor: tax.typeFactor,
+                TasaOCuota: tax.shareRate,
+                Importe: tax.amount
+              }
+            };
+            withholdings.push(retention);
+          }
+        });
+
+        if (transfers.length > 0) data['cfdi:Impuestos']['cfdi:Traslados'] = { 'cfdi:Traslado': transfers };
+        if (withholdings.length > 0) data['cfdi:Impuestos']['cfdi:Retenciones'] = { 'cfdi:Retencion': withholdings };
+      }
+
+      conceptResult['cfdi:Concept'].push(data);
+    });
+
+    return conceptResult;
+  }
+
+  // private assembleAmountNode(dataConcepts: any): any {
+
+  //   let amountResult: any = { 'cfdi:Impuestos': {} };
+
+  //   dataConcepts.concepts.forEach((concept: any) => {
+
+  //   });
+
+  // }
 
 }
