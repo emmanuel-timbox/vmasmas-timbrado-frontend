@@ -1,3 +1,7 @@
+<div class="col-sm-12 pb-3">
+  <h4>Esta es una representacion grafica del comprobante antes de Timbrado. </h4>
+</div>
+
 <ul class="nav nav-tabs" id="myTab" role="tablist">
 
   <li class="nav-item" role="presentation">
@@ -20,77 +24,55 @@
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
     <div class="row pt-4">
       <div class="col-sm-12 container-pdf">
-   
+
         <div class="container">
           <div class="row p-5">
 
-            <div class="col-sm-4 pt-3">
+            <div class="col-sm-5 pt-1">
               <div class="row">
-                <img src="../../../../../assets/images/logos/vemasmas2.png" width="300">
+                <img src="../../../../../assets/images/logos/logo-vmasmas-3.png" width="150">
               </div>
-              <div class="row text-1 pt-5">
+              <div class="row text-1 pt-2">
                 <p>
                   <b>VEMASMAS</b><br>
-                  <b>San Isidro 730, San Isidro Juriquilla, 76226 Santiago de Querétaro, Qro.</b><br>
-                  <b>RFC:</b> RFCDEPRUEBA<br><br>
-                  <b>REGIMEN FISCAL:</b> 603 - Personas Morales con Fines no Lucrativos<br><br>
+                  <b>San Isidro 730, San Isidro Juriquilla, 76226 Santiago de Querétaro, Qro.</b><br><br>
+                  <b class="text-primary"> {{cfdiJson['cfdi:Emisor']['@']['Nombre']}}</b><br>
+                  <b>RFC:</b> {{cfdiJson['cfdi:Emisor']['@']['Rfc']}}<br>
+                  <b>REGIMEN FISCAL:</b> {{cfdiJson['cfdi:Emisor']['@']['RegimenFiscal']}} -
+                  {{taxDescriptionRegimen}}<br><br>
                 </p>
               </div>
             </div>
 
-            <div class="col-sm-8 text-2 d-flex justify-content-end">
+            <div class="col-sm-7 text-2 d-flex justify-content-end">
               <p>
-                FOLIO FISCAL: ---------------------------------------------------------------------------------- <br>
-                NO. DE SERIE DEL CSD DEL EMISOR: --------------------------------------------------------------- <br>
-                NO. SERIE CERTIFICADO SAT: -------------------------------------------------------------------- <br>
-                FECHA Y HORA DE EMISIÓN: ----------------------------------------------------------------------- <br>
-                FECHA Y HORA DE CERTIFICACIÓN: ---------------------------------------------------------------- <br>
-                TIPO DE CFDI: ---------------------------------------------------------------------------------- <br>
-                SERIE Y FOLIO: -------------------------------------------------------------------------------- <br>
-                USO CFDI: ------------------------------------------------------------------------------------- <br>
+                <b>FOLIO FISCAL</b>: 83AA45DE-5B4F-4448-B787-9814EE0DC105 <br>
+                <b>NO. DE SERIE DEL CSD DEL EMISOR</b>: {{cfdiJson['@']['NoCertificado']}} <br>
+                <b>FECHA Y HORA DE EMISIÓN</b>: {{issueDay}} <br>
+                <b>LUGAR DE EXPEDICION</b>: {{ cfdiJson['@']['LugarExpedicion']}} <br>
+                <b>TIPO DE CFDI</b>: {{cfdiJson['@']['TipoDeComprobante']}} -
+                {{vaucherType[this.cfdiJson['@']['TipoDeComprobante']]}} <br>
+                <b>SERIE</b>: {{ cfdiJson['@']['Serie'] == undefined ? '---' : cfdiJson['@']['Serie']}} <br>
+                <b>FOLIO</b>: {{ cfdiJson['@']['Folio'] == undefined ? '---' : cfdiJson['@']['Folio']}}<br>
+                <br>
               </p>
-            </div>
-
-            <div class="col-sm-12 pt-4 pr-0 pl-0">
-              <table class="table caption-top text-2">
-                <thead class="table-sm">
-                  <tr>
-                    <th scope="col">CONTRIBUYENTE/PROPIETARIO</th>
-                    <th scope="col">LUGAR DE EXPEDICIÓN</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <b>NOMBRE:</b> ---------------------------- <br>
-                      <b>RFC Receptor:</b> ---------------------- <br>
-                    </td>
-                    <td> --------------------------------------- </td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
 
             <div class="col-sm-12 pt-2 pr-0 pl-0">
               <table class="table caption-top text-2">
                 <thead class="table-sm">
                   <tr>
-                    <th colspan="3">INFORMACIÓN ADICIONAL</th>
+                    <th colspan="2">CONTRIBUYENTE/PROPIETARIO</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>
-                      <b>MUNICIPIO:</b> ---------------------------- <br>
-                      <b>FECHA DE PAGO:</b> ------------------------ <br>
+                    <td class="pt-0">
+                      <b>NOMBRE:</b> {{cfdiJson['cfdi:Receptor']['@']['Nombre']}} <br>
+                      <b>RFC Receptor:</b> {{cfdiJson['cfdi:Receptor']['@']['Rfc']}} <br>
                     </td>
-                    <td>
-                      <b>RECEPTOR:</b> ----------------------------- <br>
-                      <b>MODALIDAD:</b> ---------------------------- <br>
-                    </td>
-                    <td>
-                      <b>NO. OPERACIÓN:</b> ------------------------ <br>
-                      <b>NO. CONFIRMACIÓN:</b> --------------------- <br>
+                    <td class="pt-0">
+                      <b>Uso de CFDI:</b> {{cfdiJson['cfdi:Receptor']['@']['UsoCFDI']}} - {{useCfdiDescription}}
                     </td>
                   </tr>
                 </tbody>
@@ -112,20 +94,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td> ---------------- </td>
-                    <td> ---------------- </td>
-                    <td> ---------------- </td>
-                    <td> ---------------- </td>
-                    <td> ---------------- </td>
-                    <td>
-                      ---------------------------------------------------------------
-                      ---------------------------------------------------------------
-                      ---------------------------------------------------------------
-                      ---------------------------------------------------------------
+                  <tr *ngFor="let concept of concepts">
+                    <td class="pt-0"> {{concept['@'].ClaveProdServ}} </td>
+                    <td class="pt-0">
+                      {{concept['@'].NoIdentificacion == undefined ? '--' : concept['@'].NoIdentificacion }}
                     </td>
-                    <td> ---------------- </td>
-                    <td> ---------------- </td>
+                    <td class="pt-0"> {{concept['@'].Cantidad}} </td>
+                    <td class="pt-0"> {{concept['@'].ClaveUnidad}} </td>
+                    <td class="pt-0"> {{concept['@'].Unidad}} </td>
+                    <td class="pt-0"> {{concept['@'].Descripcion}} </td>
+                    <td class="pt-0"> {{concept['@'].ValorUnitario}} </td>
+                    <td class="pt-0"> {{concept['@'].Importe}} </td>
                   </tr>
                 </tbody>
               </table>
@@ -133,23 +112,53 @@
 
             <div class="col-sm-12 pt-2 pr-0 pl-0 text-2 ">
               <div class="row">
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <b>IMPORTE CON LETRA:</b> ------------------------------------ <br>
-                  <b>FORMA DE PAGO:</b> ---------------------------------------- <br>
-                  <b>MÉTODO DE PAGO:</b> --------------------------------------- <br>
+                  <b>FORMA DE PAGO:</b> {{cfdiJson['@']['FormaPago'] == undefined ? '---' : cfdiJson['@']['Serie'] }}
+                  <br>
+                  <b>MÉTODO DE PAGO:</b> {{cfdiJson['@']['MetodoPago'] == undefined ? '---' : cfdiJson['@']['Serie'] }}
+                  <br>
                 </div>
-                <div class="col-sm-3 text-1">
-                  <b class="text-primary">TOTAL:</b> $------------ <br>
+                <div class="col-sm-4">
+                  <b>SUBTOTAL:</b> ${{cfdiJson['@']['SubTotal']}} <br>
+
+                  <div *ngIf="cfdiJson['@']['Descuento'] != undefined">
+                    <b>DESCUENTO:</b> ${{cfdiJson['@']['Descuento']}}
+                  </div>
+
+                  <div *ngIf="cfdiJson['cfdi:Impuestos'] != undefined">
+
+                    <div *ngIf="cfdiJson['cfdi:Impuestos']['cfdi:Traslados'] != undefined">
+                      <div *ngFor="let traslado of cfdiJson['cfdi:Impuestos']['cfdi:Traslados']['cfdi:Traslado']">
+                        <b> {{taxType[ traslado['@']['Impuesto'] ]}} TRASLADADO (%{{traslado['@']['TasaOCuota']}}) :</b> ${{traslado['@']['Importe']}}
+                      </div>
+                    </div>
+
+                    <div *ngIf="cfdiJson['cfdi:Impuestos']['cfdi:Retenciones'] != undefined">
+                      <div *ngFor="let traslado of cfdiJson['cfdi:Impuestos']['cfdi:Retenciones']['cfdi:Retencion']">
+                        <b> {{taxType[ traslado['@']['Impuesto'] ]}} RETENIDO: </b> ${{traslado['@']['Importe']}}
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <b class="text-primary text-total">TOTAL:</b> ${{cfdiJson['@']['Total']}} <br>
                 </div>
               </div>
             </div>
 
             <div class="col-sm-12 pt-4 pr-0 pl-0 text-3">
               <b>SELLO DIGITAL DEL CFDI</b><br>
+              <p class="text-2">
+                J2lLBEy5ryuLt4nNSzWGfBP0IG21xVdAId9Vp1wD9mC1UsV7F6Z3GLBP94vubirhIfBDRNuMx7PRCUMKwd9yQXs727pASY1jiPjQS8/rlr0ccf65g7qBkiu832a6AUuNi50KQQPt0vKIvUEmQZXiRHItsibkqrcToSiqEqS2EYXoS7GMFKJd55pv/nM12iGyKNYDlmXF0xyLBh+w4KVEPQGBE3LU4HZtOhVXK/yrtv0lUz4eCiAZy5tBi2dXPSqvHFYqSviU1YZzrNpj11WySX11MKMVnrzEx3QL48kYx+GgoBj9mYmuvRBH1Amag9nsyCpJQSp2daY0PwSHi7yWoQ==
+              </p>
             </div>
 
             <div class="col-sm-12 pt-4 pr-0 pl-0 text-3">
               <b>SELLO DEL SAT</b><br>
+              <p class="text-2">
+                J2lLBEy5ryuLt4nNSzWGfBP0IG21xVdAId9Vp1wD9mC1UsV7F6Z3GLBP94vubirhIfBDRNuMx7PRCUMKwd9yQXs727pASY1jiPjQS8/rlr0ccf65g7qBkiu832a6AUuNi50KQQPt0vKIvUEmQZXiRHItsibkqrcToSiqEqS2EYXoS7GMFKJd55pv/nM12iGyKNYDlmXF0xyLBh+w4KVEPQGBE3LU4HZtOhVXK/yrtv0lUz4eCiAZy5tBi2dXPSqvHFYqSviU1YZzrNpj11WySX11MKMVnrzEx3QL48kYx+GgoBj9mYmuvRBH1Amag9nsyCpJQSp2daY0PwSHi7yWoQ==
+              </p>
             </div>
 
             <div class="col-sm-3 pt-4 pr-0 pl-0 text-4">
@@ -158,22 +167,22 @@
 
             <div class="col-sm-9 pt-4 pr-0 pl-0 text-3">
               <b>CADENA ORIGINAL DEL COMPLEMENTO DE CERTIFICACIÓN DIGITAL</b><br>
+              <p class="text-2 ">
+                ||183A25D5-7644-4A28-A105-8C516915DB6B|2023-02-10T10:53:05|IAD121214B34|J2lLBEy5ryuLt4nNSzWGfBP0IG21xVdAId9Vp1wD9mC1UsV7F6Z3GLBP94vubirhIfBDRNuMx7PRCUMKwd9yQXs727pASY1jiPjQS8/rlr0ccf65g7qBkiu832a6AUuNi50KQQPt0vKIvUEmQZXiRHItsibkqrcToSiqEqS2EYXoS7GMFKJd55pv/nM12iGyKNYDlmXF0xyLBh+w4KVEPQGBE3LU4HZtOhVXK/yrtv0lUz4eCiAZy5tBi2dXPSqvHFYqSviU1YZzrNpj11WySX11MKMVnrzEx3QL48kYx+GgoBj9mYmuvRBH1Amag9nsyCpJQSp2daY0PwSHi7yWoQ==|E5vXZjHL//e2HEND66Qk/T3sdjvE7g2dRy8xqyt+unvuzpzMcECJDKwejLjQmi1qMHTFRpeIVXKyTQ1QFqFRQmOOszcjkrnRBifYm7bkN4ZekELhX65EHmXxgZ/bhabUTnrhnVf4ypmGxbPt7IUJHzMfPGd7rrwHXbWKQe8xRuQPdLGHTCd04hRQvKuNUdEDBzkv5iVTFn0KoWLSQwIeRia2QCUa/bqEAmEj+ljgiw5I2XEk6Og0wyiZwUpszabGuu4coLMPISxd0TOU5L1zOnS6xTDVp9c98abFHurqPCMu1rfKEE2qHKUOj7aVH9qhNqBr/72IqSnunRuH1eIGwg==|00001000000504587441||
+              </p>
             </div>
 
             <div class="col-sm-12 pt-5">
               <hr width="100%" color="green" />
             </div>
 
-
             <div class="col-sm-12 pt-4 pr-0 pl-0 text-3 d-flex justify-content-center">
-
               <b>ESTE DOCUMENTO ES UNA REPRESENTACiÓN IMPRESA DE UN CFDI</b><br>
             </div>
 
           </div>
 
         </div>
-
       </div>
     </div>
   </div>

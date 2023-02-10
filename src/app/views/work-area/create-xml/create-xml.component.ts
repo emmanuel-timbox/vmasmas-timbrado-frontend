@@ -144,7 +144,7 @@ export class CreateXmlComponent implements OnInit {
 
           let dataCreateXml: any = this.createXml();
           this.cfdi = dataCreateXml.xml;
-          this.cfdiJson = dataCreateXml.json;
+          this.cfdiJson = dataCreateXml.jsonData;
           this.showPreeview = true;
 
         } else {

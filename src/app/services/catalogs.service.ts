@@ -15,7 +15,7 @@ export class CatalogsService {
   constructor(private httpClient: HttpClient) { }
 
   getTaxRegimenCat() {
-    return this.httpClient.get(this.pathTaxRegimenCat);
+    return this.httpClient.get(`${this.pathCatalogs}/cat_tax_regimes.json`);
   }
 
   getCurrenciesCat() {
