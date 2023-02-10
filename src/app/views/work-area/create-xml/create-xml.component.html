@@ -1,10 +1,10 @@
 <div class="card card-outline card-danger">
   <div class="card-header">
-    <h5 class="text-secondary">Generar Envío</h5>
+    <h5 class="text-secondary">{{title}}</h5>
   </div>
   <div class="card-body">
 
-    <form>
+    <form *ngIf="!showPreeview">
       <div class="row">
         <div class="col-sm-12">
           <ng-wizard #ngWizardNative [config]="config" [className]="'ng-wizard-theme-default'">
@@ -57,6 +57,11 @@
         </div>
       </div>
     </form>
+
+    <div *ngIf="showPreeview">
+      <app-xml-preview [cfdiXml]="cfdi"></app-xml-preview>
+    </div>
+
   </div>
 </div>
 

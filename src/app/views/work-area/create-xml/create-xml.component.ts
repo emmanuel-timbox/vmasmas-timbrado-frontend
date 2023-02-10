@@ -30,6 +30,9 @@ export class CreateXmlComponent implements OnInit {
   numberStep!: number;
   stepTitle!: string;
   cfdi!: any;
+  cfdiJson!: any;
+  showPreeview: boolean = true;
+  title: string = 'Creacion de Comprobante (CFDI 4.0)'
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   certificateData!: any;
@@ -138,8 +141,11 @@ export class CreateXmlComponent implements OnInit {
           }
 
           this.conceptData = this.receiverFormConcept;
-          this.cfdi = this.createXml();
-          console.log(this.cfdi);
+
+          let dataCreateXml: any = this.createXml();
+          this.cfdi = dataCreateXml.xml;
+          this.cfdiJson = dataCreateXml.json;
+          this.showPreeview = true;
 
         } else {
           //esta parte se va generar xml pero de nomina
@@ -204,7 +210,7 @@ export class CreateXmlComponent implements OnInit {
     if (dataReceiver.fiscalIdNumber != '') xmlJson['cfdi:Receptor']['@']['NumRegIdTrib'] = dataReceiver.fiscalIdNumber;
     if (dataReceiver.taxResidence != '') xmlJson['cfdi:Receptor']['@']['ResidenciaFiscal'] = dataReceiver.taxResidence;
 
-    return JsonToXML.parse('cfdi:Comprobante', xmlJson);
+    return { xml: JsonToXML.parse('cfdi:Comprobante', xmlJson), jsonData: xmlJson }
   }
 
   private assembleConceptNode(dataConcept: any): any {

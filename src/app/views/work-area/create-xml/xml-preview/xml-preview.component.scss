@@ -1,0 +1,114 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 2rem;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+  padding: 1rem;
+}
+
+pre {
+  background: #b6afaf;
+  border-left: 5px solid #e74c3c;
+  border-right: 5px solid #e74c3c;
+  border-top: 1px solid #e74c3c;
+  border-bottom: 1px solid #e74c3c;
+  padding: 0;
+  margin: 0 auto;
+  width: 99%;
+  position: relative;
+  border-radius: 1rem;
+}
+
+code::before {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e74c3c;
+  content: "</>";
+  position: absolute;
+  left: 0.5rem;
+  top: 0.25rem;
+}
+
+code {
+  font-size: 1.05rem;
+  color: rgb(78, 78, 78);
+}
+
+code::after {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e74c3c;
+  content: "</>";
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.25rem;
+}
+
+.container-pdf {
+  background-color: aliceblue;
+}
+
+// .container-pdf::before {
+//   content: "";
+//   background-size: cover;
+//   background: url('../../../../../assets/images/logos/v++.png');
+//   opacity: 0.2;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   position: absolute;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: 80% 70%;
+// }
+
+.container:before {
+  content: 'V++';
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #0d745e;
+  font-size: 41vw;
+  font-weight: 55vw;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  opacity: 0.2;
+}
+
+.container-total {
+  background-color: #ccdae9;
+}
+
+.text-1 {
+  color: rgb(78, 78, 78);
+  font-size: 14px;
+
+}
+
+.text-2 {
+  color: rgb(78, 78, 78);
+  font-size: 12px;
+}
+
+.text-3 {
+  color: rgb(78, 78, 78);
+  font-size: 16px;
+}
+
+.text-4 {
+  color: rgb(78, 78, 78);
+  font-size: 50px;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-xml-preview',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./xml-preview.component.scss']
 })
 export class XmlPreviewComponent implements OnInit {
+
+  @Input() cfdiXml!: any
+
+  codeXmlpreview!: string;
 
   constructor() { }
 
