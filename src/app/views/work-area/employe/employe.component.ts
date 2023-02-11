@@ -1,9 +1,13 @@
 import { environment } from 'src/environments/environment';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Emitter } from 'src/app/models/emitter.model';
 import { ExecelService } from 'src/app/services/excel.service';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
+import { Subject } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
+declare let bootstrap: any
 
 @Component({
   selector: 'app-employe',
@@ -12,12 +16,26 @@ import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 })
 
 export class EmployeComponent implements OnInit {
+  @ViewChild('editModal') editModal!: ElementRef;
 
-  constructor(private route: ActivatedRoute,private _service: ExecelService,
-     private swal: SweetAlertsService) { }
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  submittedCreate = false;
+  submittedEdit = false;
+  jsonDataEmployeeRegiment: any;
+  dataEployees: any;
+  dataEployeeEdit: any;
+  formNewEmployee: FormGroup = new FormGroup({});
+  formEditEmployee: FormGroup = new FormGroup({});
+  indexArrayEployee!: number;
+  slugEmitterUpdate!: string;
+
+
+  constructor(private route: ActivatedRoute, private _service: ExecelService,
+    private swal: SweetAlertsService) { }
 
   ngOnInit(): void {
-
+    this.getListEmployees();
   }
 
   excel: File[] = [];
@@ -34,7 +52,7 @@ export class EmployeComponent implements OnInit {
       this.errorMessage = validate.message;
       return;
     }
-  this.registerExcel(event);
+    this.registerExcel(event);
   }
 
   onRemove(event: File) {
@@ -47,7 +65,7 @@ export class EmployeComponent implements OnInit {
       if (result.isConfirmed) {
         const formData: FormData = new FormData();
         formData.append('fileserexcel', this.excel[0]);
-        formData.append('slug',environment.slugUser);
+        formData.append('slug', environment.slugUser);
 
 
         this._service.insertFile(formData).subscribe({
@@ -94,5 +112,42 @@ export class EmployeComponent implements OnInit {
   }
 
 
+  showModalEditEmitter(dataEployees: any, index: number): void {
+    new bootstrap.Modal(this.editModal.nativeElement).show();
+    this.indexArrayEployee = index;
+    this.slugEmitterUpdate = dataEployees.slug;
+    this.formEditEmployee.setValue({
+      bussinessName: dataEployees.bussiness_name,
+      rfc: dataEployees.rfc,
+      expeditionPlace: dataEployees.expedition_place,
+      taxRegime: dataEployees.tax_regime
+    });
+  }
+
+  editEstatusEmitter(slugEmitter: string, index: number): void {
+    this._service.editStatusEmployee(slugEmitter).subscribe({
+      next: response => {
+        let result = JSON.parse(JSON.stringify(response))
+        if (result.code == 200) {
+          this.dataEployees[index] = result.data
+          this.swal.successAlert('El estatus se actualizo de manera correcta');
+        } else {
+          this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar el estatus');
+        }
+      },
+      error: error => { console.log(error) }
+    });
+  }
+
+  private getListEmployees() {
+    this._service.getdataEmployees().subscribe({
+      next: response => {
+        let result = JSON.parse(JSON.stringify(response));
+        this.dataEployees = result.data
+        
+      },
+      error: error => { console.log(error) }
+    });
+  }
 
 }

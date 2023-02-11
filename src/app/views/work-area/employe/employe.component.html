@@ -20,20 +20,78 @@
         </div>
       </div>
     </div>
-
-    <div class="col-sm-12">
-      <div class="card card-outline card-danger">
-        <div class="card-header">
-          <h4>Datos del excel </h4>
-        </div>
-        <div class="card-body">
-        </div>
-      </div>
-    </div>
-
-
-
-
-
   </div>
 </div>
+
+
+
+<div class="card card-outline card-danger">
+  <div class="card-header">
+    <h4>Lista de Personas</h4>
+  </div>
+  <div class="card-body">
+    <div class="card-body table-responsive">
+      <div class="col-sm-12">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border">
+          <thead>
+            <tr>
+              <th>CURP</th>
+              <th>RFC</th>
+              <th>NumSeguridadSocial</th>
+              <!-- <th>FechaInicioRelLaboral</th>
+              <th>Antigüedad</th>
+              <th>TipoContrato</th>
+              <th>Sindicalizado</th>
+              <th>TipoJornada</th>
+              <th>TipoRegimen</th>
+              <th>NumEmpleado</th>
+              <th>Puesto</th>
+              <th>RiesgoPuesto</th>
+              <th>PeriodicidadPago</th>
+              <th>Banco</th>
+              <th>CuentaBancaria</th>
+              <th>SalarioBaseCotApor</th>
+              <th>SalarioDiarioIntegrado</th>
+              <th>Nombre o razon social</th>
+              <th>ClaveEntFed</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+              <td></td>
+              <td></td>
+              <td></td>
+              <!-- <td>{{employee.expedition_place}}</td>
+              <td class="text-center">
+                <a class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                  title="Mostrar proveedores (Receptores)" routerLink="/panel/receiver/{{employee.slug}}">
+                  <i class="fas fa-users-cog"></i>
+                </a>
+                <a class="btn btn-light btn-sm mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                  title="Administracion de Certificados" routerLink="/panel/certificate/{{employee.slug}}">
+                  <i class="fas fa-certificate"></i>
+                </a>
+                <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmitter(employee, i)">
+                  <i class="fa fa-edit"></i>
+                </a>
+                <a *ngIf="employee.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                  data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmitter(employee.slug, i)">
+                  <i class="fa fa-window-close"></i>
+                </a>
+                <a *ngIf="employee.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
+                  data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmitter(employee.slug, i)">
+                  <i class="fa fa-check"></i>
+                </a>
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
