@@ -4,64 +4,91 @@
   </div>
   <div class="card-body">
 
-    <form *ngIf="!showPreeview">
-      <div class="row">
-        <div class="col-sm-12">
-          <ng-wizard #ngWizardNative [config]="config" [className]="'ng-wizard-theme-default'">
+    <div [hidden]="showPreeview">
+      <form>
+        <div class="row">
+          <div class="col-sm-12">
+            <ng-wizard #ngWizardNative [config]="config" [className]="'ng-wizard-theme-default'">
 
-            <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'">
-              <app-xml-certificate (emitFormCertificate)="receiveFormCertificate = $event"
-                (emitterSlugEmitter)="slugEmitterSelect = $event"></app-xml-certificate>
-            </ng-wizard-step>
+              <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'" >
+                <app-xml-certificate (emitFormCertificate)="receiveFormCertificate = $event"
+                  (emitterSlugEmitter)="slugEmitterSelect = $event"></app-xml-certificate>
+              </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'">
-              <app-xml-vaucher (emitterVaucher)="reciverFormVaucher = $event"></app-xml-vaucher>
-            </ng-wizard-step>
+              <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'">
+                <app-xml-vaucher (emitterVaucher)="reciverFormVaucher = $event"></app-xml-vaucher>
+              </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
-              <app-xml-receiver (emitterReceiver)="receiverFormReceiver = $event"></app-xml-receiver>
-            </ng-wizard-step>
+              <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
+                <app-xml-receiver (emitterReceiver)="receiverFormReceiver = $event"></app-xml-receiver>
+              </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">
-              <app-xml-concepts (emitterConcept)="receiverFormConcept = $event"></app-xml-concepts>
-            </ng-wizard-step>
+              <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">
+                <app-xml-concepts (emitterConcept)="receiverFormConcept = $event"></app-xml-concepts>
+              </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Step 5'" [description]="'Step 5 description'" *ngIf="isPayRoll">
-              <span>Step 5 content</span>
-            </ng-wizard-step>
+              <ng-wizard-step [title]="'Nota'" [description]="'Agregar nota al Comprobante'">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <p>
+                      <b>Agregar una nota al comprobante</b><br>
+                      Esta dato es opcional, es mas de indole informativo, no se toma para ser certificado
+                      ante el SAT, por lo cual no es necesario ser llenado.
+                    </p>
+                  </div>
+                  <div class="col-sm-12">
+                    <textarea class="form-control" style="height: 252px;" #note></textarea>
+                  </div>
+                </div>
+              </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'" *ngIf="isPayRoll">
-              <span>Step 6 content</span>
-            </ng-wizard-step>
-          </ng-wizard>
+              <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'" *ngIf="isPayRoll">
+                <span>Step 6 content</span>
+              </ng-wizard-step>
+            </ng-wizard>
 
-          <div class="col-sm-12 d-flex justify-content-end custom-toolbar-ng-wizard">
-            <div class="btn-group pb-2 pt-0">
-              <button (click)="showPreviousStep()" class="btn btn-secondary" [disabled]="disableButtonPreview">
-                <i class="fas fa-angle-left"></i> Preevio
-              </button>
-              <button (click)="showNextStep()" class="btn btn-secondary mr-2" [disabled]="disabledButtonNext">
-                Siguiente <i class="fas fa-angle-right"></i>
-              </button>
+            <div class="col-sm-12 d-flex justify-content-end custom-toolbar-ng-wizard">
+              <div class="btn-group pb-2 pt-0">
+                <button (click)="showPreviousStep()" class="btn btn-secondary" [disabled]="disableButtonPreview">
+                  <i class="fas fa-angle-left"></i> Preevio
+                </button>
+                <button (click)="showNextStep()" class="btn btn-secondary mr-2" [disabled]="disabledButtonNext">
+                  Siguiente <i class="fas fa-angle-right"></i>
+                </button>
+              </div>
+              <div class="btn-group pb-2 pt-0">
+                <button (click)="resetWizard()" class="btn btn-danger">
+                  Reiniciar
+                </button>
+                <button (click)="saveData()" class="btn btn-success" *ngIf="showBottonFinish">
+                  Vista previa
+                </button>
+              </div>
             </div>
-            <div class="btn-group pb-2 pt-0">
-              <button (click)="resetWizard()" class="btn btn-danger">
-                Reiniciar
-              </button>
-              <button (click)="saveData()" class="btn btn-success" *ngIf="showBottonFinish">
-                Guardar
-              </button>
-            </div>
+
           </div>
-
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
 
     <div *ngIf="showPreeview">
-      <app-xml-preview [cfdiXml]="cfdi" [cfdiJson]="cfdiJson"></app-xml-preview>
+      <div class="alert alert-primary" role="alert">
+        <div class="row">
+          <div class=" col-sm-7 d-flex justify-content-start">
+            <b>NOTA:</b> Esta es una representacion grafica del comprobante antes de ser Timbrado.
+          </div>
+          <div class="col-sm-5 d-flex justify-content-end">
+            <div class="btn-group pb-2 pt-0">
+              <button class="btn btn-secondary" (click)="getBack()"> <i class="fas fa-arrow-left"></i> Regresar
+              </button>
+              <button class="btn btn-success"> <i class="fas fa-file-import"></i> Timbrar </button>
+              <button class="btn btn-info"> <i class="fas fa-paper-plane"></i> Prefactura </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-xml-preview [cfdiXml]="cfdi" [cfdiJson]="cfdiJson" [note]="noteVaucher"></app-xml-preview>
     </div>
 
   </div>
 </div>
-

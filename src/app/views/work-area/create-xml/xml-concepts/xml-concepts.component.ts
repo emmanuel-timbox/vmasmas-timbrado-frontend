@@ -285,4 +285,9 @@ export class XmlConceptsComponent implements OnInit {
     return exist;
   }
 
+  resetForm() {
+    this.getControl.clear();
+    this.mainForm.reset();
+  }
+
 }

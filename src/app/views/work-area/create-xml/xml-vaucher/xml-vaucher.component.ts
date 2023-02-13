@@ -37,7 +37,9 @@ export class XmlVaucherComponent implements OnInit {
     if (this.formVaucher.invalid) { return }
   }
 
-  private getPayMethods(){
+  resetForm() { this.formVaucher.reset() }
+
+  private getPayMethods() {
     this._catalogs.getPayMethodsCat().subscribe({
       next: response => { this.payMethodCatalog = response },
       error: error => { console.log(error) }

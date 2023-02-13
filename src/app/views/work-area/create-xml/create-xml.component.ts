@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgWizardConfig, NgWizardService, STEP_STATE, THEME } from 'ng-wizard';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { XmlCertificateComponent } from './xml-certificate/xml-certificate.component';
@@ -21,6 +21,7 @@ export class CreateXmlComponent implements OnInit {
   @ViewChild(XmlVaucherComponent) vaucherComponent!: XmlVaucherComponent;
   @ViewChild(XmlReceiverComponent) reciverComponent!: XmlReceiverComponent;
   @ViewChild(XmlConceptsComponent) conceptComponent!: XmlConceptsComponent;
+  @ViewChild("note") note!: ElementRef;
 
   slugEmitterSelect!: string;
   showBottonFinish: boolean = false;
@@ -31,8 +32,9 @@ export class CreateXmlComponent implements OnInit {
   stepTitle!: string;
   cfdi!: any;
   cfdiJson!: any;
-  showPreeview: boolean = true;
-  title: string = 'Creacion de Comprobante (CFDI 4.0)'
+  showPreeview: boolean = false;
+  title: string = 'Creacion de Comprobante (CFDI 4.0)';
+  noteVaucher!: string;
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   certificateData!: any;
@@ -77,9 +79,7 @@ export class CreateXmlComponent implements OnInit {
     });
   }
 
-  showPreviousStep(): void {
-    this.ngWizardService.previous();
-  }
+  showPreviousStep(): void { this.ngWizardService.previous(); }
 
   showNextStep(): void {
     let canNext!: boolean;
@@ -106,11 +106,20 @@ export class CreateXmlComponent implements OnInit {
       case 3:
         this.conceptComponent.regitrerConcept();
         this.conceptData = this.receiverFormConcept;
+        this.conceptComponent.regitrerConcept();
+
+        if (this.receiverFormConcept.isInvalid) {
+          let message = 'Se tiene que registrar al menos un Concepto antes de generar un Comprobante';
+          this.swal.infoAlert('¡Revisa!', message);
+          return;
+        }
+
+        this.conceptData = this.receiverFormConcept;
         canNext = this.receiverFormConcept.isInvalid;
         break
 
       case 4:
-
+        this.noteVaucher = this.note.nativeElement.value;
         break;
 
       case 5:
@@ -123,36 +132,31 @@ export class CreateXmlComponent implements OnInit {
   }
 
   resetWizard() {
-    this.ngWizardService.reset();
-  }
-
-  saveData() {
-    let message: string = 'Crear Comprobante';
-    this.swal.confirmationAlert(message, '¡Si crear!').then((result: any) => {
+    let message: string = 'Al reiniciar el se limpara toda la informacion llenada'
+    this.swal.confirmationAlert(message, '¡Si reiniciar!').then( (result: any) => {
       if (result.isConfirmed) {
-        //Realizar la operacion en caso de que no si se confirme
-        if (this.stepTitle == 'Conceptos') {
-          this.conceptComponent.regitrerConcept();
-
-          if (this.receiverFormConcept.isInvalid) {
-            message = 'Se tiene que registrar al menos un Concepto antes de generar un Comprobante';
-            this.swal.infoAlert('¡Revisa!', message);
-            return;
-          }
-
-          this.conceptData = this.receiverFormConcept;
-
-          let dataCreateXml: any = this.createXml();
-          this.cfdi = dataCreateXml.xml;
-          this.cfdiJson = dataCreateXml.jsonData;
-          this.showPreeview = true;
-
-        } else {
-          //esta parte se va generar xml pero de nomina
-        }
+        this.ngWizardService.reset();
+        this.certificateComponent.resetForm();
+        this.conceptComponent.resetForm();
+        this.reciverComponent.resetForm();
+        this.vaucherComponent.resetForm();
       }
     });
   }
+
+  saveData() {
+    if (this.stepTitle == 'Nota') {
+      let dataCreateXml: any = this.createXml();
+      this.cfdi = dataCreateXml.xml;
+      this.cfdiJson = dataCreateXml.jsonData;
+      this.showPreeview = true;
+      this.noteVaucher = this.note.nativeElement.value;
+    } else {
+      //esta parte se va generar xml pero de nomina
+    }
+  }
+
+  getBack() { this.showPreeview = false; }
 
   private createXml(): any {
     let dataCertificate = this.certificateData.formCerticate;

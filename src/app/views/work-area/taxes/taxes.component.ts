@@ -52,7 +52,6 @@ export class TaxesComponent implements OnInit {
     this.formTaxEdit = this.formBuilder.group(this._services.getDataValidateTax());
     this.getTaxesCat();
     this.getTaxes();
-
   }
 
   setDataInputs(event: Event): void {
@@ -71,7 +70,6 @@ export class TaxesComponent implements OnInit {
       this.resetForm();
       this.messageError = '*No ha seleccionado un valor de la lista de Impuestos.';
     }
-
   }
 
   registrerTax(): void {

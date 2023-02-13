@@ -1,3 +1,4 @@
+import { NumberToLettersService } from './../../../../services/create-xml/number-to-letters.service';
 import { CatalogsService } from './../../../../services/catalogs.service';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -10,6 +11,7 @@ export class XmlPreviewComponent implements OnInit {
 
   @Input() cfdiXml!: any
   @Input() cfdiJson!: any
+  @Input() note!: string;
 
   codeXmlpreview!: string;
   issueDay: any = new Date().toJSON();
@@ -19,124 +21,30 @@ export class XmlPreviewComponent implements OnInit {
   taxDescriptionRegimen!: string;
   useCfdiDescription!: string;
   concepts!: any;
+  numberToLatter!: string;
 
-  constructor(private _catalogs: CatalogsService) { }
+  constructor(private _catalogs: CatalogsService, private convertNumber: NumberToLettersService) { }
 
   ngOnInit(): void {
-
-    this.cfdiJson = {
-      "@": {
-        "xmlns:cfdi": "http://www.sat.gob.mx/cfd/4",
-        "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-        "xsi:schemaLocation": "http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd",
-        "Fecha": "",
-        "Sello": "",
-        "Certificado": "",
-        "NoCertificado": "30001000000400002335",
-        "Version": "4.0",
-        "Moneda": "MXN",
-        "SubTotal": "15129.00",
-        "Total": "17549.64",
-        "TipoDeComprobante": "E",
-        "Exportacion": "01",
-        "LugarExpedicion": "12345",
-        "Descuento": "123"
-      },
-      "cfdi:Emisor": {
-        "@": {
-          "Rfc": "12123456PRUEBA",
-          "Nombre": "Prueba",
-          "RegimenFiscal": "603"
-        }
-      },
-      "cfdi:Receptor": {
-        "@": {
-          "Rfc": "1234562312RFC",
-          "Nombre": "Emmanuel",
-          "DomicilioFiscalReceptor": "12347",
-          "RegimenFiscalReceptor": "612",
-          "UsoCFDI": "D04"
-        }
-      },
-      "cfdi:Conceptos": {
-        "cfdi:Concepto": [
-          {
-            "@": {
-              "ClaveProdServ": "10101500",
-              "Cantidad": 123,
-              "ClaveUnidad": "18",
-              "Descripcion": "Producto de pruebas",
-              "ValorUnitario": 123,
-              "Importe": "15129.00",
-              "ObjetoImp": "02",
-              "NoIdentificacion": "123",
-              "Unidad": "KGR"
-            },
-            "cfdi:Impuestos": {
-              "cfdi:Traslados": {
-                "cfdi:Traslado": [
-                  {
-                    "@": {
-                      "Base": "15129.00",
-                      "Impuesto": "002",
-                      "TipoFactor": "Tasa",
-                      "TasaOCuota": "0.160000",
-                      "Importe": "2420.64"
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "cfdi:Impuestos": {
-        "cfdi:Traslados": {
-          "cfdi:Traslado": [
-            {
-              "@": {
-                "Base": "15129.00",
-                "Impuesto": "001",
-                "TipoFactor": "Tasa",
-                "TasaOCuota": "0.160000",
-                "Importe": "2420.64"
-              }
-            },
-            {
-              "@": {
-                "Base": "15129.00",
-                "Impuesto": "001",
-                "TipoFactor": "Tasa",
-                "TasaOCuota": "0.060000",
-                "Importe": "2420.64"
-              }
-            }
-          ]
-        },
-
-        "cfdi:Retenciones": {
-          'cfdi:Retencion': [
-            {
-              "@": {
-                "Impuesto": "003",
-                "Importe": "449.68"
-              }
-            },
-            {
-              "@": {
-                "Impuesto": "002",
-                "Importe": "449.68"
-              }
-            }
-          ]
-        }
-
-      }
-    }
-
     this.getTaxRegimenCat(this.cfdiJson['cfdi:Emisor']['@']['RegimenFiscal']);
     this.getCfdiUsageCat(this.cfdiJson['cfdi:Receptor']['@']['UsoCFDI']);
-    this.concepts = this.cfdiJson['cfdi:Conceptos']['cfdi:Concepto']
+    this.concepts = this.cfdiJson['cfdi:Conceptos']['cfdi:Concepto'];
+
+    let total = Number(this.cfdiJson['@']['Total']);
+    this.numberToLatter = this.convertNumber.numeroALetras(total, {
+      plural: 'PESOS',
+      singular: 'PESOS',
+      centPlural: '/100 M.N.',
+      centSingular: '/100 M.N.'
+    });
+  }
+
+  stampReceipt(): any {
+
+  }
+
+  saveVoucher(): any {
+
   }
 
   private getTaxRegimenCat(regime: string): any {
@@ -154,7 +62,7 @@ export class XmlPreviewComponent implements OnInit {
         let useCfdi: any = useCfdis.find((element: any) => element.uso_cfdi == useCfdiValue);
         this.useCfdiDescription = useCfdi.descripcion;
       },
-      error: error => { console.log(error) }
+      error: error => { console.log(error); }
     })
   }
 }

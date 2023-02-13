@@ -1,9 +1,4 @@
-<div class="col-sm-12 pb-3">
-  <h4>Esta es una representacion grafica del comprobante antes de Timbrado. </h4>
-</div>
-
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab"
       aria-controls="home" aria-selected="true">
@@ -110,10 +105,10 @@
               </table>
             </div>
 
-            <div class="col-sm-12 pt-2 pr-0 pl-0 text-2 ">
+            <div class="col-sm-12 pt-2 pr-0 pl-0 text-2">
               <div class="row">
                 <div class="col-sm-8">
-                  <b>IMPORTE CON LETRA:</b> ------------------------------------ <br>
+                  <b>IMPORTE CON LETRA:</b> {{numberToLatter}} <br>
                   <b>FORMA DE PAGO:</b> {{cfdiJson['@']['FormaPago'] == undefined ? '---' : cfdiJson['@']['Serie'] }}
                   <br>
                   <b>MÉTODO DE PAGO:</b> {{cfdiJson['@']['MetodoPago'] == undefined ? '---' : cfdiJson['@']['Serie'] }}
@@ -130,7 +125,8 @@
 
                     <div *ngIf="cfdiJson['cfdi:Impuestos']['cfdi:Traslados'] != undefined">
                       <div *ngFor="let traslado of cfdiJson['cfdi:Impuestos']['cfdi:Traslados']['cfdi:Traslado']">
-                        <b> {{taxType[ traslado['@']['Impuesto'] ]}} TRASLADADO (%{{traslado['@']['TasaOCuota']}}) :</b> ${{traslado['@']['Importe']}}
+                        <b> {{taxType[ traslado['@']['Impuesto'] ]}} TRASLADADO (%{{traslado['@']['TasaOCuota']}}) :</b>
+                        ${{traslado['@']['Importe']}}
                       </div>
                     </div>
 
@@ -145,6 +141,11 @@
                   <b class="text-primary text-total">TOTAL:</b> ${{cfdiJson['@']['Total']}} <br>
                 </div>
               </div>
+            </div>
+
+            <div class="col-sm-12 pt-2 pr-0 pl-0 text-1">
+              <b>NOTA:</b><br>
+              <p>{{note}}</p>
             </div>
 
             <div class="col-sm-12 pt-4 pr-0 pl-0 text-3">
@@ -169,6 +170,13 @@
               <b>CADENA ORIGINAL DEL COMPLEMENTO DE CERTIFICACIÓN DIGITAL</b><br>
               <p class="text-2 ">
                 ||183A25D5-7644-4A28-A105-8C516915DB6B|2023-02-10T10:53:05|IAD121214B34|J2lLBEy5ryuLt4nNSzWGfBP0IG21xVdAId9Vp1wD9mC1UsV7F6Z3GLBP94vubirhIfBDRNuMx7PRCUMKwd9yQXs727pASY1jiPjQS8/rlr0ccf65g7qBkiu832a6AUuNi50KQQPt0vKIvUEmQZXiRHItsibkqrcToSiqEqS2EYXoS7GMFKJd55pv/nM12iGyKNYDlmXF0xyLBh+w4KVEPQGBE3LU4HZtOhVXK/yrtv0lUz4eCiAZy5tBi2dXPSqvHFYqSviU1YZzrNpj11WySX11MKMVnrzEx3QL48kYx+GgoBj9mYmuvRBH1Amag9nsyCpJQSp2daY0PwSHi7yWoQ==|E5vXZjHL//e2HEND66Qk/T3sdjvE7g2dRy8xqyt+unvuzpzMcECJDKwejLjQmi1qMHTFRpeIVXKyTQ1QFqFRQmOOszcjkrnRBifYm7bkN4ZekELhX65EHmXxgZ/bhabUTnrhnVf4ypmGxbPt7IUJHzMfPGd7rrwHXbWKQe8xRuQPdLGHTCd04hRQvKuNUdEDBzkv5iVTFn0KoWLSQwIeRia2QCUa/bqEAmEj+ljgiw5I2XEk6Og0wyiZwUpszabGuu4coLMPISxd0TOU5L1zOnS6xTDVp9c98abFHurqPCMu1rfKEE2qHKUOj7aVH9qhNqBr/72IqSnunRuH1eIGwg==|00001000000504587441||
+              </p>
+            </div>
+
+            <div class="col-sm-9 pt-4 pr-0 pl-0 text-3">
+              <p>
+                <b class="text-primary">No de Serie del Certificado del SAT: </b>00001000000504587441<br>
+                <b class="text-primary">Fecha y hora de certificación: </b>2023-02-10T15:00:58<br>
               </p>
             </div>
 

@@ -101,4 +101,9 @@ export class XmlCertificateComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
+  resetForm() {
+    this.files = [];
+    this.formCertificate.reset();
+  }
+
 }

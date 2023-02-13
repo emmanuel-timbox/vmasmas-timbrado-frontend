@@ -70,4 +70,6 @@ export class XmlReceiverComponent implements OnInit {
     });
   }
 
+  resetForm() { this.formReceiver.reset() }
+
 }
