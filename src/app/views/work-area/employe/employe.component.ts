@@ -112,7 +112,7 @@ export class EmployeComponent implements OnInit {
   }
 
 
-  showModalEditEmitter(dataEployees: any, index: number): void {
+  showModalEditEmployee(dataEployees: any, index: number): void {
     new bootstrap.Modal(this.editModal.nativeElement).show();
     this.indexArrayEployee = index;
     this.slugEmitterUpdate = dataEployees.slug;
@@ -144,7 +144,7 @@ export class EmployeComponent implements OnInit {
       next: response => {
         let result = JSON.parse(JSON.stringify(response));
         this.dataEployees = result.data
-        
+
       },
       error: error => { console.log(error) }
     });
