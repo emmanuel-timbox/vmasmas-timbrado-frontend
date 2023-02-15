@@ -30,6 +30,7 @@ export class Employe {
 
     this.userId = user_id;
     this.rfc = rfc;
+    this.curp = curp;
     this.social_security_number = social_security_number;
     this.work_start_date = work_start_date;
     this.antiquity = antiquity;
@@ -46,7 +47,7 @@ export class Employe {
     this.base_salary = base_salary;
     this.daily_salary = daily_salary;
     this.federative_entity_key = federative_entity_key;
-  
+
 
   }
 

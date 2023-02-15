@@ -1,11 +1,11 @@
 import { environment } from 'src/environments/environment';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Emitter } from 'src/app/models/emitter.model';
 import { ExecelService } from 'src/app/services/excel.service';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { Subject } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { FormGroup,AbstractControl, FormBuilder } from '@angular/forms';
+import { Employe } from 'src/app/models/employe.model';
 
 declare let bootstrap: any
 
@@ -28,15 +28,20 @@ export class EmployeComponent implements OnInit {
   formNewEmployee: FormGroup = new FormGroup({});
   formEditEmployee: FormGroup = new FormGroup({});
   indexArrayEployee!: number;
-  slugEmitterUpdate!: string;
+  slugEmployeeUpdate!: string;
+
 
 
   constructor(private route: ActivatedRoute, private _service: ExecelService,
-    private swal: SweetAlertsService) { }
+    private swal: SweetAlertsService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.getListEmployees();
+    this.formEditEmployee = this.formBuilder.group(this._service.getDataValidateEmployees());
+
   }
+
+  get fEdit(): { [key: string]: AbstractControl } { return this.formEditEmployee.controls; }
 
   excel: File[] = [];
   isValid: boolean = true;
@@ -113,19 +118,80 @@ export class EmployeComponent implements OnInit {
 
 
   showModalEditEmployee(dataEployees: any, index: number): void {
+    console.log(dataEployees)
     new bootstrap.Modal(this.editModal.nativeElement).show();
-    this.indexArrayEployee = index;
-    this.slugEmitterUpdate = dataEployees.slug;
+    this.slugEmployeeUpdate = dataEployees.slug
+
     this.formEditEmployee.setValue({
-      bussinessName: dataEployees.bussiness_name,
       rfc: dataEployees.rfc,
-      expeditionPlace: dataEployees.expedition_place,
-      taxRegime: dataEployees.tax_regime
+      curp: dataEployees.curp,
+      social_security_number: dataEployees.social_security_number,
+      work_start_date: dataEployees.work_start_date,
+      antiquity: dataEployees.antiquity,
+      type_contract: dataEployees.type_contract,
+      unionized: dataEployees.unionized,
+      type_working_day: dataEployees.type_working_day,
+      regime_type: dataEployees.regime_type,
+      employee_number: dataEployees.employee_number,
+      departament: dataEployees.departament,
+      risk_put: dataEployees.risk_put,
+      put: dataEployees.put,
+      payment_frequency: dataEployees.payment_frequency,
+      banck: dataEployees.banck,
+      banck_account: dataEployees.banck_account,
+      base_salary: dataEployees.base_salary,
+      daily_salary: dataEployees.daily_salary,
+      federative_entity_key: dataEployees.federative_entity_key
+
     });
+
+
   }
 
-  editEstatusEmitter(slugEmitter: string, index: number): void {
-    this._service.editStatusEmployee(slugEmitter).subscribe({
+  editDataEmployee(): void {
+    this.submittedEdit = true;
+    if (this.formEditEmployee.invalid) { return }
+
+
+    const Employe: Employe = {
+
+      rfc: this.formEditEmployee.value.rfc,
+      curp: this.formEditEmployee.value.curp,
+      social_security_number: this.formEditEmployee.value.social_security_number,
+      antiquity: this.formEditEmployee.value.antiquity,
+      work_start_date: this.formEditEmployee.value.work_start_date,
+      type_contract: this.formEditEmployee.value.type_contract,
+      unionized: this.formEditEmployee.value.unionized,
+      type_working_day: this.formEditEmployee.value.type_working_day,
+      regime_type: this.formEditEmployee.value.regime_type,
+      employee_number: this.formEditEmployee.value.employee_number,
+      departament: this.formEditEmployee.value.departament,
+      risk_put: this.formEditEmployee.value.risk_put,
+      put: this.formEditEmployee.value.put,
+      payment_frequency: this.formEditEmployee.value.payment_frequency,
+      banck: this.formEditEmployee.value.banck,
+      banck_account: this.formEditEmployee.value.banck_account,
+      base_salary: this.formEditEmployee.value.base_salary,
+      daily_salary: this.formEditEmployee.value.daily_salary,
+      federative_entity_key: this.formEditEmployee.value.federative_entity_key
+
+    }
+    this._service.editEmployee(Employe, this.slugEmployeeUpdate).subscribe({
+      next: response => {
+        let result = JSON.parse(JSON.stringify(response));
+        if (result.code == 200) {
+          this.dataEployees[this.indexArrayEployee] = result.data
+          this.swal.successAlert('Los datos se actualizaron de manera correcta');
+        } else {
+          this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar los datos');
+        }
+      },
+      error: error => { console.log(error) }
+    })
+  }
+
+  editEstatusEmployee(slugemployee: string, index: number): void {
+    this._service.editStatusEmployee(slugemployee).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response))
         if (result.code == 200) {
