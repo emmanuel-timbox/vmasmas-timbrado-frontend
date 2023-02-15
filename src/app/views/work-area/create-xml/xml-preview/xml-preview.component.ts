@@ -1,6 +1,8 @@
+import { XmlPreviewService } from './../../../../services/create-xml/xml-preview.service';
+import { environment } from 'src/environments/environment';
 import { NumberToLettersService } from './../../../../services/create-xml/number-to-letters.service';
 import { CatalogsService } from './../../../../services/catalogs.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-xml-preview',
@@ -8,7 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./xml-preview.component.scss']
 })
 export class XmlPreviewComponent implements OnInit {
-
+  @Output() emitterPreview = new EventEmitter<any>();
   @Input() cfdiXml!: any
   @Input() cfdiJson!: any
   @Input() note!: string;
@@ -22,8 +24,9 @@ export class XmlPreviewComponent implements OnInit {
   useCfdiDescription!: string;
   concepts!: any;
   numberToLatter!: string;
+  userSlug: string = environment.slugUser;
 
-  constructor(private _catalogs: CatalogsService, private convertNumber: NumberToLettersService) { }
+  constructor(private _service: XmlPreviewService, private _catalogs: CatalogsService, private convertNumber: NumberToLettersService) { }
 
   ngOnInit(): void {
     this.getTaxRegimenCat(this.cfdiJson['cfdi:Emisor']['@']['RegimenFiscal']);
@@ -40,7 +43,13 @@ export class XmlPreviewComponent implements OnInit {
   }
 
   stampReceipt(): any {
-
+    let data = { xml: this.cfdiXml, slug: this.userSlug };
+    this._service.insertXml(data).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => { console.log(error); }
+    });
   }
 
   saveVoucher(): any {

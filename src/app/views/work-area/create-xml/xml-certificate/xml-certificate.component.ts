@@ -18,8 +18,11 @@ export class XmlCertificateComponent implements OnInit {
   files: File[] = [];
   emitterData: any;
   haveCerticate!: Boolean;
-  summitFormCert: Boolean = false
+  summitFormCert: Boolean = false;
   formCertificate: FormGroup = new FormGroup({});
+  slugEmitter!: string;
+  fileIsInvalid!: boolean;
+  disableFileInput: boolean = true;
 
   constructor(private _services: XmlCertificateService,
     private _catalogs: CatalogsService, private _sweetAlets: SweetAlertsService,
@@ -27,7 +30,7 @@ export class XmlCertificateComponent implements OnInit {
 
   ngOnInit(): void {
     this.haveCerticate = true;
-    this.formCertificate = this.formBuilder.group(this._services.getDataValidateCerticate())
+    this.formCertificate = this.formBuilder.group(this._services.getDataValidateCerticate());
     this.getEmitters();
   }
 
@@ -35,8 +38,7 @@ export class XmlCertificateComponent implements OnInit {
 
   //Esta funcion se ejecuta desde de el componente padre (CreateXml)
   registrerEmitterNode() {
-    let notExistfile: boolean = this.files.length == 0 ? true : false;
-    let invalid: boolean = (this.formCertificate.invalid || notExistfile) ? true : false
+    let invalid: boolean = this.validate();
 
     this.summitFormCert = true;
     this.emitFormCertificate.emit({
@@ -45,16 +47,24 @@ export class XmlCertificateComponent implements OnInit {
       file: this.files[0]
     });
 
-    if (invalid) { return }
+    if (invalid) { return; }
   }
 
   setDataEmitterInput(event: Event): void {
     let dataEmitter!: any
     let slug: string = (event.target as HTMLInputElement).value;
-    if (slug == '') { this.formCertificate.reset(); }
+
+    if (slug == '') {
+      this.formCertificate.reset();
+      this.disableFileInput = true;
+      this.files = []
+      return;
+    }
+
     dataEmitter = this.emitterData.find((x: any) => x.slug == slug);
     if (dataEmitter.certificate_number != null) {
       this.haveCerticate = true;
+      this.slugEmitter = slug;
       this.formCertificate.setValue({
         bussinessName: dataEmitter.bussiness_name,
         rfc: dataEmitter.rfc,
@@ -63,11 +73,14 @@ export class XmlCertificateComponent implements OnInit {
         certNumber: dataEmitter.certificate_number == null ? '' : dataEmitter.certificate_number,
         passwordKey: ''
       });
+      this.disableFileInput = false;
     } else {
       this.haveCerticate = false;
       this.formCertificate.reset();
+      this.files = [];
+      this.disableFileInput = true;
     }
-    this.emitterSlugEmitter.emit(slug)
+    this.emitterSlugEmitter.emit(slug);
   }
 
   getEmitters(): any {
@@ -86,9 +99,7 @@ export class XmlCertificateComponent implements OnInit {
 
   getListTaxRegimes(): void {
     this._catalogs.getTaxRegimenCat().subscribe({
-      next: response => {
-        console.log(response)
-      },
+      next: response => { console.log(response); },
       error: error => { console.log(error) }
     });
   }
@@ -104,6 +115,52 @@ export class XmlCertificateComponent implements OnInit {
   resetForm() {
     this.files = [];
     this.formCertificate.reset();
+  }
+
+  validatePassword(){
+    if (this.files.length != 0) {
+      this.requisitionValidate();
+    }
+  }
+
+  validateKey(event: { addedFiles: any }): void {
+    this.files.push(...event.addedFiles);
+    this.summitFormCert = true;
+
+    if (this.formCertificate.invalid) {
+      this.files = [];
+      this.fileIsInvalid = true;
+      return;
+    }
+
+    this.requisitionValidate();
+  }
+
+  private requisitionValidate(): void {
+    let formData = new FormData;
+    formData.append('key_file', this.files[0]);
+    formData.append('password', this.formCertificate.value.passwordKey);
+
+    this._services.getValidateKey(formData, this.slugEmitter).subscribe({
+      next: response => {
+        let result: any = JSON.parse(JSON.stringify(response));
+        if (result.code == 200) {
+          this.fileIsInvalid = false;
+        } else {
+          this.fileIsInvalid = true;
+          this._sweetAlets.infoAlert("¡Verifica!", result.message);
+          this.files = [];
+        }
+      },
+      error: error => { console.log(error); }
+    });
+  }
+
+  private validate(): boolean {
+    if (this.files.length == 0) return true;
+    if (this.formCertificate.invalid) return true;
+    if (this.fileIsInvalid) return true;
+    return false;
   }
 
 }

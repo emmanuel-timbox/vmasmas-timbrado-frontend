@@ -28,11 +28,15 @@ export class XmlCertificateService {
       taxRegime: ['', [Validators.required]],
       certNumber: ['', [Validators.required]],
       passwordKey: ['', [Validators.required]]
-    }
+    };
   }
 
   getEmitterData() {
     return this.httpClient.get(`${this.apiUrl}/create_xml/${this.userSlug}`);
+  }
+
+  getValidateKey(formData: FormData, slug: string) {
+    return this.httpClient.post<any>(`${this.apiUrl}/create_xml/${slug}/validate_key`, formData);
   }
 
 }

@@ -10,7 +10,7 @@
           <div class="col-sm-12">
             <ng-wizard #ngWizardNative [config]="config" [className]="'ng-wizard-theme-default'">
 
-              <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'" >
+              <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'">
                 <app-xml-certificate (emitFormCertificate)="receiveFormCertificate = $event"
                   (emitterSlugEmitter)="slugEmitterSelect = $event"></app-xml-certificate>
               </ng-wizard-step>
@@ -81,7 +81,8 @@
             <div class="btn-group pb-2 pt-0">
               <button class="btn btn-secondary" (click)="getBack()"> <i class="fas fa-arrow-left"></i> Regresar
               </button>
-              <button class="btn btn-success"> <i class="fas fa-file-import"></i> Timbrar </button>
+              <button class="btn btn-success" (click)="stampVaucher()"> <i class="fas fa-file-import"></i> Timbrar
+              </button>
               <button class="btn btn-info"> <i class="fas fa-paper-plane"></i> Prefactura </button>
             </div>
           </div>

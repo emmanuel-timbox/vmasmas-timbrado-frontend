@@ -5,6 +5,7 @@ import { XmlCertificateComponent } from './xml-certificate/xml-certificate.compo
 import { XmlReceiverComponent } from './xml-receiver/xml-receiver.component';
 import { XmlVaucherComponent } from './xml-vaucher/xml-vaucher.component';
 import { XmlConceptsComponent } from './xml-concepts/xml-concepts.component';
+import { XmlPreviewComponent } from './xml-preview/xml-preview.component';
 import * as JsonToXML from 'js2xmlparser';
 
 @Component({
@@ -21,6 +22,7 @@ export class CreateXmlComponent implements OnInit {
   @ViewChild(XmlVaucherComponent) vaucherComponent!: XmlVaucherComponent;
   @ViewChild(XmlReceiverComponent) reciverComponent!: XmlReceiverComponent;
   @ViewChild(XmlConceptsComponent) conceptComponent!: XmlConceptsComponent;
+  @ViewChild(XmlPreviewComponent) previewComponent!: XmlPreviewComponent;
   @ViewChild("note") note!: ElementRef;
 
   slugEmitterSelect!: string;
@@ -86,9 +88,9 @@ export class CreateXmlComponent implements OnInit {
     switch (this.numberStep) {
       case 0:
         this.certificateComponent.registrerEmitterNode();
-        this.reciverComponent.getReceivers(this.slugEmitterSelect);
         this.certificateData = this.receiveFormCertificate
         canNext = this.receiveFormCertificate.isInvalid;
+        if (!canNext) this.reciverComponent.getReceivers(this.slugEmitterSelect);
         break;
 
       case 1:
@@ -133,7 +135,7 @@ export class CreateXmlComponent implements OnInit {
 
   resetWizard() {
     let message: string = 'Al reiniciar el se limpara toda la informacion llenada'
-    this.swal.confirmationAlert(message, '¡Si reiniciar!').then( (result: any) => {
+    this.swal.confirmationAlert(message, '¡Si reiniciar!').then((result: any) => {
       if (result.isConfirmed) {
         this.ngWizardService.reset();
         this.certificateComponent.resetForm();
@@ -157,6 +159,8 @@ export class CreateXmlComponent implements OnInit {
   }
 
   getBack() { this.showPreeview = false; }
+
+  stampVaucher(): void { this.previewComponent.stampReceipt(); }
 
   private createXml(): any {
     let dataCertificate = this.certificateData.formCerticate;
