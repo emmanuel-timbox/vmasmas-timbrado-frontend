@@ -43,23 +43,23 @@
               </div>
             </div>
 
-             <div class="form-group col-md-4">
+            <div class="form-group col-md-4">
               <label>Antigüedad:</label>
-              <input type="number" class="form-control is-valid" formControlName="antiquity"
+              <input type="text" class="form-control is-valid" formControlName="antiquity"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['antiquity'].errors }">
               <div *ngIf="submittedEdit && fEdit['antiquity'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['antiquity'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['antiquity'].errors['maxLength']">Numero social del Emisor debe tener que ser menor
+                  a 11 caracteres</div>
               </div>
             </div>
+
 
             <div class="form-group col-md-4">
               <label>FechaInicioRelLaboral:</label>
               <input type="date" class="form-control is-valid" formControlName="work_start_date"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['work_start_date'].errors }">
               <div *ngIf="submittedEdit && fEdit['work_start_date'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['work_start_date'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['work_start_date'].errors['maxLength']">Fecha erronea </div>
               </div>
             </div>
 
@@ -68,9 +68,9 @@
               <input type="text" class="form-control is-valid" formControlName="type_contract"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['type_contract'].errors }">
               <div *ngIf="submittedEdit && fEdit['type_contract'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['type_contract'].errors['required']">Razon social del Emisor es requerido</div>
-                <div *ngIf="fEdit['type_contract'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['type_contract'].errors['required']">TipoContrato es requerido</div>
+                <div *ngIf="fEdit['type_contract'].errors['maxLength']">TipoContrato debe tener que ser igual
+                  a 2 caracteres</div>
               </div>
             </div>
 
@@ -79,8 +79,8 @@
               <input type="text" class="form-control is-valid" formControlName="unionized"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['unionized'].errors }">
               <div *ngIf="submittedEdit && fEdit['unionized'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['unionized'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['unionized'].errors['maxLength']">Sindicalizado debe tener que ser menor
+                  a 6 caracteres</div>
               </div>
             </div>
 
@@ -89,7 +89,7 @@
               <input type="text" class="form-control is-valid" formControlName="type_working_day"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['type_working_day'].errors }">
               <div *ngIf="submittedEdit && fEdit['type_working_day'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['type_working_day'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
+                <div *ngIf="fEdit['type_working_day'].errors['maxLength']">TipoJornada debe tener que ser menor
                   a 150 caracteres</div>
               </div>
             </div>
@@ -99,9 +99,9 @@
               <input type="text" class="form-control is-valid" formControlName="regime_type"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['regime_type'].errors }">
               <div *ngIf="submittedEdit && fEdit['regime_type'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['regime_type'].errors['required']">Razon social del Emisor es requerido</div>
-                <div *ngIf="fEdit['regime_type'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['regime_type'].errors['required']">Tipo Regimen  es requerido</div>
+                <div *ngIf="fEdit['regime_type'].errors['maxLength']">Tipo Regimen debe tener que ser menor
+                  a 3 caracteres</div>
               </div>
             </div>
 
@@ -111,9 +111,9 @@
               <input type="text" class="form-control is-valid" formControlName="employee_number"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['employee_number'].errors }">
               <div *ngIf="submittedEdit && fEdit['employee_number'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['employee_number'].errors['required']">Razon social del Emisor es requerido</div>
-                <div *ngIf="fEdit['employee_number'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['employee_number'].errors['required']">NumEmpleado es requerido</div>
+                <div *ngIf="fEdit['employee_number'].errors['maxLength']">NumEmpleado debe tener que ser menor
+                  a 11 caracteres</div>
               </div>
             </div>
 
@@ -122,9 +122,9 @@
               <input type="text" class="form-control is-valid" formControlName="departament"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['departament'].errors }">
               <div *ngIf="submittedEdit && fEdit['departament'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['departament'].errors['required']">Razon social del Emisor es requerido</div>
-                <div *ngIf="fEdit['departament'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['departament'].errors['required']">Departamento es requerido</div>
+                <div *ngIf="fEdit['departament'].errors['maxLength']">Departamento debe tener que ser menor
+                  a 100 caracteres</div>
               </div>
             </div>
 
@@ -133,9 +133,9 @@
               <input type="text" class="form-control is-valid" formControlName="put"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['put'].errors }">
               <div *ngIf="submittedEdit && fEdit['put'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['put'].errors['required']">Razon social del Emisor es requerido</div>
-                <div *ngIf="fEdit['put'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['put'].errors['required']">Puesto es requerido</div>
+                <div *ngIf="fEdit['put'].errors['maxLength']">Puesto debe tener que ser menor
+                  a 21 caracteres</div>
               </div>
             </div>
 
@@ -144,9 +144,9 @@
               <input type="text" class="form-control is-valid" formControlName="risk_put"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['risk_put'].errors }">
               <div *ngIf="submittedEdit && fEdit['risk_put'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['risk_put'].errors['required']">Razon social del Emisor es requerido</div>
-                <div *ngIf="fEdit['risk_put'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['risk_put'].errors['required']">RiesgoPuesto es requerido</div>
+                <div *ngIf="fEdit['risk_put'].errors['maxLength']">RiesgoPuesto debe tener que ser menor
+                  a 3 caracteres</div>
               </div>
             </div>
 
@@ -155,9 +155,9 @@
               <input type="text" class="form-control is-valid" formControlName="payment_frequency"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['payment_frequency'].errors }">
               <div *ngIf="submittedEdit && fEdit['payment_frequency'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['payment_frequency'].errors['required']">Razon social del Emisor es requerido</div>
-                <div *ngIf="fEdit['payment_frequency'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['payment_frequency'].errors['required']">PeriodicidadPagoes requerido</div>
+                <div *ngIf="fEdit['payment_frequency'].errors['maxLength']">PeriodicidadPago debe tener que ser menor
+                  a 3 caracteres</div>
               </div>
             </div>
 
@@ -166,9 +166,9 @@
               <input type="text" class="form-control is-valid" formControlName="banck"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['banck'].errors }">
               <div *ngIf="submittedEdit && fEdit['banck'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['banck'].errors['required']">Razon social del Emisor es requerido</div>
-                <div *ngIf="fEdit['banck'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['banck'].errors['required']">Banco es requerido</div>
+                <div *ngIf="fEdit['banck'].errors['maxLength']">Banco debe tener que ser menor
+                  a 4 caracteres</div>
               </div>
             </div>
 

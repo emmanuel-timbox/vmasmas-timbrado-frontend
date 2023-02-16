@@ -61,8 +61,6 @@ export class ExecelService {
       base_salary: ['',[ Validators.minLength(1), Validators.maxLength(5)]],
       daily_salary:['',[ Validators.minLength(1), Validators.maxLength(5)]],
       federative_entity_key:['',[ Validators.minLength(1), Validators.maxLength(5)]]
-
-
     }
   }
 
