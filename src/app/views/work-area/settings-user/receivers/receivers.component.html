@@ -9,24 +9,33 @@
 
         <form [formGroup]="formNewReceiver" (ngSubmit)="createReceiver()">
           <div class="form-row">
+
             <div class="form-group col-md-8">
               <label>Nombre o razon social:</label>
+
               <input type="text" class="form-control is-valid" formControlName="bussinessName"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['bussinessName'].errors }">
+
               <div *ngIf="submittedCreate && f['bussinessName'].errors" class="invalid-feedback">
                 <div *ngIf="f['bussinessName'].errors['required']">Razon social del Emisor es requerido</div>
               </div>
             </div>
+
             <div class="form-group col-md-4">
               <label>R.F.C:</label>
+
               <input type="text" class="form-control is-valid" formControlName="rfc"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['rfc'].errors }">
+
               <div *ngIf="submittedCreate && f['rfc'].errors" class="invalid-feedback">
                 <div *ngIf="f['rfc'].errors['required']">RFC del Receptor es requerido</div>
+                <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 12 caracteres</div>
+                <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 13 caracteres</div>
+                <div *ngIf="f['rfc'].errors['pattern']">RFC no cuenta con el formato correcto</div>
               </div>
             </div>
-            <div class="form-group col-md-4">
 
+            <div class="form-group col-md-4">
               <label>Uso de CFDI:</label>
 
               <select class="form-control is-valid" formControlName="cfdiUse"
@@ -39,14 +48,21 @@
               <div *ngIf="submittedCreate && f['cfdiUse'].errors" class="invalid-feedback">
                 <div *ngIf="f['cfdiUse'].errors['required']">Dato requerido</div>
               </div>
-
             </div>
+
             <div class="form-group col-md-4">
               <label>Domicilio Fiscal</label>
               <input type="text" class="form-control is-valid" formControlName="receivingTaxDomicile"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['receivingTaxDomicile'].errors }">
-              <div *ngIf="submittedCreate && f['receivingTaxDomicile'].errors" class="invalid-feedback">
+
+              <div *ngIf="submittedCreate && f['receivingTaxDomicile'].errors" class="invalid-feedback" >
                 <div *ngIf="f['receivingTaxDomicile'].errors['required']">Dato requerido</div>
+                <div *ngIf="f['receivingTaxDomicile'].errors['minlength']">
+                  Lugar de expedicion no debe ser menor a 5 caracteres
+                </div>
+                <div *ngIf="f['receivingTaxDomicile'].errors['maxlength']">
+                  Lugar de expedicion no debe ser mayor a 5 caracteres
+                </div>
               </div>
             </div>
 
@@ -64,18 +80,18 @@
               <div *ngIf="submittedCreate && f['recipientTaxRegimen'].errors" class="invalid-feedback">
                 <div *ngIf="f['recipientTaxRegimen'].errors['required']">Dato requerido</div>
               </div>
-
-
             </div>
 
             <div class="form-group col-md-6">
               <label>Número de registro de identidad tributaria</label>
               <input type="text" class="form-control is-valid" formControlName="taxIdNumber">
             </div>
+
             <div class="form-group col-md-6">
               <label>Residencia Fiscal:</label>
               <input type="text" class="form-control is-valid" formControlName="taxResidence">
             </div>
+
           </div>
           <div class="d-flex justify-content-end">
             <a class="btn btn-secondary btn_cancelar mr-1" (click)="resetFormCreate()">Cancelar </a>
@@ -185,6 +201,12 @@
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['receivingTaxDomicile'].errors }">
               <div *ngIf="submittedEdit && fEdit['receivingTaxDomicile'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['receivingTaxDomicile'].errors['required']">Dato requerido</div>
+                <div *ngIf="fEdit['receivingTaxDomicile'].errors['minlength']">
+                  Lugar de expedicion no debe ser menor a 5 caracteres
+                </div>
+                <div *ngIf="fEdit['receivingTaxDomicile'].errors['maxlength']">
+                  Lugar de expedicion no debe ser mayor a 5 caracteres
+                </div>
               </div>
             </div>
 

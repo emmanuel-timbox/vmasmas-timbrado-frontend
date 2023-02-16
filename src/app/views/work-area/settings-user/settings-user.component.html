@@ -6,6 +6,16 @@
         <h4>Datos Fiscales</h4>
       </div>
       <div class="card-body">
+
+        <div class="alert alert-primary" role="alert">
+          <div class="row">
+            <div class=" col-sm-12 d-flex justify-content-start">
+              <b>NOTA:</b> Los Datos Fiscales tiene que se registren deben de ser iguales a los datos del
+              Certificado que registre posteriormente.
+            </div>
+          </div>
+        </div>
+
         <form [formGroup]="formNewEmitter" (ngSubmit)="createTaxPeople()">
           <div class="form-row">
 
@@ -26,8 +36,9 @@
                 [ngClass]="{ 'is-invalid': submittedCreate && f['rfc'].errors }">
               <div *ngIf="submittedCreate && f['rfc'].errors" class="invalid-feedback">
                 <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
-                <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 12 caracteres</div>
+                <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 13 caracteres</div>
+                <div *ngIf="f['rfc'].errors['pattern']">RFC no cuenta con el formato correcto</div>
               </div>
             </div>
 
@@ -153,8 +164,9 @@
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['rfc'].errors }">
               <div *ngIf="submittedEdit && fEdit['rfc'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['rfc'].errors['required']">RFC del Emisor es requerido</div>
-                <div *ngIf="fEdit['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                <div *ngIf="fEdit['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                <div *ngIf="fEdit['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 12 caracteres</div>
+                <div *ngIf="fEdit['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 13 caracteres</div>
+                <div *ngIf="fEdit['rfc'].errors['pattern']">RFC no cuenta con el formato correcto</div>
               </div>
             </div>
 
@@ -165,19 +177,22 @@
               <div *ngIf="submittedEdit && fEdit['expeditionPlace'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['expeditionPlace'].errors['required']">Lugar de expedicion del Emisor es requerido
                 </div>
-                <div *ngIf="fEdit['expeditionPlace'].errors['minlength']">Lugar de expedicion no debe ser menor a 5
-                  caracteres</div>
-                <div *ngIf="fEdit['expeditionPlace'].errors['maxlength']">Lugar de expedicion no debe ser mayor a 5
-                  caracteres</div>
+                <div *ngIf="fEdit['expeditionPlace'].errors['minlength']">
+                  Lugar de expedicion no debe ser menor a 5 caracteres
+                </div>
+                <div *ngIf="fEdit['expeditionPlace'].errors['maxlength']">
+                  Lugar de expedicion no debe ser mayor a 5 caracteres
+                </div>
               </div>
             </div>
 
             <div class="form-group col-md-4">
               <label>Regimen fiscal:</label>
 
-              <select class="form-control is-valid" formControlName="taxRegime" [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxRegime'].errors }">
-                <option *ngFor="let item of jsonDataTaxRegiment"
-                  [selected]="item.regime == selectedTaxRegime"  > {{item.regime}}
+              <select class="form-control is-valid" formControlName="taxRegime"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['taxRegime'].errors }">
+                <option *ngFor="let item of jsonDataTaxRegiment" [selected]="item.regime == selectedTaxRegime">
+                  {{item.regime}}
                 </option>
               </select>
 

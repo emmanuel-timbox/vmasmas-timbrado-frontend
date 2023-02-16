@@ -13,6 +13,7 @@ export class TaxPeapleService {
   pathTaxRegimenCat: string = environment.pathTaxRegimenCat
   userSlug: string = environment.slugUser;
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
+  rfcFormatter: string = "[A-Z&amp;Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]"
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -25,7 +26,7 @@ export class TaxPeapleService {
   getDataValidateEmitter() {
     return {
       bussinessName: ['', [Validators.required, Validators.maxLength(150), Validators.pattern(this.nonWhitespaceRegExp)]],
-      rfc: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
+      rfc: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(13), Validators.pattern(this.rfcFormatter)]],
       expeditionPlace: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern(this.nonWhitespaceRegExp)]],
       taxRegime: ['', Validators.required]
     }

@@ -12,6 +12,7 @@ export class ReceiverService {
   apiUrl: string = environment.apiUrl;
   userSlug: string = environment.slugUser;
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
+  rfcFormatter: string = "[A-Z&amp;Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]"
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -24,9 +25,9 @@ export class ReceiverService {
   getDataValidateReceiver() {
     return {
       bussinessName: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-      rfc: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      rfc: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(13), Validators.pattern(this.rfcFormatter)]],
       cfdiUse: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-      receivingTaxDomicile: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
+      receivingTaxDomicile: ['', [Validators.required,Validators.minLength(5), Validators.maxLength(5), Validators.pattern(this.nonWhitespaceRegExp)]],
       recipientTaxRegimen: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
       taxIdNumber: ['', [Validators.pattern(this.nonWhitespaceRegExp)]],
       taxResidence: ['', [Validators.pattern(this.nonWhitespaceRegExp)]]
