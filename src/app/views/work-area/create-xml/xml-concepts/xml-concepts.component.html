@@ -85,9 +85,9 @@
 
                     <div class="form-group col-md-2 mb-0">
                       <label class="label-color mb-0">Cantidad:</label>
-                      <input type="number" (keyup)="setAmount(i)" class="form-control form-control-sm" pattern="[0-9]"
-                        min="0" onkeydown="if(event.key==='.'){event.preventDefault();}"
-                        oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                      <input type="number" (keyup)="setAmount(i)" class="form-control form-control-sm"
+                        min="1" onkeydown="if(event.key==='.'){event.preventDefault();}"
+                        oninput="event.target.value = event.target.value.replace(/[^1-9]*/g,'');"
                         formControlName="quantity">
                     </div>
 

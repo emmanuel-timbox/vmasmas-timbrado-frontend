@@ -5,7 +5,7 @@
       <label>Serie:</label>
       <input type="text" class="form-control is-valid" formControlName="serie">
     </div>
-    
+
     <div class="form-group col-sm-4">
       <label>Folio:</label>
       <input type="text" class="form-control is-valid" formControlName="invoice">
@@ -59,22 +59,21 @@
     </div>
 
     <div class="form-group col-sm-4">
+      <label>Forma de Pago</label>
+      <select class="form-control is-valid" formControlName="wayToPay">
+        <option selected value="">Seleccione una opcion</option>
+        <option *ngFor="let payMethod of payMethodCatalog" value="{{payMethod.forma_pago}}">
+          {{payMethod.forma_pago}} -- {{payMethod.descripcion}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group col-sm-4">
       <label>Metodo de Pago</label>
       <select class="form-control is-valid" formControlName="payMethod">
         <option selected value="">Seleccione una opcion</option>
         <option value="PUE">Pago en una sola exhibición - PUE</option>
         <option value="PPD">Pago en parcialidades o diferido - PPD</option>
-      </select>
-    </div>
-
-
-    <div class="form-group col-sm-4">
-      <label>Forma de Pago</label>
-      <select class="form-control is-valid" formControlName="wayToPay">
-        <option selected value="">Seleccione una opcion</option>
-        <option value="PUE" *ngFor="let payMethod of payMethodCatalog" value="{{payMethod.forma_pago}}">
-          {{payMethod.forma_pago}} -- {{payMethod.descripcion}}
-        </option>
       </select>
     </div>
 

@@ -23,7 +23,7 @@ export class XmlCertificateService {
   getDataValidateCerticate() {
     return {
       bussinessName: [''],
-      rfc: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
+      rfc: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(13), Validators.pattern(this.nonWhitespaceRegExp)]],
       expeditionPlace: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern(this.nonWhitespaceRegExp)]],
       taxRegime: ['', [Validators.required]],
       certNumber: ['', [Validators.required]],

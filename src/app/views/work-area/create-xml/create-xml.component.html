@@ -4,30 +4,43 @@
   </div>
   <div class="card-body">
 
+    <div class="row">
+      <div class="col-sm-12" *ngIf="receiverPreview.haveError">
+        <div class="alert alert-danger" role="alert">
+          <b>Error de Cfdi:</b> {{receiverPreview.errorMessage}}
+        </div>
+      </div>
+    </div>
+
     <div [hidden]="showPreeview">
       <form>
         <div class="row">
           <div class="col-sm-12">
             <ng-wizard #ngWizardNative [config]="config" [className]="'ng-wizard-theme-default'">
 
-              <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'">
+              <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'"
+                [canExit]="isValidFunctionReturnsBoolean.bind(this)">
                 <app-xml-certificate (emitFormCertificate)="receiveFormCertificate = $event"
                   (emitterSlugEmitter)="slugEmitterSelect = $event"></app-xml-certificate>
               </ng-wizard-step>
 
-              <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'">
+              <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'"
+                [canExit]="isValidFunctionReturnsBoolean.bind(this)">
                 <app-xml-vaucher (emitterVaucher)="reciverFormVaucher = $event"></app-xml-vaucher>
               </ng-wizard-step>
 
-              <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
+              <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'"
+                [canExit]="isValidFunctionReturnsBoolean.bind(this)">
                 <app-xml-receiver (emitterReceiver)="receiverFormReceiver = $event"></app-xml-receiver>
               </ng-wizard-step>
 
-              <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">
+              <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'"
+                [canExit]="isValidFunctionReturnsBoolean.bind(this)">
                 <app-xml-concepts (emitterConcept)="receiverFormConcept = $event"></app-xml-concepts>
               </ng-wizard-step>
 
-              <ng-wizard-step [title]="'Nota'" [description]="'Agregar nota al Comprobante'">
+              <ng-wizard-step [title]="'Nota'" [description]="'Agregar nota al Comprobante'"
+                [canExit]="isValidFunctionReturnsBoolean.bind(this)">
                 <div class="row">
                   <div class="col-sm-12">
                     <p>
@@ -42,7 +55,8 @@
                 </div>
               </ng-wizard-step>
 
-              <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'" *ngIf="isPayRoll">
+              <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'" *ngIf="isPayRoll"
+                [canExit]="isValidFunctionReturnsBoolean.bind(this)">
                 <span>Step 6 content</span>
               </ng-wizard-step>
             </ng-wizard>
@@ -88,7 +102,8 @@
           </div>
         </div>
       </div>
-      <app-xml-preview [cfdiXml]="cfdi" [cfdiJson]="cfdiJson" [note]="noteVaucher"></app-xml-preview>
+      <app-xml-preview [cfdiXml]="cfdi" [cfdiJson]="cfdiJson" [note]="noteVaucher" [keyData]="keyData"
+        [slugEmitter]="slugEmitterSelect" (emitterPreview)="receiverPreview = $event"></app-xml-preview>
     </div>
 
   </div>

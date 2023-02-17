@@ -81,7 +81,7 @@ export class XmlConceptsComponent implements OnInit {
       this.selectTaxObject = concept.tax_object;
       conceptBuild = this.formBuilder.group({
         productKey: [concept.product_key, [Validators.required]],// ClaveProdServ
-        quantity: [0, Validators.required],// Cantidad
+        quantity: [1, Validators.required],// Cantidad
         unitKey: [concept.unit_key, Validators.required],// ClaveUnidad
         description: [concept.description, [Validators.required]],// Descripcion
         unitValue: [Number(0.00).toFixed(2), [Validators.required]],// ValorUnitario

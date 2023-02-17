@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgWizardConfig, NgWizardService, STEP_STATE, THEME } from 'ng-wizard';
+import { NgWizardConfig, NgWizardService, StepValidationArgs, STEP_STATE, THEME } from 'ng-wizard';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { XmlCertificateComponent } from './xml-certificate/xml-certificate.component';
 import { XmlReceiverComponent } from './xml-receiver/xml-receiver.component';
@@ -37,6 +37,7 @@ export class CreateXmlComponent implements OnInit {
   showPreeview: boolean = false;
   title: string = 'Creacion de Comprobante (CFDI 4.0)';
   noteVaucher!: string;
+  keyData!: any;
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   certificateData!: any;
@@ -51,6 +52,7 @@ export class CreateXmlComponent implements OnInit {
   reciverFormVaucher!: any;
   receiverFormReceiver!: any;
   receiverFormConcept!: any;
+  receiverPreview: any = { haveError: false, errorMessage: null };
 
   stepStates = {
     normal: STEP_STATE.normal,
@@ -79,18 +81,68 @@ export class CreateXmlComponent implements OnInit {
         this.stepTitle = args.step.title;
       },
     });
+
+    console.log(this.receiverPreview)
   }
 
   showPreviousStep(): void { this.ngWizardService.previous(); }
 
   showNextStep(): void {
+    let canNext: boolean = this.selectStep(this.numberStep);
+    // por cuestiones de test se comenta
+    // if (!canNext) { this.ngWizardService.next(); }
+    this.ngWizardService.next();
+  }
+
+  isValidFunctionReturnsBoolean(args: StepValidationArgs): boolean {
+    let index: number = args.fromStep.index;
+    let canExit: boolean = this.selectStep(index)
+    return true
+  }
+
+  resetWizard(): void {
+    let message: string = 'Al reiniciar el Formulario se borraran todos los datos llenados con anterioridad.'
+    this.swal.confirmationAlert(message, '¡Si reiniciar!').then((result: any) => {
+      if (result.isConfirmed) {
+        this.ngWizardService.reset();
+        this.certificateComponent.resetForm();
+        this.conceptComponent.resetForm();
+        this.reciverComponent.resetForm();
+        this.vaucherComponent.resetForm();
+      }
+    });
+  }
+
+  saveData(): void {
+    if (this.stepTitle == 'Nota') {
+      let dataCreateXml: any = this.createXml();
+      this.cfdi = dataCreateXml.xml;
+      this.cfdiJson = dataCreateXml.jsonData;
+      this.showPreeview = true;
+      this.noteVaucher = this.note.nativeElement.value;
+      this.keyData = {
+        keyFile: this.certificateData.file,
+        password: this.certificateData.formCerticate.passwordKey
+      }
+    } else {
+      //esta parte se va generar xml pero de nomina
+    }
+  }
+
+  getBack(): void { this.showPreeview = false; }
+
+  //este metodo se usa para ejecutar otro metodo desde otro componente.
+  stampVaucher(): void { this.previewComponent.stampReceipt(); }
+
+  private selectStep(stepNumber: number): boolean {
     let canNext!: boolean;
-    switch (this.numberStep) {
+    switch (stepNumber) {
       case 0:
         this.certificateComponent.registrerEmitterNode();
         this.certificateData = this.receiveFormCertificate
         canNext = this.receiveFormCertificate.isInvalid;
-        if (!canNext) this.reciverComponent.getReceivers(this.slugEmitterSelect);
+        this.reciverComponent.getReceivers(this.slugEmitterSelect);
+        // if (!canNext) this.reciverComponent.getReceivers(this.slugEmitterSelect);
         break;
 
       case 1:
@@ -113,7 +165,7 @@ export class CreateXmlComponent implements OnInit {
         if (this.receiverFormConcept.isInvalid) {
           let message = 'Se tiene que registrar al menos un Concepto antes de generar un Comprobante';
           this.swal.infoAlert('¡Revisa!', message);
-          return;
+          return false;
         }
 
         this.conceptData = this.receiverFormConcept;
@@ -122,45 +174,15 @@ export class CreateXmlComponent implements OnInit {
 
       case 4:
         this.noteVaucher = this.note.nativeElement.value;
+        canNext = true;
         break;
 
       case 5:
 
         break;
     }
-    // por cuestiones de test se comenta
-    if (!canNext) { this.ngWizardService.next(); }
-    // this.ngWizardService.next();
+    return canNext
   }
-
-  resetWizard() {
-    let message: string = 'Al reiniciar el se limpara toda la informacion llenada'
-    this.swal.confirmationAlert(message, '¡Si reiniciar!').then((result: any) => {
-      if (result.isConfirmed) {
-        this.ngWizardService.reset();
-        this.certificateComponent.resetForm();
-        this.conceptComponent.resetForm();
-        this.reciverComponent.resetForm();
-        this.vaucherComponent.resetForm();
-      }
-    });
-  }
-
-  saveData() {
-    if (this.stepTitle == 'Nota') {
-      let dataCreateXml: any = this.createXml();
-      this.cfdi = dataCreateXml.xml;
-      this.cfdiJson = dataCreateXml.jsonData;
-      this.showPreeview = true;
-      this.noteVaucher = this.note.nativeElement.value;
-    } else {
-      //esta parte se va generar xml pero de nomina
-    }
-  }
-
-  getBack() { this.showPreeview = false; }
-
-  stampVaucher(): void { this.previewComponent.stampReceipt(); }
 
   private createXml(): any {
     let dataCertificate = this.certificateData.formCerticate;
@@ -211,8 +233,8 @@ export class CreateXmlComponent implements OnInit {
     if (dataVaucher.invoice != '') xmlJson['@']['Folio'] = dataVaucher.invoice;
     if (dataVaucher.serie != '') xmlJson['@']['Serie'] = dataVaucher.serie;
     if (dataConcept.discount != '0.00') xmlJson['@']['Descuento'] = dataConcept.discount;
-    if (dataVaucher.payMethod != '') xmlJson['@']['FormaPago'] = dataVaucher.payMethod;
-    if (dataVaucher.wayToPay != '') xmlJson['@']['MetodoPago'] = dataVaucher.wayToPay;
+    if (dataVaucher.payMethod != '') xmlJson['@']['FormaPago'] = dataVaucher.wayToPay;
+    if (dataVaucher.wayToPay != '') xmlJson['@']['MetodoPago'] = dataVaucher.payMethod;
 
     //atributos opcionales del nodo de Receptor
     if (dataReceiver.fiscalIdNumber != '') xmlJson['cfdi:Receptor']['@']['NumRegIdTrib'] = dataReceiver.fiscalIdNumber;

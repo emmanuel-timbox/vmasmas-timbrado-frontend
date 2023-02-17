@@ -39,17 +39,20 @@ export class XmlReceiverComponent implements OnInit {
 
   setDataReceiverForm(event: Event): void {
     let slug: string = (event.target as HTMLInputElement).value;
-    let dataReceiver: any = this.receiversList.find((x: any) => x.slug == slug);
-
-    this.formReceiver.setValue({
-      bussinessName: dataReceiver.bussiness_name,
-      rfc: dataReceiver.rfc,
-      cfdiUse: dataReceiver.cfdi_use,
-      taxDomicile: dataReceiver.receiving_tax_domicile,
-      taxRegime: dataReceiver.recipient_tax_regimen,
-      taxResidence: dataReceiver.tax_residence,
-      fiscalIdNumber: dataReceiver.tax_residence
-    });
+    if (slug != '') {
+      let dataReceiver: any = this.receiversList.find((x: any) => x.slug == slug);
+      this.formReceiver.setValue({
+        bussinessName: dataReceiver.bussiness_name,
+        rfc: dataReceiver.rfc,
+        cfdiUse: dataReceiver.cfdi_use,
+        taxDomicile: dataReceiver.receiving_tax_domicile,
+        taxRegime: dataReceiver.recipient_tax_regimen,
+        taxResidence: dataReceiver.tax_residence,
+        fiscalIdNumber: dataReceiver.tax_residence
+      });
+    } else {
+      this.resetForm()
+    }
   }
 
   getReceivers(slug: string): void {
