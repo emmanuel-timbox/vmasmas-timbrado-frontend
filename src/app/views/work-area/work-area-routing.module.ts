@@ -10,6 +10,7 @@ import { TaxesComponent } from './taxes/taxes.component';
 import { ReceiversComponent } from './settings-user/receivers/receivers.component';
 import { CertificatesComponent } from './settings-user/certificates/certificates.component';
 import { EmployeComponent } from './employe/employe.component';
+import { MassiveDownloadComponent } from './massive-download/massive-download.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'receiver/:slug', component: ReceiversComponent },
       { path: 'certificate/:slug', component: CertificatesComponent },
       { path: 'employe', component: EmployeComponent },
+      { path: 'massive-download/', component: MassiveDownloadComponent },
     ],
   },
 ];

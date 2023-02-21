@@ -25,6 +25,7 @@ import { XmlConceptsComponent } from './create-xml/xml-concepts/xml-concepts.com
 import { ConceptsComponent } from './taxes/concepts/concepts.component';
 import { EmployeComponent } from './employe/employe.component';
 import { XmlPreviewComponent } from './create-xml/xml-preview/xml-preview.component';
+import { MassiveDownloadComponent } from './massive-download/massive-download.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { XmlPreviewComponent } from './create-xml/xml-preview/xml-preview.compon
     XmlConceptsComponent,
     ConceptsComponent,
     EmployeComponent,
-    XmlPreviewComponent
+    XmlPreviewComponent,
+    MassiveDownloadComponent
   ],
   imports: [
     CommonModule,
