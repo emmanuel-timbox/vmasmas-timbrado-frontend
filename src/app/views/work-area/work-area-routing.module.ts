@@ -24,7 +24,7 @@ const routes: Routes = [
       { path: 'receiver/:slug', component: ReceiversComponent },
       { path: 'certificate/:slug', component: CertificatesComponent },
       { path: 'employe', component: EmployeComponent },
-      { path: 'massive-download/', component: MassiveDownloadComponent },
+      { path: 'massive-download', component: MassiveDownloadComponent },
     ],
   },
 ];

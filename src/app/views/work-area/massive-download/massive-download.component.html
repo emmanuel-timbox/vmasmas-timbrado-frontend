@@ -1,12 +1,63 @@
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
-      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+<div class="col-sm-12">
+    <div class="card card-outline card-danger">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-md-22 d-flex justify-content-start align-items-center">
+            <h5>Descarga masiva</h5>
+          </div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Busqueda por UUID</button>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="modal-body">
+                <div class="form-row">
+        
+                    <div class="col-sm-6">
+                        <div class="row mb-2">
+                  
+                          <div class="col-sm-12 mb-2">
+                            <label>Seleccionar Emisor:</label>
+                            <select class="form-control is-valid" (change)="setDataEmitterInput($event)">
+                              <option selected value="">seleccione una opcion</option>
+                              <option *ngFor="let emitter of emitterData" value="{{emitter.slug}}"> {{emitter.bussiness_name}} </option>
+                            </select>
+                          </div>
+                  
+                          <div class="col-sm-12 mb-2">
+                            <label>RFC:</label>
+                            <input type="text" class="form-control is-valid" formControlName="rfc" [readonly]="true"
+                              [ngClass]="{ 'is-invalid': summitFormCert && f['rfc'].errors }">
+                  
+                            <div *ngIf="summitFormCert && f['rfc'].errors" class="invalid-feedback">
+                              <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
+                              <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                              <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                            </div>
+                  
+                          </div>
+                  
+                  
+                        </div>
+                      </div>
+                 
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+              </div>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Busqueda por UUID</div>
+      </div>
+
+
     </div>
-  </nav>
-  <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
   </div>
+
+
