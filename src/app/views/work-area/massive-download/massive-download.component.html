@@ -19,33 +19,7 @@
             <div class="modal-body">
                 <div class="form-row">
         
-                    <div class="col-sm-6">
-                        <div class="row mb-2">
                   
-                          <div class="col-sm-12 mb-2">
-                            <label>Seleccionar Emisor:</label>
-                            <select class="form-control is-valid" (change)="setDataEmitterInput($event)">
-                              <option selected value="">seleccione una opcion</option>
-                              <option *ngFor="let emitter of emitterData" value="{{emitter.slug}}"> {{emitter.bussiness_name}} </option>
-                            </select>
-                          </div>
-                  
-                          <div class="col-sm-12 mb-2">
-                            <label>RFC:</label>
-                            <input type="text" class="form-control is-valid" formControlName="rfc" [readonly]="true"
-                              [ngClass]="{ 'is-invalid': summitFormCert && f['rfc'].errors }">
-                  
-                            <div *ngIf="summitFormCert && f['rfc'].errors" class="invalid-feedback">
-                              <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
-                              <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                              <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
-                            </div>
-                  
-                          </div>
-                  
-                  
-                        </div>
-                      </div>
                  
                 </div>
               </div>
