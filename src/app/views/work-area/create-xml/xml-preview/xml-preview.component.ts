@@ -82,6 +82,7 @@ export class XmlPreviewComponent implements OnInit {
           const nodes: any = jsonCfdi.elements[0].elements;
           let tfdData: any;
 
+          this.cfdiXml = result.data
           this.emitterPreview.emit({ haveError: false, errorMessage: null, itItSuccess: true });
           this.itIsSuccess = true;
           nodes.forEach((data: any) => {
@@ -168,6 +169,15 @@ export class XmlPreviewComponent implements OnInit {
     });
 
     this.swal.closeAlert();
+  }
+
+  donwloadXml(uuid: string): void {
+    const link: any = document.createElement("a");
+    const file: Blob = new Blob([this.cfdiXml], { type: 'text/xml' });
+    link.href = URL.createObjectURL(file);
+    link.download = `${uuid}.xml`;
+    link.click();
+    URL.revokeObjectURL(link.href);
   }
 
   private getWayToPay(cfdiPayToWay: string): void {

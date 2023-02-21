@@ -88,8 +88,13 @@
     <div *ngIf="showPreeview">
       <div class="alert alert-primary" role="alert">
         <div class="row">
-          <div class=" col-sm-7 d-flex justify-content-start">
-            <b>NOTA:</b> Esta es una representacion grafica del comprobante antes de ser Timbrado.
+          <div class=" col-sm-7 d-flex justify-content-start" >
+            <div *ngIf="!receiverPreview.itItSuccess">
+              <b>NOTA:</b> Esta es una representacion grafica del comprobante antes de ser Timbrado.
+            </div>
+            <div *ngIf="receiverPreview.itItSuccess">
+              <b>Exito:</b> El comprobante ya se encuentra timbrado. Ya puede descargarlo o imprimir.
+            </div>
           </div>
           <div class="col-sm-5 d-flex justify-content-end">
             <div class="btn-group pb-2 pt-0" *ngIf="receiverPreview.itItSuccess">
