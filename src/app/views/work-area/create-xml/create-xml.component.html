@@ -93,17 +93,20 @@
           </div>
           <div class="col-sm-5 d-flex justify-content-end">
             <div class="btn-group pb-2 pt-0">
-              <button class="btn btn-secondary" (click)="getBack()"> <i class="fas fa-arrow-left"></i> Regresar
+              <button class="btn btn-secondary" (click)="getBack()" [disabled]="receiverPreview.itItSuccess">
+                <i class="fas fa-arrow-left"></i> Regresar
               </button>
-              <button class="btn btn-success" (click)="stampVaucher()"> <i class="fas fa-file-import"></i> Timbrar
+              <button class="btn btn-success" (click)="stampVaucher()" [disabled]="receiverPreview.itItSuccess">
+                <i class="fas fa-file-import"></i> Timbrar
               </button>
-              <button class="btn btn-info"> <i class="fas fa-paper-plane"></i> Prefactura </button>
+              <!-- <button class="btn btn-info"> <i class="fas fa-paper-plane"></i> Prefactura </button> -->
             </div>
           </div>
         </div>
       </div>
       <app-xml-preview [cfdiXml]="cfdi" [cfdiJson]="cfdiJson" [note]="noteVaucher" [keyData]="keyData"
-        [slugEmitter]="slugEmitterSelect" (emitterPreview)="receiverPreview = $event"></app-xml-preview>
+        [slugEmitter]="slugEmitterSelect" (emitterPreview)="receiverPreview = $event">
+      </app-xml-preview>
     </div>
 
   </div>

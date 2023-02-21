@@ -8,17 +8,22 @@ export class SweetAlertsService {
 
   constructor() { }
 
-  alertLoader() {
+  alertLoader(message?: string) {
+    let messageExist = message == undefined ? "Cargando, espere un momento." : message;
     Swal.fire({
-      title: 'Espere un momento...',
       allowOutsideClick: false,
       showConfirmButton: false,
       allowEscapeKey: false,
-      width: 600,
+      width: 800,
       padding: '3em',
       background: 'rgb(0 0 123 / 0%)',
-      backdrop: 'rgba(0,0,123,0.4) left top no-repeat',
-      html: '<div className="col-sm-12"><div class="loader loader--snake"></div>'
+      backdrop: 'rgba(35,33,38,0.81) left top no-repeat',
+      html: `
+        <div class="container-loader">
+          <div class="loader-timbox"></div>
+          <div class="text-loader pt-3">${messageExist}</div>
+        </div>
+      `
     });
   }
 
@@ -42,4 +47,7 @@ export class SweetAlertsService {
       cancelButtonText: 'Cancelar'
     });
   }
+
+  closeAlert() { return Swal.close() }
+  
 }

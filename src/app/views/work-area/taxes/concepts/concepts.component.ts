@@ -100,7 +100,6 @@ export class ConceptsComponent implements OnInit {
       next: (response) => {
         let result = JSON.parse(JSON.stringify(response));
         if (result.code == 200) {
-          console.log(result.data);
           this.dataConcepts[this.indexArrayConcept] = result.data;
           this.swal.successAlert('Los datos se actualizaron de manera correcta');
         } else {

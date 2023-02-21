@@ -38,6 +38,7 @@ export class CreateXmlComponent implements OnInit {
   title: string = 'Creacion de Comprobante (CFDI 4.0)';
   noteVaucher!: string;
   keyData!: any;
+  itIsSucces: boolean = false
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   certificateData!: any;
@@ -52,7 +53,7 @@ export class CreateXmlComponent implements OnInit {
   reciverFormVaucher!: any;
   receiverFormReceiver!: any;
   receiverFormConcept!: any;
-  receiverPreview: any = { haveError: false, errorMessage: null };
+  receiverPreview: any = { haveError: false, errorMessage: null, itItSuccess: false };
 
   stepStates = {
     normal: STEP_STATE.normal,
@@ -81,8 +82,6 @@ export class CreateXmlComponent implements OnInit {
         this.stepTitle = args.step.title;
       },
     });
-
-    console.log(this.receiverPreview)
   }
 
   showPreviousStep(): void { this.ngWizardService.previous(); }
@@ -90,8 +89,8 @@ export class CreateXmlComponent implements OnInit {
   showNextStep(): void {
     let canNext: boolean = this.selectStep(this.numberStep);
     // por cuestiones de test se comenta
-    // if (!canNext) { this.ngWizardService.next(); }
-    this.ngWizardService.next();
+    if (!canNext) { this.ngWizardService.next(); }
+    // this.ngWizardService.next();
   }
 
   isValidFunctionReturnsBoolean(args: StepValidationArgs): boolean {
@@ -141,8 +140,8 @@ export class CreateXmlComponent implements OnInit {
         this.certificateComponent.registrerEmitterNode();
         this.certificateData = this.receiveFormCertificate
         canNext = this.receiveFormCertificate.isInvalid;
-        this.reciverComponent.getReceivers(this.slugEmitterSelect);
-        // if (!canNext) this.reciverComponent.getReceivers(this.slugEmitterSelect);
+        // this.reciverComponent.getReceivers(this.slugEmitterSelect);
+        if (!canNext) this.reciverComponent.getReceivers(this.slugEmitterSelect);
         break;
 
       case 1:
