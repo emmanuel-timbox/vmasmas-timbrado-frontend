@@ -1,1 +1,60 @@
-<p>welcome works!</p>
+<div class="row">
+  <div class="col-sm-12">
+
+    <div class="card card-outline card-danger">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-md-6 d-flex justify-content-start align-items-center">
+            <h5>Lista de Comprobantes</h5>
+          </div>
+        </div>
+      </div>
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-sm-12 table-responsive">
+
+
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-sm row-border">
+              <thead>
+                <tr class="font-size-table">
+                  <th>UUID</th>
+                  <th>RFC Emisor</th>
+                  <th>Fecha de Emision</th>
+                  <th>Fecha de Timbrado</th>
+                  <th>RFC Emisor</th>
+                  <th>RFC Receptor</th>
+                  <th>Tipo</th>
+                  <th>Total</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dataXml; let i = index" class="font-size-table">
+                  <td>{{item.uuid}}</td>
+                  <td>{{item.emitte_date}}</td>
+                  <td>{{item.stamp_date}}</td>
+                  <td>{{item.emitter_rfc}}</td>
+                  <td>{{item.receiver_rfc}}</td>
+                  <td>{{item.receiver_name}}</td>
+                  <td>{{item.voucher_type}} - {{typeVaoucher[item.voucher_type]}}</td>
+                  <td>{{item.total}}</td>
+                  <td>
+                    <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2 " data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Descargar PDF">
+                    <i class="far fa-file-pdf"></i>
+                  </a>
+                  <a id="btn_desactivar_empleado" class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
+                    data-placement="right" title="Descargar XML">
+                    <i class="fas fa-code"></i>
+                  </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
