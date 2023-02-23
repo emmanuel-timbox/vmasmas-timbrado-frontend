@@ -159,15 +159,12 @@ export class CreateXmlComponent implements OnInit {
       case 3:
         this.conceptComponent.regitrerConcept();
         this.conceptData = this.receiverFormConcept;
-        this.conceptComponent.regitrerConcept();
 
         if (this.receiverFormConcept.isInvalid) {
-          let message = 'Se tiene que registrar al menos un Concepto antes de generar un Comprobante';
+          const message = 'Se tiene que registrar al menos un Concepto antes de generar un Comprobante';
           this.swal.infoAlert('¡Revisa!', message);
-          canNext = false;
         }
 
-        this.conceptData = this.receiverFormConcept;
         canNext = this.receiverFormConcept.isInvalid;
         break
 

@@ -81,7 +81,7 @@ export class XmlPreviewComponent implements OnInit {
           const jsonCfdi: any = JSON.parse(xml2json(result.data));
           const nodes: any = jsonCfdi.elements[0].elements;
           let tfdData: any;
-
+          this.issueDay = jsonCfdi.elements[0].attributes.Fecha;
           this.cfdiXml = result.data
           this.emitterPreview.emit({ haveError: false, errorMessage: null, itItSuccess: true });
           this.itIsSuccess = true;
@@ -96,13 +96,11 @@ export class XmlPreviewComponent implements OnInit {
             digitalStamp: tfdData.attributes.SelloCFD,
             satStamp: tfdData.attributes.SelloSAT,
             originalStringStamp: this.generateStringOrigin(tfdData),
-            emitteDate: '',
             stampedDate: tfdData.attributes.FechaTimbrado,
             certificateNoSat: tfdData.attributes.NoCertificadoSAT
           };
           this.uuid = tfdData.attributes.UUID;
           this.swal.successAlert('Timbrado de manera correcta');
-
         } else {
           this.emitterPreview.emit({ haveError: true, errorMessage: result.error, itItSuccess: false });
           this.itIsSuccess = false;
