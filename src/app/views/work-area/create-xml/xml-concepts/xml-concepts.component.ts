@@ -183,6 +183,7 @@ export class XmlConceptsComponent implements OnInit {
   setAmount(index: number): void {
     let unitValue: number = this.getControl.value[index].unitValue;
     let quantity: number = this.getControl.value[index].quantity;
+    let discount: number = this.getControl.value[index].discount
     let total: number = 0;
 
     this.getControl.at(index).get('amount')?.setValue(Number(unitValue * quantity).toFixed(2));

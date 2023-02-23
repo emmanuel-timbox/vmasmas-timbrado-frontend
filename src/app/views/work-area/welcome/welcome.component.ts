@@ -13,7 +13,10 @@ export class WelcomeComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   dataXml!: any;
-  typeVaoucher: any = { 'I': 'Ingreso', 'E': 'Egreso', 'N': 'Nomina' }
+  typeVaoucher: any = { 'I': 'Ingreso', 'E': 'Egreso', 'N': 'Nomina' };
+  showTable: boolean = true;
+  xml!: string;
+  uuid!: string;
 
   constructor(private _service: WelcomeService) { }
 
@@ -37,6 +40,20 @@ export class WelcomeComponent implements OnInit {
       },
       error: error => { console.log(error); }
     });
+  }
+
+  downloadXml(uuid: string, xml: string): void {
+    const link: any = document.createElement("a");
+    const file: Blob = new Blob([xml], { type: 'text/xml' });
+    link.href = URL.createObjectURL(file);
+    link.download = `${uuid}.xml`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+
+  showPdfPreview(xml: string): void {
+    this.showTable = false;
+    this.xml = xml;
   }
 
 }

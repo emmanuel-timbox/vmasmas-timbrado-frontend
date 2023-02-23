@@ -10,9 +10,9 @@
         </div>
       </div>
       <div class="card-body ">
-        <div class="row">
-          <div class="col-sm-12 table-responsive">
 
+        <div class="row" *ngIf="showTable">
+          <div class="col-sm-12 table-responsive">
 
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-sm row-border">
               <thead>
@@ -40,11 +40,11 @@
                   <td>{{item.total}}</td>
                   <td>
                     <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2 " data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Descargar PDF">
+                    data-bs-placement="right" title="Descargar PDF" (click)="showPdfPreview(item.xml)">
                     <i class="far fa-file-pdf"></i>
                   </a>
                   <a id="btn_desactivar_empleado" class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
-                    data-placement="right" title="Descargar XML">
+                    data-placement="right" title="Descargar XML" (click)="downloadXml(item.uuid, item.xml)">
                     <i class="fas fa-code"></i>
                   </a>
                   </td>
@@ -54,6 +54,11 @@
 
           </div>
         </div>
+
+        <div class="row d-flex justify-content-center" *ngIf="!showTable">
+          <app-pdf-preview [cfdiXml]="xml"></app-pdf-preview>
+        </div>
+
       </div>
     </div>
   </div>
