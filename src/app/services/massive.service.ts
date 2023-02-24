@@ -21,12 +21,19 @@ import { Massive } from '../models/massive.model';
       })
     };
   
-    constructor(private httpCliente: HttpClient) { }
+    constructor(private httpClient: HttpClient) { }
+  
+
+    getEmitterData() {
+      return this.httpClient.get(`${this.apiUrl}/create_xml/${this.userSlug}`);
+    }
   
 
   
+
+
     insertFile(formData: FormData) {
-      return this.httpCliente.post(`${this.apiUrl}/massive`, formData)
+      return this.httpClient.post(`${this.apiUrl}/massive`, formData)
     }
  
 

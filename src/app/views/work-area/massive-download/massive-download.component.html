@@ -1,37 +1,189 @@
-<div class="col-sm-12">
+<div class="row">
+    <div class="col-sm-12">
+      <div class="col-sm-12">
+        <div class="card card-outline card-danger">
+          <div class="card-header">
+            <h4>Descarga Masiva</h4>
+          </div>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+              <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Busqueda por UUID</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> 
+                <div class="modal-body">
+                    <div class="form-row">
+
+                        <div class="col-sm-3 mb-2">
+                            <label>Seleccionar Emisor:</label>
+                            <select class="form-control is-valid" (change)="setDataEmitterInput($event)">
+                              <option selected value="">seleccione una opcion</option>
+                              <option *ngFor="let emitter of emitterData" value="{{emitter.slug}}"> {{emitter.bussiness_name}} </option>
+                            </select>
+                          </div>
+
+                        <div class="form-group col-md-3">
+                            <label>RFC Emisor</label>
+                            <input type="text" class="form-control is-valid" formControlName="rfcemisor">
+                            
+                            
+                          </div>
+                        
+                          <div class="form-group col-md-3">
+                            <label>RFC Receptor</label>
+                            <input type="text" class="form-control is-valid" formControlName="rfcReceptor">
+                            
+                            
+                          </div>
+        
+                          <div class="form-group col-md-3">
+                            <label>Correo electronico</label>
+                            <input type="text" class="form-control is-valid" formControlName="correo">
+                            
+                            
+                          </div>
+        
+                          <div class="form-group col-md-3">
+                            <label>Fecha inicial</label>
+                            <input type="date" class="form-control is-valid" formControlName="fechainicial">
+                            
+                            
+                          </div>
+        
+                          <div class="form-group col-md-3">
+                            <label>Fecha final</label>
+                            <input type="date" class="form-control is-valid" formControlName="fechafinal">
+                            
+                            
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label>Complemento</label>
+                            <input type="text" class="form-control is-valid" formControlName="estadocomprobante">
+                            
+                            
+                          </div>
+        
+                          <div class="form-group col-md-3">
+                            <label>Tipo solicitud</label>
+                            <input type="text" class="form-control is-valid" formControlName="tiposolicitud">
+                            
+                            
+                          </div>
+        
+                    
+            
+        
+                          <div class="form-group col-md-2">
+                            <label>RFC acuentaAterceros</label>
+                            <input type="text" class="form-control is-valid" formControlName="estadocomprobante">
+                            
+                            
+                          </div>
+        
+                          <div class="form-group col-md-">
+                            <label>Tipo de comprobante</label>
+                            <input type="text" class="form-control is-valid" formControlName="tipocomprobante">
+                            
+                            
+                          </div>
+
+                          <div class="form-group col-md-2">
+                            <label>Estado de comprobante</label>
+                            <input type="text" class="form-control is-valid" formControlName="estadocomprobante">
+                            
+                            
+                          </div>
+
+                          <div class="form-group col-md-2">
+                            <label>Contraseña de llave</label>
+                            <input type="text" class="form-control is-valid" formControlName="estadocomprobante">
+                            
+                            
+                          </div>
+
+                          <div class="col-sm-2">
+                            <ngx-dropzone (change)=" ($event)" style="background: none" accept=".key" [disabled]="disableFileInput">
+                              <ngx-dropzone-label class="text-success">Cargar llave del certificaso(.key)</ngx-dropzone-label>
+                              <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="  (f)" >
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                              </ngx-dropzone-preview>
+                            </ngx-dropzone>
+                            <div class="invalid-feedback-file" *ngIf="files.length == 0">
+                              <div>Hay que cargar el archivo .Key del certificado.</div>
+                            </div>
+                          </div>
+                    </div>
+                    </div>
+                </div>
+                
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                <div class="modal-body">
+                    <div class="form-row">
+
+                        <div class="form-group col-md-5">
+                            <label>UUID</label>
+                            <input type="text" class="form-control is-valid" formControlName="estadocomprobante">
+                            
+                            
+                          </div>
+        
+                          <div class="form-group col-md-5">
+                            <label>RFC Receptor</label>
+                            <input type="text" class="form-control is-valid" formControlName="estadocomprobante">
+                            
+                            
+                          </div>
+
+                    </div>
+                </div>
+                
+            </div>
+
+           
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  
+ 
+
+  <div class="col-sm-12">
     <div class="card card-outline card-danger">
       <div class="card-header">
         <div class="row">
           <div class="col-md-22 d-flex justify-content-start align-items-center">
-            <h5>Descarga masiva</h5>
+            <h5>Lista de solicitudes</h5>
           </div>
         </div>
       </div>
-
-      <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Busqueda por UUID</button>
-        </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="modal-body">
-                <div class="form-row">
-        
-                  
-                 
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-              </div>
-        </div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Busqueda por UUID</div>
+      <div class="card-body table-responsive">
+        <table class="table row-border hover">
+          <thead>
+            <tr>
+                <th>Id de Solicitud</th>
+                <th>Estatus</th>
+                <th>Email</th>
+                <th>Cantidad de paquetes</th>
+                <th>Fecha Creación</th>
+                <th>Acciones</th>
+                
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
       </div>
-
-
     </div>
   </div>
+
+
+
 
 
