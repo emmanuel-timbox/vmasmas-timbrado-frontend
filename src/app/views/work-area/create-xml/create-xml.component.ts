@@ -107,6 +107,7 @@ export class CreateXmlComponent implements OnInit {
         this.conceptComponent.resetForm();
         this.reciverComponent.resetForm();
         this.vaucherComponent.resetForm();
+        this.note.nativeElement.value = '';
       }
     });
   }
@@ -137,6 +138,7 @@ export class CreateXmlComponent implements OnInit {
     this.reciverComponent.resetForm();
     this.vaucherComponent.resetForm();
     this.receiverPreview = { haveError: false, errorMessage: null, itItSuccess: false };
+    this.note.nativeElement.value = '';
   }
 
   //este metodo se usa para ejecutar otro metodo desde otro componente.
