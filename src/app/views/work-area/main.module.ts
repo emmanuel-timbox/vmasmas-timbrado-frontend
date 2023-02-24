@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InputMaskModule } from '@ngneat/input-mask';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
+import { QRCodeModule } from 'angularx-qrcode';
 import { NgSelect2Module } from 'ng-select2';
 import { NgWizardModule } from 'ng-wizard';
 import { DataTablesModule } from "angular-datatables";
@@ -58,7 +59,8 @@ import { PdfPreviewComponent } from './welcome/pdf-preview/pdf-preview.component
     HttpClientModule,
     InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    QRCodeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

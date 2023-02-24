@@ -37,6 +37,7 @@ export class XmlPreviewComponent implements OnInit {
   itIsSuccess: boolean = false;
   wayToPayDescription!: any;
   uuid!: string;
+  urlQr!: string;
   dataCertificate: any = {
     fiscalFolio: '',
     digitalStamp: '',
@@ -101,6 +102,7 @@ export class XmlPreviewComponent implements OnInit {
             certificateNoSat: tfdData.attributes.NoCertificadoSAT
           };
           this.uuid = tfdData.attributes.UUID;
+          this.urlQr = this.getUrlQr(tfdData)
           this.swal.successAlert('Timbrado de manera correcta');
         } else {
           this.emitterPreview.emit({ haveError: true, errorMessage: result.error, itItSuccess: false });
@@ -110,6 +112,10 @@ export class XmlPreviewComponent implements OnInit {
       },
       error: error => { console.log(error); }
     });
+  }
+
+  getUrlQr(tfd: any) {
+    return `https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=${tfd.attributes.UUID}%26re=${this.cfdiJson['cfdi:Emisor']['@']['Rfc']}%26rr=${this.cfdiJson['cfdi:Receptor']['@']['Rfc']}%26tt=${this.cfdiJson['@']['Total']}%26fe=${tfd.attributes.SelloCFD}`
   }
 
   saveVoucher(): any { }

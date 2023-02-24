@@ -170,8 +170,13 @@
               </p>
             </div>
 
-            <div class="col-sm-3 pt-4 pr-0 pl-0 text-4">
-              <b>CODIGO QR</b><br>
+            <div class="col-sm-3 pt-4 pr-0 pl-0">
+              <div *ngIf="!itIsSuccess">
+                <b class=" text-4">CODIGO QR</b><br>
+              </div>
+              <div *ngIf="itIsSuccess">
+                <qrcode [qrdata]="urlQr" [width]="230" [errorCorrectionLevel]="'M'"></qrcode>
+              </div>
             </div>
 
             <div class="col-sm-9 pt-4 pr-0 pl-0 text-3">
