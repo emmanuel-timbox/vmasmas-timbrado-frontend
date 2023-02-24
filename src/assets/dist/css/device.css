@@ -99,11 +99,11 @@ html {
   text-shadow: var(--box-shadow) !important;
 }
 
-#email:focus ~ .client-info-label-login[for="email"] {
+#email:focus~.client-info-label-login[for="email"] {
   margin: -76px 70px !important;
 }
 
-#password:focus ~ .client-info-label-login[for="password"] {
+#password:focus~.client-info-label-login[for="password"] {
   margin: -76px 70px !important;
 }
 
@@ -164,6 +164,7 @@ html {
 #to-register-login:hover {
   color: #dc3e26;
 }
+
 /* ------------ Estilos de registro ------------------ */
 
 #container-registrer {
@@ -199,7 +200,7 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 6%;
+  margin: 6%, 6%, 3%, 3%;
   padding-right: 48px;
 }
 
@@ -212,6 +213,7 @@ html {
   padding-right: 16px;
   color: white;
 }
+
 .text-accion-registrer {
   color: #dc3e26;
   font-weight: bold;
@@ -249,7 +251,7 @@ html {
   width: 80%;
 }
 
-.client-info-registrer:focus ~ label[for="input-focus"] {
+.client-info-registrer:focus~label[for="input-focus"] {
   margin: -76px 70px;
 }
 
@@ -294,6 +296,15 @@ html {
   #container-registrer {
     width: 1200px;
     height: 800px;
+  }
+
+  #container_img-registrer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 8%;
+    padding-right: 48px;
   }
 }
 
@@ -364,15 +375,15 @@ html {
     margin: -71px 32px !important;
   }
 
-  #email:focus ~ .client-info-label-login[for="email"] {
+  #email:focus~.client-info-label-login[for="email"] {
     margin: -76px 20px !important;
   }
 
-  #password:focus ~ .client-info-label-login[for="password"] {
+  #password:focus~.client-info-label-login[for="password"] {
     margin: -76px 20px !important;
   }
 
-  .client-info-registrer{
+  .client-info-registrer {
     width: 90%;
   }
 
@@ -380,12 +391,12 @@ html {
     width: 98%;
   }
 
-  .client-info-label-registrer{
-    margin: -71px 32px!important;
+  .client-info-label-registrer {
+    margin: -71px 32px !important;
   }
 
-  .client-info-registrer:focus ~ label[for="input-focus"] {
-    margin: -76px 20px!important;
+  .client-info-registrer:focus~label[for="input-focus"] {
+    margin: -76px 20px !important;
   }
 
 }
