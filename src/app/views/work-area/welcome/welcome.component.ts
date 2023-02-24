@@ -17,6 +17,7 @@ export class WelcomeComponent implements OnInit {
   hiddenTable: boolean = false;
   xml!: string;
   uuid!: string;
+  note!: string;
 
   constructor(private _service: WelcomeService) { }
 
@@ -51,9 +52,10 @@ export class WelcomeComponent implements OnInit {
     URL.revokeObjectURL(link.href);
   }
 
-  showPdfPreview(xml: string): void {
+  showPdfPreview(xml: string, note: string): void {
     this.hiddenTable = true;
     this.xml = xml;
+    this.note = note
   }
 
 }

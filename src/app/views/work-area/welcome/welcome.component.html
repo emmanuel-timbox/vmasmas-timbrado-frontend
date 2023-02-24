@@ -40,7 +40,7 @@
                   <td>{{item.total}}</td>
                   <td>
                     <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2 " data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Descargar PDF" (click)="showPdfPreview(item.xml)">
+                    data-bs-placement="right" title="Descargar PDF" (click)="showPdfPreview(item.xml, item.note)">
                     <i class="far fa-file-pdf"></i>
                   </a>
                   <a id="btn_desactivar_empleado" class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
@@ -56,7 +56,7 @@
         </div>
 
         <div class="row d-flex justify-content-center" *ngIf="hiddenTable">
-          <app-pdf-preview [cfdiXml]="xml" (emitterPreview)="hiddenTable = $event"></app-pdf-preview>
+          <app-pdf-preview [cfdiXml]="xml" [note]="note" (emitterPreview)="hiddenTable = $event"></app-pdf-preview>
         </div>
 
       </div>

@@ -1,5 +1,6 @@
+import { SweetAlertsService } from './../../../../services/sweet-alert.service';
 import { CatalogsService } from './../../../../services/catalogs.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { xml2json } from 'xml-js';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -13,9 +14,11 @@ import { NumberToLettersService } from 'src/app/services/create-xml/number-to-le
 })
 
 export class PdfPreviewComponent implements OnInit {
+  @ViewChild('pdfView', { static: false }) pdfView!: ElementRef;
 
   @Output() emitterPreview = new EventEmitter<any>();
-  @Input() cfdiXml!: string
+  @Input() cfdiXml!: string;
+  @Input() note!: string;
 
   vaucherType: any = { 'E': 'Emisor', 'I': 'Ingreso', 'N': 'Nomina' };
   taxType: any = { '001': 'IVA', '002': 'ISR', '003': 'IEPS' }
@@ -30,13 +33,16 @@ export class PdfPreviewComponent implements OnInit {
   originalString!: string;
   numberToLatter!: string;
   wayToPayDescription!: string;
+  transfersTax!: any;
+  withholdingsTax!: any
 
-  constructor(private _catalogs: CatalogsService, private convertNumber: NumberToLettersService) { }
+  constructor(private _catalogs: CatalogsService, private convertNumber: NumberToLettersService,
+    private swal: SweetAlertsService) { }
 
   ngOnInit(): void {
     const dataXml: any = JSON.parse(xml2json(this.cfdiXml));
     this.setNodes(dataXml);
-
+    console.log(this.note)
   }
 
   setNodes(dataXml: any): void {
@@ -48,9 +54,11 @@ export class PdfPreviewComponent implements OnInit {
     this.emitterNode = nodes.find((item: any) => item.name == 'cfdi:Emisor');
     this.receiverNode = nodes.find((item: any) => item.name == 'cfdi:Receptor');
     this.conceptsNode = nodes.find((item: any) => item.name == 'cfdi:Conceptos');
-    this.taxesNode = nodes.find((item: any) => item.name == 'cfdi:Impuestos')
+    this.taxesNode = nodes.find((item: any) => item.name == 'cfdi:Impuestos');
 
-    console.log(this.taxesNode);
+    this.withholdingsTax = this.taxesNode.elements.find((item: any) => item.name == 'cfdi:Retenciones');
+    this.transfersTax = this.taxesNode.elements.find((item: any) => item.name == 'cfdi:Traslados');
+
     complement.elements.forEach((item: any) => {
       if (item.name == 'tfd:TimbreFiscalDigital') {
         tfd = item;
@@ -74,6 +82,62 @@ export class PdfPreviewComponent implements OnInit {
 
   showTable(): void { this.emitterPreview.emit(false); }
 
+  openPdf(): void {
+    let DATA: any = this.pdfView.nativeElement;
+    html2canvas(DATA, { allowTaint: true }).then(canvas => {
+      let HTML_Width = canvas.width;
+      let HTML_Height = canvas.height;
+      let top_left_margin = 15;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      canvas.getContext('2d');
+      let imgData = canvas.toDataURL("image/jpeg", 1.0);
+      let pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+      pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+      for (let i = 1; i <= totalPDFPages; i++) {
+        pdf.addPage([PDF_Width, PDF_Height], 'p');
+        pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) +
+          (top_left_margin * 4), canvas_image_width, canvas_image_height);
+      }
+      pdf.autoPrint();
+      pdf.output('dataurlnewwindow');
+    });
+
+  }
+
+  downloadPdf(uuid: string): void {
+    const message = 'Descargando, espere un momento'
+    const DATA: any = this.pdfView.nativeElement;
+
+    this.swal.alertLoader(message);
+
+    html2canvas(DATA, { allowTaint: true }).then(canvas => {
+      let HTML_Width = canvas.width;
+      let HTML_Height = canvas.height;
+      let top_left_margin = 15;
+      let PDF_Width = HTML_Width + (top_left_margin * 2);
+      let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      let canvas_image_width = HTML_Width;
+      let canvas_image_height = HTML_Height;
+      let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+      canvas.getContext('2d');
+      let imgData = canvas.toDataURL("image/jpeg", 1.0);
+      let pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+      pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+      for (let i = 1; i <= totalPDFPages; i++) {
+        pdf.addPage([PDF_Width, PDF_Height], 'p');
+        pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) +
+          (top_left_margin * 4), canvas_image_width, canvas_image_height);
+      }
+      pdf.save(`${uuid}.pdf`);
+    });
+
+    this.swal.closeAlert();
+  }
+
   private getUrlQr(): string {
     const tfd = this.tdfNode.attributes;
     const emitter: any = this.emitterNode.attributes;
@@ -93,6 +157,5 @@ export class PdfPreviewComponent implements OnInit {
       this.wayToPayDescription = wayToPay.descripcion;
     })
   }
-
 
 }
