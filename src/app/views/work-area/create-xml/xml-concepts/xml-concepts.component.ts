@@ -143,7 +143,7 @@ export class XmlConceptsComponent implements OnInit {
         typeFactor: typeFactor,
         nodeType: nodeType,
         shareRate: tax.tax_rate,
-        amount: (base * Number(tax.tax_rate)).toFixed(4)
+        amount: (base * Number(tax.tax_rate)).toFixed(2)
       };
 
       if (this.existTypeTax(indexFormConcept, value)) {
@@ -164,29 +164,47 @@ export class XmlConceptsComponent implements OnInit {
   }
 
   deleteConcept(conceptIndex: number): void {
-    let conceptForm = this.getControl.at(conceptIndex);
-    let quantity: number = Number(conceptForm.get('quantity')?.value);
-    let unitValue: number = Number(conceptForm.get('unitValue')?.value);
+    const conceptForm = this.getControl.at(conceptIndex);
+    // let quantity: number = Number(conceptForm.get('quantity')?.value);
+    // let unitValue: number = Number(conceptForm.get('unitValue')?.value);
+    let totalAmounts: number = 0;
     let discount: number = Number(conceptForm.get('discount')?.value);
     let subtotal: number = Number(this.subtotal);
-    let totalAmounts: number = 0;
-    let amountConcept: number = Number(quantity * unitValue);
+    let amountConcept: number = Number(conceptForm.get('amount')?.value);
 
-    this.getControl.removeAt(conceptIndex);
+    //resta de subtotal - importe del concepto
     this.subtotal = (subtotal - amountConcept).toFixed(2);
+    //Del descuento total se resta el descuento del concepto
     this.discount = String((Number(this.discount) - discount).toFixed(2));
 
-    conceptForm.value.taxForm.forEach((element: any) => { totalAmounts += Number(element.amount); });
+    //Toma los importes de los impuesto de cada concepto, para sumarlos y restarlos
+    conceptForm.value.taxForm.forEach((element: any) => {
+      totalAmounts += Number(element.amount);
+    });
+
     this.total = (Number(this.total) - ((amountConcept + totalAmounts) - discount)).toFixed(2);
+
+    this.getControl.removeAt(conceptIndex);
   }
 
   deleteTaxForm(indexConceptForm: number) {
-    let lengthTaxForm = this.getControlTaxes(indexConceptForm);
-    let lostIndex: number = lengthTaxForm.value.length - 1;
+    const lengthTaxForm = this.getControlTaxes(indexConceptForm);
+    const lostIndex: number = lengthTaxForm.value.length - 1;
+    const lastFormTax = this.getControlTaxes(indexConceptForm).at(lostIndex);
+    const nodeType = lastFormTax.get('nodeType').value
+
+    if (nodeType == 'Traslado') {
+      this.total = (Number(this.total) - Number(lastFormTax.get('amount').value)).toFixed(2)
+    }
+
+    if (nodeType == "Retencion") {
+      this.total = (Number(this.total) + Number(lastFormTax.get('amount').value)).toFixed(2)
+    }
 
     if (lengthTaxForm != 0) {
       this.getControlTaxes(indexConceptForm).removeAt(lostIndex);
     }
+
   }
 
   calculateAmount(index: number): void {
@@ -231,6 +249,14 @@ export class XmlConceptsComponent implements OnInit {
     taxForm.at(indexTaxForm).get('amount').setValue((base * shareRate).toFixed(2));
   }
 
+  resetForm() {
+    this.getControl.clear();
+    this.mainForm.reset();
+    this.subtotal = '0.00';
+    this.discount = '0.00'
+    this.total = '0.00';
+  }
+
   private calculteTotal() {
     let taxTotal: number = 0
 
@@ -238,7 +264,10 @@ export class XmlConceptsComponent implements OnInit {
       let totalForTaxes: number = 0;
 
       formConcept.taxForm.forEach((element: any) => {
-        totalForTaxes += Number(element.amount);
+        console.log(element)
+        if (element.nodeType == 'Traslado') totalForTaxes += Number(element.amount);
+
+        if (element.nodeType == 'Retencion') totalForTaxes -= Number(element.amount);
       });
       taxTotal += totalForTaxes;
     });
@@ -291,11 +320,6 @@ export class XmlConceptsComponent implements OnInit {
       }
     });
     return exist;
-  }
-
-  resetForm() {
-    this.getControl.clear();
-    this.mainForm.reset();
   }
 
 }

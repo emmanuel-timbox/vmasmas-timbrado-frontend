@@ -98,13 +98,9 @@
           </div>
           <div class="col-sm-5 d-flex justify-content-end">
             <div class="btn-group pb-2 pt-0" *ngIf="receiverPreview.itItSuccess">
-              <button class="btn btn-secondary" [disabled]="receiverPreview.itItSuccess">
-                <i class="fas fa-arrow-left"></i> Regresar
+              <button class="btn btn-secondary" (click)="begin()">
+                <i class="fas fa-plus"></i> Nuevo comprobante
               </button>
-              <button class="btn btn-success" [disabled]="receiverPreview.itItSuccess">
-                <i class="fas fa-file-import"></i> Timbrar
-              </button>
-              <!-- <button class="btn btn-info"> <i class="fas fa-paper-plane"></i> Prefactura </button> -->
             </div>
             <div class="btn-group pb-2 pt-0" *ngIf="!receiverPreview.itItSuccess">
               <button class="btn btn-secondary" (click)="getBack()" [disabled]="receiverPreview.itItSuccess">

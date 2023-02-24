@@ -38,7 +38,6 @@ export class CreateXmlComponent implements OnInit {
   title: string = 'Creacion de Comprobante (CFDI 4.0)';
   noteVaucher!: string;
   keyData!: any;
-  itIsSucces: boolean = false
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   certificateData!: any;
@@ -129,6 +128,16 @@ export class CreateXmlComponent implements OnInit {
   }
 
   getBack(): void { this.showPreeview = false; }
+
+  begin(): void {
+    this.showPreeview = false;
+    this.ngWizardService.reset();
+    this.certificateComponent.resetForm();
+    this.conceptComponent.resetForm();
+    this.reciverComponent.resetForm();
+    this.vaucherComponent.resetForm();
+    this.receiverPreview = { haveError: false, errorMessage: null, itItSuccess: false };
+  }
 
   //este metodo se usa para ejecutar otro metodo desde otro componente.
   stampVaucher(): void { this.previewComponent.stampReceipt(); }
@@ -305,7 +314,7 @@ export class CreateXmlComponent implements OnInit {
   }
 
   private assembleTaxtNode(dataConcepts: any): any {
-    let amountResult: any = {};
+    let amountResult: any = { '@': {} };
     let transfers: any = [];
     let withholdings: any = [];
 
@@ -316,10 +325,30 @@ export class CreateXmlComponent implements OnInit {
       });
     });
 
+    if (withholdings.length > 0) {
+      let result: any = []
+      let resultWithholdings: any = this.agroupWithholdingsTax(withholdings);
+      let withholdingsTotal = 0
+
+      resultWithholdings.forEach((element: any) => {
+        let tax = {
+          '@': {
+            Impuesto: element.tax,
+            Importe: element.amount
+          }
+        };
+        withholdingsTotal += Number(element.amount)
+        result.push(tax);
+      });
+
+      amountResult['@']['TotalImpuestosRetenidos'] = (withholdingsTotal).toFixed(2)
+      amountResult['cfdi:Retenciones'] = { 'cfdi:Retencion': result };
+    }
+
     if (transfers.length > 0) {
       let result: any = [];
       let resultTransfers: any = this.agroupTransferTax(transfers);
-
+      let transfersTotal = 0
       resultTransfers.forEach((element: any) => {
         let tax = {
           '@': {
@@ -330,27 +359,11 @@ export class CreateXmlComponent implements OnInit {
             Importe: element.amount
           }
         };
+        transfersTotal += Number(element.amount)
         result.push(tax);
       });
-
+      amountResult['@']['TotalImpuestosTrasladados'] = (transfersTotal).toFixed(2)
       amountResult['cfdi:Traslados'] = { 'cfdi:Traslado': result };
-    }
-
-    if (withholdings.length > 0) {
-      let result: any = []
-      let resultWithholdings: any = this.agroupWithholdingsTax(withholdings);
-
-      resultWithholdings.forEach((element: any) => {
-        let tax = {
-          '@': {
-            Impuesto: element.tax,
-            Importe: element.amount
-          }
-        };
-        result.push(tax);
-      });
-
-      amountResult['cfdi:Retenciones'] = { 'cfdi:Retencion': result };
     }
 
     return amountResult;
