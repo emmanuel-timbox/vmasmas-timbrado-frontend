@@ -1,4 +1,5 @@
 <div class="col-sm-12 d-flex justify-content-end pb-2">
+  <button class="btn btn-primary mr-1" (click)="showTable()"><i class="fas fa-table"></i> </button>
   <button class="btn btn-secondary mr-1"><i class="fas fa-download"></i></button>
   <button class="btn btn-secondary"><i class="fas fa-print"></i></button>
 </div>
@@ -14,22 +15,22 @@
           <p>
             <b>VEMASMAS</b><br>
             <b>San Isidro 730, San Isidro Juriquilla, 76226 Santiago de Querétaro, Qro.</b><br><br>
-            <b class="text-primary"></b><br>
-            <b>RFC:</b> <br>
-            <b>REGIMEN FISCAL:</b><br><br>
+            <b class="text-primary">{{emitterNode.attributes.Nombre}}</b><br>
+            <b>RFC:</b> {{emitterNode.attributes.Rfc}}<br>
+            <b>REGIMEN FISCAL:</b> {{emitterNode.attributes.RegimenFiscal}}<br><br>
           </p>
         </div>
       </div>
 
       <div class="col-sm-7 text-2 d-flex justify-content-end">
         <p>
-          <b>FOLIO FISCAL</b>: <br>
-          <b>NO. DE SERIE DEL CSD DEL EMISOR</b>: <br>
-          <b>FECHA Y HORA DE EMISIÓN</b>: <br>
-          <b>LUGAR DE EXPEDICION</b>: <br>
-          <b>TIPO DE CFDI</b>: <br>
-          <b>SERIE</b>: <br>
-          <b>FOLIO</b>: <br>
+          <b>FOLIO FISCAL</b>: {{tdfNode.attributes.UUID}}<br>
+          <b>NO. DE SERIE DEL CSD DEL EMISOR</b>: {{voucherNode.NoCertificado}}<br>
+          <b>FECHA Y HORA DE EMISIÓN</b>: {{voucherNode.Fecha}}<br>
+          <b>LUGAR DE EXPEDICION</b>: {{voucherNode.LugarExpedicion}}<br>
+          <b>TIPO DE CFDI</b>: {{voucherNode.TipoDeComprobante}} - {{vaucherType[voucherNode.TipoDeComprobante]}}<br>
+          <b>SERIE</b>: {{voucherNode.Serie == undefined ? '' : voucherNode.Serie}} <br>
+          <b>FOLIO</b>: {{voucherNode.Folio == undefined ? '' : voucherNode.Folio}} <br>
           <br>
         </p>
       </div>
@@ -44,11 +45,11 @@
           <tbody>
             <tr>
               <td class="pt-0">
-                <b>NOMBRE:</b> <br>
-                <b>RFC Receptor:</b> <br>
+                <b>NOMBRE: {{receiverNode.attributes.Nombre}}</b> <br>
+                <b>RFC Receptor:</b> {{receiverNode.attributes.Rfc}}<br>
               </td>
               <td class="pt-0">
-                <b>Uso de CFDI:</b>
+                <b>Uso de CFDI:</b> {{receiverNode.attributes.UsoCFDI}}
               </td>
             </tr>
           </tbody>
@@ -70,18 +71,18 @@
             </tr>
           </thead>
           <tbody>
-            <!-- <tr *ngFor="let concept of concepts">
-              <td class="pt-0"> {{concept['@'].ClaveProdServ}} </td>
+            <tr *ngFor="let concept of conceptsNode.elements">
+              <td class="pt-0"> {{concept.attributes.ClaveProdServ}} </td>
               <td class="pt-0">
-                {{concept['@'].NoIdentificacion == undefined ? '--' : concept['@'].NoIdentificacion }}
+                {{concept.NoIdentificacion == undefined ? '--' : concept.attributes.NoIdentificacion }}
               </td>
-              <td class="pt-0"> {{concept['@'].Cantidad}} </td>
-              <td class="pt-0"> {{concept['@'].ClaveUnidad}} </td>
-              <td class="pt-0"> {{concept['@'].Unidad}} </td>
-              <td class="pt-0"> {{concept['@'].Descripcion}} </td>
-              <td class="pt-0"> {{concept['@'].ValorUnitario}} </td>
-              <td class="pt-0"> {{concept['@'].Importe}} </td>
-            </tr> -->
+              <td class="pt-0"> {{concept.attributes.Cantidad}} </td>
+              <td class="pt-0"> {{concept.attributes.ClaveUnidad}} </td>
+              <td class="pt-0"> {{concept.attributes.Unidad}} </td>
+              <td class="pt-0"> {{concept.attributes.Descripcion}} </td>
+              <td class="pt-0"> {{concept.attributes.ValorUnitario}} </td>
+              <td class="pt-0"> {{concept.attributes.Importe}} </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -89,17 +90,17 @@
       <div class="col-sm-12 pt-2 pr-0 pl-0 text-2">
         <div class="row">
           <div class="col-sm-8">
-            <b>IMPORTE CON LETRA:</b> <br>
-            <b>FORMA DE PAGO:</b>
-            <br>
-            <b>MÉTODO DE PAGO:</b>
-            <br>
+            <b>IMPORTE CON LETRA:</b> {{numberToLatter}}<br>
+            <b>FORMA DE PAGO:</b> {{voucherNode.FormaPago == undefined ? '---' : voucherNode.FormaPago + ' - ' +
+            wayToPayDescription}}<br>
+            <b>MÉTODO DE PAGO:</b> {{voucherNode.MetodoPago == undefined ? '---' : voucherNode.MetodoPago + ' - ' +
+            payMethod[voucherNode.MetodoPago]}}<br>
           </div>
           <div class="col-sm-4">
-            <b>SUBTOTAL:</b> <br>
+            <b>SUBTOTAL:</b> {{voucherNode.SubTotal}}<br>
 
-            <div>
-              <b>DESCUENTO:</b>
+            <div *ngIf="voucherNode.Descuento != undefined">
+              <b>DESCUENTO:</b> {{voucherNode.Descuento}}
             </div>
 
             <div>
@@ -119,7 +120,7 @@
 
             </div>
 
-            <b class="text-primary text-total">TOTAL:</b> <br>
+            <b class="text-primary text-total">TOTAL:</b> {{voucherNode.Total}}<br>
           </div>
         </div>
       </div>
@@ -132,32 +133,32 @@
       <div class="col-sm-12 pt-4 pr-0 pl-0 text-3">
         <b>SELLO DIGITAL DEL CFDI</b><br>
         <p class="text-2">
-
+          {{tdfNode.attributes.SelloCFD}}
         </p>
       </div>
 
       <div class="col-sm-12 pt-4 pr-0 pl-0 text-3">
         <b>SELLO DEL SAT</b><br>
         <p class="text-2">
-
+          {{tdfNode.attributes.SelloSAT}}
         </p>
       </div>
 
       <div class="col-sm-3 pt-4 pr-0 pl-0 text-4">
-        <b>CODIGO QR</b><br>
+        <qrcode [qrdata]="urlQr" [width]="230" [errorCorrectionLevel]="'M'"></qrcode>
       </div>
 
       <div class="col-sm-9 pt-4 pr-0 pl-0 text-3">
         <b>CADENA ORIGINAL DEL COMPLEMENTO DE CERTIFICACIÓN DIGITAL</b><br>
         <p class="text-2 ">
-
+          {{originalString}}
         </p>
       </div>
 
       <div class="col-sm-9 pt-4 pr-0 pl-0 text-3">
         <p>
-          <b class="text-primary">No de Serie del Certificado del SAT: </b><br>
-          <b class="text-primary">Fecha y hora de certificación: </b> <br>
+          <b class="text-primary">No de Serie del Certificado del SAT: </b> {{tdfNode.attributes.NoCertificadoSAT}}<br>
+          <b class="text-primary">Fecha y hora de certificación: </b> {{tdfNode.attributes.FechaTimbrado}}<br>
         </p>
       </div>
 

@@ -14,7 +14,7 @@ export class WelcomeComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dataXml!: any;
   typeVaoucher: any = { 'I': 'Ingreso', 'E': 'Egreso', 'N': 'Nomina' };
-  showTable: boolean = true;
+  hiddenTable: boolean = false;
   xml!: string;
   uuid!: string;
 
@@ -23,7 +23,7 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     this.dtOptions = {
       lengthMenu: [5, 10, 25, 50, 100],
-      pageLength: 25,
+      pageLength: 10,
       language: { url: 'https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json' },
       destroy: true
     };
@@ -52,7 +52,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   showPdfPreview(xml: string): void {
-    this.showTable = false;
+    this.hiddenTable = true;
     this.xml = xml;
   }
 

@@ -11,7 +11,7 @@
       </div>
       <div class="card-body ">
 
-        <div class="row" *ngIf="showTable">
+        <div class="row" [hidden]="hiddenTable">
           <div class="col-sm-12 table-responsive">
 
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-sm row-border">
@@ -55,11 +55,12 @@
           </div>
         </div>
 
-        <div class="row d-flex justify-content-center" *ngIf="!showTable">
-          <app-pdf-preview [cfdiXml]="xml"></app-pdf-preview>
+        <div class="row d-flex justify-content-center" *ngIf="hiddenTable">
+          <app-pdf-preview [cfdiXml]="xml" (emitterPreview)="hiddenTable = $event"></app-pdf-preview>
         </div>
 
       </div>
     </div>
   </div>
 </div>
+

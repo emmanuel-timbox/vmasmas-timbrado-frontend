@@ -7,7 +7,8 @@ export const environment = {
   apiUrl: 'http://localhost:3000',
   slugUser: 'user-WFWSBBZOEXFS',
   pathTaxRegimenCat: "assets/catalogs/cat_tax_regimes.json",
-  pathCatalogs: 'assets/catalogs'
+  pathCatalogs: 'assets/catalogs',
+  urlQr: 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx'
 };
 
 /*
