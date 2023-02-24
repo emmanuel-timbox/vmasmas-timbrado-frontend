@@ -42,7 +42,6 @@ export class PdfPreviewComponent implements OnInit {
   ngOnInit(): void {
     const dataXml: any = JSON.parse(xml2json(this.cfdiXml));
     this.setNodes(dataXml);
-    console.log(this.note)
   }
 
   setNodes(dataXml: any): void {
