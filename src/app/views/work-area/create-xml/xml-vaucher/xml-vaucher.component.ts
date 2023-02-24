@@ -15,6 +15,7 @@ export class XmlVaucherComponent implements OnInit {
   payMethodCatalog!: any;
   formVaucher: FormGroup = new FormGroup({});
   summitForm: boolean = false;
+  hideExchangeRateInput: boolean = true;
 
   constructor(private _services: XmlVaucherService, private _catalogs: CatalogsService,
     private formBuilder: FormBuilder) { }
@@ -35,6 +36,15 @@ export class XmlVaucherComponent implements OnInit {
     });
 
     if (this.formVaucher.invalid) { return }
+  }
+
+  showExchangeRate(event: Event): void {
+    let coin: string = (event.target as HTMLInputElement).value;
+    if (coin == 'MXN') {
+      this.hideExchangeRateInput = true;
+      this.formVaucher.get('exchangeRate')?.setValue('')
+    }
+    if (coin != 'MXN') this.hideExchangeRateInput = false;
   }
 
   resetForm() { this.formVaucher.reset() }

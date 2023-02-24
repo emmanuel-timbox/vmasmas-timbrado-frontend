@@ -242,6 +242,7 @@ export class CreateXmlComponent implements OnInit {
     if (dataConcept.discount != '0.00') xmlJson['@']['Descuento'] = dataConcept.discount;
     if (dataVaucher.payMethod != '') xmlJson['@']['FormaPago'] = dataVaucher.wayToPay;
     if (dataVaucher.wayToPay != '') xmlJson['@']['MetodoPago'] = dataVaucher.payMethod;
+    if (dataVaucher.exchangeRate != '') xmlJson['@']['TipoCambio'] = dataVaucher.exchangeRate;
 
     //atributos opcionales del nodo de Receptor
     if (dataReceiver.fiscalIdNumber != '') xmlJson['cfdi:Receptor']['@']['NumRegIdTrib'] = dataReceiver.fiscalIdNumber;

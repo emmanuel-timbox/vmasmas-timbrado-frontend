@@ -15,11 +15,12 @@ export class XmlVaucherService {
     return {
       serie: [''],
       invoice: [''],
+      payMethod: [''],
+      wayToPay: [''],
+      exchangeRate: [''],
       export: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
       coin: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-      voucherType: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-      payMethod: [''],
-      wayToPay: ['']
+      voucherType: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]]
     }
   }
 }

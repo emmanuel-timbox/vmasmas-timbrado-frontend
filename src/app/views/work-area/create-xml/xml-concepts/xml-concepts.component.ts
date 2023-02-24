@@ -264,7 +264,6 @@ export class XmlConceptsComponent implements OnInit {
       let totalForTaxes: number = 0;
 
       formConcept.taxForm.forEach((element: any) => {
-        console.log(element)
         if (element.nodeType == 'Traslado') totalForTaxes += Number(element.amount);
 
         if (element.nodeType == 'Retencion') totalForTaxes -= Number(element.amount);

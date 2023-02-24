@@ -31,7 +31,7 @@
     <div class="form-group col-sm-4">
       <label>Moneda*:</label>
       <select class="form-control is-valid is-valid" formControlName="coin"
-        [ngClass]="{ 'is-invalid': summitForm && f['coin'].errors }">
+        [ngClass]="{ 'is-invalid': summitForm && f['coin'].errors }" (change)="showExchangeRate($event)">
         <option selected value="">Seleccione una opcion</option>
         <option *ngFor="let coin of currentCatalog" value="{{coin.moneda}}">
           {{coin.moneda}} -- {{coin.descripcion}}
@@ -41,6 +41,11 @@
       <div *ngIf="summitForm && f['coin'].errors" class="invalid-feedback">
         <div *ngIf="f['coin'].errors['required']">El campo de Moneda es requerido</div>
       </div>
+    </div>
+
+    <div class="form-group col-sm-4" [hidden]="hideExchangeRateInput">
+      <label>Tipo de Cambio:</label>
+      <input type="number" class="form-control is-valid" formControlName="exchangeRate" min="0">
     </div>
 
     <div class="form-group col-sm-4">
