@@ -1,26 +1,47 @@
 <div id="container-login">
+
   <div id="left-login">
-    <h1 id="welcome-login">Buzon</h1>
-    <p id="lorem-login">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-      Vivamus sodales eros non arcu pellentesque convallis.<br>
-      Nunc dignissim lectus in malesuada porta.<br>
-      Proin ac erat sed urna congue suscipit.<br>
-      Morbi aliquet eget nisl id ornare.
-    </p>
+    <h1 id="welcome-login">TenvitoApp</h1>
+    <div class="container-sub-title">
+      <p id="lorem-login">
+        Timbrar con nosotros
+        <br>
+      </p>
+    </div>
   </div>
   <div id="right-login">
     <div id="container-img-login">
       <img src="../../../../assets/images/logos/LOGO-1.svg">
     </div>
+
     <h3 class="text-access-login m-0"> Acceso </h3>
-    <form id="access-form">
-      <input type="email" id="email" class="client-info-login" autocomplete="off" >
-      <label for="email" class="client-info-label-login">Correo</label>
-      <input type="email" id="password" class="client-info-login" autocomplete="off">
-      <label for="password" class="client-info-label-login">Contraseña</label>
-      <a id="submit-login" class="client-info-login" routerLink="/panel/welcome">Iniciar sesión</a>
-      <a class="social-login" id="password-remind-login" routerLink="/recover-password">¿Se te olvidó tu contraseña?</a>
+    <div class="alert alert-danger" role="alert" *ngIf="notAccess">
+      <p style="  margin-left: 10%; margin-top: 4%;">
+        <i class="fas fa-info-circle"></i> Nombre de usuario o contraseña incorrectos.
+      </p>
+    </div>
+    <form [formGroup]="formLogin" (submit)="login()">
+      <div class="form-group">
+        <input type="text" id="email" class="client-info-login form-control is-valid mt-0" autocomplete="off"
+          formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+        <label for="email" class="client-info-label-login">Correo</label>
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <div *ngIf="f['email'].errors['required']">Este campo es requerido</div>
+          <div *ngIf="f['email'].errors['email']">El formato del correo es incorrecto</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="password" id="password" class="client-info-login form-control is-valid" autocomplete="off"
+          formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+        <label for="password" class="client-info-label-login">Contraseña</label>
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <div *ngIf="f['password'].errors['required']">Este campo es requerido</div>
+        </div>
+      </div>
+
+      <button type="submit" id="submit-login" class="client-info-login">Iniciar sesión</button>
+      <a class="social-login" id="password-remind-login">¿Se te olvidó tu contraseña?</a>
       <a class="social-login" id="to-register-login" routerLink="/registrer">Registrarse</a>
     </form>
   </div>

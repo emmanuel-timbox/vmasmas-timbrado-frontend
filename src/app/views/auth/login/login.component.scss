@@ -1,1 +1,20 @@
-@import '../../../../assets/dist/css/device.css'
+@import '../../../../assets/dist/css/device.css';
+
+
+.invalid-feedback {
+  font-size: 80%;
+  color: #dc3545;
+  position: relative;
+  left: 20%;
+  top: -14px;
+}
+
+.alert-danger {
+  color: #fff;
+  background-color: #b14d4261;
+  border-color: #e43725;
+  border-radius: 11px;
+  margin-top: 1%;
+  width: 98%;
+  height: 60px;
+}

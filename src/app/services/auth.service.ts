@@ -20,9 +20,16 @@ export class AuthService {
     return {
       rfc: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(13), Validators.pattern(this.rfcFormatter)]],
       name: ['', [Validators.required, Validators.maxLength(150), Validators.pattern(this.nonWhitespaceRegExp)]],
-      email: ['', [Validators.required, Validators.email, Validators.pattern(this.nonWhitespaceRegExp)]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required, Validators.minLength(8), Validators.maxLength(45)],
       confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]]
+    }
+  }
+
+  getDataValidateLogin() {
+    return {
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
     }
   }
 
@@ -31,7 +38,7 @@ export class AuthService {
   }
 
   login(user: User) {
-    return this.httpClient.post(`${this.apiUrl}/`, user);
+    return this.httpClient.post(`${this.apiUrl}/authenticate/tenvitoAPP/login`, user);
   }
 
   logout() {
