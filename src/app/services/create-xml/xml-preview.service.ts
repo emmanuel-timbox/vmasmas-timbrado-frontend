@@ -8,12 +8,11 @@ import { environment } from 'src/environments/environment';
 export class XmlPreviewService {
 
   apiUrl: string = environment.apiUrl;
-  userSlug: string = environment.slugUser;
+  userSlug: string | null = sessionStorage.getItem('slug');
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'jwt-token'
+      'Authorization': `${sessionStorage.getItem('token')}}`
     })
   };
 

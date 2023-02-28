@@ -13,7 +13,6 @@ export class XmlCertificateService {
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `${sessionStorage.getItem('token')}`
     })
   };

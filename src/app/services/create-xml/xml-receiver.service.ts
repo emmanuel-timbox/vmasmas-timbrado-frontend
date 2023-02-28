@@ -13,7 +13,7 @@ export class XmlReceiverService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'jwt-token'
+      'Authorization': `${sessionStorage.getItem('token')}`
     })
   };
 

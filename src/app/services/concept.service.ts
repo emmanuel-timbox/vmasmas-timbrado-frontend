@@ -30,7 +30,7 @@ export class ConceptService {
       unit: [''],
       description: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
       taxObject: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-    }
+    };
   }
 
   insertDataConcept(concept: Concept) {
@@ -38,15 +38,15 @@ export class ConceptService {
   }
 
   editStatusConcept(slugConcept: string) {
-    return this.httpClient.delete(`${this.apiUrl}/concept_configs/${slugConcept}`, this.httpOptions)
+    return this.httpClient.delete(`${this.apiUrl}/concept_configs/${slugConcept}`, this.httpOptions);
   }
 
   getDataConcept() {
-    return this.httpClient.get(`${this.apiUrl}/concept_configs/${this.userSlug}`, this.httpOptions)
+    return this.httpClient.get(`${this.apiUrl}/concept_configs/${this.userSlug}`, this.httpOptions);
   }
 
   editConcept(concept: Concept, slugConcept: string) {
-    return this.httpClient.put(`${this.apiUrl}/concept_configs/${slugConcept}`, concept, this.httpOptions)
+    return this.httpClient.put(`${this.apiUrl}/concept_configs/${slugConcept}`, concept, this.httpOptions);
   }
 
 }

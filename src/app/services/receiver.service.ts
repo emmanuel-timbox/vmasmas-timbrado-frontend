@@ -42,8 +42,8 @@ export class ReceiverService {
     return this.httpClient.delete(`${this.apiUrl}/receiver_configs/${slugReceiver}`, this.httpOptions)
   }
 
-  getDataReceiver(slugUser: string) {
-    return this.httpClient.get(`${this.apiUrl}/receiver_configs/${slugUser}`, this.httpOptions)
+  getDataReceiver(slugReceiver: string) {
+    return this.httpClient.get(`${this.apiUrl}/receiver_configs/${slugReceiver}`, this.httpOptions)
   }
 
   editReceiver(receiver: Receiver, slugReceiver: string) {

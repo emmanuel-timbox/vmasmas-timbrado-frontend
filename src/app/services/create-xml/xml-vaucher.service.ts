@@ -20,6 +20,6 @@ export class XmlVaucherService {
       export: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
       coin: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
       voucherType: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]]
-    }
+    };
   }
 }

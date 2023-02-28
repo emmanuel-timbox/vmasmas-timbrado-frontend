@@ -7,9 +7,9 @@ import { environment } from 'src/environments/environment';
 export class CertificateService {
 
   apiUrl = environment.apiUrl;
+
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `${sessionStorage.getItem('token')}`
     })
   };
