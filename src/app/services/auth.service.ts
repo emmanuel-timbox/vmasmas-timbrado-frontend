@@ -41,9 +41,7 @@ export class AuthService {
     return this.httpClient.post(`${this.apiUrl}/authenticate/tenvitoAPP/login`, user);
   }
 
-  logout() {
-    return this.httpClient.get(`${this.apiUrl}/logout`);
-  }
+  logout() { sessionStorage.clear(); }
 
   match(controlName: string, checkControlName: string): ValidatorFn {
 
