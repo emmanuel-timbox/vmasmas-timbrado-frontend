@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from './../models/user.model';
@@ -21,8 +21,8 @@ export class AuthService {
       rfc: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(13), Validators.pattern(this.rfcFormatter)]],
       name: ['', [Validators.required, Validators.maxLength(150), Validators.pattern(this.nonWhitespaceRegExp)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required, Validators.minLength(8), Validators.maxLength(45)],
-      confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]]
+      password:  ['', Validators.compose([Validators.required,Validators.minLength(8),Validators.maxLength(30)])],
+      confirmPassword: ['', [Validators.required]]
     }
   }
 

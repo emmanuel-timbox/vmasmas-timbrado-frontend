@@ -21,55 +21,49 @@
             <div *ngIf="f['rfc'].errors['pattern']">RFC no cuenta con el formato correcto</div>
           </div>
         </div>
-        <div class="col-sm-12 pt-0 form-group">
 
+        <div class="col-sm-12 pt-0 form-group">
           <input type="text" class="client-info-registrer form-control mt-0 is-valid" autocomplete="off"
             formControlName="name" [ngClass]="{ 'is-invalid': submitted && f['name'].errors }">
           <label for="input-focus" class="client-info-label-registrer">Nombre:</label>
           <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
             <div *ngIf="f['name'].errors['required']">Este campo es requerido</div>
           </div>
-
         </div>
-        <div class="col-sm-12 pt-0 form-group">
 
+        <div class="col-sm-12 pt-0 form-group">
           <input type="text" class="client-info-registrer form-control mt-0 is-valid" autocomplete="off"
             formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
           <label for="input-focus" class="client-info-label-registrer">Correo:</label>
-
           <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
             <div *ngIf="f['email'].errors['required']">Este campo es requerido</div>
             <div *ngIf="f['email'].errors['email']">El formato del correo es incorrecto</div>
           </div>
-
         </div>
-        <div class="col-sm-12 pt-0 form-group">
 
-          <input type="text" class="client-info-registrer form-control mt-0 is-valid" autocomplete="off"
+        <div class="col-sm-12 pt-0 form-group">
+          <input type="password" class="client-info-registrer form-control mt-0 is-valid"
             formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
           <label for="input-focus" class="client-info-label-registrer">Contraseña:</label>
-
           <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
             <div *ngIf="f['password'].errors['required']">Este campo es requerido</div>
             <div *ngIf="f['password'].errors['minlength']">No debe ser menor a 8 caracteres</div>
             <div *ngIf="f['password'].errors['maxlength']">No debe ser mayor a 45 caracteres</div>
           </div>
-
         </div>
-        <div class="col-sm-12 pt-0 form-group">
 
-          <input type="text" class="client-info-registrer form-control mt-0 is-valid" autocomplete="off"
+        <div class="col-sm-12 pt-0 form-group">
+          <input type="password" class="client-info-registrer form-control mt-0 is-valid" autocomplete="off"
             formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }">
           <label for="input-focus" class="client-info-label-registrer">Confirmar contraseña:</label>
-
           <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
             <div *ngIf="f['confirmPassword'].errors['required']">Este campo es requerido</div>
             <div *ngIf="f['confirmPassword'].errors['matching']">Confirmar contraseña no coincide</div>
             <div *ngIf="f['confirmPassword'].errors['minlength']">No debe ser menor a 8 caracteres</div>
             <div *ngIf="f['confirmPassword'].errors['maxlength']">No debe ser mayor a 45 caracteres</div>
           </div>
-
         </div>
+
         <div class="col-sm-12 pt-0">
           <button type="submit" id="submit-registrer" class="client-info-registrer" value="Continuar">Registrar</button>
           <div class="text-access-registrer">

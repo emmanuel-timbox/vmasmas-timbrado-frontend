@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^14.2.10",
     "@angular/platform-browser-dynamic": "^14.2.10",
     "@angular/router": "^14.2.10",
+    "@auth0/angular-jwt": "^5.1.2",
     "@igniteui/material-icons-extended": "^2.10.0",
     "@ngneat/input-mask": "^6.0.0",
     "@popperjs/core": "^2.11.6",

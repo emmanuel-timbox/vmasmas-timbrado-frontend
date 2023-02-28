@@ -29,6 +29,7 @@ export class SettingsUserComponent implements OnInit {
   indexArrayEmitter!: number;
   slugEmitterUpdate!: string;
   selectedTaxRegime!: string;
+  
   constructor(private _service: TaxPeapleService, private formBuilder: FormBuilder,
     private swal: SweetAlertsService) { }
 

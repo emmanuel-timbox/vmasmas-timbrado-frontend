@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InputMaskModule } from '@ngneat/input-mask';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgSelect2Module } from 'ng-select2';
 import { NgWizardModule } from 'ng-wizard';
@@ -28,6 +28,7 @@ import { EmployeComponent } from './employe/employe.component';
 import { XmlPreviewComponent } from './create-xml/xml-preview/xml-preview.component';
 import { MassiveDownloadComponent } from './massive-download/massive-download.component';
 import { PdfPreviewComponent } from './welcome/pdf-preview/pdf-preview.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { PdfPreviewComponent } from './welcome/pdf-preview/pdf-preview.component
     QRCodeModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard
   ],
   exports: [
     MainComponent
