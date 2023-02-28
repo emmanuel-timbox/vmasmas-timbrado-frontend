@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 import { xml2json } from 'xml-js';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { environment } from 'src/environments/environment';
 import { XmlPreviewService } from './../../../../services/create-xml/xml-preview.service';
 import { NumberToLettersService } from './../../../../services/create-xml/number-to-letters.service';
 import { CatalogsService } from './../../../../services/catalogs.service';
@@ -33,7 +32,7 @@ export class XmlPreviewComponent implements OnInit {
   useCfdiDescription!: string;
   concepts!: any;
   numberToLatter!: string;
-  userSlug: string = environment.slugUser;
+  userSlug: string = `${sessionStorage.getItem('slug')}`;
   itIsSuccess: boolean = false;
   wayToPayDescription!: any;
   uuid!: string;
@@ -70,11 +69,10 @@ export class XmlPreviewComponent implements OnInit {
 
     let formData = new FormData;
     formData.append('xml', this.cfdiXml);
-    formData.append('slug', this.userSlug);
     formData.append('keyFile', this.keyData.keyFile);
     formData.append('keyPassword', this.keyData.password);
     formData.append('slugEmitter', this.slugEmitter);
-    formData.append('slugUser', environment.slugUser);
+    formData.append('slugUser', this.userSlug);
     formData.append('note', this.note)
     this._service.insertXml(formData).subscribe({
       next: response => {

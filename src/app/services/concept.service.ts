@@ -11,12 +11,12 @@ import { Concept } from '../models/concept.model';
 export class ConceptService {
 
   apiUrl: string = environment.apiUrl;
-  userSlug: string = environment.slugUser;
+  userSlug: string | null = sessionStorage.getItem('slug');
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'jwt-token'
+      'Authorization': `${sessionStorage.getItem('token')}`
     })
   };
 
@@ -38,15 +38,15 @@ export class ConceptService {
   }
 
   editStatusConcept(slugConcept: string) {
-    return this.httpClient.delete(`${this.apiUrl}/concept_configs/${slugConcept}`)
+    return this.httpClient.delete(`${this.apiUrl}/concept_configs/${slugConcept}`, this.httpOptions)
   }
 
-  getDataConcept(slugUser: string) {
-    return this.httpClient.get(`${this.apiUrl}/concept_configs/${slugUser}`)
+  getDataConcept() {
+    return this.httpClient.get(`${this.apiUrl}/concept_configs/${this.userSlug}`, this.httpOptions)
   }
 
   editConcept(concept: Concept, slugConcept: string) {
-    return this.httpClient.put(`${this.apiUrl}/concept_configs/${slugConcept}`, concept)
+    return this.httpClient.put(`${this.apiUrl}/concept_configs/${slugConcept}`, concept, this.httpOptions)
   }
 
 }

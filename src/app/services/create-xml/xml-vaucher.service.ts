@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
 
@@ -9,7 +8,7 @@ export class XmlVaucherService {
 
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
 
-  constructor(private httpClient: HttpClient) { }
+  constructor() { }
 
   getDataValidateReceiver() {
     return {

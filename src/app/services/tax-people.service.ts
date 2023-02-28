@@ -11,13 +11,13 @@ export class TaxPeapleService {
 
   apiUrl: string = environment.apiUrl;
   pathTaxRegimenCat: string = environment.pathTaxRegimenCat
-  userSlug: string = environment.slugUser;
+  userSlug: string | null = sessionStorage.getItem('slug');
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   rfcFormatter: string = "[A-Z&amp;Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]"
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'jwt-token'
+      'Authorization': `${sessionStorage.getItem('token')}`
     })
   };
 
@@ -37,19 +37,19 @@ export class TaxPeapleService {
   }
 
   editStatusEmitter(slugEmitter: string) {
-    return this.httpClient.delete(`${this.apiUrl}/emitter_configs/${slugEmitter}`)
+    return this.httpClient.delete(`${this.apiUrl}/emitter_configs/${slugEmitter}`, this.httpOptions)
   }
 
   getTaxRegimenCat() {
-    return this.httpClient.get(this.pathTaxRegimenCat);
+    return this.httpClient.get(this.pathTaxRegimenCat, this.httpOptions);
   }
 
-  getDataEmitter(slugUser: string) {
-    return this.httpClient.get(`${this.apiUrl}/emitter_configs/${slugUser}`)
+  getDataEmitter() {
+    return this.httpClient.get(`${this.apiUrl}/emitter_configs/${this.userSlug}`, this.httpOptions)
   }
 
   editEmitter(emitter: Emitter, slugEmitter: string) {
-    return this.httpClient.put(`${this.apiUrl}/emitter_configs/${slugEmitter}`, emitter)
+    return this.httpClient.put(`${this.apiUrl}/emitter_configs/${slugEmitter}`, emitter, this.httpOptions)
   }
 
 }

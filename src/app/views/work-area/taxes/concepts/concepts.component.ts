@@ -3,7 +3,6 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { CatalogsService } from 'src/app/services/catalogs.service';
 import { Concept } from 'src/app/models/concept.model';
-import { environment } from './../../../../../environments/environment';
 import { ConceptService } from '../../../../services/concept.service';
 import { SweetAlertsService } from '../../../../services/sweet-alert.service';
 
@@ -62,7 +61,7 @@ export class ConceptsComponent implements OnInit {
       unit: this.formNewConcept.value.unit,
       description: this.formNewConcept.value.description,
       taxObject: this.formNewConcept.value.taxObject,
-      slugUser: environment.slugUser
+      slugUser: `${sessionStorage.getItem('slug')}`
     };
 
     this._service.insertDataConcept(concept).subscribe({
@@ -149,7 +148,7 @@ export class ConceptsComponent implements OnInit {
   }
 
   private getDataConcepts(): void {
-    this._service.getDataConcept(environment.slugUser).subscribe({
+    this._service.getDataConcept().subscribe({
       next: (response) => {
         this.dataConcepts = JSON.parse(JSON.stringify(response)).data;
         this.dtTrigger.next(null);

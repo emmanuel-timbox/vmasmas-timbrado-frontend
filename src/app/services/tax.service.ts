@@ -9,12 +9,12 @@ import { Tax } from '../models/tax.model';
 export class TaxService {
 
   apiUrl: string = environment.apiUrl;
-  userSlug: string = environment.slugUser;
+  userSlug: string | null = sessionStorage.getItem('slug');
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'jwt-token'
+      'Authorization': `${sessionStorage.getItem('token')}`
     })
   };
 
@@ -29,15 +29,15 @@ export class TaxService {
   }
 
   editStatusTax(slug: string) {
-    return this.httpClient.delete(`${this.apiUrl}/tax_configs/${slug}`);
+    return this.httpClient.delete(`${this.apiUrl}/tax_configs/${slug}`, this.httpOptions);
   }
 
   editTax(tax: Tax) {
-    return this.httpClient.put(`${this.apiUrl}/tax_configs/${tax.slugTax}`, tax);
+    return this.httpClient.put(`${this.apiUrl}/tax_configs/${tax.slugTax}`, tax, this.httpOptions);
   }
 
-  getDataTaxes(slug: string) {
-    return this.httpClient.get(`${this.apiUrl}/tax_configs/${slug}`);
+  getDataTaxes() {
+    return this.httpClient.get(`${this.apiUrl}/tax_configs/${this.userSlug}`, this.httpOptions);
   }
 
 }

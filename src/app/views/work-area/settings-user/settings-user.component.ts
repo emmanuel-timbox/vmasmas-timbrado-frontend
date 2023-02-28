@@ -3,7 +3,6 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { Emitter } from 'src/app/models/emitter.model';
 import { TaxPeapleService } from '../../../services/tax-people.service';
-import { environment } from '../../../../environments/environment';
 import { SweetAlertsService } from '../../../services/sweet-alert.service'
 
 declare let bootstrap: any
@@ -69,7 +68,7 @@ export class SettingsUserComponent implements OnInit {
       rfc: this.formNewEmitter.value.rfc,
       expeditionPlace: this.formNewEmitter.value.expeditionPlace,
       taxRegime: this.formNewEmitter.value.taxRegime,
-      slugUser: environment.slugUser
+      slugUser: `${sessionStorage.getItem('slug')}`
     };
 
     this._service.insertDataEmitter(emmiter).subscribe({
@@ -152,7 +151,7 @@ export class SettingsUserComponent implements OnInit {
   }
 
   private getDataEmitters() {
-    this._service.getDataEmitter(environment.slugUser).subscribe({
+    this._service.getDataEmitter().subscribe({
       next: response => {
         this.dataEmitters = JSON.parse(JSON.stringify(response)).data;
         this.dtTrigger.next(null);

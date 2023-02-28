@@ -8,19 +8,19 @@ import { environment } from 'src/environments/environment';
 export class WelcomeService {
 
   apiUrl: string = environment.apiUrl;
-  userSlug: string = environment.slugUser;
+  userSlug: string | null = sessionStorage.getItem('slug');
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'jwt-token'
+      'Authorization': `${sessionStorage.getItem('token')}`
     })
   };
 
   constructor(private httpClient: HttpClient) { }
 
   getXmlsData() {
-    return this.httpClient.get(`${this.apiUrl}/xml_files/${this.userSlug}`)
+    return this.httpClient.get(`${this.apiUrl}/xml_files/${this.userSlug}`, this.httpOptions)
   }
 
 }

@@ -9,12 +9,12 @@ import { environment } from 'src/environments/environment';
 export class XmlCertificateService {
 
   apiUrl: string = environment.apiUrl;
-  userSlug: string = environment.slugUser;
+  userSlug: string | null = sessionStorage.getItem('slug');
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'jwt-token'
+      'Authorization': `${sessionStorage.getItem('token')}`
     })
   };
 
@@ -32,11 +32,11 @@ export class XmlCertificateService {
   }
 
   getEmitterData() {
-    return this.httpClient.get(`${this.apiUrl}/create_xml/${this.userSlug}`);
+    return this.httpClient.get(`${this.apiUrl}/create_xml/${this.userSlug}`, this.httpOptions);
   }
 
   getValidateKey(formData: FormData, slug: string) {
-    return this.httpClient.post<any>(`${this.apiUrl}/create_xml/${slug}/validate_key`, formData);
+    return this.httpClient.post<any>(`${this.apiUrl}/create_xml/${slug}/validate_key`, formData, this.httpOptions);
   }
 
 }

@@ -20,6 +20,6 @@ export class XmlPreviewService {
   constructor(private http: HttpClient) { }
 
   insertXml(xmlData: FormData) {
-    return this.http.post(`${this.apiUrl}/create_xml`, xmlData);
+    return this.http.post(`${this.apiUrl}/create_xml`, xmlData, this.httpOptions);
   }
 }

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   formLogin: FormGroup = new FormGroup({});
   submitted: boolean = false;
-  notAccess:boolean = false;
+  notAccess: boolean = false;
 
   constructor(private _service: AuthService, private swal: SweetAlertsService,
     private formBuilder: FormBuilder, private router: Router) { }
@@ -42,6 +42,12 @@ export class LoginComponent implements OnInit {
         const result = JSON.parse(JSON.stringify(response));
         if (result.code == 200) {
           this.swal.alertLoader("Bienvenido");
+
+          sessionStorage.setItem('token', result.token);
+          sessionStorage.setItem('name', result.data.name);
+          sessionStorage.setItem('email', result.data.email);
+          sessionStorage.setItem('slug', result.data.slug);
+
           setTimeout(() => {
             this.swal.closeAlert();
             this.router.navigate(['/panel/welcome']);

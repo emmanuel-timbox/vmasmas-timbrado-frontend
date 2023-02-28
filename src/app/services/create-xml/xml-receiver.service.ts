@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
@@ -10,6 +10,12 @@ export class XmlReceiverService {
 
   apiUrl: string = environment.apiUrl;
   nonWhitespaceRegExp: RegExp = new RegExp("\\S");
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'jwt-token'
+    })
+  };
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,7 +32,7 @@ export class XmlReceiverService {
   }
 
   getReceivers(slugEmitter: string) {
-    return this.httpClient.get(`${this.apiUrl}/create_xml/${slugEmitter}/show_receivers`);
+    return this.httpClient.get(`${this.apiUrl}/create_xml/${slugEmitter}/show_receivers`, this.httpOptions);
   }
 
 }

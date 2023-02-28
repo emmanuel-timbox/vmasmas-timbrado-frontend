@@ -6,7 +6,6 @@ import { Tax } from './../../../models/tax.model';
 import { TaxService } from './../../../services/tax.service';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { CatalogsService } from 'src/app/services/catalogs.service';
-import { environment } from 'src/environments/environment';
 
 declare let bootstrap: any
 
@@ -96,7 +95,7 @@ export class TaxesComponent implements OnInit {
         taxName: this.dataTaxSelected.name,
         taxRate: this.formTax.value.minimumValue == 0.000000 ? (0.00).toFixed(6) :
           this.formTax.value.minimumValue.toFixed(6),
-        slugUser: environment.slugUser
+        slugUser: `${sessionStorage.getItem('slug')}`
       };
 
     } else {
@@ -105,7 +104,7 @@ export class TaxesComponent implements OnInit {
         taxKey: this.dataTaxSelected.id,
         taxName: this.dataTaxSelected.name,
         taxRate: this.formTax.value.maximumValue,
-        slugUser: environment.slugUser
+        slugUser: `${sessionStorage.getItem('slug')}`
       };
 
     }
@@ -124,7 +123,7 @@ export class TaxesComponent implements OnInit {
     }
 
     tax = {
-      slugUser: environment.slugUser,
+      slugUser: `${sessionStorage.getItem('slug')}`,
       slugTax: this.editSlug,
       taxRate: this.formTaxEdit.value.minimumValue == 0.000000 ? (0.00).toFixed(6) :
         Number(this.formTaxEdit.value.minimumValue).toFixed(6),
@@ -188,7 +187,7 @@ export class TaxesComponent implements OnInit {
   }
 
   private getTaxes(): void {
-    this._services.getDataTaxes(environment.slugUser).subscribe({
+    this._services.getDataTaxes().subscribe({
       next: respose => {
         this.taxesData = JSON.parse(JSON.stringify(respose)).data;
         this.dtTrigger.next(null);

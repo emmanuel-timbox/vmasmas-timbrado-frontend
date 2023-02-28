@@ -1,26 +1,30 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Certificate } from '../models/certificate.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
+
 export class CertificateService {
 
   apiUrl = environment.apiUrl;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${sessionStorage.getItem('token')}`
+    })
+  };
 
   constructor(private httpCliente: HttpClient) { }
 
   getCertificate(slug: string) {
-    return this.httpCliente.get(`${this.apiUrl}/certificate/${slug}`)
+    return this.httpCliente.get(`${this.apiUrl}/certificate/${slug}`, this.httpOptions)
   }
 
   insertFile(formData: FormData) {
-    return this.httpCliente.post(`${this.apiUrl}/certificate`, formData)
+    return this.httpCliente.post(`${this.apiUrl}/certificate`, formData, this.httpOptions)
   }
 
   updateFile(formData: FormData, slug: string) {
-    return this.httpCliente.put(`${this.apiUrl}/certificate/${slug}`, formData);
+    return this.httpCliente.put(`${this.apiUrl}/certificate/${slug}`, formData, this.httpOptions);
   }
 }
