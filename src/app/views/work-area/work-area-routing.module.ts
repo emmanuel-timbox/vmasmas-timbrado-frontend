@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -12,20 +11,21 @@ import { EmployeComponent } from './employe/employe.component';
 import { MassiveDownloadComponent } from './massive-download/massive-download.component';
 import { AuthGuard } from './../../guards/auth.guard';
 import { MainComponent } from './main.component';
+import { SessionGuard } from './../../guards/session.guard';
 
 const routes: Routes = [
   {
     path: 'panel',
     component: MainComponent,
     children: [
-      { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard] },
-      { path: 'xml-generate', component: CreateXmlComponent, canActivate: [AuthGuard] },
-      { path: 'settings', component: SettingsUserComponent, canActivate: [AuthGuard] },
-      { path: 'taxes', component: TaxesComponent, canActivate: [AuthGuard] },
-      { path: 'receiver/:slug', component: ReceiversComponent, canActivate: [AuthGuard] },
-      { path: 'certificate/:slug', component: CertificatesComponent, canActivate: [AuthGuard] },
-      { path: 'employe', component: EmployeComponent, canActivate: [AuthGuard] },
-      { path: 'massive-download', component: MassiveDownloadComponent, canActivate: [AuthGuard] },
+      { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard, SessionGuard] },
+      { path: 'xml-generate', component: CreateXmlComponent, canActivate: [AuthGuard, SessionGuard] },
+      { path: 'settings', component: SettingsUserComponent, canActivate: [AuthGuard, SessionGuard] },
+      { path: 'taxes', component: TaxesComponent, canActivate: [AuthGuard, SessionGuard]},
+      { path: 'receiver/:slug', component: ReceiversComponent, canActivate: [AuthGuard, SessionGuard]},
+      { path: 'certificate/:slug', component: CertificatesComponent, canActivate: [AuthGuard, SessionGuard] },
+      { path: 'employe', component: EmployeComponent, canActivate: [AuthGuard, SessionGuard] },
+      { path: 'massive-download', component: MassiveDownloadComponent, canActivate: [AuthGuard, SessionGuard]},
     ],
   },
 ];

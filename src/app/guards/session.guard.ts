@@ -12,31 +12,22 @@ export class SessionGuard implements CanActivate {
 
   tokenSubscription = new Subscription()
 
-  constructor(private router: Router, private swal: SweetAlertsService,
-    private jwtHelper: JwtHelperService) { }
+  constructor(private router: Router, private swal: SweetAlertsService) { }
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const token = `${sessionStorage.getItem('token')}`
-    // this.expirationCounter(token)
+    const token = sessionStorage.getItem('token') as string
+    const helper = new JwtHelperService();
+    const isExpired = helper.isTokenExpired(token);
+    if (isExpired) {
+      this.swal.alertLoader('Su sesion ya a terminado');
+      setTimeout(() => {
+        this.swal.closeAlert();
+        this.router.navigate(['/login'])
+      }, 2000);
+      return false;
+    }
     return true;
   }
-
-  // expirationCounter(token: string) {
-  //   if (token != null) {
-  //     const timeOut = this.jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
-  //     this.tokenSubscription.unsubscribe();
-  //     this.tokenSubscription = of(null).pipe(delay(timeOut)).subscribe((expired) => {
-  //       console.log('EXPIRED!!');
-  //       this.swal.alertLoader('La sesio ya caduco.')
-  //       setTimeout(() => {
-  //         this.swal.closeAlert();
-  //         this.router.navigate(['/login'])
-  //       }, 200)
-
-  //     });
-  //   }
-
-  // }
 
 }
