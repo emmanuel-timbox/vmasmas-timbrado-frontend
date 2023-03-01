@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {ToastrModule} from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './views/auth/auth.module';
@@ -19,7 +20,8 @@ import { AuthInterceptor } from '../app/interceptors/HttpErrorInterceptor';
     BrowserAnimationsModule,
     AuthModule,
     MainModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({  timeOut: 3000, positionClass: 'toast-top-right',preventDuplicates: true }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
