@@ -47,10 +47,16 @@ export class MassiveDownloadComponent implements OnInit {
     });
   }
 
+
+  newRequest(){
+    alert('Hola mundo')
+  }
+
   setDataEmitterInput(event: Event): void {
     let dataEmitter!: any
     let slug: string = (event.target as HTMLInputElement).value;
 
+    console.log(slug)
     if (slug == '') {
       this.formDescarga.reset();
       this.disableFileInput = true;
@@ -59,25 +65,10 @@ export class MassiveDownloadComponent implements OnInit {
     }
 
     dataEmitter = this.emitterData.find((x: any) => x.slug == slug);
-    if (dataEmitter.certificate_number != null) {
-      this.haveCerticate = true;
-      this.slugEmitter = slug;
-      this.formDescarga.setValue({
-        bussinessName: dataEmitter.bussiness_name,
-        rfc: dataEmitter.rfc,
-        expeditionPlace: dataEmitter.expedition_place,
-        taxRegime: dataEmitter.tax_regime,
-        certNumber: dataEmitter.certificate_number == null ? '' : dataEmitter.certificate_number,
-        passwordKey: ''
-      });
-      this.disableFileInput = false;
-    } else {
-      this.haveCerticate = false;
-      this.formDescarga.reset();
-      this.files = [];
-      this.disableFileInput = true;
-    }
-    this.emitterSlugEmitter.emit(slug);
+    this.formDescarga.get('rfc')?.setValue(dataEmitter.rfc)
+      console.log(dataEmitter)
+
+
   }
 
   onSelect(event: { addedFiles: any }): void {
@@ -114,8 +105,9 @@ export class MassiveDownloadComponent implements OnInit {
 
   private requisitionValidate(): void {
     let formData = new FormData;
-    formData.append('key_file', this.files[0]);
-    formData.append('password', this.formDescarga.value.passwordKey);
+    formData.append('key_file', this.files[1]);
+    formData.append('certificado', this.files[1]);
+
 
     this._services.getValidateKey(formData, this.slugEmitter).subscribe({
       next: response => {
