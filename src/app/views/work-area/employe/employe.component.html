@@ -1,3 +1,89 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card card-outline card-danger">
+      <div class="card-header">
+        <h4>Registro de Empleados</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".xlsx">
+              <ngx-dropzone-label class="text-success">Cargar archivo</ngx-dropzone-label>
+              <ngx-dropzone-preview *ngFor="let f of excel" [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+              </ngx-dropzone-preview>
+            </ngx-dropzone>
+            <div *ngIf="!isValid">
+              <div class="invalid-feedback-custom">{{errorMessage}}</div>
+            </div>
+          </div>
+          <div class="col-sm-12 pt-3">
+            <hr width="100%" color="#e74c3c" />
+          </div>
+          <div class="col-sm-12 mt-2">
+            <p class="text-center" style="color:#ffffff8a;">
+              Pude descargar el archivo <b class="text-primary"> <a>aqui</a> </b>,
+              esta es la unica forma en la que se puede dar de alta de forma masiva
+              a los nuevos Empleados. Es a importante de que el archivo no se modifique
+              la estructura de los calumnas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <div class="card card-outline card-danger">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-22 d-flex justify-content-start align-items-center">
+          <h5>Lista de Personas</h5>
+        </div>
+      </div>
+    </div>
+    <div class="card-body table-responsive">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
+        <thead>
+          <tr>
+            <th>RFC</th>
+            <th>CURP</th>
+            <th>Antigüedad</th>
+            <th>Numero de Empleado</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let employee of dataEployees; let i = index">
+            <td>{{employee.rfc}}</td>
+            <td>{{employee.curp}}</td>
+            <td>{{employee.antiquity}}</td>
+            <td>{{employee.employee_number}}</td>
+            <td class="text-center">
+              <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmployee(employee, i)">
+                <i class="fa fa-edit"></i>
+              </a>
+              <!-- <a *ngIf="employee.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmployee(employee.slug, i)">
+                <i class="fa fa-window-close"></i>
+              </a>
+              <a *ngIf="employee.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
+                data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmployee(employee.slug, i)">
+                <i class="fa fa-check"></i>
+              </a> -->
+            </td>
+          </tr>
+        </tbody>
+
+
+        {{ dataEployees | json}}
+
+      </table>
+    </div>
+  </div>
+</div>
+
 <div #editModal class="modal fade" data-bs-backdrop="static" id="modal-editar" tabindex="-1"
   aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -33,12 +119,13 @@
               </div>
             </div>
 
-             <div class="form-group col-md-4">
+            <div class="form-group col-md-4">
               <label>NumSeguridadSocial:</label>
               <input type="number" class="form-control is-valid" formControlName="social_security_number"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['social_security_number'].errors }">
               <div *ngIf="submittedEdit && fEdit['social_security_number'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['social_security_number'].errors['maxLength']">Numero social del Emisor debe tener que ser menor
+                <div *ngIf="fEdit['social_security_number'].errors['maxLength']">Numero social del Emisor debe tener que
+                  ser menor
                   a 11 caracteres</div>
               </div>
             </div>
@@ -63,7 +150,7 @@
               </div>
             </div>
 
-             <div class="form-group col-md-4">
+            <div class="form-group col-md-4">
               <label>TipoContrato:</label>
               <input type="text" class="form-control is-valid" formControlName="type_contract"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['type_contract'].errors }">
@@ -99,7 +186,7 @@
               <input type="text" class="form-control is-valid" formControlName="regime_type"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['regime_type'].errors }">
               <div *ngIf="submittedEdit && fEdit['regime_type'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['regime_type'].errors['required']">Tipo Regimen  es requerido</div>
+                <div *ngIf="fEdit['regime_type'].errors['required']">Tipo Regimen es requerido</div>
                 <div *ngIf="fEdit['regime_type'].errors['maxLength']">Tipo Regimen debe tener que ser menor
                   a 3 caracteres</div>
               </div>
@@ -208,7 +295,8 @@
               <input type="text" class="form-control is-valid" formControlName="federative_entity_key"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['federative_entity_key'].errors }">
               <div *ngIf="submittedEdit && fEdit['federative_entity_key'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['federative_entity_key'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
+                <div *ngIf="fEdit['federative_entity_key'].errors['maxLength']">Razon social del Emisor debe tener que
+                  ser menor
                   a 150 caracteres</div>
               </div>
             </div>
@@ -219,89 +307,8 @@
           <a class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</a>
           <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
-        
+
       </form>
     </div>
   </div>
 </div>
-
-
-
-<div class="row">
-  <div class="col-sm-12">
-
-    <div class="col-sm-10">
-      <div class="card card-outline card-danger">
-        <div class="card-header">
-          <h4>Cargar Excel</h4>
-        </div>
-        <div class="card-body">
-          <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".xlsx">
-            <ngx-dropzone-label class="text-success">Cargar archivo</ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of excel" [removable]="true" (removed)="onRemove(f)">
-              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-            </ngx-dropzone-preview>
-          </ngx-dropzone>
-
-          <div *ngIf="!isValid">
-            <div class="invalid-feedback-custom">{{errorMessage}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="col-sm-12">
-  <div class="card card-outline card-danger">
-    <div class="card-header">
-      <div class="row">
-        <div class="col-md-22 d-flex justify-content-start align-items-center">
-          <h5>Lista de Personas</h5>
-        </div>
-      </div>
-    </div>
-    <div class="card-body table-responsive">
-      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
-        <thead>
-          <tr>
-            <th>RFC</th>
-            <th>CURP</th>
-            <th>Antigüedad</th>
-            <th>Numero de Empleado</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr *ngFor="let employee of dataEployees; let i = index">
-            <td>{{employee.rfc}}</td>
-            <td>{{employee.curp}}</td>
-            <td>{{employee.antiquity}}</td>
-            <td>{{employee.employee_number}}</td>
-            <td class="text-center">
-              <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmployee(employee, i)">
-                <i class="fa fa-edit"></i>
-              </a>
-              <!-- <a *ngIf="employee.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmployee(employee.slug, i)">
-                <i class="fa fa-window-close"></i>
-              </a>
-              <a *ngIf="employee.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmployee(employee.slug, i)">
-                <i class="fa fa-check"></i>
-              </a> -->
-            </td>
-          </tr>
-        </tbody>
-
-
-        {{ dataEployees | json}}
-
-      </table>
-    </div>
-  </div>
-</div>
-
-
-
-
-
