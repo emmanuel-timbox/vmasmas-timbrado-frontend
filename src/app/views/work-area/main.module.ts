@@ -29,6 +29,7 @@ import { XmlPreviewComponent } from './create-xml/xml-preview/xml-preview.compon
 import { MassiveDownloadComponent } from './massive-download/massive-download.component';
 import { PdfPreviewComponent } from './welcome/pdf-preview/pdf-preview.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { CompanyImageComponent } from './company-image/company-image.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
     EmployeComponent,
     XmlPreviewComponent,
     MassiveDownloadComponent,
-    PdfPreviewComponent
+    PdfPreviewComponent,
+    CompanyImageComponent
   ],
   imports: [
     CommonModule,

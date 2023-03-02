@@ -12,6 +12,7 @@ import { MassiveDownloadComponent } from './massive-download/massive-download.co
 import { AuthGuard } from './../../guards/auth.guard';
 import { MainComponent } from './main.component';
 import { SessionGuard } from './../../guards/session.guard';
+import { CompanyImageComponent } from './company-image/company-image.component';
 
 const routes: Routes = [
   {
@@ -21,11 +22,12 @@ const routes: Routes = [
       { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'xml-generate', component: CreateXmlComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'settings', component: SettingsUserComponent, canActivate: [AuthGuard, SessionGuard] },
-      { path: 'taxes', component: TaxesComponent, canActivate: [AuthGuard, SessionGuard]},
-      { path: 'receiver/:slug', component: ReceiversComponent, canActivate: [AuthGuard, SessionGuard]},
+      { path: 'taxes', component: TaxesComponent, canActivate: [AuthGuard, SessionGuard] },
+      { path: 'receiver/:slug', component: ReceiversComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'certificate/:slug', component: CertificatesComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'employe', component: EmployeComponent, canActivate: [AuthGuard, SessionGuard] },
-      { path: 'massive-download', component: MassiveDownloadComponent, canActivate: [AuthGuard, SessionGuard]},
+      { path: 'massive-download', component: MassiveDownloadComponent, canActivate: [AuthGuard, SessionGuard] },
+      { path: 'image-pdf', component: CompanyImageComponent, canActivate: [AuthGuard, SessionGuard] }
     ],
   },
 ];
