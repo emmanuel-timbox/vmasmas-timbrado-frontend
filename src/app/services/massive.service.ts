@@ -32,9 +32,7 @@ import { Massive } from '../models/massive.model';
       return this.httpClient.post(`${this.apiUrl}/massive`, formData, this.httpOptions)
     }
 
-    getCertificate(slug: string) {
-      return this.httpClient.get(`${this.apiUrl}/certificate/${slug}`)
-    }
+  
     getValidateKey(formData: FormData, slug: string) {
       return this.httpClient.post<any>(`${this.apiUrl}/create_xml/${slug}/validate_key`, formData, this.httpOptions);
     }
@@ -43,7 +41,6 @@ import { Massive } from '../models/massive.model';
       return {
   
         rfc: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
-        rfc_emisor: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
         rfc_receptor: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
         correo:[],
         fechaIncial:[],

@@ -1,24 +1,23 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="col-sm-12">
-      <div class="card card-outline card-danger">
-        <div class="card-header">
-          <h4>Descarga Masiva</h4>
-        </div>
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-              type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-              type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Busqueda por UUID</button>
+<form [formGroup]="formDescarga" (submit)="newRequest()">
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="col-sm-12">
+        <div class="card card-outline card-danger">
+          <div class="card-header">
+            <h4>Descarga Masiva</h4>
           </div>
-        </nav>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                type="button" role="tab" aria-controls="nav-home" aria-selected="true">Solicitud</button>
+              <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Busqueda por UUID</button>
+            </div>
+          </nav>
 
-        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-content" id="nav-tabContent">
 
-          <form [formGroup]="formDescarga">
-
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <div class="modal-body">
 
 
@@ -26,7 +25,7 @@
 
                   <div class="col-sm-3 mb-2">
                     <label>Seleccionar Solitante:</label>
-                    <select class="form-control is-valid" (change)="setDataEmitterInput">
+                    <select class="form-control is-valid" (change)="setDataEmitterInput($event)">
                       <option selected value="">seleccione una opcion</option>
                       <option *ngFor="let emitter of emitterData" value="{{emitter.slug}}"> {{emitter.bussiness_name}}
                       </option>
@@ -48,18 +47,6 @@
 
 
                   <div class="form-group col-md-3">
-                    <label>RFC Emisor</label>
-                    <input type="text" class="form-control is-valid" formControlName="rfc_emisor"
-                    [ngClass]="{ 'is-invalid': summitFormCert && f['rfc'].errors }">
-
-                  <div *ngIf="summitFormCert && f['rfc'].errors" class="invalid-feedback">
-                    <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
-                    <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                    <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
-                  </div>
-                  </div>
-
-                  <div class="form-group col-md-3">
                     <label>RFC Receptor</label>
                     <input type="text" class="form-control is-valid" formControlName="rfc_receptor"
                       [ngClass]="{ 'is-invalid': summitFormCert && f['rfc'].errors }">
@@ -71,7 +58,7 @@
                     </div>
                   </div>
 
-   
+
                   <div class="form-group col-md-3">
                     <label>Correo electronico</label>
                     <input type="text" class="form-control is-valid" formControlName="correo">
@@ -85,217 +72,200 @@
 
 
                   </div>
-                  
+
                   <div class="form-group col-md-3">
                     <label>Fecha Final</label>
                     <input type="date" class="form-control is-valid" formControlName="fechafinal">
 
 
                   </div>
-                    
+                  <div class="form-group col-md-3">
+                    <label>Tipo solicitud:</label>
+                    <select class="form-control is-valid" formControlName="tipo_so">
+                      <option selected value="null">Seleccione una opcion</option>
+                      <option value='Metadata'>Metadata</option>
+                      <option value='CFDI'>CFDI</option>
+                    </select>
+                  </div>
 
-                  
+                  <!-- <div class="form-group col-md-3">
+                    <label>Hola</label>
+                    <select class="form-control is-valid"  (change)="showWithholdings($event)">
+                      <option selected value="">Seleccione una opcion</option>
+                      <option value='1'>CFDI</option>
+                      <option value='2'>Retenciones</option>
+                    </select>
+                  </div> -->
+                  <!--     
+                  <div class="form-group col-md-3" *ngIf="!selectedWithholdings">
+                    <label>Complemento:</label>
+                    <select class="form-control is-valid"  formControlName="complemento">
+                      <option selected value="null">Seleccione una opcion</option>
+                      <option value='acreditamientoieps10'>acreditamientoieps10</option>
+                      <option value='aerolíneas'>aerolíneas</option>
+                      <option value='cartaporte10'>cartaporte10</option>
+                      <option value='cartaporte20'>cartaporte20</option>
+                      <option value='certificadodedestruccion'>certificadodedestruccion</option>
+                      <option value='cfdiregistrofiscal'>cfdiregistrofiscal</option>
+                      <option value='comercioexterior10'>comercioexterior10</option>
+                      <option value='comercioexterior11'>comercioexterior11</option>
+                      <option value='comprobante'>comprobante</option>
+                      <option value='consumodecombustibles'>consumodecombustibles</option>
+                      <option value='consumodecombustibles11'>consumodecombustibles11</option>
+                      <option value='detallista'>detallista</option>
+                      <option value='divisas'>divisas</option>
+                      <option value='donat11'>donat11</option>
+                      <option value='ecc11'>ecc11</option>
+                      <option value='ecc12'>ecc12</option>
+                      <option value='gastoshidrocarburos10'>gastoshidrocarburos10</option>
+                      <option value='iedu'>iedu</option>
+                      <option value='implocal'>implocal</option>
+                      <option value='ine11'>ine11</option>
+                      <option value='ingresoshidrocarburos'>ingresoshidrocarburos</option>
+                      <option value='leyendasfisc'>leyendasfisc</option>
+                      <option value='nomina11'>nomina11</option>
+                      <option value='nomina12'>nomina12</option>
+                      <option value='notariospublicos'>notariospublicos</option>
+                      <option value='obrasarteantiguedades'>obrasarteantiguedades</option>
+                      <option value='pagoenespecie'>pagoenespecie</option>
+                      <option value='pagos10'>pagos10</option>
+                      <option value='pagos20'>pagos20</option>
+                      <option value='pfic'>pfic</option>
+                      <option value='renovacionysustitucionvehiculos'>renovacionysustitucionvehiculos</option>
+                      <option value='servicioparcialconstruccion'>servicioparcialconstruccion</option>
+                      <option value='spei'>spei</option>
+                      <option value='terceros11'>terceros11</option>
+                      <option value='turistapasajeroextranjero'>turistapasajeroextranjero</option>
+                      <option value='valesdedespensa'>valesdedespensa</option>
+                      <option value='vehiculousado'>vehiculousado</option>
+                    </select>
+                  </div> -->
 
-                  <div class="form-group col-md-2">
-                    <label>Contraseña de llave</label>
-                    <input type="text" class="form-control is-valid" formControlName="password">
+
+                  <div class="form-group col-md-3">
+                    <label>RFC acuentaAterceros</label>
+                    <input type="text" class="form-control is-valid" formControlName="rfc_acuentaAterceros">
 
 
                   </div>
 
-        
-                  <div class="col-sm-5">
-                    <ngx-dropzone (change)="validateKey($event)" style="background: none" accept=".key" [disabled]="disableFileInput">
-                      <ngx-dropzone-label class="text-success">Cargar llave del certificaso(.key)</ngx-dropzone-label>
-                      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" >
-                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                      </ngx-dropzone-preview>
-                    </ngx-dropzone>
-                    <div class="invalid-feedback-file" *ngIf="files.length == 0">
-                      <div>Hay que cargar el archivo .Key del certificado.</div>
-                    </div>
+                  <div class="form-group col-md-3">
+                    <label>Tipo de comprobante:</label>
+                    <select class="form-control is-valid" formControlName="tipo_com">
+                      <option selected value="null">Seleccione una opcion</option>
+                      <option value='I'>Ingreso</option>
+                      <option value='E'>Egreso</option>
+                      <option value='T'>Traslado</option>
+                      <option value='N'>Nomina</option>
+                      <option value='P'>Pago</option>
+                    </select>
                   </div>
+
+                  <div class="form-group col-md-4">
+                    <label>Estado de comprobante:</label>
+                    <select class="form-control is-valid" formControlName="tipo_com">
+                      <option selected value="null">Seleccione una opcion</option>
+                      <option value='0'>Cancelado</option>
+                      <option value='1'>Vigente</option>
+                    </select>
+                  </div>
+
+
+
 
                 </div>
               </div>
+          </div>
 
-              <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                      Mas opciones
-                    </button>
-                  </h2>
-                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                    <div class="form-row">
-                      <div class="form-group col-md-4">
-                        <label>Tipo solicitud:</label>
-                        <select class="form-control is-valid"  formControlName="tipo_so">
-                          <option selected value="null">Seleccione una opcion</option>
-                          <option value='Metadata'>Metadata</option>
-                          <option value='CFDI'>CFDI</option>
-                        </select>
-                      </div>
-    
-                      <!-- <div class="form-group col-md-3">
-                        <label>Hola</label>
-                        <select class="form-control is-valid"  (change)="showWithholdings($event)">
-                          <option selected value="">Seleccione una opcion</option>
-                          <option value='1'>CFDI</option>
-                          <option value='2'>Retenciones</option>
-                        </select>
-                      </div> -->
-<!--     
-                      <div class="form-group col-md-3" *ngIf="!selectedWithholdings">
-                        <label>Complemento:</label>
-                        <select class="form-control is-valid"  formControlName="complemento">
-                          <option selected value="null">Seleccione una opcion</option>
-                          <option value='acreditamientoieps10'>acreditamientoieps10</option>
-                          <option value='aerolíneas'>aerolíneas</option>
-                          <option value='cartaporte10'>cartaporte10</option>
-                          <option value='cartaporte20'>cartaporte20</option>
-                          <option value='certificadodedestruccion'>certificadodedestruccion</option>
-                          <option value='cfdiregistrofiscal'>cfdiregistrofiscal</option>
-                          <option value='comercioexterior10'>comercioexterior10</option>
-                          <option value='comercioexterior11'>comercioexterior11</option>
-                          <option value='comprobante'>comprobante</option>
-                          <option value='consumodecombustibles'>consumodecombustibles</option>
-                          <option value='consumodecombustibles11'>consumodecombustibles11</option>
-                          <option value='detallista'>detallista</option>
-                          <option value='divisas'>divisas</option>
-                          <option value='donat11'>donat11</option>
-                          <option value='ecc11'>ecc11</option>
-                          <option value='ecc12'>ecc12</option>
-                          <option value='gastoshidrocarburos10'>gastoshidrocarburos10</option>
-                          <option value='iedu'>iedu</option>
-                          <option value='implocal'>implocal</option>
-                          <option value='ine11'>ine11</option>
-                          <option value='ingresoshidrocarburos'>ingresoshidrocarburos</option>
-                          <option value='leyendasfisc'>leyendasfisc</option>
-                          <option value='nomina11'>nomina11</option>
-                          <option value='nomina12'>nomina12</option>
-                          <option value='notariospublicos'>notariospublicos</option>
-                          <option value='obrasarteantiguedades'>obrasarteantiguedades</option>
-                          <option value='pagoenespecie'>pagoenespecie</option>
-                          <option value='pagos10'>pagos10</option>
-                          <option value='pagos20'>pagos20</option>
-                          <option value='pfic'>pfic</option>
-                          <option value='renovacionysustitucionvehiculos'>renovacionysustitucionvehiculos</option>
-                          <option value='servicioparcialconstruccion'>servicioparcialconstruccion</option>
-                          <option value='spei'>spei</option>
-                          <option value='terceros11'>terceros11</option>
-                          <option value='turistapasajeroextranjero'>turistapasajeroextranjero</option>
-                          <option value='valesdedespensa'>valesdedespensa</option>
-                          <option value='vehiculousado'>vehiculousado</option>
-                        </select>
-                      </div> -->
-    
-    
-                      <div class="form-group col-md-3">
-                        <label>RFC acuentaAterceros</label>
-                        <input type="text" class="form-control is-valid" formControlName="rfc_acuentaAterceros">
-    
-    
-                      </div>   
-    
-                      <div class="form-group col-md-3">
-                        <label>Tipo de comprobante:</label>
-                        <select class="form-control is-valid"  formControlName="tipo_com">
-                          <option selected value="null">Seleccione una opcion</option>
-                          <option value='I'>Ingreso</option>
-                          <option value='E'>Egreso</option>
-                          <option value='T'>Traslado</option>
-                          <option value='N'>Nomina</option>
-                          <option value='P'>Pago</option>
-                        </select>
-                      </div>
-    
-                      <div class="form-group col-md-3">
-                        <label>Estado de comprobante:</label>
-                        <select class="form-control is-valid"  formControlName="tipo_com">
-                          <option selected value="null">Seleccione una opcion</option>
-                          <option value='0'>Cancelado</option>
-                          <option value='1'>Vigente</option>
-                        </select>
-                      </div>
-                    
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="form-row">
 
-                    </div> 
-                    </div>
-                  </div>
+              <div class="form-group col-md-3">
+                <label>UUID</label>
+                <input type="text" class="form-control is-valid" formControlName="uuid">
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>RFC Receptor</label>
+                <input type="text" class="form-control is-valid" formControlName="rfcR_uuid"
+                  [ngClass]="{ 'is-invalid': summitFormCert && f['rfc'].errors }">
+                <div *ngIf="summitFormCert && f['rfc'].errors" class="invalid-feedback">
+                  <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
+                  <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                  <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
                 </div>
-
               </div>
 
             </div>
+          </div>
 
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                
-                <div class="form-group col-md-3">
-                  <label>UUID</label>
-                  <input type="text" class="form-control is-valid" formControlName="uuid">
-
-
-                </div>   
-
-
-                <div class="form-group col-md-3">
-                  <label>RFC Receptor</label>
-                  <input type="text" class="form-control is-valid" formControlName="rfcR_uuid"
-                    [ngClass]="{ 'is-invalid': summitFormCert && f['rfc'].errors }">
-
-                  <div *ngIf="summitFormCert && f['rfc'].errors" class="invalid-feedback">
-                    <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
-                    <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                    <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
-                  </div>
-                </div>
-              
-
-              
-            </div>
-
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Solicitud</button>
-            </div>
-
-          </form>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Solicitud</button>
+          </div>
 
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-3">
+    <div class="col-sm-12">
+      <div class="card card-outline card-danger">
+        <div class="card-header">
+          <h4>Certificados</h4>
+        </div>
+
+        <div class="col-sm-3 col-sm-12 ">
+          <ngx-dropzone style="background: none" accept=".key">
+            <ngx-dropzone-label class="text-success">Cargar (.cer) y (.key)</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+          <div class="invalid-feedback-file" *ngIf="files.length == 0">
+            <div>Hay que cargar el archivo .Key y .cer del RFC solicitante</div>
+          </div>
+        </div>
+
+
+
 
       </div>
     </div>
   </div>
-</div>
 
-{{formDescarga.value | json}}
+  </div>
 
-<div class="col-sm-12">
-  <div class="card card-outline card-danger">
-    <div class="card-header">
-      <div class="row">
-        <div class="col-md-22 d-flex justify-content-start align-items-center">
-          <h5>Lista de solicitudes</h5>
+
+
+  {{formDescarga.value | json}}
+
+  <div class="col-sm-12">
+    <div class="card card-outline card-danger">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-md-22 d-flex justify-content-start align-items-center">
+            <h5>Lista de solicitudes</h5>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card-body table-responsive">
-      <table class="table row-border hover">
-        <thead>
-          <tr>
-            <th>Id de Solicitud</th>
-            <th>Estatus</th>
-            <th>Email</th>
-            <th>Cantidad de paquetes</th>
-            <th>Fecha Creación</th>
-            <th>Acciones</th>
+      <div class="card-body table-responsive">
+        <table class="table row-border hover">
+          <thead>
+            <tr>
+              <th>Id de Solicitud</th>
+              <th>Estatus</th>
+              <th>Email</th>
+              <th>Cantidad de paquetes</th>
+              <th>Fecha Creación</th>
+              <th>Acciones</th>
 
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
+</form>
