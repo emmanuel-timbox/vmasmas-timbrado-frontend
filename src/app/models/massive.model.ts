@@ -18,7 +18,7 @@ export class Massive {
   constructor(userId: number, rfc: string, 
     rfc_receptor: string, correo: string, fechaIncial: number, fechafinal: number, complemento: string, tipo_so: string, 
     rfc_acuentaAterceros: string, uuid: string, slugMassive: string, tipo_com: string,status: number, slug: string,
-    slugEmitter: string, slugUser: string) {
+     slugUser: string) {
 
     this.userId = userId;
     this.rfc = rfc;

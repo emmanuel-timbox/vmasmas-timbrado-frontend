@@ -32,6 +32,9 @@ import { Massive } from '../models/massive.model';
       return this.httpClient.post(`${this.apiUrl}/massive`, formData, this.httpOptions)
     }
 
+    insertDataMassive(massive: Massive) {
+      return this.httpClient.post(`${this.apiUrl}/ `, massive, this.httpOptions);
+    }
   
     getValidateKey(formData: FormData, slug: string) {
       return this.httpClient.post<any>(`${this.apiUrl}/create_xml/${slug}/validate_key`, formData, this.httpOptions);
@@ -40,19 +43,19 @@ import { Massive } from '../models/massive.model';
     getDataValidateMassive() {
       return {
   
-        rfc: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
+        rfc: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
         rfc_receptor: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
-        correo:[],
-        fechaIncial:[],
-        fechafinal:[],
+        correo:['', [Validators.required,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
+        fechaIncial:['', [Validators.required,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
+        fechafinal:['', [Validators.required,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
         complemento:[],
         tipo_so:[],
-        rfc_acuentaAterceros:[],
+        rfc_acuentaAterceros:['', [Validators.nullValidator , Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
         tipo_com:[],
         password:[],
         key:[],
-        uuid:[],
-        rfcR_uuid: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
+        uuid:['', [Validators.nullValidator,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
+        rfcR_uuid: ['', [Validators.nullValidator, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
 
      
       }
