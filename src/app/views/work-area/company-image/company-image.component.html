@@ -13,17 +13,43 @@
 
         <div class="row d-flex justify-content-center">
           <div class="col-sm-12">
-            <div class="container container-pdf" #pdfView>
+            <div class="container container-pdf">
+              <div class="baloon-fixed south">
+                <p>
+                  Carga logo de la empresa para la marca de agua<br>
+                  es recomendable que no tenga fondo de pantalla.
+                </p>
+                <div class="element-mark-watter">
+                  <i class="fas fa-camera"></i><span class="name"></span>
+                  <input type="file" #fileUpload (click)="fileUpload.value = ''" (change)="importFile($event)"
+                    accept="image/*">
+                </div>
+              </div>
               <div class="row p-5">
 
                 <div class="col-sm-5 pt-1">
                   <div class="row">
-                    <img src="../../../../../assets/images/logos/logo-vmasmas-3.png" width="150">
+                    <div class="container-image" (click)="fileUpload.click()">
+                      <img width="150" [src]="logoUrl">
+
+                      <div class="element">
+                        <i class="fas fa-camera"></i><span class="name"></span>
+                        <input type="file" #fileUpload (click)="fileUpload.value = ''" (change)="importFile($event)"
+                          accept="image/*">
+                      </div>
+                    </div>
+                    <div class="baloon left">
+                      <p>
+                        Carga logo de la empresa, el tamaño
+                        que debe tener es de: 150x150.
+                      </p>
+                    </div>
                   </div>
+
                   <div class="row text-1 pt-2">
                     <p>
-                      <b>VEMASMAS</b><br>
-                      <b>San Isidro 730, San Isidro Juriquilla, 76226 Santiago de Querétaro, Qro.</b><br><br>
+                      <b>Nombre de la empresa </b><br>
+                      <b>Direccion</b><br><br>
                       <b class="text-primary"></b><br>
                       <b>RFC:</b> <br>
                       <b>REGIMEN FISCAL:</b> <br><br>
@@ -38,7 +64,7 @@
                     <b>FECHA Y HORA DE EMISIÓN</b>: <br>
                     <b>LUGAR DE EXPEDICION</b>: <br>
                     <b>TIPO DE CFDI</b>: <br>
-                    <b>SERIE</b>:  <br>
+                    <b>SERIE</b>: <br>
                     <b>FOLIO</b>: <br>
                     <br>
                   </p>

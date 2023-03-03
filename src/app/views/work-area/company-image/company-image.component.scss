@@ -56,20 +56,20 @@ code::after {
   width: 1045px !important;
 }
 
-.container-pdf::before {
-  content: "";
-  background-size: cover;
-  background: url('../../../../assets/images/logos/logo-vmasmas-2.jpeg');
-  opacity: 0.1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 900px 900px;
-}
+// .container-pdf::before {
+//   content: "";
+//   background-size: cover;
+//   // background: url('');
+//   opacity: 0.1;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   position: absolute;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: 900px 900px;
+// }
 
 // .container:before {
 //   content: 'V++';
@@ -116,4 +116,140 @@ code::after {
 
 .text-total {
   font-size: 15px;
+}
+
+.container-image {
+  width: 150px;
+  height: 150px;
+  border: 3px solid #fff;
+  display: inline-block;
+  overflow: hidden;
+  border-color: #e74c3ce0;
+  box-shadow: 1px 1px 15px -5px rgba(0, 0, 0, 0.33);
+  border-radius: 5%;
+
+}
+
+.element {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  left: 59%;
+  top: 60%;
+}
+
+
+.element-mark-watter {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  left: 87%;
+  top: 0%;
+}
+
+i.fa-camera {
+  color: #e74c3ce0;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 50px;
+}
+
+i:hover {
+  opacity: 0.6;
+}
+
+.container-image:hover {
+  opacity: 0.6;
+}
+
+input {
+  display: none;
+}
+
+
+.baloon {
+  margin: 20px;
+  float: left;
+  padding: 20px 30px;
+  position: absolute;
+  left: 35%;
+  top: 8%;
+  border-style: solid;
+  border-radius: 2px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 -1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.baloon-fixed {
+  margin: 20px;
+  float: left;
+  padding: 20px 30px;
+  position: absolute;
+  left: 50%;
+  top: 16%;
+  border-style: solid;
+  border-radius: 2px;
+  z-index:1;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 -1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.baloon-fixed:after,
+.baloon:after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865473, M12=-0.7071067811865477, M21=0.7071067811865477, M22=0.7071067811865473, SizingMethod='auto expand')";
+}
+
+.north.baloon-fixed:after,
+.north.baloon:after {
+  top: -6px;
+  left: 30px;
+  border-top-style: solid;
+  border-left-style: solid;
+  box-shadow: -2px -2px 3px -1px rgba(0, 0, 0, 0.5)
+}
+
+.south.baloon-fixed:after,
+.south.baloon:after {
+  bottom: -6px;
+  left: 30px;
+  border-bottom-style: solid;
+  border-right-style: solid;
+  box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.5)
+}
+
+.left.baloon-fixed:after,
+.left.baloon:after {
+  top: 10px;
+  left: -6px;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  box-shadow: -2px 2px 3px -1px rgba(0, 0, 0, 0.5)
+}
+.right.baloon-fixed:after
+.right.baloon:after {
+  bottom: 10px;
+  right: -6px;
+  border-top-style: solid;
+  border-right-style: solid;
+  box-shadow: 2px -2px 3px -1px rgba(0, 0, 0, 0.5)
+}
+
+.baloon,
+.baloon:after,
+.baloon-fixed,
+.baloon-fixed::after {
+  color: white;
+  font-family: sans-serif;
+  font-weight: bold;
+  border-color: #808B96;
+  border-width: 1px;
+  background-color: #21384ed9;
 }
