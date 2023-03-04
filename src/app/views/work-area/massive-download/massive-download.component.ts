@@ -3,6 +3,7 @@ import { NgWizardConfig, NgWizardService, StepValidationArgs, STEP_STATE, THEME 
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { MassiveService } from 'src/app/services/massive.service';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { Massive } from 'src/app/models/massive.model';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class MassiveDownloadComponent implements OnInit {
   @Output() emitterSlugEmitter = new EventEmitter<string>();
 
   files: File[] = [];
+  slug!: string | null;
   emitterData: any;
   haveCerticate!: Boolean;
   summitFormCert = false;
@@ -21,9 +23,13 @@ export class MassiveDownloadComponent implements OnInit {
   slugEmitter!: string;
   fileIsInvalid!: boolean;
   disableFileInput: boolean = true;
+  isValid: boolean = true;
+  errorMessage!: string;
+  formNewSolicitud: FormGroup = new FormGroup({});
 
 
-  constructor(private _services: MassiveService, private _sweetAlets: SweetAlertsService, private formBuilder: FormBuilder) { }
+
+  constructor(private _services: MassiveService, private swal: SweetAlertsService, private _sweetAlets: SweetAlertsService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.getEmitterData()
@@ -48,9 +54,62 @@ export class MassiveDownloadComponent implements OnInit {
   }
 
 
-  newRequest(){
-    alert('Hola mundo')
+  massive(): void {
+    this.summitFormCert = true;
+    if (this.formDescarga.invalid) { return }
+
+    const massive: Massive = {
+      rfc: this.formDescarga.value.rfc,
+
+      rfc_receptor: this.formDescarga.value.rfc_receptor,
+      correo: this.formDescarga.value.correo,
+      fechaIncial: this.formDescarga.value.fechaIncial,
+      fechafinal: this.formDescarga.value.fechafinal, 
+      complemento: this.formDescarga.value.complemento,
+      tipo_so: this.formDescarga.value.tipo_so,
+      rfc_acuentaAterceros: this.formDescarga.value.rfc_acuentaAterceros,
+      tipo_com: this.formDescarga.value.tipo_com,
+      uuid: this.formDescarga.value.uuid, 
+      rfcR_uuid: this.formDescarga.value.rfcR_uuid,
+
+      slugUser: `${sessionStorage.getItem('slug')}`
+    };
+
+    this._services.insertDataMassive(massive).subscribe({
+      next: response => {
+        let result = JSON.parse(JSON.stringify(response));
+        let emitter = result.data;
+        if (result.code == 200) {
+          this.swal.successAlert('Los datos del Emisor se guardaron de manera correcta');
+          this.resetFormCreate();
+        } else {
+          this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de manera correcta');
+          this.resetFormCreate();
+        }
+      },
+      error: error => { console.log(error) }
+    });
   }
+
+  resetFormCreate(): void {
+    this.summitFormCert = false;
+    this.formDescarga.reset();
+  }
+
+  // newRequest(slugEmitter: string, index: number): void {
+  //   this._services.insertFile(slugEmitter).subscribe({
+  //     next: response => {
+  //       let result = JSON.parse(JSON.stringify(response))
+  //       if (result.code == 200) {
+  //         this.dataMassive[index] = result.data
+  //         this.swal.successAlert('Peticion enviada');
+  //       } else {
+  //         this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar el estatus');
+  //       }
+  //     },
+  //     error: error => { console.log(error) }
+  //   });
+  // }
 
   setDataEmitterInput(event: Event): void {
     let dataEmitter!: any
@@ -71,65 +130,80 @@ export class MassiveDownloadComponent implements OnInit {
 
   }
 
-  onSelect(event: { addedFiles: any }): void {
+  onSelect(event: any) {
     this.files.push(...event.addedFiles);
+    let validate = this.validateFile(this.files);
+
+    if (!validate.isValid) {
+      this.isValid = validate.isValid;
+      this.errorMessage = validate.message;
+      return;
+    }
+
+    if (!this.haveCerticate) {
+      this.registerCertificates(event);
+    }
   }
+
 
   onRemove(event: File): void {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  resetForm() {
-    this.files = [];
-    this.formDescarga.reset();
-  }
 
-  validatePassword(){
-    if (this.files.length != 0) {
-      this.requisitionValidate();
-    }
-  }
+  private registerCertificates(event: any): void {
+    let message = 'Desea cargar el Certificado.';
+    this.swal.confirmationAlert(message, '¡Si, subir el archivo!').then((result: any) => {
+      if (result.isConfirmed) {
+        const formData: FormData = new FormData();
+        formData.append('certificate', this.files[0]);
+        formData.append('slugEmitter', String(this.slug));
 
-  validateKey(event: { addedFiles: any }): void {
-    this.files.push(...event.addedFiles);
-    this.summitFormCert = true;
+        this._services.insertFile(formData).subscribe({
+          next: response => {
+            let result = JSON.parse(JSON.stringify(response));
 
-    if (this.formDescarga.invalid) {
-      this.files = [];
-      this.fileIsInvalid = true;
-      return;
-    }
+            if (result.code == 200) {
+              this.onRemove(event);
+              this.files = result.data;
+              this.swal.successAlert('Se guardo el Certificado con exito');
+              this.haveCerticate = true;
+            } else {
+              this.onRemove(event);
+              this.swal.infoAlert('¡Verifica!', `No se pudo guardar el Certificado. ${result.message}`);
+            }
 
-    this.requisitionValidate();
-  }
-
-  private requisitionValidate(): void {
-    let formData = new FormData;
-    formData.append('key_file', this.files[1]);
-    formData.append('certificado', this.files[1]);
-
-
-    this._services.getValidateKey(formData, this.slugEmitter).subscribe({
-      next: response => {
-        let result: any = JSON.parse(JSON.stringify(response));
-        if (result.code == 200) {
-          this.fileIsInvalid = false;
-        } else {
-          this.fileIsInvalid = true;
-          this._sweetAlets.infoAlert("¡Verifica!", result.message);
-          this.files = [];
-        }
-      },
-      error: error => { console.log(error); }
+          },
+          error: error => { console.log(error); }
+        });
+      } else {
+        this.onRemove(event);
+      }
     });
   }
 
-  private validate(): boolean {
-    if (this.files.length == 0) return true;
-    if (this.formDescarga.invalid) return true;
-    if (this.fileIsInvalid) return true;
-    return false;
+ 
+  private validateFile(file: any): any {
+    const allowedExtension = /(.*?)\.(cer)$/;
+
+    if (file.length > 1) {
+      return {
+        isValid: false,
+        message: 'Solo se tiene que cargar un archivo en la caja.'
+      };
+    }
+
+    if (file[0].name.match(allowedExtension) == null) {
+      return {
+        isValid: false,
+        message: 'El archivo no es valido, solo es valido los .cer para cargar.'
+      };
+    }
+
+    return { isValid: true, message: null };
   }
+
+  
 
 
 }
