@@ -13,15 +13,15 @@
 
         <div class="row d-flex justify-content-center">
           <div class="col-sm-12">
-            <div class="container container-pdf">
+            <div id="container-pdf" class="container container-pdf" >
               <div class="baloon-fixed south">
                 <p>
                   Carga logo de la empresa para la marca de agua<br>
                   es recomendable que no tenga fondo de pantalla.
                 </p>
                 <div class="element-mark-watter">
-                  <i class="fas fa-camera"></i><span class="name"></span>
-                  <input type="file" #fileUpload (click)="fileUpload.value = ''" (change)="importFile($event)"
+                  <i class="fas fa-camera" (click)="fileWaterMark.click()"></i><span class="name"></span>
+                  <input type="file" #fileWaterMark (click)="fileWaterMark.value = ''" (change)="importMaskWatter($event)"
                     accept="image/*">
                 </div>
               </div>
@@ -31,7 +31,6 @@
                   <div class="row">
                     <div class="container-image" (click)="fileUpload.click()">
                       <img width="150" [src]="logoUrl">
-
                       <div class="element">
                         <i class="fas fa-camera"></i><span class="name"></span>
                         <input type="file" #fileUpload (click)="fileUpload.value = ''" (change)="importFile($event)"

@@ -56,39 +56,6 @@ code::after {
   width: 1045px !important;
 }
 
-// .container-pdf::before {
-//   content: "";
-//   background-size: cover;
-//   // background: url('');
-//   opacity: 0.1;
-//   top: 0;
-//   left: 0;
-//   bottom: 0;
-//   right: 0;
-//   position: absolute;
-//   background-position: center;
-//   background-repeat: no-repeat;
-//   background-size: 900px 900px;
-// }
-
-// .container:before {
-//   content: 'V++';
-//   font-family: Arial, Helvetica, sans-serif;
-//   font-weight: bold;
-//   position: absolute;
-//   top: 0;
-//   bottom: 0;
-//   left: 0;
-//   right: 0;
-//   color: #0d745e;
-//   font-size: 41vw;
-//   font-weight: 55vw;
-//   display: grid;
-//   justify-content: center;
-//   align-content: center;
-//   opacity: 0.2;
-// }
-
 .container-total {
   background-color: #ccdae9;
 }
@@ -127,17 +94,14 @@ code::after {
   border-color: #e74c3ce0;
   box-shadow: 1px 1px 15px -5px rgba(0, 0, 0, 0.33);
   border-radius: 5%;
-
 }
 
 .element {
-  position: relative;
+  position: absolute;
   display: inline-flex;
-  align-items: center;
-  left: 59%;
-  top: 60%;
+  left: 89px;
+  top: 94px;
 }
-
 
 .element-mark-watter {
   position: relative;
@@ -166,7 +130,6 @@ input {
   display: none;
 }
 
-
 .baloon {
   margin: 20px;
   float: left;
@@ -189,7 +152,7 @@ input {
   top: 16%;
   border-style: solid;
   border-radius: 2px;
-  z-index:1;
+  z-index: 1;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
   text-shadow: 0 -1px 0px rgba(0, 0, 0, 0.5);
 }
@@ -200,7 +163,6 @@ input {
   position: absolute;
   width: 10px;
   height: 10px;
-
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
@@ -233,8 +195,8 @@ input {
   border-left-style: solid;
   box-shadow: -2px 2px 3px -1px rgba(0, 0, 0, 0.5)
 }
-.right.baloon-fixed:after
-.right.baloon:after {
+
+.right.baloon-fixed:after .right.baloon:after {
   bottom: 10px;
   right: -6px;
   border-top-style: solid;
