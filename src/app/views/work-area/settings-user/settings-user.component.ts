@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 import { Emitter } from 'src/app/models/emitter.model';
 import { TaxPeapleService } from '../../../services/tax-people.service';
 import { SweetAlertsService } from '../../../services/sweet-alert.service'
@@ -15,7 +16,7 @@ declare let bootstrap: any
 
 export class SettingsUserComponent implements OnInit {
   @ViewChild('editModal') editModal!: ElementRef;
-
+  @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -29,7 +30,7 @@ export class SettingsUserComponent implements OnInit {
   indexArrayEmitter!: number;
   slugEmitterUpdate!: string;
   selectedTaxRegime!: string;
-  
+
   constructor(private _service: TaxPeapleService, private formBuilder: FormBuilder,
     private swal: SweetAlertsService) { }
 
@@ -69,6 +70,7 @@ export class SettingsUserComponent implements OnInit {
       rfc: this.formNewEmitter.value.rfc,
       expeditionPlace: this.formNewEmitter.value.expeditionPlace,
       taxRegime: this.formNewEmitter.value.taxRegime,
+      address: this.formNewEmitter.value.address,
       slugUser: `${sessionStorage.getItem('slug')}`
     };
 
@@ -80,6 +82,7 @@ export class SettingsUserComponent implements OnInit {
           this.swal.successAlert('Los datos del Emisor se guardaron de manera correcta');
           this.resetFormCreate();
           this.createNewRow(emitter);
+          this.tableRerender();
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de manera correcta');
           this.resetFormCreate();
@@ -96,6 +99,7 @@ export class SettingsUserComponent implements OnInit {
         if (result.code == 200) {
           this.dataEmitters[index] = result.data
           this.swal.successAlert('El estatus se actualizo de manera correcta');
+          this.tableRerender();
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar el estatus');
         }
@@ -111,8 +115,10 @@ export class SettingsUserComponent implements OnInit {
       bussinessName: this.formEditEmitter.value.bussinessName,
       rfc: this.formEditEmitter.value.rfc,
       expeditionPlace: this.formEditEmitter.value.expeditionPlace,
-      taxRegime: this.formEditEmitter.value.taxRegime
-    }
+      taxRegime: this.formEditEmitter.value.taxRegime,
+      address:  this.formEditEmitter.value.address
+    };
+
     this._service.editEmitter(emmiter, this.slugEmitterUpdate).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response));
@@ -136,7 +142,8 @@ export class SettingsUserComponent implements OnInit {
       bussinessName: dataEmitter.bussiness_name,
       rfc: dataEmitter.rfc,
       expeditionPlace: dataEmitter.expedition_place,
-      taxRegime: dataEmitter.tax_regime
+      taxRegime: dataEmitter.tax_regime,
+      address: dataEmitter.address
     });
   }
 
@@ -169,6 +176,13 @@ export class SettingsUserComponent implements OnInit {
       expedition_place: newEmitter.expedition_place,
       status: newEmitter.status,
       slug: newEmitter.slug
+    });
+  }
+
+  private tableRerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next(null);
     });
   }
 

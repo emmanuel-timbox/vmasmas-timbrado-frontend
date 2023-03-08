@@ -19,7 +19,7 @@
         <form [formGroup]="formNewEmitter" (ngSubmit)="createTaxPeople()">
           <div class="form-row">
 
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-6">
               <label>Nombre o razon social:</label>
               <input type="text" class="form-control is-valid" formControlName="bussinessName"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['bussinessName'].errors }">
@@ -30,7 +30,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label>R.F.C:</label>
               <input type="text" class="form-control is-valid" formControlName="rfc"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['rfc'].errors }">
@@ -42,7 +42,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label>Lugar de expedicion:</label>
               <input type="text" class="form-control is-valid" formControlName="expeditionPlace"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['expeditionPlace'].errors }">
@@ -64,6 +64,16 @@
               </select>
               <div *ngIf="submittedCreate && f['taxRegime'].errors" class="invalid-feedback">
                 <div *ngIf="f['taxRegime'].errors['required']">Regimen fiscal del Emisor es requerido</div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-8">
+              <label>Direccion:</label>
+              <input type="text" class="form-control is-valid" formControlName="address"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['address'].errors }">
+              <div *ngIf="submittedCreate && f['address'].errors" class="invalid-feedback">
+                <div *ngIf="f['address'].errors['required']">Direccion es requerido</div>
+                <div *ngIf="f['address'].errors['maxLength']">Direccion debe ser menor a 250 caracteres</div>
               </div>
             </div>
 
@@ -170,7 +180,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label>Lugar de expedicion</label>
               <input type="text" class="form-control is-valid" formControlName="expeditionPlace"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['expeditionPlace'].errors }">
@@ -186,7 +196,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label>Regimen fiscal:</label>
 
               <select class="form-control is-valid" formControlName="taxRegime"
@@ -201,7 +211,15 @@
               </div>
             </div>
 
-
+            <div class="form-group col-md-8">
+              <label>Domicilio:</label>
+              <input type="text" class="form-control is-valid" formControlName="address"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['address'].errors }">
+              <div *ngIf="submittedEdit && fEdit['address'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['address'].errors['required']">Domicilio es requerido</div>
+                <div *ngIf="fEdit['address'].errors['maxLength']">Domicilio debe ser menor a 250 caracteres</div>
+              </div>
+            </div>
           </div>
         </div>
 
