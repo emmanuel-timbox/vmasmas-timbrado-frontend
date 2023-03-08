@@ -9,20 +9,46 @@
           </div>
         </div>
       </div>
-      <div class="card-body ">
 
+      <div class="card-body ">
         <div class="row d-flex justify-content-center">
+
+          <div class="col-sm-12 pb-3">
+            <div class="row">
+
+              <div class="col-sm-6">
+                <label>Emisor:</label>
+                <select class="form-control is-valid" (change)="getImages($event)">
+                  <option selected value="">Seleccione una opcion</option>
+                  <option *ngFor="let emitter of emitters" value="{{emitter.slug}}">{{emitter.bussiness_name}}</option>
+                </select>
+              </div>
+
+              <div class="col-sm-6 d-flex justify-content-end mt-3 mb-2">
+                <button class="btn btn-primary mr-1" (click)="setImage()"><i class="fas fa-save"></i> </button>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-sm-12" *ngIf="!haveImage">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>¡Revisar!</strong> El emisor seleccionado no contiene imagenes guardadas para
+              mostrar en su PDF. Puede agregar imagen de logo y marca de agua a su PDF que emiten.
+            </div>
+          </div>
+
           <div class="col-sm-12">
-            <div id="container-pdf" class="container container-pdf" >
+            <div id="container-pdf" class="container container-pdf">
               <div class="baloon-fixed south">
                 <p>
                   Carga logo de la empresa para la marca de agua<br>
-                  es recomendable que no tenga fondo de pantalla.
+                  es recomendable que no tenga fondo.
                 </p>
                 <div class="element-mark-watter">
                   <i class="fas fa-camera" (click)="fileWaterMark.click()"></i><span class="name"></span>
-                  <input type="file" #fileWaterMark (click)="fileWaterMark.value = ''" (change)="importMaskWatter($event)"
-                    accept="image/*">
+                  <input type="file" #fileWaterMark (click)="fileWaterMark.value = ''"
+                    (change)="importMaskWatter($event)" accept="image/*">
                 </div>
               </div>
               <div class="row p-5">
@@ -203,8 +229,8 @@
           </div>
 
         </div>
-
       </div>
     </div>
+
   </div>
 </div>
