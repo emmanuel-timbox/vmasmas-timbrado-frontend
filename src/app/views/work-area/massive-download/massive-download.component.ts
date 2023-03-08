@@ -28,8 +28,8 @@ export class MassiveDownloadComponent implements OnInit {
   formNewSolicitud: FormGroup = new FormGroup({});
 
 
-
-  constructor(private _services: MassiveService, private swal: SweetAlertsService, private _sweetAlets: SweetAlertsService, private formBuilder: FormBuilder) { }
+  constructor(private _services: MassiveService, private swal: SweetAlertsService, 
+    private _sweetAlets: SweetAlertsService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.getEmitterData()
@@ -57,30 +57,40 @@ export class MassiveDownloadComponent implements OnInit {
   massive(): void {
     this.summitFormCert = true;
     if (this.formDescarga.invalid) { return }
+    let cerf!: File;
+    let key!: File;
+    this.files.forEach((item: any) => {
+      const nameSplit = item.name.split(".");
+      if (nameSplit[1] == "cer") { cerf = item }
+      if (nameSplit[1] == "key") { key = item }
+    });
+    const formData: FormData = new FormData();
 
-    const massive: Massive = {
-      rfc: this.formDescarga.value.rfc,
+    formData.append("cer_file", cerf);
+    formData.append("key_file", key);
+    formData.append('userId', this.formDescarga.value.userId);
+    formData.append('rfc', this.formDescarga.value.rfc);
+    formData.append('rfc_receptor', this.formDescarga.value.rfc_receptor);
+    formData.append('correo', this.formDescarga.value.correo);
+    formData.append('fechaIncial', this.formDescarga.value.fechaIncial);
+    formData.append('fechafinal', this.formDescarga.value.fechafinal);
+    formData.append('complemento', this.formDescarga.value.complemento);
+    formData.append('tipo_so', this.formDescarga.value.tipo_so);
+    formData.append('tipo_com', this.formDescarga.value.tipo_com);
+    formData.append('uuid', this.formDescarga.value.uuid);
+    formData.append('rfcR_uuid', this.formDescarga.value.rfcR_uuid); 
+    formData.append('password', this.formDescarga.value.password); 
+    formData.append('slug_emitter' , this.slugEmitter);
+     const slugUser = `${sessionStorage.getItem('slug')}`
+     formData.append('user_slug' , slugUser);
+    //  formData.append('slug', slug);
 
-      rfc_receptor: this.formDescarga.value.rfc_receptor,
-      correo: this.formDescarga.value.correo,
-      fechaIncial: this.formDescarga.value.fechaIncial,
-      fechafinal: this.formDescarga.value.fechafinal, 
-      complemento: this.formDescarga.value.complemento,
-      tipo_so: this.formDescarga.value.tipo_so,
-      rfc_acuentaAterceros: this.formDescarga.value.rfc_acuentaAterceros,
-      tipo_com: this.formDescarga.value.tipo_com,
-      uuid: this.formDescarga.value.uuid, 
-      rfcR_uuid: this.formDescarga.value.rfcR_uuid,
-
-      slugUser: `${sessionStorage.getItem('slug')}`
-    };
-
-    this._services.insertDataMassive(massive).subscribe({
+    this._services.insertDataMassive(formData).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response));
-        let emitter = result.data;
+        let massive = result.data;
         if (result.code == 200) {
-          this.swal.successAlert('Los datos del Emisor se guardaron de manera correcta');
+          this.swal.successAlert('Los datos de la solicitud se guardaron de manera correcta');
           this.resetFormCreate();
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de manera correcta');
@@ -96,26 +106,11 @@ export class MassiveDownloadComponent implements OnInit {
     this.formDescarga.reset();
   }
 
-  // newRequest(slugEmitter: string, index: number): void {
-  //   this._services.insertFile(slugEmitter).subscribe({
-  //     next: response => {
-  //       let result = JSON.parse(JSON.stringify(response))
-  //       if (result.code == 200) {
-  //         this.dataMassive[index] = result.data
-  //         this.swal.successAlert('Peticion enviada');
-  //       } else {
-  //         this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar el estatus');
-  //       }
-  //     },
-  //     error: error => { console.log(error) }
-  //   });
-  // }
-
   setDataEmitterInput(event: Event): void {
     let dataEmitter!: any
     let slug: string = (event.target as HTMLInputElement).value;
 
-    console.log(slug)
+    
     if (slug == '') {
       this.formDescarga.reset();
       this.disableFileInput = true;
@@ -124,25 +119,13 @@ export class MassiveDownloadComponent implements OnInit {
     }
 
     dataEmitter = this.emitterData.find((x: any) => x.slug == slug);
-    this.formDescarga.get('rfc')?.setValue(dataEmitter.rfc)
-      console.log(dataEmitter)
-
-
+    this.formDescarga.get('rfc')?.setValue(dataEmitter.rfc);
+     this.slugEmitter = slug;
   }
 
-  onSelect(event: any) {
+  onSelect(event: { addedFiles: any }): void {
     this.files.push(...event.addedFiles);
-    let validate = this.validateFile(this.files);
-
-    if (!validate.isValid) {
-      this.isValid = validate.isValid;
-      this.errorMessage = validate.message;
-      return;
-    }
-
-    if (!this.haveCerticate) {
-      this.registerCertificates(event);
-    }
+    console.log(this.files)
   }
 
 
@@ -151,38 +134,6 @@ export class MassiveDownloadComponent implements OnInit {
   }
 
 
-  private registerCertificates(event: any): void {
-    let message = 'Desea cargar el Certificado.';
-    this.swal.confirmationAlert(message, '¡Si, subir el archivo!').then((result: any) => {
-      if (result.isConfirmed) {
-        const formData: FormData = new FormData();
-        formData.append('certificate', this.files[0]);
-        formData.append('slugEmitter', String(this.slug));
-
-        this._services.insertFile(formData).subscribe({
-          next: response => {
-            let result = JSON.parse(JSON.stringify(response));
-
-            if (result.code == 200) {
-              this.onRemove(event);
-              this.files = result.data;
-              this.swal.successAlert('Se guardo el Certificado con exito');
-              this.haveCerticate = true;
-            } else {
-              this.onRemove(event);
-              this.swal.infoAlert('¡Verifica!', `No se pudo guardar el Certificado. ${result.message}`);
-            }
-
-          },
-          error: error => { console.log(error); }
-        });
-      } else {
-        this.onRemove(event);
-      }
-    });
-  }
-
- 
   private validateFile(file: any): any {
     const allowedExtension = /(.*?)\.(cer)$/;
 
@@ -202,8 +153,6 @@ export class MassiveDownloadComponent implements OnInit {
 
     return { isValid: true, message: null };
   }
-
-  
 
 
 }

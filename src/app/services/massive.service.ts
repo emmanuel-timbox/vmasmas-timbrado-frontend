@@ -28,12 +28,10 @@ import { Massive } from '../models/massive.model';
       return this.httpClient.get(`${this.apiUrl}/emitter_configs/${this.userSlug}`, this.httpOptions);
     }
   
-    insertFile(formData: FormData) {
-      return this.httpClient.post(`${this.apiUrl}/massive`, formData, this.httpOptions)
-    }
 
-    insertDataMassive(massive: Massive) {
-      return this.httpClient.post(`${this.apiUrl}/ `, massive, this.httpOptions);
+
+    insertDataMassive(formData: FormData) {
+      return this.httpClient.post(`${this.apiUrl}/massive`,  formData, this.httpOptions);
     }
   
     getValidateKey(formData: FormData, slug: string) {
@@ -43,16 +41,16 @@ import { Massive } from '../models/massive.model';
     getDataValidateMassive() {
       return {
   
-        rfc: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
-        rfc_receptor: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
-        correo:['', [Validators.required,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
-        fechaIncial:['', [Validators.required,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
-        fechafinal:['', [Validators.required,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
+        rfc: ['', [Validators.nullValidator, Validators.minLength(12), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
+        rfc_receptor: ['', [Validators.nullValidator, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
+        correo:['', [Validators.nullValidator,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
+        fechaIncial:['', [Validators.nullValidator,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
+        fechafinal:['', [Validators.nullValidator,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
         complemento:[],
         tipo_so:[],
         rfc_acuentaAterceros:['', [Validators.nullValidator , Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
         tipo_com:[],
-        password:[],
+        password:['', [Validators.required,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
         key:[],
         uuid:['', [Validators.nullValidator,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
         rfcR_uuid: ['', [Validators.nullValidator, Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],

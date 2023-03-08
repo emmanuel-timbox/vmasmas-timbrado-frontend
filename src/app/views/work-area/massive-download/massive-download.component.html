@@ -1,6 +1,6 @@
 <form [formGroup]="formDescarga" (submit)="massive()">
   <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-7">
       <div class="col-sm-12">
         <div class="card card-outline card-danger">
           <div class="card-header">
@@ -17,7 +17,7 @@
 
           <div class="tab-content" id="nav-tabContent">
 
-             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <div class="modal-body">
 
 
@@ -55,8 +55,10 @@
 
                     <div *ngIf="summitFormCert && f['rfc_receptor'].errors" class="invalid-feedback">
                       <div *ngIf="f['rfc_receptor'].errors['required']">RFC del Emisor es requerido</div>
-                      <div *ngIf="f['rfc_receptor'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                      <div *ngIf="f['rfc_receptor'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                      <div *ngIf="f['rfc_receptor'].errors['minlength']">RFC del Emisor no debe ser menor a 13
+                        caracteres</div>
+                      <div *ngIf="f['rfc_receptor'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14
+                        caracteres</div>
                       <div *ngIf="f['rfc_receptor'].errors['pattern']">RFC no cuenta con el formato correcto</div>
                     </div>
                   </div>
@@ -81,7 +83,7 @@
 
                     <div *ngIf="summitFormCert && f['fechaIncial'].errors" class="invalid-feedback">
                       <div *ngIf="f['fechaIncial'].errors['required']">Fecha inicial es requerido</div>
-     
+
                       <div *ngIf="f['fechaIncial'].errors['maxlength']">La fecha debe ser </div>
                     </div>
                   </div>
@@ -94,7 +96,7 @@
 
                     <div *ngIf="summitFormCert && f['fechafinal'].errors" class="invalid-feedback">
                       <div *ngIf="f['fechafinal'].errors['required']">Fecha Final es requerido</div>
-     
+
                       <div *ngIf="f['fechafinal'].errors['maxlength']">La fecha debe ser </div>
                     </div>
                   </div>
@@ -110,17 +112,17 @@
                   </div>
 
                   <!-- <div class="form-group col-md-3">
-                    <label>Hola</label>
+                    <label>Tipo CFDI</label>
                     <select class="form-control is-valid"  (change)="showWithholdings($event)">
                       <option selected value="">Seleccione una opcion</option>
                       <option value='1'>CFDI</option>
                       <option value='2'>Retenciones</option>
                     </select>
-                  </div> -->
-                  <!--     
-                  <div class="form-group col-md-3" *ngIf="!selectedWithholdings">
-                    <label>Complemento:</label>
-                    <select class="form-control is-valid"  formControlName="complemento">
+                  </div>  -->
+
+                  <div class="form-group col-md-3">
+                    <label>Complementos CFDI:</label>
+                    <select class="form-control is-valid" formControlName="complemento">
                       <option selected value="null">Seleccione una opcion</option>
                       <option value='acreditamientoieps10'>acreditamientoieps10</option>
                       <option value='aerolíneas'>aerolíneas</option>
@@ -160,7 +162,7 @@
                       <option value='valesdedespensa'>valesdedespensa</option>
                       <option value='vehiculousado'>vehiculousado</option>
                     </select>
-                  </div> -->
+                  </div>
 
 
                   <div class="form-group col-md-3">
@@ -170,9 +172,12 @@
 
                     <div *ngIf="summitFormCert && f['rfc_acuentaAterceros'].errors" class="invalid-feedback">
                       <div *ngIf="f['rfc_acuentaAterceros'].errors['required']">RFC del Emisor es requerido</div>
-                      <div *ngIf="f['rfc_acuentaAterceros'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                      <div *ngIf="f['rfc_acuentaAterceros'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
-                      <div *ngIf="f['rfc_acuentaAterceros'].errors['pattern']">RFC no cuenta con el formato correcto</div>
+                      <div *ngIf="f['rfc_acuentaAterceros'].errors['minlength']">RFC del Emisor no debe ser menor a 13
+                        caracteres</div>
+                      <div *ngIf="f['rfc_acuentaAterceros'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14
+                        caracteres</div>
+                      <div *ngIf="f['rfc_acuentaAterceros'].errors['pattern']">RFC no cuenta con el formato correcto
+                      </div>
                     </div>
                   </div>
 
@@ -203,71 +208,88 @@
 
                 </div>
               </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div class="form-row">
+
+
+                <div class="form-group col-md-5">
+                  <label>UUID</label>
+                  <input type="text" class="form-control is-valid" formControlName="uuid"
+                    [ngClass]="{ 'is-invalid': summitFormCert && f['uuid'].errors }">
+                  <div *ngIf="summitFormCert && f['uuid'].errors" class="invalid-feedback">
+                    <div *ngIf="f['uuid'].errors['required']">uuid es requerido</div>
+                    <div *ngIf="f['uuid'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                    <div *ngIf="f['uuid'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                  </div>
+                </div>
+
+
+                <div class="form-group col-md-3">
+                  <label>RFC Receptor</label>
+                  <input type="text" class="form-control is-valid" formControlName="rfcR_uuid"
+                    [ngClass]="{ 'is-invalid': summitFormCert && f['rfcR_uuid'].errors }">
+                  <div *ngIf="summitFormCert && f['rfcR_uuid'].errors" class="invalid-feedback">
+                    <div *ngIf="f['rfcR_uuid'].errors['required']">RFC del Emisor es requerido</div>
+                    <div *ngIf="f['rfcR_uuid'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres
+                    </div>
+                    <div *ngIf="f['rfcR_uuid'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Solicitud</button>
+            </div>
+
           </div>
+        </div>
+      </div>
+    </div>
 
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="form-row">
-
-      
-
-
-              <div class="form-group col-md-">
-                <label>UUID</label>
-                <input type="text" class="form-control is-valid" formControlName="uuid"
-                  [ngClass]="{ 'is-invalid': summitFormCert && f['uuid'].errors }">
-                <div *ngIf="summitFormCert && f['uuid'].errors" class="invalid-feedback">
-                  <div *ngIf="f['uuid'].errors['required']">uuid es requerido</div>
-                  <div *ngIf="f['uuid'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                  <div *ngIf="f['uuid'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
-                </div>
-              </div>
-
-
-              <div class="form-group col-md-3">
-                <label>RFC Receptor</label>
-                <input type="text" class="form-control is-valid" formControlName="rfcR_uuid"
-                  [ngClass]="{ 'is-invalid': summitFormCert && f['rfcR_uuid'].errors }">
-                <div *ngIf="summitFormCert && f['rfcR_uuid'].errors" class="invalid-feedback">
-                  <div *ngIf="f['rfcR_uuid'].errors['required']">RFC del Emisor es requerido</div>
-                  <div *ngIf="f['rfcR_uuid'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                  <div *ngIf="f['rfcR_uuid'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
-                </div>
-              </div>
-
+    <div class="col-sm-5">
+      <div class="col-sm-12">
+        <div class="card card-outline card-danger">
+          <div class="card-header">
+            <h4>Certificados</h4>
+          </div>
+          <div class="form-group col-md-5">
+            <label>Contraseña</label>
+            <input type="password" class="form-control is-valid" formControlName="password"
+              [ngClass]="{ 'is-invalid': summitFormCert && f['password'].errors }">
+            <div *ngIf="summitFormCert && f['password'].errors" class="invalid-feedback">
+              <div *ngIf="f['password'].errors['required']">Contraseña es requerido</div>
+              <!-- <div *ngIf="f['password'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+              <div *ngIf="f['password'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div> -->
             </div>
           </div>
+          
 
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Solicitud</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-3">
-    <div class="col-sm-12">
-      <div class="card card-outline card-danger">
-        <div class="card-header">
-          <h4>Certificados</h4>
-        </div>
-
-        <div class="col-sm-3 col-sm-12 ">
-          <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".cer, .key">
-            <ngx-dropzone-label class="text-success">Cargar (.cer) y (.key)</ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-            </ngx-dropzone-preview>
-          </ngx-dropzone>
-          <div class="invalid-feedback-file" *ngIf="files.length == 2">
-            <div>Hay que cargar el archivo .Key y .cer del RFC solicitante</div>
+          <div class="card-body">
+            <div class="col-sm-6 col-sm-12 ">
+              <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".key, .cer" >
+                <ngx-dropzone-label class="text-success">Cargar llave del certificaso(.key) y (.cer)</ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" >
+                  <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+              <div class="invalid-feedback-file" *ngIf="files.length == 2">
+                <div>Hay que cargar el archivo .Key y .cer del RFC solicitante</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
+
+
+     
+    
   </div>
 
 
