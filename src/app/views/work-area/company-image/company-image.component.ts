@@ -1,6 +1,7 @@
+
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { environment } from './../../../../environments/environment';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CompanyImageService } from './../../../services/company-image.service';
 
 @Component({
@@ -14,12 +15,13 @@ export class CompanyImageComponent implements OnInit {
   @ViewChild('fileWaterMark', { static: false }) fileWaterMark!: ElementRef;
 
   haveImage: boolean = true;
-  logoImage!: File;
-  maskWatterImage!: File;
+  logoImage!: File | string;
+  maskWatterImage!: File | string;
   logoUrl!: string;
   maskUrl!: string;
   emitters!: any;
   emitterSlug: string = '';
+  pdfImageSlug!: string;
 
   constructor(private _services: CompanyImageService,
     private swal: SweetAlertsService, private el: ElementRef) { }
@@ -73,9 +75,10 @@ export class CompanyImageComponent implements OnInit {
             const maskUrl = data.water_mark_image_url;
 
             this.haveImage = true;
+            this.pdfImageSlug = data.slug
             this.logoUrl = `${environment.apiUrl}/${data.logo_image_url}`;
             this.setImageWaterMask(maskUrl, false);
-
+            
           } else {
             this.clear();
           }
@@ -107,8 +110,10 @@ export class CompanyImageComponent implements OnInit {
       next: response => {
         const result = JSON.parse(JSON.stringify(response));
         if (result.code == 200) {
+          this.haveImage = true;
           this.swal.successAlert('Se almacenaron los Imagenes.');
         } else {
+          this.haveImage = false;
           this.swal.infoAlert('¡Verifica!', 'No se pudieron almacenar las imagenes.')
         }
       },
@@ -121,6 +126,7 @@ export class CompanyImageComponent implements OnInit {
     formData.append('logo_image', this.logoImage);
     formData.append('water_mark_image', this.maskWatterImage);
     formData.append('slug', this.emitterSlug);
+    formData.append('pdf_image_slug', this.pdfImageSlug)
 
     this._services.updateImages(formData, this.emitterSlug).subscribe({
       next: response => {
@@ -139,11 +145,10 @@ export class CompanyImageComponent implements OnInit {
     const removeDiv = document.getElementById('div-style')?.remove();
     const div = document.createElement('div');
 
-    div.setAttribute('id', 'div-style')
+    div.setAttribute('id', 'div-style');
     this.el.nativeElement.appendChild(div);
 
     const url = isReload ? maskUrl : `${environment.apiUrl}/${maskUrl}`;
-
     const styleElement = document.createElement('style');
     const style: string = `.container-pdf::before {
         content: "";
@@ -166,7 +171,7 @@ export class CompanyImageComponent implements OnInit {
 
   private clear() {
     this.haveImage = false;
-    this.logoUrl = ""
+    this.logoUrl = "";
     this.setImageWaterMask("", true);
   }
 
