@@ -2,10 +2,12 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 import { ReceiverService } from '../../../../services/receiver.service';
 import { SweetAlertsService } from '../../../../services/sweet-alert.service'
 import { Receiver } from 'src/app/models/receiver.model';
 import { CatalogsService } from 'src/app/services/catalogs.service';
+
 
 declare let bootstrap: any;
 
@@ -17,6 +19,7 @@ declare let bootstrap: any;
 
 export class ReceiversComponent implements OnInit {
   @ViewChild('editModal') editModal!: ElementRef;
+  @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
 
   slugUrl: string = "";
   dtOptions: DataTables.Settings = {};
@@ -97,6 +100,7 @@ export class ReceiversComponent implements OnInit {
           this.swal.successAlert('Los datos del Receptor se guardaron de manera correcta');
           this.resetFormCreate();
           this.createNewRow(receiver);
+          this.tableRerender();
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar los datos de manera correcta');
           this.resetFormCreate();
@@ -142,6 +146,7 @@ export class ReceiversComponent implements OnInit {
         if (result.code == 200) {
           this.dataReceivers[this.indexArrayReceiver] = result.data
           this.swal.successAlert('Los datos se actualizaron de manera correcta');
+          this.tableRerender();
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar los datos');
         }
@@ -207,6 +212,13 @@ export class ReceiversComponent implements OnInit {
       slug: newReceiver.slug,
       tax_id_number: newReceiver.tax_id_number,
       tax_residence: newReceiver.tax_residence
+    });
+  }
+
+  private tableRerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next(null);
     });
   }
 

@@ -5,6 +5,7 @@ import { CatalogsService } from 'src/app/services/catalogs.service';
 import { Concept } from 'src/app/models/concept.model';
 import { ConceptService } from '../../../../services/concept.service';
 import { SweetAlertsService } from '../../../../services/sweet-alert.service';
+import { DataTableDirective } from 'angular-datatables';
 
 declare let bootstrap: any;
 
@@ -14,7 +15,7 @@ declare let bootstrap: any;
   styleUrls: ['./concepts.component.scss']
 })
 export class ConceptsComponent implements OnInit {
-
+  @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
   @ViewChild('editModal') editModal!: ElementRef;
 
   slugUrl: string = '';
@@ -72,6 +73,7 @@ export class ConceptsComponent implements OnInit {
           this.createNewRow(receiver);
           this.resetFormCreate();
           this.swal.successAlert('Los datos se guardaron de manera correcta');
+          this.tableRerender();
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar los datos de manera correcta');
           this.resetFormCreate();
@@ -101,6 +103,7 @@ export class ConceptsComponent implements OnInit {
         if (result.code == 200) {
           this.dataConcepts[this.indexArrayConcept] = result.data;
           this.swal.successAlert('Los datos se actualizaron de manera correcta');
+          this.tableRerender();
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar los datos');
         }
@@ -172,6 +175,13 @@ export class ConceptsComponent implements OnInit {
       description: newConcept.description,
       status: newConcept.status,
       slug: newConcept.slug
+    });
+  }
+
+  private tableRerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next(null);
     });
   }
 
