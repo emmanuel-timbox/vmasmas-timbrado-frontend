@@ -29,6 +29,7 @@ export class TaxPeapleService {
       rfc: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(13), Validators.pattern(this.rfcFormatter)]],
       expeditionPlace: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern(this.nonWhitespaceRegExp)]],
       address: ['', [Validators.required, Validators.maxLength(250), Validators.pattern(this.nonWhitespaceRegExp)]],
+      companyName: ['', [Validators.required, Validators.maxLength(250), Validators.pattern(this.nonWhitespaceRegExp)]],
       taxRegime: ['', Validators.required]
     }
   }

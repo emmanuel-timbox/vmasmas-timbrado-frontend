@@ -67,7 +67,17 @@
               </div>
             </div>
 
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-4">
+              <label>Nombre empresa:</label>
+              <input type="text" class="form-control is-valid" formControlName="companyName"
+                [ngClass]="{ 'is-invalid': submittedCreate && f['companyName'].errors }">
+              <div *ngIf="submittedCreate && f['companyName'].errors" class="invalid-feedback">
+                <div *ngIf="f['companyName'].errors['required']">Nombre de la Empresa es requerido</div>
+                <div *ngIf="f['companyName'].errors['maxLength']">Nombre de la Empresa debe ser menor a 250 caracteres</div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-5">
               <label>Direccion:</label>
               <input type="text" class="form-control is-valid" formControlName="address"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['address'].errors }">
@@ -211,7 +221,17 @@
               </div>
             </div>
 
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-5">
+              <label>Nombre empresa:</label>
+              <input type="text" class="form-control is-valid" formControlName="companyName"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['companyName'].errors }">
+              <div *ngIf="submittedEdit && fEdit['companyName'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['companyName'].errors['required']">Nombre de la Empresa es requerido</div>
+                <div *ngIf="fEdit['companyName'].errors['maxLength']">Nombre de la Empresa debe ser menor a 250 caracteres</div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-7">
               <label>Domicilio:</label>
               <input type="text" class="form-control is-valid" formControlName="address"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['address'].errors }">

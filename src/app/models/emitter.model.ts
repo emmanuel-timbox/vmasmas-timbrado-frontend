@@ -7,13 +7,14 @@ export class Emitter {
   expeditionPlace?: string;
   taxRegime?: string ;
   address?: string;
+  companyName?: string;
   status?: number;
   slugEmitter?: string;
   slugUser?: string;
 
   constructor(userId: number, bussinessName: string, rfc: string,
     expeditionPlace: string, taxRegime: string, status: number, slug: string,
-    slugEmitter: string, slugUser: string, address: string) {
+    slugEmitter: string, slugUser: string, address: string, companyName: string) {
 
     this.userId = userId;
     this.bussinessName = bussinessName;
@@ -24,6 +25,7 @@ export class Emitter {
     this.slugEmitter = slugEmitter;
     this.slugUser = slugUser;
     this.address = address;
+    this.companyName = companyName;
   }
 
 }

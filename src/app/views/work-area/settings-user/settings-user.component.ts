@@ -71,6 +71,7 @@ export class SettingsUserComponent implements OnInit {
       expeditionPlace: this.formNewEmitter.value.expeditionPlace,
       taxRegime: this.formNewEmitter.value.taxRegime,
       address: this.formNewEmitter.value.address,
+      companyName: this.formNewEmitter.value.companyName,
       slugUser: `${sessionStorage.getItem('slug')}`
     };
 
@@ -116,7 +117,8 @@ export class SettingsUserComponent implements OnInit {
       rfc: this.formEditEmitter.value.rfc,
       expeditionPlace: this.formEditEmitter.value.expeditionPlace,
       taxRegime: this.formEditEmitter.value.taxRegime,
-      address:  this.formEditEmitter.value.address
+      address:  this.formEditEmitter.value.address,
+      companyName: this.formEditEmitter.value.companyName
     };
 
     this._service.editEmitter(emmiter, this.slugEmitterUpdate).subscribe({
@@ -143,7 +145,8 @@ export class SettingsUserComponent implements OnInit {
       rfc: dataEmitter.rfc,
       expeditionPlace: dataEmitter.expedition_place,
       taxRegime: dataEmitter.tax_regime,
-      address: dataEmitter.address
+      address: dataEmitter.address,
+      companyName: dataEmitter.company_name
     });
   }
 
@@ -175,7 +178,9 @@ export class SettingsUserComponent implements OnInit {
       tax_regime: newEmitter.tax_regime,
       expedition_place: newEmitter.expedition_place,
       status: newEmitter.status,
-      slug: newEmitter.slug
+      slug: newEmitter.slug,
+      address: newEmitter.address,
+      company_name: newEmitter.company_name
     });
   }
 
