@@ -38,6 +38,8 @@ export class CreateXmlComponent implements OnInit {
   title: string = 'Creacion de Comprobante (CFDI 4.0)';
   noteVaucher!: string;
   keyData!: any;
+  address!: string;
+  companyName!: string;
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   certificateData!: any;
@@ -114,9 +116,11 @@ export class CreateXmlComponent implements OnInit {
 
   saveData(): void {
     if (this.stepTitle == 'Nota') {
-      let dataCreateXml: any = this.createXml();
+      const dataCreateXml: any = this.createXml();
       this.cfdi = dataCreateXml.xml;
       this.cfdiJson = dataCreateXml.jsonData;
+      this.address = dataCreateXml.address;
+      this.companyName = dataCreateXml.companyName
       this.showPreeview = true;
       this.noteVaucher = this.note.nativeElement.value;
       this.keyData = {
@@ -248,7 +252,12 @@ export class CreateXmlComponent implements OnInit {
     if (dataReceiver.fiscalIdNumber != '') xmlJson['cfdi:Receptor']['@']['NumRegIdTrib'] = dataReceiver.fiscalIdNumber;
     if (dataReceiver.taxResidence != '') xmlJson['cfdi:Receptor']['@']['ResidenciaFiscal'] = dataReceiver.taxResidence;
 
-    return { xml: JsonToXML.parse('cfdi:Comprobante', xmlJson), jsonData: xmlJson }
+    return {
+      xml: JsonToXML.parse('cfdi:Comprobante', xmlJson),
+      jsonData: xmlJson,
+      address: dataCertificate.address,
+      companyName: dataCertificate.companyName
+    };
   }
 
   private assembleConceptNode(dataConcept: any): any {

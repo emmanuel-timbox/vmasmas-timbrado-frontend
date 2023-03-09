@@ -23,7 +23,7 @@
         <button class="btn btn-secondary" (click)="openPdf()"><i class="fas fa-print"></i></button>
       </div>
     </div>
-    <div class="row pt-1" [ngClass]="{'pt-4': !itIsSuccess, 'pt-1': itIsSuccess}" >
+    <div class="row pt-1" [ngClass]="{'pt-4': !itIsSuccess, 'pt-1': itIsSuccess}">
       <div class="col-sm-12">
 
         <div class="container container-pdf" #pdfView>
@@ -35,8 +35,8 @@
               </div>
               <div class="row text-1 pt-2">
                 <p>
-                  <b>VEMASMAS</b><br>
-                  <b>San Isidro 730, San Isidro Juriquilla, 76226 Santiago de Querétaro, Qro.</b><br><br>
+                  <b>{{companyName}}</b><br>
+                  <b>{{address}}</b><br><br>
                   <b class="text-primary"> {{cfdiJson['cfdi:Emisor']['@']['Nombre']}}</b><br>
                   <b>RFC:</b> {{cfdiJson['cfdi:Emisor']['@']['Rfc']}}<br>
                   <b>REGIMEN FISCAL:</b> {{cfdiJson['cfdi:Emisor']['@']['RegimenFiscal']}} -
@@ -216,7 +216,7 @@
 
     <div class="row mt-1 pb-0 mb-0">
       <div class="col-sm-12 d-flex justify-content-end" *ngIf="itIsSuccess">
-        <button class="btn btn-secondary mr-1" (click)="donwloadXml(uuid)" ><i class="fas fa-download"></i></button>
+        <button class="btn btn-secondary mr-1" (click)="donwloadXml(uuid)"><i class="fas fa-download"></i></button>
       </div>
     </div>
 

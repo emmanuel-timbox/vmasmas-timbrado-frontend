@@ -71,6 +71,8 @@ export class XmlCertificateComponent implements OnInit {
         expeditionPlace: dataEmitter.expedition_place,
         taxRegime: dataEmitter.tax_regime,
         certNumber: dataEmitter.certificate_number == null ? '' : dataEmitter.certificate_number,
+        address: dataEmitter.address,
+        companyName: dataEmitter.company_name,
         passwordKey: ''
       });
       this.disableFileInput = false;

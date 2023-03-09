@@ -26,7 +26,9 @@ export class XmlCertificateService {
       expeditionPlace: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern(this.nonWhitespaceRegExp)]],
       taxRegime: ['', [Validators.required]],
       certNumber: ['', [Validators.required]],
-      passwordKey: ['', [Validators.required]]
+      passwordKey: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      companyName: ['', [Validators.required]],
     };
   }
 

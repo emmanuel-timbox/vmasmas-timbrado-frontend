@@ -21,6 +21,9 @@ export class XmlPreviewComponent implements OnInit {
   @Input() note!: string;
   @Input() keyData!: any;
   @Input() slugEmitter!: string;
+  @Input() address!: string;
+  @Input() companyName!: string;
+
 
   codeXmlpreview!: string;
   issueDay: any = new Date().toJSON();

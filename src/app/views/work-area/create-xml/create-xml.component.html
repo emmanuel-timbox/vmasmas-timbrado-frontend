@@ -88,7 +88,7 @@
     <div *ngIf="showPreeview">
       <div class="alert alert-primary" role="alert">
         <div class="row">
-          <div class=" col-sm-7 d-flex justify-content-start" >
+          <div class=" col-sm-7 d-flex justify-content-start">
             <div *ngIf="!receiverPreview.itItSuccess">
               <b>NOTA:</b> Esta es una representacion grafica del comprobante antes de ser Timbrado.
             </div>
@@ -114,8 +114,10 @@
           </div>
         </div>
       </div>
-      <app-xml-preview [cfdiXml]="cfdi" [cfdiJson]="cfdiJson" [note]="noteVaucher" [keyData]="keyData"
-        [slugEmitter]="slugEmitterSelect" (emitterPreview)="receiverPreview = $event">
+      
+      <app-xml-preview [cfdiXml]="cfdi" [cfdiJson]="cfdiJson" [address]="address" [note]="noteVaucher"
+        [keyData]="keyData" [slugEmitter]="slugEmitterSelect" [companyName]="companyName"
+        (emitterPreview)="receiverPreview = $event">
       </app-xml-preview>
     </div>
 
