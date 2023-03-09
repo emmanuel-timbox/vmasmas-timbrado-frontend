@@ -55,8 +55,10 @@ export class PdfPreviewComponent implements OnInit {
     this.conceptsNode = nodes.find((item: any) => item.name == 'cfdi:Conceptos');
     this.taxesNode = nodes.find((item: any) => item.name == 'cfdi:Impuestos');
 
-    this.withholdingsTax = this.taxesNode.elements.find((item: any) => item.name == 'cfdi:Retenciones');
-    this.transfersTax = this.taxesNode.elements.find((item: any) => item.name == 'cfdi:Traslados');
+    if(this.taxesNode.elements != undefined) {
+      this.withholdingsTax = this.taxesNode.elements.find((item: any) => item.name == 'cfdi:Retenciones');
+      this.transfersTax = this.taxesNode.elements.find((item: any) => item.name == 'cfdi:Traslados');
+    }
 
     complement.elements.forEach((item: any) => {
       if (item.name == 'tfd:TimbreFiscalDigital') {
