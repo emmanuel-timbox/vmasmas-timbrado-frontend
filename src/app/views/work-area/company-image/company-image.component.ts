@@ -78,7 +78,7 @@ export class CompanyImageComponent implements OnInit {
             this.pdfImageSlug = data.slug
             this.logoUrl = `${environment.apiUrl}/${data.logo_image_url}`;
             this.setImageWaterMask(maskUrl, false);
-            
+
           } else {
             this.clear();
           }
@@ -101,6 +101,12 @@ export class CompanyImageComponent implements OnInit {
   }
 
   private saveImages(): void {
+
+    if (this.logoImage == undefined && this.maskWatterImage == undefined) {
+      this.swal.infoAlert('¡Verifica!', 'No hay imagenes por guardar.')
+      return
+    }
+
     const formData = new FormData()
     formData.append('logo_image', this.logoImage);
     formData.append('water_mark_image', this.maskWatterImage);
@@ -122,6 +128,12 @@ export class CompanyImageComponent implements OnInit {
   }
 
   private updateImages() {
+
+    if (this.logoImage == undefined && this.maskWatterImage == undefined) {
+      this.swal.infoAlert('¡Verifica!', 'No hay imagenes por guardar.')
+      return
+    }
+
     const formData = new FormData();
     formData.append('logo_image', this.logoImage);
     formData.append('water_mark_image', this.maskWatterImage);

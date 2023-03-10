@@ -16,9 +16,13 @@ export class XmlPreviewService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   insertXml(xmlData: FormData) {
-    return this.http.post(`${this.apiUrl}/create_xml`, xmlData, this.httpOptions);
+    return this.httpClient.post(`${this.apiUrl}/create_xml`, xmlData, this.httpOptions);
+  }
+
+  getImagesPdf(slugEmitter: string) {
+    return this.httpClient.get(`${this.apiUrl}/pdf_image/${slugEmitter}`, this.httpOptions);
   }
 }

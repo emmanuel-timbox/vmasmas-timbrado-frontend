@@ -56,20 +56,20 @@ code::after {
   width: 1045px !important;
 }
 
-.container-pdf::before {
-  content: "";
-  background-size: cover;
-  background: url('../../../../../assets/images/logos/logo-vmasmas-2.jpeg');
-  opacity: 0.1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 900px 900px;
-}
+// .container-pdf::before {
+//   content: "";
+//   background-size: cover;
+//   background: url('../../../../../assets/images/logos/logo-vmasmas-2.jpeg');
+//   opacity: 0.1;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   position: absolute;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: 900px 900px;
+// }
 
 // .container:before {
 //   content: 'V++';
