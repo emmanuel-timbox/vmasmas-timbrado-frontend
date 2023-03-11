@@ -68,7 +68,6 @@ export class MassiveDownloadComponent implements OnInit {
 
     formData.append("cer_file", cerf);
     formData.append("key_file", key);
-    formData.append('userId', this.formDescarga.value.userId);
     formData.append('rfc', this.formDescarga.value.rfc);
     formData.append('rfc_receptor', this.formDescarga.value.rfc_receptor);
     formData.append('correo', this.formDescarga.value.correo);
@@ -89,22 +88,22 @@ export class MassiveDownloadComponent implements OnInit {
       next: response => {
         let result = JSON.parse(JSON.stringify(response));
         let massive = result.data;
-        if (result.code == 200) {
-          this.swal.successAlert('Los datos de la solicitud se guardaron de manera correcta');
-          this.resetFormCreate();
-        } else {
-          this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de manera correcta');
-          this.resetFormCreate();
-        }
+      //   if (result.code == 200) {
+      //     this.swal.successAlert('Los datos de la solicitud se guardaron de manera correcta');
+      //     this.resetFormCreate();
+      //   } else {
+      //     this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de manera correcta');
+      //     this.resetFormCreate();
+      //   }
       },
-      error: error => { console.log(error) }
+      // error: error => { console.log(error) }
     });
   }
 
-  resetFormCreate(): void {
-    this.summitFormCert = false;
-    this.formDescarga.reset();
-  }
+  // resetFormCreate(): void {
+  //   this.summitFormCert = false;
+  //   this.formDescarga.reset();
+  // }
 
   setDataEmitterInput(event: Event): void {
     let dataEmitter!: any

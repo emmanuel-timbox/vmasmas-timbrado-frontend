@@ -78,7 +78,7 @@
 
                   <div class="form-group col-md-3">
                     <label>Fecha inicial</label>
-                    <input type="date" class="form-control is-valid" formControlName="fechaIncial"
+                    <input type="datetime-local" class="form-control is-valid" formControlName="fechaIncial"
                       [ngClass]="{ 'is-invalid': summitFormCert && f['fechaIncial'].errors }">
 
                     <div *ngIf="summitFormCert && f['fechaIncial'].errors" class="invalid-feedback">
@@ -91,7 +91,7 @@
 
                   <div class="form-group col-md-3">
                     <label>Fecha Final</label>
-                    <input type="date" class="form-control is-valid" formControlName="fechafinal"
+                    <input type="datetime-local" class="form-control is-valid" formControlName="fechafinal"
                       [ngClass]="{ 'is-invalid': summitFormCert && f['fechafinal'].errors }">
 
                     <div *ngIf="summitFormCert && f['fechafinal'].errors" class="invalid-feedback">
@@ -196,7 +196,7 @@
 
                   <div class="form-group col-md-4">
                     <label>Estado de comprobante:</label>
-                    <select class="form-control is-valid" formControlName="tipo_com">
+                    <select class="form-control is-valid" formControlName="estado_com">
                       <option selected value="null">Seleccione una opcion</option>
                       <option value='0'>Cancelado</option>
                       <option value='1'>Vigente</option>
@@ -286,10 +286,6 @@
       </div>
     </div>
 
-
-
-     
-    
   </div>
 
 
