@@ -27,8 +27,6 @@ import { Massive } from '../models/massive.model';
     getEmitterData() {
       return this.httpClient.get(`${this.apiUrl}/emitter_configs/${this.userSlug}`, this.httpOptions);
     }
-  
-
 
     insertDataMassive(formData: FormData) {
       return this.httpClient.post(`${this.apiUrl}/massive`,  formData, this.httpOptions);
@@ -50,6 +48,7 @@ import { Massive } from '../models/massive.model';
         tipo_so:[],
         rfc_acuentaAterceros:['', [Validators.nullValidator , Validators.minLength(13), Validators.maxLength(14), Validators.pattern(this.nonWhitespaceRegExp)]],
         tipo_com:[],
+        estado_com:[],
         password:['', [Validators.required,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
         key:[],
         uuid:['', [Validators.nullValidator,  Validators.maxLength(50), Validators.pattern(this.nonWhitespaceRegExp)]],
