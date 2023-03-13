@@ -11,12 +11,12 @@
 
       <div class="col-sm-5 pt-1">
         <div class="row">
-          <img src="../../../../../assets/images/logos/logo-vmasmas-3.png" width="150">
+          <img src="{{logoImageUrl}}" width="150">
         </div>
         <div class="row text-1 pt-2">
           <p>
-            <b>VEMASMAS</b><br>
-            <b>San Isidro 730, San Isidro Juriquilla, 76226 Santiago de Querétaro, Qro.</b><br><br>
+            <b>{{dataEmitter.companyName}}</b><br>
+            <b>{{dataEmitter.address}}</b><br><br>
             <b class="text-primary">{{emitterNode.attributes.Nombre}}</b><br>
             <b>RFC:</b> {{emitterNode.attributes.Rfc}}<br>
             <b>REGIMEN FISCAL:</b> {{emitterNode.attributes.RegimenFiscal}}<br><br>

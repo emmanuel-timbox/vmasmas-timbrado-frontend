@@ -40,13 +40,14 @@
                   <td>{{item.total}}</td>
                   <td>
                     <a id="btn_editar_empleado" class="btn btn-primary btn-sm mr-2 " data-bs-toggle="tooltip"
-                    data-bs-placement="right" title="Descargar PDF" (click)="showPdfPreview(item.xml, item.note)">
-                    <i class="far fa-file-pdf"></i>
-                  </a>
-                  <a id="btn_desactivar_empleado" class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
-                    data-placement="right" title="Descargar XML" (click)="downloadXml(item.uuid, item.xml)">
-                    <i class="fas fa-code"></i>
-                  </a>
+                      data-bs-placement="right" title="Descargar PDF"
+                      (click)="showPdfPreview(item)">
+                      <i class="far fa-file-pdf"></i>
+                    </a>
+                    <a id="btn_desactivar_empleado" class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
+                      data-placement="right" title="Descargar XML" (click)="downloadXml(item.uuid, item.xml)">
+                      <i class="fas fa-code"></i>
+                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -56,11 +57,12 @@
         </div>
 
         <div class="row d-flex justify-content-center" *ngIf="hiddenTable">
-          <app-pdf-preview [cfdiXml]="xml" [note]="note" (emitterPreview)="hiddenTable = $event"></app-pdf-preview>
+          <app-pdf-preview [cfdiXml]="xml" [note]="note" [dataEmitter]="dataEmitter"
+            (emitterPreview)="hiddenTable = $event"></app-pdf-preview>
         </div>
 
       </div>
     </div>
   </div>
 </div>
-
+fff

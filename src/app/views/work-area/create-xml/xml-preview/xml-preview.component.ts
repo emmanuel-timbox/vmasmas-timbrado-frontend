@@ -78,8 +78,8 @@ export class XmlPreviewComponent implements OnInit {
     formData.append('keyFile', this.keyData.keyFile);
     formData.append('keyPassword', this.keyData.password);
     formData.append('slugEmitter', this.slugEmitter);
-    formData.append('slugUser', this.userSlug);
-    formData.append('note', this.note)
+    formData.append('note', this.note);
+
     this._service.insertXml(formData).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response));

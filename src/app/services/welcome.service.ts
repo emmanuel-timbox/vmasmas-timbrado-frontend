@@ -9,7 +9,7 @@ export class WelcomeService {
 
   apiUrl: string = environment.apiUrl;
   userSlug: string | null = sessionStorage.getItem('slug');
-  nonWhitespaceRegExp: RegExp = new RegExp("\\S");
+  
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -23,4 +23,7 @@ export class WelcomeService {
     return this.httpClient.get(`${this.apiUrl}/xml_files/${this.userSlug}`, this.httpOptions)
   }
 
+  getImagePdf(slugEmitter: string) {
+    return this.httpClient.get(`${this.apiUrl}/pdf_image/${slugEmitter}`, this.httpOptions);
+  }
 }

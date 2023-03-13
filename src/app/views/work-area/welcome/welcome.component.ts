@@ -18,6 +18,7 @@ export class WelcomeComponent implements OnInit {
   xml!: string;
   uuid!: string;
   note!: string;
+  dataEmitter!: any;
 
   constructor(private _service: WelcomeService) { }
 
@@ -52,10 +53,15 @@ export class WelcomeComponent implements OnInit {
     URL.revokeObjectURL(link.href);
   }
 
-  showPdfPreview(xml: string, note: string): void {
+  showPdfPreview(data: any): void {
     this.hiddenTable = true;
-    this.xml = xml;
-    this.note = note
+    this.xml = data.xml;
+    this.note = data.note
+    this.dataEmitter = {
+      slugEmitter: data.slug_emitter,
+      address: data.address,
+      companyName: data.company_name
+    }
   }
 
 }
