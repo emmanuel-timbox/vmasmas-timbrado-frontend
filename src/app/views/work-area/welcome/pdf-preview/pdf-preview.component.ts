@@ -86,7 +86,10 @@ export class PdfPreviewComponent implements OnInit {
     this.getWayToPay(this.voucherNode.FormaPago);
   }
 
-  showTable(): void { this.emitterPreview.emit(false); }
+  showTable(): void {
+    this.emitterPreview.emit(false);
+    document.getElementById('div-style')?.remove();
+  }
 
   openPdf(): void {
     let DATA: any = this.pdfView.nativeElement;
