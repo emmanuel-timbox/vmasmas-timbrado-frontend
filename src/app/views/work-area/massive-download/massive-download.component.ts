@@ -4,6 +4,7 @@ import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { MassiveService } from 'src/app/services/massive.service';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Massive } from 'src/app/models/massive.model';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -20,19 +21,51 @@ export class MassiveDownloadComponent implements OnInit {
   haveCerticate!: Boolean;
   summitFormCert = false;
   formDescarga: FormGroup = new FormGroup({});
+  dataMassive: any;
   slugEmitter!: string;
   fileIsInvalid!: boolean;
   disableFileInput: boolean = true;
   isValid: boolean = true;
   errorMessage!: string;
   formNewSolicitud: FormGroup = new FormGroup({});
+  slugMassiveShow!: string;
+  formShow: FormGroup = new FormGroup({});
+  dtOptions: DataTables.Settings = {}; //tabal de impuestos
+  dtTrigger: Subject<any> = new Subject<any>();
+  formmassivepaquetes: FormGroup = new FormGroup({});
+  statusDescription: any = {
+    '0': "Incidencia SAT.",
+    '1': "Solicitud Aceptada",
+    '2': "En Proceso",
+    '3': "Solicitud Terminada",
+    '4': "Error",
+    '5': "Rechazada",
+    '5-2': "Se agotó las solicitudes de por vida ",
+    '5-3': "Los parámetros de la consulta se supero el tope máximo",
+    '5-4': "No se encontró la información",
+    '5-5': "Solicitud duplicada",
+    '6': "Vencida.",
+    '7': "Procesando descarga de Paquetes",
+    '8': "Listo para Descargar",
+    '9': "Cancelada.",
+  }
 
 
-  constructor(private _services: MassiveService, private swal: SweetAlertsService, 
+  constructor(private _services: MassiveService, private swal: SweetAlertsService,
     private _sweetAlets: SweetAlertsService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.dtOptions = {
+      lengthMenu: [5, 10, 25, 50, 100],
+      pageLength: 5,
+      language: { url: 'https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json' },
+      destroy: true
+    };
+
     this.getEmitterData()
+    this.getListPaquetes()
+    this.getListMassive();
     this.formDescarga = this.formBuilder.group(this._services.getDataValidateMassive());
   }
 
@@ -52,6 +85,38 @@ export class MassiveDownloadComponent implements OnInit {
       error: error => { console.log(error) }
     });
   }
+
+  private getListMassive() {
+    this._services.getMassiveData().subscribe({
+      next: response => {
+
+        let result = JSON.parse(JSON.stringify(response));
+        console.log(result.data)
+        this.dataMassive = result.data
+
+
+        this.dtTrigger.next(null);
+      },
+      error: error => { console.log(error) }
+    });
+  }
+
+
+
+  getListPaquetes(): any {
+    this._services.getMassiveData().subscribe({
+      next: response => {
+        let result = JSON.parse(JSON.stringify(response));
+        if (result.code == 200) {
+          this.emitterData = result.data;
+        } else {
+          this._sweetAlets.infoAlert('¡Verifica!', 'No se encuentra registrados Emisores');
+        }
+      },
+      error: error => { console.log(error) }
+    });
+  }
+
 
 
   massive(): void {
@@ -73,44 +138,44 @@ export class MassiveDownloadComponent implements OnInit {
     formData.append('RfcSolicitante', this.formDescarga.value.RfcSolicitante);
     formData.append('correo', this.formDescarga.value.correo);
     formData.append('FechaInicial', this.formDescarga.value.FechaInicial + ':00');
-    formData.append('FechaFinal', this.formDescarga.value.FechaFinal  + ':00');
+    formData.append('FechaFinal', this.formDescarga.value.FechaFinal + ':00');
     formData.append('Complemento', this.formDescarga.value.Complemento);
     formData.append('TipoSolicitud', this.formDescarga.value.TipoSolicitud);
     formData.append('TipoComprobante', this.formDescarga.value.TipoComprobante);
     formData.append('uuid', this.formDescarga.value.uuid);
-    formData.append('rfcR_uuid', this.formDescarga.value.rfcR_uuid); 
-    formData.append('password', this.formDescarga.value.password); 
-    formData.append('slug_emitter' , this.slugEmitter);
-     const slugUser = `${sessionStorage.getItem('slug')}`
-     formData.append('user_slug' , slugUser);
-    //  formData.append('slug', slug);
+    formData.append('rfcR_uuid', this.formDescarga.value.rfcR_uuid);
+    formData.append('password', this.formDescarga.value.password);
+    formData.append('slug_emitter', this.slugEmitter);
+    const slugUser = `${sessionStorage.getItem('slug')}`
+    formData.append('user_slug', slugUser);
+
 
     this._services.insertDataMassive(formData).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response));
         let massive = result.data;
-      //   if (result.code == 200) {
-      //     this.swal.successAlert('Los datos de la solicitud se guardaron de manera correcta');
-      //     this.resetFormCreate();
-      //   } else {
-      //     this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de manera correcta');
-      //     this.resetFormCreate();
-      //   }
+          if (result.code == 200) {
+            this.swal.successAlert('Los datos de la solicitud se guardaron de manera correcta');
+            this.resetFormCreate();
+          } else {
+            this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de manera correcta');
+            this.resetFormCreate();
+          }
       },
-      // error: error => { console.log(error) }
+      error: error => { console.log(error) }
     });
   }
 
-  // resetFormCreate(): void {
-  //   this.summitFormCert = false;
-  //   this.formDescarga.reset();
-  // }
+  resetFormCreate(): void {
+    this.summitFormCert = false;
+    this.formDescarga.reset();
+  }
 
   setDataEmitterInput(event: Event): void {
     let dataEmitter!: any
     let slug: string = (event.target as HTMLInputElement).value;
 
-    
+
     if (slug == '') {
       this.formDescarga.reset();
       this.disableFileInput = true;
@@ -120,7 +185,7 @@ export class MassiveDownloadComponent implements OnInit {
 
     dataEmitter = this.emitterData.find((x: any) => x.slug == slug);
     this.formDescarga.get('rfc')?.setValue(dataEmitter.rfc);
-     this.slugEmitter = slug;
+    this.slugEmitter = slug;
   }
 
   onSelect(event: { addedFiles: any }): void {
@@ -152,6 +217,23 @@ export class MassiveDownloadComponent implements OnInit {
     }
 
     return { isValid: true, message: null };
+  }
+
+
+  openUrl(url: string) {
+    console.log(url)
+    window.open(url)
+  }
+
+  showModalPackages(dataMassive: any, index: number): void {
+    console.log(dataMassive)
+    this.slugMassiveShow = dataMassive.slug
+
+    this.formShow.setValue({
+      rack_url: dataMassive.request_id_sat,
+
+
+    });
   }
 
 

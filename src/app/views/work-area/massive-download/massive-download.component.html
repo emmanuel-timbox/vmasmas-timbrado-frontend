@@ -120,7 +120,7 @@
                   <div class="form-group col-md-3">
                     <label>Tipo solicitud:</label>
                     <select class="form-control is-valid" formControlName="TipoSolicitud">
-                      <option selected value="">Seleccione una opcion</option>
+                      <option selected value=''>Seleccione una opcion</option>
                       <option value='Metadata'>Metadata</option>
                       <option value='CFDI'>CFDI</option>
                     </select>
@@ -138,7 +138,7 @@
                   <div class="form-group col-md-3">
                     <label>Complementos CFDI:</label>
                     <select class="form-control is-valid" formControlName="Complemento">
-                      <option selected value="">Seleccione una opcion</option>
+                      <option selected value =''>Seleccione una opcion</option>
                       <option value='acreditamientoieps10'>acreditamientoieps10</option>
                       <option value='aerolíneas'>aerolíneas</option>
                       <option value='cartaporte10'>cartaporte10</option>
@@ -184,7 +184,6 @@
                     <label>RFC acuentaAterceros</label>
                     <input type="text" class="form-control is-valid" formControlName="RfcACuentaTerceros"
                       [ngClass]="{ 'is-invalid': summitFormCert && f['RfcACuentaTerceros'].errors }">
-
                     <div *ngIf="summitFormCert && f['RfcACuentaTerceros'].errors" class="invalid-feedback">
                       <div *ngIf="f['RfcACuentaTerceros'].errors['required']">RFC del Emisor es requerido</div>
                       <div *ngIf="f['RfcACuentaTerceros'].errors['minlength']">RFC del Emisor no debe ser menor a 13
@@ -200,7 +199,7 @@
                   <div class="form-group col-md-3">
                     <label>Tipo de comprobante:</label>
                     <select class="form-control is-valid" formControlName="TipoComprobante">
-                      <option selected value="">Seleccione una opcion</option>
+                      <option selected value=''>Seleccione una opcion</option>
                       <option value='I'>Ingreso</option>
                       <option value='E'>Egreso</option>
                       <option value='T'>Traslado</option>
@@ -209,10 +208,11 @@
                     </select>
                   </div>
 
-                  <div class="form-group col-md-4">
+
+                  <div class="form-group col-md-3">
                     <label>Estado de comprobante:</label>
                     <select class="form-control is-valid" formControlName="EstadoComprobante">
-                      <option selected value="">Seleccione una opcion</option>
+                      <option selected value=''>Seleccione una opcion</option>
                       <option value='0'>Cancelado</option>
                       <option value='1'>Vigente</option>
                     </select>
@@ -231,12 +231,12 @@
 
                 <div class="form-group col-md-5">
                   <label>UUID</label>
-                  <input type="text" class="form-control is-valid" formControlName="UUID"
-                    [ngClass]="{ 'is-invalid': summitFormCert && f['UUID'].errors }">
-                  <div *ngIf="summitFormCert && f['UUID'].errors" class="invalid-feedback">
-                    <div *ngIf="f['UUID'].errors['required']">uuid es requerido</div>
-                    <div *ngIf="f['UUID'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                    <div *ngIf="f['UUID'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                  <input type="text" class="form-control is-valid" formControlName="uuid"
+                    [ngClass]="{ 'is-invalid': summitFormCert && f['uuid'].errors }">
+                  <div *ngIf="summitFormCert && f['uuid'].errors" class="invalid-feedback">
+                    <div *ngIf="f['uuid'].errors['required']">uuid es requerido</div>
+                    <div *ngIf="f['uuid'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                    <div *ngIf="f['uuid'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
                   </div>
                 </div>
 
@@ -282,7 +282,7 @@
               <div *ngIf="f['password'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div> -->
             </div>
           </div>
-          
+
 
           <div class="card-body">
             <div class="col-sm-6 col-sm-12 ">
@@ -300,39 +300,90 @@
         </div>
       </div>
     </div>
-
+    {{formDescarga.value | json}}
   </div>
 
-
-
-  {{formDescarga.value | json}}
 
   <div class="col-sm-12">
     <div class="card card-outline card-danger">
       <div class="card-header">
         <div class="row">
           <div class="col-md-22 d-flex justify-content-start align-items-center">
-            <h5>Lista de solicitudes</h5>
+            <h5>Lista de Personas</h5>
           </div>
         </div>
       </div>
       <div class="card-body table-responsive">
-        <table class="table row-border hover">
+        <table datatable class="table row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
           <thead>
             <tr>
+              <th>RFC emisor</th>
               <th>Id de Solicitud</th>
               <th>Estatus</th>
-              <th>Email</th>
               <th>Cantidad de paquetes</th>
               <th>Fecha Creación</th>
               <th>Acciones</th>
-
             </tr>
           </thead>
           <tbody>
+
+            <tr *ngFor="let massive of dataMassive; let i = index">
+              <td>{{massive.emitter_rfc}}</td>
+              <td>{{massive.request_id_sat}}</td>
+              <td>{{ statusDescription[massive.status] }}</td>
+              <td>{{massive.cantidad_paquetes}}</td>
+              <td>{{massive.created_at}}</td>
+              <td class="text-center">
+                <a class="btn btn-primary btn-sm mr-2" >
+                  <i class="fa fa-edit"></i>
+                </a>
+                <a class="btn btn-primary btn-sm mr-2" *ngIf="massive.status == 8" (click)="openUrl(massive)">
+                  <i class="fa fa-edit"></i>
+                </a>
+              </td>
+            </tr>
           </tbody>
+
         </table>
       </div>
     </div>
   </div>
 </form>
+
+<!-- <div #modaldescargar class="modal fade" data-bs-backdrop="static" id="modal-nuevo-paquetes" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modaldescargar">Paquetes para descargar </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form [formGroup]="formmassivepaquetes" (submit)="showModalPackages()">
+        <div class="modal-body">
+          <div class="form-row">
+
+            <table datatable class="table row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+              <thead>
+                <tr>
+                  <th>Enlace de Descargar</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let massive of dataMassive; let i = index">
+                  <td>{{massive.emitter_rfc}}</td>
+
+                </tr>
+              </tbody>
+            </table>
+
+      </form>
+
+    </div>
+  </div>
+</div> -->
+
+
+
+
