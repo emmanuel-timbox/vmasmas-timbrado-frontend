@@ -6,6 +6,8 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule } from '@angular/f
 import { Massive } from 'src/app/models/massive.model';
 import { Subject } from 'rxjs';
 
+declare let bootstrap: any
+
 
 @Component({
   selector: 'app-massive-download',
@@ -14,21 +16,23 @@ import { Subject } from 'rxjs';
 })
 export class MassiveDownloadComponent implements OnInit {
   @Output() emitterSlugEmitter = new EventEmitter<string>();
+  @ViewChild('modalmassive') modalmassive!: ElementRef;
 
   files: File[] = [];
   slug!: string | null;
   emitterData: any;
   haveCerticate!: Boolean;
   summitFormCert = false;
+  submitteshow = false;
   formDescarga: FormGroup = new FormGroup({});
   dataMassive: any;
+  dataPackages: any;
   slugEmitter!: string;
   fileIsInvalid!: boolean;
   disableFileInput: boolean = true;
   isValid: boolean = true;
   errorMessage!: string;
   formNewSolicitud: FormGroup = new FormGroup({});
-  slugMassiveShow!: string;
   formShow: FormGroup = new FormGroup({});
   dtOptions: DataTables.Settings = {}; //tabal de impuestos
   dtTrigger: Subject<any> = new Subject<any>();
@@ -64,7 +68,6 @@ export class MassiveDownloadComponent implements OnInit {
     };
 
     this.getEmitterData()
-    this.getListPaquetes()
     this.getListMassive();
     this.formDescarga = this.formBuilder.group(this._services.getDataValidateMassive());
   }
@@ -102,20 +105,6 @@ export class MassiveDownloadComponent implements OnInit {
   }
 
 
-
-  getListPaquetes(): any {
-    this._services.getMassiveData().subscribe({
-      next: response => {
-        let result = JSON.parse(JSON.stringify(response));
-        if (result.code == 200) {
-          this.emitterData = result.data;
-        } else {
-          this._sweetAlets.infoAlert('¡Verifica!', 'No se encuentra registrados Emisores');
-        }
-      },
-      error: error => { console.log(error) }
-    });
-  }
 
 
 
@@ -205,7 +194,7 @@ export class MassiveDownloadComponent implements OnInit {
     if (file.length > 1) {
       return {
         isValid: false,
-        message: 'Solo se tiene que cargar un archivo en la caja.'
+        message: 'Solo se tiene que cargar dos archivos en la caja.'
       };
     }
 
@@ -225,16 +214,28 @@ export class MassiveDownloadComponent implements OnInit {
     window.open(url)
   }
 
-  showModalPackages(dataMassive: any, index: number): void {
-    console.log(dataMassive)
-    this.slugMassiveShow = dataMassive.slug
-
-    this.formShow.setValue({
-      rack_url: dataMassive.request_id_sat,
+  showModalPackages(idResquestSat: string): void {
+    new bootstrap.Modal(this.modalmassive.nativeElement).show();
 
 
+    this._services.getMassivePackages(idResquestSat).subscribe({
+      next: response => {
+        let result = JSON.parse(JSON.stringify(response));
+        if (result.code == 200) {
+          this.dataPackages = result.data;
+        } else {
+          this._sweetAlets.infoAlert('¡Verifica!', 'No se encuentra ');
+        }
+      },
+      error: error => { console.log(error) }
     });
+
   }
+
+
+
+
+
 
 
 }

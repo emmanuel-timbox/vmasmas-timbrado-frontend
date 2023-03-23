@@ -31,8 +31,9 @@ import { Massive } from '../models/massive.model';
     getMassiveData() {
       return this.httpClient.get(`${this.apiUrl}/massive/${this.userSlug}`, this.httpOptions)
     }
-    getListPaquetes() {
-      return this.httpClient.get(`${this.apiUrl}/massive/${this.userSlug}`, this.httpOptions)
+
+    getMassivePackages(idResquestSat: string) {
+      return this.httpClient.get(`${this.apiUrl}/massive/${idResquestSat}/show_packages`, this.httpOptions)
     }
 
     insertDataMassive(formData: FormData) {
