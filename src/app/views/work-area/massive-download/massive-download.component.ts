@@ -34,7 +34,7 @@ export class MassiveDownloadComponent implements OnInit {
   errorMessage!: string;
   formNewSolicitud: FormGroup = new FormGroup({});
   formShow: FormGroup = new FormGroup({});
-  dtOptions: DataTables.Settings = {}; //tabal de impuestos
+  dtOptions: DataTables.Settings = {}; 
   dtTrigger: Subject<any> = new Subject<any>();
   formmassivepaquetes: FormGroup = new FormGroup({});
   statusDescription: any = {
@@ -105,9 +105,6 @@ export class MassiveDownloadComponent implements OnInit {
   }
 
 
-
-
-
   massive(): void {
     this.summitFormCert = true;
     if (this.formDescarga.invalid) { return }
@@ -144,10 +141,10 @@ export class MassiveDownloadComponent implements OnInit {
         let result = JSON.parse(JSON.stringify(response));
         let massive = result.data;
           if (result.code == 200) {
-            this.swal.successAlert('Los datos de la solicitud se guardaron de manera correcta');
+            this.swal.successAlert('Solicitud  correcta');
             this.resetFormCreate();
           } else {
-            this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de manera correcta');
+            this.swal.infoAlert('¡Verifica!', 'No se aaaaaaa guardar los datos de manera correcta');
             this.resetFormCreate();
           }
       },
@@ -201,7 +198,7 @@ export class MassiveDownloadComponent implements OnInit {
     if (file[0].name.match(allowedExtension) == null) {
       return {
         isValid: false,
-        message: 'El archivo no es valido, solo es valido los .cer para cargar.'
+        message: 'El archivo no es valido, solo es valido los .cer y key para cargar.'
       };
     }
 
