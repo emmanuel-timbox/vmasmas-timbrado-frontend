@@ -1,4 +1,4 @@
-import { Employee } from './../../../models/employee.model';
+import { Employee } from '../../../models/employee.model';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { FormGroup, AbstractControl, FormBuilder } from '@angular/forms';
@@ -12,11 +12,11 @@ declare let bootstrap: any
 
 @Component({
   selector: 'app-employe',
-  templateUrl: './employe.component.html',
-  styleUrls: ['./employe.component.scss']
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.scss']
 })
 
-export class EmployeComponent implements OnInit {
+export class EmployeeComponent implements OnInit {
   @ViewChild('editModal') editModal!: ElementRef;
   @ViewChild('dateInput') dateInput!: ElementRef;
   @ViewChild(DataTableDirective) dtElement!: DataTableDirective;

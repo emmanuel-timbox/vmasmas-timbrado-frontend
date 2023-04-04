@@ -7,7 +7,7 @@ import { SettingsUserComponent } from './settings-user/settings-user.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { ReceiversComponent } from './settings-user/receivers/receivers.component';
 import { CertificatesComponent } from './settings-user/certificates/certificates.component';
-import { EmployeComponent } from './employe/employe.component';
+import { EmployeeComponent } from './employee/employee.component';
 import { MassiveDownloadComponent } from './massive-download/massive-download.component';
 import { AuthGuard } from './../../guards/auth.guard';
 import { MainComponent } from './main.component';
@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: 'taxes', component: TaxesComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'receiver/:slug', component: ReceiversComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'certificate/:slug', component: CertificatesComponent, canActivate: [AuthGuard, SessionGuard] },
-      { path: 'employe', component: EmployeComponent, canActivate: [AuthGuard, SessionGuard] },
+      { path: 'employe', component: EmployeeComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'massive-download', component: MassiveDownloadComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'image-pdf', component: CompanyImageComponent, canActivate: [AuthGuard, SessionGuard] }
     ],

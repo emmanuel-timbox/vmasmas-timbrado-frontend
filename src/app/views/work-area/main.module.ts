@@ -24,7 +24,7 @@ import { XmlVaucherComponent } from './create-xml/xml-vaucher/xml-vaucher.compon
 import { XmlReceiverComponent } from './create-xml/xml-receiver/xml-receiver.component';
 import { XmlConceptsComponent } from './create-xml/xml-concepts/xml-concepts.component';
 import { ConceptsComponent } from './taxes/concepts/concepts.component';
-import { EmployeComponent } from './employe/employe.component';
+import { EmployeeComponent } from './employee/employee.component';
 import { XmlPreviewComponent } from './create-xml/xml-preview/xml-preview.component';
 import { MassiveDownloadComponent } from './massive-download/massive-download.component';
 import { PdfPreviewComponent } from './welcome/pdf-preview/pdf-preview.component';
@@ -45,7 +45,7 @@ import { CompanyImageComponent } from './company-image/company-image.component';
     XmlReceiverComponent,
     XmlConceptsComponent,
     ConceptsComponent,
-    EmployeComponent,
+    EmployeeComponent,
     XmlPreviewComponent,
     MassiveDownloadComponent,
     PdfPreviewComponent,
