@@ -6,10 +6,11 @@
       </div>
       <div class="card-body">
         <div class="row">
+
           <div class="col-sm-12">
             <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".xlsx">
               <ngx-dropzone-label class="text-success">Cargar archivo</ngx-dropzone-label>
-              <ngx-dropzone-preview *ngFor="let f of excel" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
               </ngx-dropzone-preview>
             </ngx-dropzone>
@@ -17,77 +18,122 @@
               <div class="invalid-feedback-custom">{{errorMessage}}</div>
             </div>
           </div>
+
+          <div class="col-sm-12 pt-4" *ngIf="info.length > 0 || errors.length > 0">
+            <p>Resultado de carga de Empleados a el sistema.</p>
+          </div>
+
+          <div class="col-sm-12 pt-2" *ngIf="info.length > 0">
+            <p class="text-warning"><i class="fa fa-info-circle text-warning"></i> Incidencias:</p>
+            <div class="row">
+              <div class="col-sm-12">
+
+                <ul class="list-group list-group-flush pl-5 pr-5">
+                  <li class="list-group-item pb-1 pt-1" *ngFor="let item of info">
+                    <p><b>Fila: </b>{{item.data_row}}<br /></p>
+                    <ul class="pl-5" style="list-style-type: circle;">
+                      <li *ngIf="item.emisor == undefined">
+                        <p><b>Mensaje: </b>{{item.info_message}}<br /></p>
+                      </li>
+                      <li *ngIf="item.emisor != undefined">
+                        <p><b>RFC del Emisor: </b>{{item.emisor}}<br /></p>
+                        <p><b>Mensaje: </b>{{item.info_message}}<br /></p>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 pt-2" *ngIf="errors.length > 0">
+            <p class="text-danger"><i class="fas fa-times text-danger"></i> Errores:</p>
+            <div class="row">
+              <div class="col-sm-12">
+
+                <ul class="list-group list-group-flush pl-5 pr-5">
+                  <div *ngFor="let item of errors">
+                    <li class="pb-1 pt-1">
+                      <p><b>Fila: </b>{{item.data_row}}<br /></p>
+                    </li>
+                    <ul class="pl-5" style="list-style-type: circle;">
+                      <li>
+                        <p><b>Mensaje: </b>{{item.error_message}}<br /></p>
+                      </li>
+                    </ul>
+                  </div>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+
           <div class="col-sm-12 pt-3">
             <hr width="100%" color="#e74c3c" />
           </div>
           <div class="col-sm-12 mt-2">
             <p class="text-center" style="color:#ffffff8a;">
               Pude descargar el archivo <b class="text-primary"> <a>aqui</a> </b>,
-              esta es la unica forma en la que se puede dar de alta de forma masiva
-              a los nuevos Empleados. Es a importante de que el archivo no se modifique
+              este formato es la unica forma en la que se puede dar de alta de forma masiva
+              a los nuevos Empleados. Es importante que el archivo no se modifique
               la estructura de los calumnas.
             </p>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="col-sm-12">
-  <div class="card card-outline card-danger">
-    <div class="card-header">
-      <div class="row">
-        <div class="col-md-22 d-flex justify-content-start align-items-center">
-          <h5>Lista de Personas</h5>
+    <div class="card card-outline card-danger">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-md-22 d-flex justify-content-start align-items-center">
+            <h5>Lista de Empleados.</h5>
+          </div>
         </div>
       </div>
+      <div class="card-body table-responsive">
+
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
+          <thead>
+            <tr>
+              <th>RFC</th>
+              <th>Nombre</th>
+              <th>Curp</th>
+              <th>Numero social</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of dataEmployees; let i = index">
+              <td>{{employee.rfc}}</td>
+              <td>{{employee.bussiness_name}}</td>
+              <td>{{employee.curp}}</td>
+              <td>{{employee.social_security_number}}</td>
+              <td class="text-center">
+                <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmployee(employee, i)">
+                  <i class="fa fa-edit"></i>
+                </a>
+                <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-placement="right"
+                  title="Eliminar Receptor">
+                  <i class="fa fa-window-close"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
     </div>
-    <div class="card-body table-responsive">
-      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
-        <thead>
-          <tr>
-            <th>RFC</th>
-            <th>CURP</th>
-            <th>Antigüedad</th>
-            <th>Numero de Empleado</th>
-          </tr>
-        </thead>
-        <tbody>
 
-          <tr *ngFor="let employee of dataEployees; let i = index">
-            <td>{{employee.rfc}}</td>
-            <td>{{employee.curp}}</td>
-            <td>{{employee.antiquity}}</td>
-            <td>{{employee.employee_number}}</td>
-            <td class="text-center">
-              <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmployee(employee, i)">
-                <i class="fa fa-edit"></i>
-              </a>
-              <!-- <a *ngIf="employee.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmployee(employee.slug, i)">
-                <i class="fa fa-window-close"></i>
-              </a>
-              <a *ngIf="employee.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmployee(employee.slug, i)">
-                <i class="fa fa-check"></i>
-              </a> -->
-            </td>
-          </tr>
-        </tbody>
-
-
-        {{ dataEployees | json}}
-
-      </table>
-    </div>
   </div>
 </div>
 
 <div #editModal class="modal fade" data-bs-backdrop="static" id="modal-editar" tabindex="-1"
   aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
+
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Editar datos</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -97,209 +143,255 @@
         <div class="modal-body">
           <div class="form-row">
 
-            <div class="form-group col-md-4">
-              <label>R.F.C:</label>
+            <div class="form-group col-md-3">
+              <label>RFC:</label>
               <input type="text" class="form-control is-valid" formControlName="rfc"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['rfc'].errors }">
               <div *ngIf="submittedEdit && fEdit['rfc'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['rfc'].errors['required']">RFC del Emisor es requerido</div>
-                <div *ngIf="fEdit['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                <div *ngIf="fEdit['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                <div *ngIf="fEdit['rfc'].errors['required']">Este campo es requerido</div>
+                <div *ngIf="fEdit['rfc'].errors['minlength']">Debe ser menor a 12 caracteres</div>
+                <div *ngIf="fEdit['rfc'].errors['maxlength']">Debe ser mayor a 13 caracteres</div>
+                <div *ngIf="fEdit['rfc'].errors['pattern']">No cuenta con el formato correcto</div>
               </div>
             </div>
 
-            <div class="form-group col-md-4">
-              <label>Curp:</label>
+            <div class="form-group col-md-6">
+              <label>Nombre:</label>
+              <input type="text" class="form-control is-valid" formControlName="bussiness_name"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['bussiness_name'].errors }">
+              <div *ngIf="submittedEdit && fEdit['bussiness_name'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['bussiness_name'].errors['required']">Este campo es requerido</div>
+                <div *ngIf="fEdit['bussiness_name'].errors['maxLength']">Debe tener que ser menor a 100 caracteres</div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Uso de CFDI:</label>
+              <select class="form-control is-valid" formControlName="cfdi_use"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['cfdi_use'].errors }">
+                <option value="" selected>Seleccione un opcion</option>
+                <option *ngFor="let usageCfdi of cfdiUsageCat" value="{{usageCfdi.uso_cfdi}}">
+                  {{usageCfdi.uso_cfdi}} -- {{usageCfdi.descripcion}}
+                </option>
+              </select>
+              <div *ngIf="submittedEdit && fEdit['cfdi_use'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['cfdi_use'].errors['required']">Este campo es requerido</div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Domicilio Fiscal:</label>
+              <input type="text" class="form-control is-valid" formControlName="receiving_tax_domicile"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['receiving_tax_domicile'].errors }">
+              <div *ngIf="submittedEdit && fEdit['receiving_tax_domicile'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['receiving_tax_domicile'].errors['required']"> Este campo es requerido </div>
+                <div *ngIf="fEdit['receiving_tax_domicile'].errors['minlength']">
+                  Lugar de expedicion no debe ser menor a 5 caracteres
+                </div>
+                <div *ngIf="fEdit['receiving_tax_domicile'].errors['maxlength']">
+                  Lugar de expedicion no debe ser mayor a 5 caracteres
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Regimen fiscal</label>
+              <select class="form-control is-valid" formControlName="recipient_tax_regimen"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['recipient_tax_regimen'].errors }">
+                <option value="" selected>Seleccione un opcion</option>
+                <option *ngFor="let item of jsonDataTaxRegiment" [selected]="item.regime == selectedTaxRegime">
+                  {{item.regime}}
+                </option>
+              </select>
+              <div *ngIf="submittedEdit && fEdit['recipient_tax_regimen'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['recipient_tax_regimen'].errors['required']">Este campo es requerido</div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>CURP:</label>
               <input type="text" class="form-control is-valid" formControlName="curp"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['rfc'].errors }">
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['curp'].errors }">
               <div *ngIf="submittedEdit && fEdit['curp'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['curp'].errors['required']">Curp del Emisor es requerido</div>
-                <div *ngIf="fEdit['curp'].errors['minlength']">Curp del Emisor no debe ser menor a 18 caracteres</div>
-                <div *ngIf="fEdit['curp'].errors['maxlength']">Curp del Emisor no debe ser mayor a 18 caracteres</div>
+                <div *ngIf="fEdit['curp'].errors['required']"> Este campo es requerido </div>
               </div>
             </div>
 
-            <div class="form-group col-md-4">
-              <label>NumSeguridadSocial:</label>
+            <div class="form-group col-md-3">
+              <label>Numero de seguridad social:</label>
               <input type="number" class="form-control is-valid" formControlName="social_security_number"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['social_security_number'].errors }">
-              <div *ngIf="submittedEdit && fEdit['social_security_number'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['social_security_number'].errors['maxLength']">Numero social del Emisor debe tener que
-                  ser menor
-                  a 11 caracteres</div>
-              </div>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
               <label>Antigüedad:</label>
               <input type="text" class="form-control is-valid" formControlName="antiquity"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['antiquity'].errors }">
-              <div *ngIf="submittedEdit && fEdit['antiquity'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['antiquity'].errors['maxLength']">Numero social del Emisor debe tener que ser menor
-                  a 11 caracteres</div>
-              </div>
             </div>
 
-
-            <div class="form-group col-md-4">
-              <label>FechaInicioRelLaboral:</label>
-              <input type="date" class="form-control is-valid" formControlName="work_start_date"
+            <div class="form-group col-md-3">
+              <label>Fecha de inicio laboral:</label>
+              <input type="date" class="form-control is-valid" #dateInput formControlName="work_start_date"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['work_start_date'].errors }">
-              <div *ngIf="submittedEdit && fEdit['work_start_date'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['work_start_date'].errors['maxLength']">Fecha erronea </div>
-              </div>
             </div>
 
-            <div class="form-group col-md-4">
-              <label>TipoContrato:</label>
-              <input type="text" class="form-control is-valid" formControlName="type_contract"
+            <div class="form-group col-md-3">
+              <label>Tipo de contrato:</label>
+              <select type="text" class="form-control is-valid" formControlName="type_contract"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['type_contract'].errors }">
-              <div *ngIf="submittedEdit && fEdit['type_contract'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['type_contract'].errors['required']">TipoContrato es requerido</div>
-                <div *ngIf="fEdit['type_contract'].errors['maxLength']">TipoContrato debe tener que ser igual
-                  a 2 caracteres</div>
-              </div>
+                <option value="" selected>Seleccione un opcion</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="99">99</option>
+              </select>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
               <label>Sindicalizado:</label>
-              <input type="text" class="form-control is-valid" formControlName="unionized"
+              <select type="text" class="form-control is-valid" formControlName="unionized"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['unionized'].errors }">
-              <div *ngIf="submittedEdit && fEdit['unionized'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['unionized'].errors['maxLength']">Sindicalizado debe tener que ser menor
-                  a 6 caracteres</div>
-              </div>
+                <option value="" selected>Seleccione un opcion</option>
+                <option value="Sí">Sí</option>
+                <option value="No">No</option>
+              </select>
             </div>
 
-            <div class="form-group col-md-4">
-              <label>TipoJornada:</label>
-              <input type="text" class="form-control is-valid" formControlName="type_working_day"
+            <div class="form-group col-md-3">
+              <label>Tipo de jornada:</label>
+              <select type="text" class="form-control is-valid" formControlName="type_working_day"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['type_working_day'].errors }">
-              <div *ngIf="submittedEdit && fEdit['type_working_day'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['type_working_day'].errors['maxLength']">TipoJornada debe tener que ser menor
-                  a 150 caracteres</div>
-              </div>
+                <option value="" selected>Seleccione un opcion</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="99">99</option>
+              </select>
             </div>
 
-            <div class="form-group col-md-4">
-              <label>TipoRegimen:</label>
-              <input type="text" class="form-control is-valid" formControlName="regime_type"
+            <div class="form-group col-md-3">
+              <label>Tipo de regimen:</label>
+              <select type="text" class="form-control is-valid" formControlName="regime_type"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['regime_type'].errors }">
-              <div *ngIf="submittedEdit && fEdit['regime_type'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['regime_type'].errors['required']">Tipo Regimen es requerido</div>
-                <div *ngIf="fEdit['regime_type'].errors['maxLength']">Tipo Regimen debe tener que ser menor
-                  a 3 caracteres</div>
-              </div>
+                <option value="" selected>Seleccione un opcion</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="10">11</option>
+                <option value="10">12</option>
+                <option value="10">13</option>
+                <option value="99">99</option>
+              </select>
             </div>
 
-
-            <div class="form-group col-md-4">
-              <label>NumEmpleado:</label>
+            <div class="form-group col-md-3">
+              <label>Numero de empleado:</label>
               <input type="text" class="form-control is-valid" formControlName="employee_number"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['employee_number'].errors }">
-              <div *ngIf="submittedEdit && fEdit['employee_number'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['employee_number'].errors['required']">NumEmpleado es requerido</div>
-                <div *ngIf="fEdit['employee_number'].errors['maxLength']">NumEmpleado debe tener que ser menor
-                  a 11 caracteres</div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label>Riesgo del puesto:</label>
+              <select type="text" class="form-control is-valid" formControlName="occupational_risk"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['occupational_risk'].errors }">
+                <option value="" selected>Seleccione un opcion</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="99">99</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label>Periodicidad de pago:</label>
+              <select type="text" class="form-control is-valid" formControlName="payment_frequency"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['payment_frequency'].errors }">
+                <option value="" selected>Seleccione un opcion</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="99">99</option>
+              </select>
+              <div *ngIf="submittedEdit && fEdit['payment_frequency'].errors" class="invalid-feedback">
+                <div *ngIf="fEdit['payment_frequency'].errors['required']">Este campo es requerido</div>
               </div>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-5">
               <label>Departamento:</label>
               <input type="text" class="form-control is-valid" formControlName="departament"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['departament'].errors }">
-              <div *ngIf="submittedEdit && fEdit['departament'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['departament'].errors['required']">Departamento es requerido</div>
-                <div *ngIf="fEdit['departament'].errors['maxLength']">Departamento debe tener que ser menor
-                  a 100 caracteres</div>
-              </div>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-5">
               <label>Puesto:</label>
-              <input type="text" class="form-control is-valid" formControlName="put"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['put'].errors }">
-              <div *ngIf="submittedEdit && fEdit['put'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['put'].errors['required']">Puesto es requerido</div>
-                <div *ngIf="fEdit['put'].errors['maxLength']">Puesto debe tener que ser menor
-                  a 21 caracteres</div>
-              </div>
-            </div>
-
-            <div class="form-group col-md-4">
-              <label>RiesgoPuesto:</label>
-              <input type="text" class="form-control is-valid" formControlName="risk_put"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['risk_put'].errors }">
-              <div *ngIf="submittedEdit && fEdit['risk_put'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['risk_put'].errors['required']">RiesgoPuesto es requerido</div>
-                <div *ngIf="fEdit['risk_put'].errors['maxLength']">RiesgoPuesto debe tener que ser menor
-                  a 3 caracteres</div>
-              </div>
-            </div>
-
-            <div class="form-group col-md-4">
-              <label>PeriodicidadPago:</label>
-              <input type="text" class="form-control is-valid" formControlName="payment_frequency"
-                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['payment_frequency'].errors }">
-              <div *ngIf="submittedEdit && fEdit['payment_frequency'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['payment_frequency'].errors['required']">PeriodicidadPagoes requerido</div>
-                <div *ngIf="fEdit['payment_frequency'].errors['maxLength']">PeriodicidadPago debe tener que ser menor
-                  a 3 caracteres</div>
-              </div>
+              <input type="text" class="form-control is-valid" formControlName="job"
+                [ngClass]="{ 'is-invalid': submittedEdit && fEdit['job'].errors }">
             </div>
 
             <div class="form-group col-md-4">
               <label>Banco:</label>
               <input type="text" class="form-control is-valid" formControlName="banck"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['banck'].errors }">
-              <div *ngIf="submittedEdit && fEdit['banck'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['banck'].errors['required']">Banco es requerido</div>
-                <div *ngIf="fEdit['banck'].errors['maxLength']">Banco debe tener que ser menor
-                  a 4 caracteres</div>
-              </div>
             </div>
 
             <div class="form-group col-md-4">
-              <label>CuentaBancaria:</label>
+              <label>Cuenta bancaria:</label>
               <input type="text" class="form-control is-valid" formControlName="banck_account"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['banck_account'].errors }">
-              <div *ngIf="submittedEdit && fEdit['banck_account'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['banck_account'].errors['required']">Razon social del Emisor es requerido</div>
-                <div *ngIf="fEdit['banck_account'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
-              </div>
             </div>
 
             <div class="form-group col-md-4">
-              <label>SalarioBaseCotApor:</label>
+              <label>Salario base:</label>
               <input type="text" class="form-control is-valid" formControlName="base_salary"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['base_salary'].errors }">
-              <div *ngIf="submittedEdit && fEdit['base_salary'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['base_salary'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
-              </div>
             </div>
 
             <div class="form-group col-md-4">
-              <label>SalarioDiarioIntegrado:</label>
+              <label>Salario diario integrado:</label>
               <input type="text" class="form-control is-valid" formControlName="daily_salary"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['daily_salary'].errors }">
-              <div *ngIf="submittedEdit && fEdit['daily_salary'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['daily_salary'].errors['maxLength']">Razon social del Emisor debe tener que ser menor
-                  a 150 caracteres</div>
-              </div>
             </div>
 
-            <div class="form-group col-md-4">
-              <label>ClaveEntFed:</label>
+            <div class="form-group col-md-3">
+              <label>Clave de entidad federativa:</label>
               <input type="text" class="form-control is-valid" formControlName="federative_entity_key"
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['federative_entity_key'].errors }">
               <div *ngIf="submittedEdit && fEdit['federative_entity_key'].errors" class="invalid-feedback">
-                <div *ngIf="fEdit['federative_entity_key'].errors['maxLength']">Razon social del Emisor debe tener que
-                  ser menor
-                  a 150 caracteres</div>
+                <div *ngIf="fEdit['federative_entity_key'].errors['required']">Este campo es requerido</div>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -312,3 +404,5 @@
     </div>
   </div>
 </div>
+
+{{formEditEmployee.value | json}}
