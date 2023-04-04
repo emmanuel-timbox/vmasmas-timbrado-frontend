@@ -6,14 +6,14 @@
           <div class="card-header">
             <h4>Descarga Masiva</h4>
           </div>
-          <nav>
+          <!-- <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                 type="button" role="tab" aria-controls="nav-home" aria-selected="true">Solicitud</button>
               <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
                 type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Busqueda por UUID</button>
             </div>
-          </nav>
+          </nav> -->
 
           <div class="tab-content" id="nav-tabContent">
 
@@ -120,7 +120,7 @@
                   <div class="form-group col-md-3">
                     <label>Tipo solicitud:</label>
                     <select class="form-control is-valid" formControlName="TipoSolicitud">
-                      <option selected value="">Seleccione una opcion</option>
+                      <option selected value=''>Seleccione una opcion</option>
                       <option value='Metadata'>Metadata</option>
                       <option value='CFDI'>CFDI</option>
                     </select>
@@ -138,7 +138,7 @@
                   <div class="form-group col-md-3">
                     <label>Complementos CFDI:</label>
                     <select class="form-control is-valid" formControlName="Complemento">
-                      <option selected value="">Seleccione una opcion</option>
+                      <option selected value =''>Seleccione una opcion</option>
                       <option value='acreditamientoieps10'>acreditamientoieps10</option>
                       <option value='aerolíneas'>aerolíneas</option>
                       <option value='cartaporte10'>cartaporte10</option>
@@ -184,7 +184,6 @@
                     <label>RFC acuentaAterceros</label>
                     <input type="text" class="form-control is-valid" formControlName="RfcACuentaTerceros"
                       [ngClass]="{ 'is-invalid': summitFormCert && f['RfcACuentaTerceros'].errors }">
-
                     <div *ngIf="summitFormCert && f['RfcACuentaTerceros'].errors" class="invalid-feedback">
                       <div *ngIf="f['RfcACuentaTerceros'].errors['required']">RFC del Emisor es requerido</div>
                       <div *ngIf="f['RfcACuentaTerceros'].errors['minlength']">RFC del Emisor no debe ser menor a 13
@@ -200,7 +199,7 @@
                   <div class="form-group col-md-3">
                     <label>Tipo de comprobante:</label>
                     <select class="form-control is-valid" formControlName="TipoComprobante">
-                      <option selected value="">Seleccione una opcion</option>
+                      <option selected value=''>Seleccione una opcion</option>
                       <option value='I'>Ingreso</option>
                       <option value='E'>Egreso</option>
                       <option value='T'>Traslado</option>
@@ -209,10 +208,11 @@
                     </select>
                   </div>
 
-                  <div class="form-group col-md-4">
+
+                  <div class="form-group col-md-3">
                     <label>Estado de comprobante:</label>
                     <select class="form-control is-valid" formControlName="EstadoComprobante">
-                      <option selected value="">Seleccione una opcion</option>
+                      <option selected value=''>Seleccione una opcion</option>
                       <option value='0'>Cancelado</option>
                       <option value='1'>Vigente</option>
                     </select>
@@ -225,18 +225,18 @@
               </div>
             </div>
 
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
               <div class="form-row">
 
 
                 <div class="form-group col-md-5">
                   <label>UUID</label>
-                  <input type="text" class="form-control is-valid" formControlName="UUID"
-                    [ngClass]="{ 'is-invalid': summitFormCert && f['UUID'].errors }">
-                  <div *ngIf="summitFormCert && f['UUID'].errors" class="invalid-feedback">
-                    <div *ngIf="f['UUID'].errors['required']">uuid es requerido</div>
-                    <div *ngIf="f['UUID'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                    <div *ngIf="f['UUID'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                  <input type="text" class="form-control is-valid" formControlName="uuid"
+                    [ngClass]="{ 'is-invalid': summitFormCert && f['uuid'].errors }">
+                  <div *ngIf="summitFormCert && f['uuid'].errors" class="invalid-feedback">
+                    <div *ngIf="f['uuid'].errors['required']">uuid es requerido</div>
+                    <div *ngIf="f['uuid'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                    <div *ngIf="f['uuid'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
                   </div>
                 </div>
 
@@ -255,7 +255,7 @@
                 </div>
 
               </div>
-            </div>
+            </div> -->
 
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">Solicitud</button>
@@ -272,20 +272,22 @@
           <div class="card-header">
             <h4>Certificados</h4>
           </div>
-          <div class="form-group col-md-5">
-            <label>Contraseña</label>
-            <input type="password" class="form-control is-valid" formControlName="password"
-              [ngClass]="{ 'is-invalid': summitFormCert && f['password'].errors }">
-            <div *ngIf="summitFormCert && f['password'].errors" class="invalid-feedback">
-              <div *ngIf="f['password'].errors['required']">Contraseña es requerido</div>
-              <!-- <div *ngIf="f['password'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-              <div *ngIf="f['password'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div> -->
-            </div>
-          </div>
-          
+
+
 
           <div class="card-body">
-            <div class="col-sm-6 col-sm-12 ">
+            <div class="form-group col-md-6 pt-4">
+              <label>Contraseña</label>
+              <input type="password" class="form-control is-valid" formControlName="password"
+                [ngClass]="{ 'is-invalid': summitFormCert && f['password'].errors }">
+              <div *ngIf="summitFormCert && f['password'].errors" class="invalid-feedback">
+                <div *ngIf="f['password'].errors['required']">Contraseña es requerido</div>
+                <!-- <div *ngIf="f['password'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                <div *ngIf="f['password'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div> -->
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-sm-12 pb-4 mb-5">
               <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".key, .cer" >
                 <ngx-dropzone-label class="text-success">Cargar llave del certificaso(.key) y (.cer)</ngx-dropzone-label>
                 <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" >
@@ -300,39 +302,96 @@
         </div>
       </div>
     </div>
-
   </div>
 
-
-
-  {{formDescarga.value | json}}
 
   <div class="col-sm-12">
     <div class="card card-outline card-danger">
       <div class="card-header">
         <div class="row">
           <div class="col-md-22 d-flex justify-content-start align-items-center">
-            <h5>Lista de solicitudes</h5>
+            <h5>Lista de Personas</h5>
           </div>
         </div>
       </div>
       <div class="card-body table-responsive">
-        <table class="table row-border hover">
+        <table datatable class="table row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
           <thead>
             <tr>
+              <th>RFC emisor</th>
               <th>Id de Solicitud</th>
               <th>Estatus</th>
-              <th>Email</th>
               <th>Cantidad de paquetes</th>
               <th>Fecha Creación</th>
               <th>Acciones</th>
-
             </tr>
           </thead>
           <tbody>
+
+            <tr *ngFor="let massive of dataMassive; let i = index">
+              <td>{{massive.emitter_rfc}}</td>
+              <td>{{massive.request_id_sat}}</td>
+              <td>{{statusDescription[massive.status] }}</td>
+              <td>{{massive.cantidad_paquetes}}</td>
+              <td>{{massive.created_at}}</td>
+              <td class="text-center">
+                <a class="btn btn-primary btn-sm mr-2" *ngIf= "massive.status == 8" (click)="showModalPackages(massive.request_id_sat) " >
+                  <i class="fas fa-cloud-download-alt"></i>
+                </a>
+              </td>
+            </tr>
           </tbody>
+
         </table>
       </div>
     </div>
   </div>
 </form>
+
+
+
+
+<div #modalmassive class="modal fade" data-bs-backdrop="static" id="modal-nuevo-paquetes" tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="modalmassive">Paquetes para descargar </h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+
+      <div class="modal-body">
+        <div class="form-row">
+
+          <table datatable class="table row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead>
+              <tr>
+                  <b>NOTA:</b> Los Datos Fiscales tiene que se registren deben de ser iguales a los datos del
+              Certificado que registre posteriormente.
+                <th>Enlace de Descargar</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let dataPackages of dataPackages; let i = index">
+                <td>  <a class="btn btn-primary btn-sm mr-2"  href = {{dataPackages.rack_url}}> Paquete {{i + 1}} </a> </td>
+
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
