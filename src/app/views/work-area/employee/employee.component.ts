@@ -105,13 +105,21 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  editEstatusEmployee(slugemployee: string, index: number): void {
-    this._service.editStatusEmployee(slugemployee).subscribe({
+  editStatusEmployee(employee: any, index: number): void {
+    console.log(employee.status)
+    const dataEmployee = {
+      slugReceiver: employee.slug_receiver,
+      slugEmployee: employee.slug_employee
+    }
+
+    this._service.editStatusEmployee(JSON.stringify(dataEmployee)).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response))
         if (result.code == 200) {
+          console.log(result.data)
           this.dataEmployees[index] = result.data
           this.swal.successAlert('El estatus se actualizo de manera correcta');
+          this.tableRerender();
         } else {
           this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar el estatus');
         }

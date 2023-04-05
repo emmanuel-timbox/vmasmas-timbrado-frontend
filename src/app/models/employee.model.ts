@@ -26,7 +26,8 @@ export class Employee {
   daily_salary?: string;
   federative_entity_key?: string;
   slug_employee?: string;
-  id?: null
+  id?: null;
+  status?: string;
 
   constructor(bussiness_name?: string, rfc?: string, cfdi_use?: string, receiving_tax_domicile?: string,
     slug_receiver?: string, recipient_tax_regime?: string, curp?: string, social_security_number?: string,
@@ -34,8 +35,7 @@ export class Employee {
     type_working_day?: string, regime_type?: string, employee_number?: string, departement?: string,
     job?: string, occupational_rick?: string, payment_frequency?: string, banck?: string,
     banck_account?: string, base_salary?: string, daily_salary?: string, federative_entity_key?: string,
-    slug_employee?: string, id?: null
-  ) {
+    slug_employee?: string, id?: null, status?: string) {
 
     this.bussiness_name = bussiness_name;
     this.rfc = rfc;
@@ -62,8 +62,9 @@ export class Employee {
     this.daily_salary = daily_salary;
     this.federative_entity_key = federative_entity_key;
     this.slug_employee = slug_employee;
-    this.id = id
-
+    this.id = id;
+    this.status = status;
+    
   }
 
 }

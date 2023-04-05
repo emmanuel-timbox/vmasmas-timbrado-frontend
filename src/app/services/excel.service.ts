@@ -50,7 +50,8 @@ export class ExecelService {
       base_salary: [''],
       daily_salary: [''],
       slug_employee: [''],
-      id: ['']
+      id: [''],
+      status: ['']
     };
   }
 
