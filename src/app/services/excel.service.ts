@@ -71,4 +71,8 @@ export class ExecelService {
     return this.httpCliente.put(`${this.apiUrl}/employee/${slugemployee}`, emitter, this.httpOptions);
   }
 
+  donwloadLayout() {
+    return this.httpCliente.get(`${environment.urlLayoutExcel}`, { responseType: 'blob' })
+  }
+
 }

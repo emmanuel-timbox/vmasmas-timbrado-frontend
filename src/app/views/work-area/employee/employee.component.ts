@@ -128,6 +128,20 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
+  dowloadLayout() {
+    this._service.donwloadLayout().subscribe({
+      next: (blob: any) => {
+        const a = document.createElement('a');
+        const objectUrl = URL.createObjectURL(blob);
+        a.href = objectUrl;
+        a.download = 'Layout_empleados.xlsx'
+        a.click();
+        URL.revokeObjectURL(objectUrl)
+      },
+      error: error => { console.log(error) }
+    })
+  }
+
   private getListEmployees() {
     this._service.getdataEmployees().subscribe({
       next: response => {

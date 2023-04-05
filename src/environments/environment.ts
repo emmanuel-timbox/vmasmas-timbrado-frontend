@@ -8,7 +8,8 @@ export const environment = {
   slugUser: 'user-WFWSBBZOEXFS',
   pathTaxRegimenCat: "assets/catalogs/cat_tax_regimes.json",
   pathCatalogs: 'assets/catalogs',
-  urlQr: 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx'
+  urlQr: 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx',
+  urlLayoutExcel: 'assets/layouts/Layout_empleados.xlsx'
 };
 
 /*
