@@ -110,8 +110,9 @@ export class ReceiversComponent implements OnInit {
     });
   }
 
-  editEstatusReceiver(slugEmitter: string, index: number): void {
-    this._service.editStatusReceiver(slugEmitter).subscribe({
+  editEstatusReceiver(slugReceiver: string, index: number, havePayroll: number): void {
+    const receiver: any = { slug: slugReceiver, havePayroll: havePayroll}
+    this._service.editStatusReceiver(JSON.stringify(receiver)).subscribe({
       next: response => {
         let result = JSON.parse(JSON.stringify(response))
         if (result.code == 200) {

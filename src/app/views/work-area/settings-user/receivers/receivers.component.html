@@ -1,16 +1,16 @@
 <div class="row">
 
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <div class="card card-outline card-danger">
       <div class="card-header">
-        <h4>Datos Receptores</h4>
+        <h4>Registrar nuevo Receptor</h4>
       </div>
       <div class="card-body">
 
         <form [formGroup]="formNewReceiver" (ngSubmit)="createReceiver()">
           <div class="form-row">
 
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-12">
               <label>Nombre o razon social:</label>
 
               <input type="text" class="form-control is-valid" formControlName="bussinessName"
@@ -21,8 +21,8 @@
               </div>
             </div>
 
-            <div class="form-group col-md-4">
-              <label>R.F.C:</label>
+            <div class="form-group col-md-6">
+              <label>RFC:</label>
 
               <input type="text" class="form-control is-valid" formControlName="rfc"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['rfc'].errors }">
@@ -35,7 +35,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label>Uso de CFDI:</label>
 
               <select class="form-control is-valid" formControlName="cfdiUse"
@@ -50,7 +50,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label>Domicilio Fiscal</label>
               <input type="text" class="form-control is-valid" formControlName="receivingTaxDomicile"
                 [ngClass]="{ 'is-invalid': submittedCreate && f['receivingTaxDomicile'].errors }">
@@ -66,7 +66,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label>Regimen Fiscal:</label>
 
               <select type="text" class="form-control is-valid" formControlName="recipientTaxRegimen"
@@ -82,12 +82,12 @@
               </div>
             </div>
 
-            <div class="form-group col-md-6">
-              <label>Número de registro de identidad tributaria</label>
+            <div class="form-group col-md-12">
+              <label>Numero de registro de identidad tributaria:</label>
               <input type="text" class="form-control is-valid" formControlName="taxIdNumber">
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
               <label>Residencia Fiscal:</label>
               <input type="text" class="form-control is-valid" formControlName="taxResidence">
             </div>
@@ -103,7 +103,7 @@
     </div>
   </div>
 
-  <div class="col-sm-6">
+  <div class="col-sm-8">
     <div class="card card-outline card-danger">
       <div class="card-header">
         <div class="row">
@@ -119,6 +119,7 @@
               <th>RFC</th>
               <th>Nombre o razon social</th>
               <th>Uso de CDFI</th>
+              <th>Tipo Receptor</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -127,16 +128,17 @@
               <td>{{receiver.rfc}}</td>
               <td>{{receiver.bussiness_name}}</td>
               <td>{{receiver.cfdi_use}}</td>
+              <td>{{receiver.have_payroll == 1 ? 'Empleado' : 'Proveedor' }}</td>
               <td class="text-center">
                 <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditReceiver(receiver, i)">
                   <i class="fa fa-edit"></i>
                 </a>
                 <a *ngIf="receiver.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                  data-placement="right" title="Eliminar Receptor" (click)="editEstatusReceiver(receiver.slug, i)">
+                  data-placement="right" title="Eliminar Receptor" (click)="editEstatusReceiver(receiver.slug, i, receiver.have_payroll)">
                   <i class="fa fa-window-close"></i>
                 </a>
                 <a *ngIf="receiver.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                  data-placement="right" title="Eliminar Receptor" (click)="editEstatusReceiver(receiver.slug, i)">
+                  data-placement="right" title="Eliminar Receptor" (click)="editEstatusReceiver(receiver.slug, i, receiver.have_payroll)">
                   <i class="fa fa-check"></i>
                 </a>
               </td>

@@ -38,8 +38,8 @@ export class ReceiverService {
     return this.httpClient.post(`${this.apiUrl}/receiver_configs`, receiver, this.httpOptions);
   }
 
-  editStatusReceiver(slugReceiver: string) {
-    return this.httpClient.delete(`${this.apiUrl}/receiver_configs/${slugReceiver}`, this.httpOptions)
+  editStatusReceiver(receiver: any) {
+    return this.httpClient.delete(`${this.apiUrl}/receiver_configs/${receiver}`, this.httpOptions)
   }
 
   getDataReceiver(slugReceiver: string) {
