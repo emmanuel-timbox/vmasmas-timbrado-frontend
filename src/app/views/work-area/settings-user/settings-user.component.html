@@ -73,7 +73,8 @@
                 [ngClass]="{ 'is-invalid': submittedCreate && f['companyName'].errors }">
               <div *ngIf="submittedCreate && f['companyName'].errors" class="invalid-feedback">
                 <div *ngIf="f['companyName'].errors['required']">Nombre de la Empresa es requerido</div>
-                <div *ngIf="f['companyName'].errors['maxLength']">Nombre de la Empresa debe ser menor a 250 caracteres</div>
+                <div *ngIf="f['companyName'].errors['maxLength']">Nombre de la Empresa debe ser menor a 250 caracteres
+                </div>
               </div>
             </div>
 
@@ -123,25 +124,27 @@
                   <td>{{emitter.tax_regime}}</td>
                   <td>{{emitter.expedition_place}}</td>
                   <td class="text-center">
-                    <a class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
-                      title="Mostrar proveedores (Receptores)" routerLink="/panel/receiver/{{emitter.slug}}">
-                      <i class="fas fa-users-cog"></i>
-                    </a>
-                    <a class="btn btn-light btn-sm mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
-                      title="Administracion de Certificados" routerLink="/panel/certificate/{{emitter.slug}}">
-                      <i class="fas fa-certificate"></i>
-                    </a>
-                    <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmitter(emitter, i)">
-                      <i class="fa fa-edit"></i>
-                    </a>
-                    <a *ngIf="emitter.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                      data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmitter(emitter.slug, i)">
-                      <i class="fa fa-window-close"></i>
-                    </a>
-                    <a *ngIf="emitter.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                      data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmitter(emitter.slug, i)">
-                      <i class="fa fa-check"></i>
-                    </a>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <a class="btn btn-secondary btn-sm mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Mostrar proveedores (Receptores)" routerLink="/panel/receiver/{{emitter.slug}}">
+                        <i class="fas fa-users-cog"></i>
+                      </a>
+                      <a class="btn btn-light btn-sm mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Administracion de Certificados" routerLink="/panel/certificate/{{emitter.slug}}">
+                        <i class="fas fa-certificate"></i>
+                      </a>
+                      <a class="btn btn-primary btn-sm mr-2" (click)="showModalEditEmitter(emitter, i)">
+                        <i class="fa fa-edit"></i>
+                      </a>
+                      <a *ngIf="emitter.status == 1" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                        data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmitter(emitter.slug, i)">
+                        <i class="fa fa-window-close"></i>
+                      </a>
+                      <a *ngIf="emitter.status == 0" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
+                        data-placement="right" title="Eliminar Receptor" (click)="editEstatusEmitter(emitter.slug, i)">
+                        <i class="fa fa-check"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -227,7 +230,8 @@
                 [ngClass]="{ 'is-invalid': submittedEdit && fEdit['companyName'].errors }">
               <div *ngIf="submittedEdit && fEdit['companyName'].errors" class="invalid-feedback">
                 <div *ngIf="fEdit['companyName'].errors['required']">Nombre de la Empresa es requerido</div>
-                <div *ngIf="fEdit['companyName'].errors['maxLength']">Nombre de la Empresa debe ser menor a 250 caracteres</div>
+                <div *ngIf="fEdit['companyName'].errors['maxLength']">Nombre de la Empresa debe ser menor a 250
+                  caracteres</div>
               </div>
             </div>
 
