@@ -85,8 +85,10 @@ export class SettingsUserComponent implements OnInit {
           this.createNewRow(emitter);
           this.tableRerender();
         } else {
-          this.swal.infoAlert('¡Verifica!', 'No se pudo guardar los datos de manera correcta');
-          this.resetFormCreate();
+          let message: string = 'No se pudo guardar los datos de manera correcta';
+          if(result.validate)  message = 'El RFC ya se encuentra registrado'
+          this.swal.infoAlert('¡Verifica!', message);
+          // this.resetFormCreate();
         }
       },
       error: error => { console.log(error) }
@@ -117,7 +119,7 @@ export class SettingsUserComponent implements OnInit {
       rfc: this.formEditEmitter.value.rfc,
       expeditionPlace: this.formEditEmitter.value.expeditionPlace,
       taxRegime: this.formEditEmitter.value.taxRegime,
-      address:  this.formEditEmitter.value.address,
+      address: this.formEditEmitter.value.address,
       companyName: this.formEditEmitter.value.companyName
     };
 
@@ -128,7 +130,9 @@ export class SettingsUserComponent implements OnInit {
           this.dataEmitters[this.indexArrayEmitter] = result.data
           this.swal.successAlert('Los datos se actualizaron de manera correcta');
         } else {
-          this.swal.infoAlert('¡Verifica!', 'No se pudo actualizar los datos');
+          let message: string = 'No se pudo actualizar los datos';
+          if(result.validate)  message = 'El RFC ya se encuentra registrado'
+          this.swal.infoAlert('¡Verifica!', message);
         }
       },
       error: error => { console.log(error) }
