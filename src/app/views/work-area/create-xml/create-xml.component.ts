@@ -29,7 +29,6 @@ export class CreateXmlComponent implements OnInit {
   showBottonFinish: boolean = false;
   disabledButtonNext: boolean = true;
   disableButtonPreview: boolean = true;
-  isPayRoll: boolean = false
   numberStep!: number;
   stepTitle!: string;
   cfdi!: any;
@@ -40,6 +39,15 @@ export class CreateXmlComponent implements OnInit {
   keyData!: any;
   address!: string;
   companyName!: string;
+  isPayRoll: boolean = false;
+
+  //receptor para poder ejecutar los datos de los datos del componente  hijo
+  receiveFormCertificate!: any;
+  reciverFormVaucher!: any;
+  receiverFormReceiver!: any;
+  receiverFormConcept!: any;
+  receiverPreview: any = { haveError: false, errorMessage: null, itItSuccess: false };
+  selectedTypeVoucher!: boolean;
 
   // variables encargadas de guardar los datos que emiten los componentes hijos.
   certificateData!: any;
@@ -48,20 +56,13 @@ export class CreateXmlComponent implements OnInit {
   conceptData!: any;
   keyFile!: any;
 
-  //receptor para poder ejecutar los datos de los datos del componente
-  // hijo
-  receiveFormCertificate!: any;
-  reciverFormVaucher!: any;
-  receiverFormReceiver!: any;
-  receiverFormConcept!: any;
-  receiverPreview: any = { haveError: false, errorMessage: null, itItSuccess: false };
-
   stepStates = {
     normal: STEP_STATE.normal,
     disabled: STEP_STATE.disabled,
     error: STEP_STATE.error,
     hidden: STEP_STATE.hidden,
   };
+
   config: NgWizardConfig = {
     selected: 0,
     theme: THEME.dots,
@@ -95,8 +96,8 @@ export class CreateXmlComponent implements OnInit {
   }
 
   isValidFunctionReturnsBoolean(args: StepValidationArgs): boolean {
-    let index: number = args.fromStep.index;
-    let canExit: boolean = this.selectStep(index)
+    const index: number = args.fromStep.index;
+    const canExit: boolean = this.selectStep(index)
     return true
   }
 
@@ -150,49 +151,64 @@ export class CreateXmlComponent implements OnInit {
 
   private selectStep(stepNumber: number): boolean {
     let canNext!: boolean;
+
     switch (stepNumber) {
       case 0:
-        this.certificateComponent.registrerEmitterNode();
-        this.certificateData = this.receiveFormCertificate
-        canNext = this.receiveFormCertificate.isInvalid;
-        // this.reciverComponent.getReceivers(this.slugEmitterSelect);
-        if (!canNext) this.reciverComponent.getReceivers(this.slugEmitterSelect);
+        canNext = this.nextCertificate();
         break;
 
       case 1:
-        this.vaucherComponent.registerFormVaucher();
-        this.vaucherData = this.reciverFormVaucher;
-        canNext = this.reciverFormVaucher.isInvalid;
+        canNext = this.nextVaoucher();
         break;
 
       case 2:
-        this.reciverComponent.registrerReceiveNode();
-        this.receiverData = this.receiverFormReceiver;
-        canNext = this.receiverFormReceiver.isInvalid;
+        canNext = this.nextReceiver();
         break;
 
       case 3:
-        this.conceptComponent.regitrerConcept();
-        this.conceptData = this.receiverFormConcept;
-
-        if (this.receiverFormConcept.isInvalid) {
-          const message = 'Se tiene que registrar al menos un Concepto antes de generar un Comprobante';
-          this.swal.infoAlert('¡Revisa!', message);
-        }
-
-        canNext = this.receiverFormConcept.isInvalid;
+        canNext = this.nextConcept();
         break
 
       case 4:
         this.noteVaucher = this.note.nativeElement.value;
         canNext = true;
         break;
-
-      case 5:
-
-        break;
     }
+
+    return canNext;
+  }
+
+  private nextCertificate(): boolean {
+    this.certificateComponent.registrerEmitterNode();
+    this.certificateData = this.receiveFormCertificate;
+    const canNext = this.receiveFormCertificate.isInvalid;
+
+    if (!canNext) this.reciverComponent.getReceivers(this.slugEmitterSelect);
     return canNext
+  }
+
+  private nextVaoucher(): boolean {
+    this.vaucherComponent.registerFormVaucher();
+    this.vaucherData = this.reciverFormVaucher;
+    return this.reciverFormVaucher.isInvalid;
+  }
+
+  private nextReceiver(): boolean {
+    this.reciverComponent.registrerReceiveNode();
+    this.receiverData = this.receiverFormReceiver;
+    return this.receiverFormReceiver.isInvalid;
+  }
+
+  private nextConcept(): boolean {
+    this.conceptComponent.regitrerConcept();
+    this.conceptData = this.receiverFormConcept;
+
+    if (this.receiverFormConcept.isInvalid) {
+      const message = 'Se tiene que registrar al menos un Concepto antes de generar un Comprobante';
+      this.swal.infoAlert('¡Revisa!', message);
+    }
+
+    return this.receiverFormConcept.isInvalid;
   }
 
   private createXml(): any {
