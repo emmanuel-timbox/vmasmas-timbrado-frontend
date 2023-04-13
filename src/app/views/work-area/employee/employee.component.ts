@@ -37,6 +37,7 @@ export class EmployeeComponent implements OnInit {
   cfdiUsageCat!: any;
   jsonDataTaxRegiment: any;
   selectedTaxRegime!: string;
+  company_bussiness_name!: string;
 
   constructor(private _service: ExecelService, private _catalogs: CatalogsService,
     private swal: SweetAlertsService, private formBuilder: FormBuilder) { }
@@ -77,16 +78,16 @@ export class EmployeeComponent implements OnInit {
     new bootstrap.Modal(this.editModal.nativeElement).show();
     this.slugEmployeeUpdate = dataEmployee.slug;
     this.indexArrayEployee = index;
+    this.company_bussiness_name = dataEmployee.company_bussiness_name
     this.formEditEmployee.setValue(dataEmployee);
     this.dateInput.nativeElement.value = dataEmployee.work_start_date;
   }
 
   editDataEmployee(): void {
-
     this.submittedEdit = true;
     if (this.formEditEmployee.invalid) { return }
 
-    const employee: Employee = this.formEditEmployee.value
+    const employee: Employee = this.formEditEmployee.value;
 
     this._service.editEmployee(employee, this.slugEmployeeUpdate).subscribe({
       next: response => {
@@ -94,6 +95,7 @@ export class EmployeeComponent implements OnInit {
         if (result.code == 200) {
 
           this.dataEmployees[this.indexArrayEployee] = result.data;
+          this.dataEmployees[this.indexArrayEployee].company_bussiness_name = this.company_bussiness_name;
           this.swal.successAlert('Los datos se actualizaron correctamente.');
           this.tableRerender();
 
@@ -106,7 +108,6 @@ export class EmployeeComponent implements OnInit {
   }
 
   editStatusEmployee(employee: any, index: number): void {
-    console.log(employee.status)
     const dataEmployee = {
       slugReceiver: employee.slug_receiver,
       slugEmployee: employee.slug_employee
@@ -116,7 +117,6 @@ export class EmployeeComponent implements OnInit {
       next: response => {
         let result = JSON.parse(JSON.stringify(response))
         if (result.code == 200) {
-          console.log(result.data)
           this.dataEmployees[index] = result.data
           this.swal.successAlert('El estatus se actualizo de manera correcta');
           this.tableRerender();
@@ -163,9 +163,7 @@ export class EmployeeComponent implements OnInit {
 
         this._service.insertFile(formData).subscribe({
           next: response => {
-            let result = JSON.parse(JSON.stringify(response));
-
-            console.log(result)
+            const result = JSON.parse(JSON.stringify(response));
             if (result.code == 200) {
               const listEmployees = result.data.list_employees;
 

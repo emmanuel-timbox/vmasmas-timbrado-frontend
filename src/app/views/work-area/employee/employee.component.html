@@ -97,6 +97,7 @@
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
           <thead>
             <tr>
+              <th>Empresa</th>
               <th>RFC</th>
               <th>Nombre</th>
               <th>Curp</th>
@@ -106,6 +107,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let employee of dataEmployees; let i = index">
+              <td><b>{{employee.company_bussiness_name}}</b></td>
               <td>{{employee.rfc}}</td>
               <td>{{employee.bussiness_name}}</td>
               <td>{{employee.curp}}</td>
