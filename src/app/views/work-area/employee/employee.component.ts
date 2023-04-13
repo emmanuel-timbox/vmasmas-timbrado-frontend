@@ -117,7 +117,8 @@ export class EmployeeComponent implements OnInit {
       next: response => {
         let result = JSON.parse(JSON.stringify(response))
         if (result.code == 200) {
-          this.dataEmployees[index] = result.data
+          this.dataEmployees[index] = result.data;
+          this.dataEmployees[index].company_bussiness_name = employee.company_bussiness_name
           this.swal.successAlert('El estatus se actualizo de manera correcta');
           this.tableRerender();
         } else {
