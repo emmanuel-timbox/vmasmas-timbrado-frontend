@@ -20,6 +20,7 @@ export class XmlReceiverComponent implements OnInit {
   receiversList: any;
   summitForm: Boolean = false;
   formReceiver: FormGroup = new FormGroup({});
+  isDisableInputs: boolean = true;
 
   ngOnInit(): void {
     this.formReceiver = this.formBuider.group(this._services.getDataValidateReceiver());
@@ -41,6 +42,7 @@ export class XmlReceiverComponent implements OnInit {
     let slug: string = (event.target as HTMLInputElement).value;
     if (slug != '') {
       let dataReceiver: any = this.receiversList.find((x: any) => x.slug == slug);
+      this.isDisableInputs = false;
       this.formReceiver.setValue({
         bussinessName: dataReceiver.bussiness_name,
         rfc: dataReceiver.rfc,
@@ -51,7 +53,8 @@ export class XmlReceiverComponent implements OnInit {
         fiscalIdNumber: dataReceiver.tax_residence
       });
     } else {
-      this.resetForm()
+      this.resetForm();
+      this.isDisableInputs = true;
     }
   }
 
