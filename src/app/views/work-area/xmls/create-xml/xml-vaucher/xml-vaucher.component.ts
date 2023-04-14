@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { CatalogsService } from 'src/app/services/catalogs.service';
-import { XmlVaucherService } from './../../../../services/create-xml/xml-vaucher.service';
+import { XmlVaucherService } from '../../../../../services/create-xml/xml-vaucher.service';
 
 @Component({
   selector: 'app-xml-vaucher',

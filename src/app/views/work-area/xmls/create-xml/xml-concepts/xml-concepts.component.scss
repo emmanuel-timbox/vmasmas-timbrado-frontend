@@ -1,14 +1,14 @@
-@import '../../../../../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../../../../../../node_modules/bootstrap/scss/bootstrap.scss';
 
 
 /* Custom style */
 .accordion-button::after {
-  background-image: url("../../../../../assets/images/logos/plus-svgrepo-com.svg");
+  background-image: url("../../../../../../assets/images/logos/plus-svgrepo-com.svg");
   transform: scale(.7) !important;
 }
 
 .accordion-button:not(.collapsed)::after {
-  background-image: url("../../../../../assets/images/logos/minimize-window-svgrepo-com.svg");
+  background-image: url("../../../../../../assets/images/logos/minimize-window-svgrepo-com.svg");
 }
 
 .accordion-item-bg {

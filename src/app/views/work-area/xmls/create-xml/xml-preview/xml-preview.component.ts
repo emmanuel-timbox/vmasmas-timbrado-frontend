@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 import { xml2json } from 'xml-js';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { XmlPreviewService } from './../../../../services/create-xml/xml-preview.service';
-import { NumberToLettersService } from './../../../../services/create-xml/number-to-letters.service';
-import { CatalogsService } from './../../../../services/catalogs.service';
+import { XmlPreviewService } from '../../../../../services/create-xml/xml-preview.service';
+import { NumberToLettersService } from '../../../../../services/create-xml/number-to-letters.service';
+import { CatalogsService } from '../../../../../services/catalogs.service';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { environment } from 'src/environments/environment';
 

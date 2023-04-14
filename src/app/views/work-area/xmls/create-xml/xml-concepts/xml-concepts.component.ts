@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { XmlConceptService } from './../../../../services/create-xml/xml-concept.service';
+import { XmlConceptService } from '../../../../../services/create-xml/xml-concept.service';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { CatalogsService } from 'src/app/services/catalogs.service';
 
