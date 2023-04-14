@@ -188,8 +188,11 @@ export class XmlConceptsComponent implements OnInit {
   }
 
   deleteTaxForm(indexConceptForm: number) {
-    const lengthTaxForm = this.getControlTaxes(indexConceptForm);
-    const lostIndex: number = lengthTaxForm.value.length - 1;
+    const taxForm = this.getControlTaxes(indexConceptForm);
+
+    if (taxForm.value.length == 0) return;
+
+    const lostIndex: number = taxForm.value.length - 1;
     const lastFormTax = this.getControlTaxes(indexConceptForm).at(lostIndex);
     const nodeType = lastFormTax.get('nodeType').value
 
@@ -201,10 +204,7 @@ export class XmlConceptsComponent implements OnInit {
       this.total = (Number(this.total) + Number(lastFormTax.get('amount').value)).toFixed(2)
     }
 
-    if (lengthTaxForm != 0) {
-      this.getControlTaxes(indexConceptForm).removeAt(lostIndex);
-    }
-
+    this.getControlTaxes(indexConceptForm).removeAt(lostIndex);
   }
 
   calculateAmount(index: number): void {
