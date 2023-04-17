@@ -34,7 +34,7 @@ export class MassiveDownloadComponent implements OnInit {
   errorMessage!: string;
   formNewSolicitud: FormGroup = new FormGroup({});
   formShow: FormGroup = new FormGroup({});
-  dtOptions: DataTables.Settings = {}; 
+  dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   formmassivepaquetes: FormGroup = new FormGroup({});
   statusDescription: any = {

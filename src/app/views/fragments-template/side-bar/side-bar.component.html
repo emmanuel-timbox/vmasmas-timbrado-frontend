@@ -19,17 +19,30 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
         <li class="nav-item">
           <a routerLink="/panel/welcome" class="nav-link">
             <i class="fas fa-file-invoice nav-icon"></i>
             <p>&nbsp;Comprobantes</p>
           </a>
         </li>
+
         <li class="nav-item">
           <a routerLink="/panel/xml-generate" class="nav-link">
             <i class="fas fa-solid fa-code nav-icon"></i>
-            <p>&nbsp;Generar Comprobante</p>
+            <p>
+              &nbsp;Facturas
+              <i class="right fas fa-angle-left"></i>
+            </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/panel/xml-generate-payroll" class="nav-link">
+                <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                <p>&nbsp;Nomina</p>
+              </a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item">
           <a routerLink="/panel/massive-download" class="nav-link">

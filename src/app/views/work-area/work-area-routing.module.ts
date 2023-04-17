@@ -13,6 +13,7 @@ import { AuthGuard } from './../../guards/auth.guard';
 import { MainComponent } from './main.component';
 import { SessionGuard } from './../../guards/session.guard';
 import { CompanyImageComponent } from './company-image/company-image.component';
+import { CreateXmlPayrollComponent } from './xmls/create-xml-payroll/create-xml-payroll.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     children: [
       { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'xml-generate', component: CreateXmlComponent, canActivate: [AuthGuard, SessionGuard] },
+      { path: 'xml-generate-payroll', component: CreateXmlPayrollComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'settings', component: SettingsUserComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'taxes', component: TaxesComponent, canActivate: [AuthGuard, SessionGuard] },
       { path: 'receiver/:slug', component: ReceiversComponent, canActivate: [AuthGuard, SessionGuard] },

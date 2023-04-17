@@ -1,1 +1,57 @@
-<p>create-xml-payroll works!</p>
+<div class="card card-outline card-danger">
+  <div class="card-header">
+    <h5 class="text-secondary">Creacion de Comprobante (CFDI 4.0) con complemento de Nomina</h5>
+  </div>
+  <div class="card-body">
+
+    <form>
+      <div class="row">
+        <div class="col-sm-12">
+
+          <ng-wizard #ngWizardNative [config]="config" [className]="'ng-wizard-theme-default'">
+
+            <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'">
+            </ng-wizard-step>
+
+            <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'">
+            </ng-wizard-step>
+
+            <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
+            </ng-wizard-step>
+
+            <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">
+            </ng-wizard-step>
+
+            <ng-wizard-step [title]="'Nota'" [description]="'Agregar nota al Comprobante'">
+            </ng-wizard-step>
+
+            <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'" >
+            </ng-wizard-step>
+
+          </ng-wizard>
+
+          <div class="col-sm-12 d-flex justify-content-end custom-toolbar-ng-wizard">
+            <div class="btn-group pb-2 pt-0">
+              <button (click)="showPreviousStep()" class="btn btn-secondary" >
+                <i class="fas fa-angle-left"></i> Preevio
+              </button>
+              <button (click)="showNextStep()" class="btn btn-secondary mr-2">
+                Siguiente <i class="fas fa-angle-right"></i>
+              </button>
+            </div>
+            <div class="btn-group pb-2 pt-0">
+              <button (click)="resetWizard()" class="btn btn-danger">
+                Reiniciar
+              </button>
+              <button (click)="saveData()" class="btn btn-success" *ngIf="showBottonFinish">
+                Vista previa
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
