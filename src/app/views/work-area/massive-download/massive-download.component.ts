@@ -1,42 +1,35 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { NgWizardConfig, NgWizardService, StepValidationArgs, STEP_STATE, THEME } from 'ng-wizard';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
 import { MassiveService } from 'src/app/services/massive.service';
-import { AbstractControl, FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { Massive } from 'src/app/models/massive.model';
-import { Subject } from 'rxjs';
 
 declare let bootstrap: any
-
 
 @Component({
   selector: 'app-massive-download',
   templateUrl: './massive-download.component.html',
   styleUrls: ['./massive-download.component.scss']
 })
+
 export class MassiveDownloadComponent implements OnInit {
   @Output() emitterSlugEmitter = new EventEmitter<string>();
   @ViewChild('modalmassive') modalmassive!: ElementRef;
+  @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
 
   files: File[] = [];
-  slug!: string | null;
   emitterData: any;
-  haveCerticate!: Boolean;
   summitFormCert = false;
-  submitteshow = false;
   formDescarga: FormGroup = new FormGroup({});
   dataMassive: any;
   dataPackages: any;
   slugEmitter!: string;
-  fileIsInvalid!: boolean;
-  disableFileInput: boolean = true;
-  isValid: boolean = true;
-  errorMessage!: string;
-  formNewSolicitud: FormGroup = new FormGroup({});
-  formShow: FormGroup = new FormGroup({});
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
-  formmassivepaquetes: FormGroup = new FormGroup({});
+  isReadonly: boolean = true;
+  messageFileError!: string;
+  isValidFile: boolean = true;
   statusDescription: any = {
     '0': "Incidencia SAT.",
     '1': "Solicitud Aceptada",
@@ -52,8 +45,7 @@ export class MassiveDownloadComponent implements OnInit {
     '7': "Procesando descarga de Paquetes",
     '8': "Listo para Descargar",
     '9': "Cancelada.",
-  }
-
+  };
 
   constructor(private _services: MassiveService, private swal: SweetAlertsService,
     private _sweetAlets: SweetAlertsService, private formBuilder: FormBuilder) { }
@@ -89,64 +81,62 @@ export class MassiveDownloadComponent implements OnInit {
     });
   }
 
-  private getListMassive() {
-    this._services.getMassiveData().subscribe({
-      next: response => {
-
-        let result = JSON.parse(JSON.stringify(response));
-        console.log(result.data)
-        this.dataMassive = result.data
-
-
-        this.dtTrigger.next(null);
-      },
-      error: error => { console.log(error) }
-    });
-  }
-
-
   massive(): void {
-    this.summitFormCert = true;
-    if (this.formDescarga.invalid) { return }
     let cerf!: File;
     let key!: File;
+    const formData: FormData = new FormData();
+    const slugUser = `${sessionStorage.getItem('slug')}`;
+    const validateFiles = this.validateFile(this.files);
+
+    this.summitFormCert = true
+
+    if (!validateFiles.isValid) {
+      this.messageFileError = validateFiles.message;
+      this.isValidFile = validateFiles.isValid;
+      return
+    }
+
+    if (this.formDescarga.invalid) { return; }
+
+    this.isValidFile = true;
+
     this.files.forEach((item: any) => {
       const nameSplit = item.name.split(".");
       if (nameSplit[1] == "cer") { cerf = item }
       if (nameSplit[1] == "key") { key = item }
     });
-    const formData: FormData = new FormData();
 
-    formData.append("cer_file", cerf);
-    formData.append("key_file", key);
+    formData.append("cerFile", cerf);
+    formData.append("keyFile", key);
     formData.append('rfc', this.formDescarga.value.rfc);
-    formData.append('RfcReceptor', this.formDescarga.value.RfcReceptor);
-    formData.append('RfcSolicitante', this.formDescarga.value.RfcSolicitante);
+    formData.append('rfcReceptor', this.formDescarga.value.rfcReceptor);
+    formData.append('rfcSolicitante', this.formDescarga.value.rfcSolicitante);
     formData.append('correo', this.formDescarga.value.correo);
-    formData.append('FechaInicial', this.formDescarga.value.FechaInicial + ':00');
-    formData.append('FechaFinal', this.formDescarga.value.FechaFinal + ':00');
-    formData.append('Complemento', this.formDescarga.value.Complemento);
-    formData.append('TipoSolicitud', this.formDescarga.value.TipoSolicitud);
-    formData.append('TipoComprobante', this.formDescarga.value.TipoComprobante);
-    formData.append('uuid', this.formDescarga.value.uuid);
-    formData.append('rfcR_uuid', this.formDescarga.value.rfcR_uuid);
+    formData.append('fechaInicial', this.formDescarga.value.fechaInicial + ':00');
+    formData.append('fechaFinal', this.formDescarga.value.fechaFinal + ':00');
+    formData.append('tipoSolicitud', this.formDescarga.value.tipoSolicitud);
+    formData.append('complemento', this.formDescarga.value.complemento);
+    formData.append('rfcACuentaTerceros', this.formDescarga.value.rfcACuentaTerceros)
+    formData.append('tipoComprobante', this.formDescarga.value.tipoComprobante);
+    formData.append('estadoComprobante', this.formDescarga.value.estadoComprobante);
     formData.append('password', this.formDescarga.value.password);
-    formData.append('slug_emitter', this.slugEmitter);
-    const slugUser = `${sessionStorage.getItem('slug')}`
-    formData.append('user_slug', slugUser);
-
+    formData.append('slugEmitter', this.slugEmitter);
+    formData.append('slugUser', slugUser);
+    // formData.append('uuid', this.formDescarga.value.uuid);
+    // formData.append('rfcUuid', this.formDescarga.value.rfcUuid);
 
     this._services.insertDataMassive(formData).subscribe({
       next: response => {
-        let result = JSON.parse(JSON.stringify(response));
-        let massive = result.data;
-          if (result.code == 200) {
-            this.swal.successAlert('Solicitud  correcta');
-            this.resetFormCreate();
-          } else {
-            this.swal.infoAlert('¡Verifica!', 'No se aaaaaaa guardar los datos de manera correcta');
-            this.resetFormCreate();
-          }
+        const result = JSON.parse(JSON.stringify(response));
+        if (result.code == 200) {
+          this.swal.successAlert(result.message);
+          this.dataMassive.push(result.data)
+          this.resetFormCreate();
+          this.tableRerender();
+        } else {
+          this.swal.infoAlert('¡Verifica!', result.message);
+          // this.resetFormCreate();
+        }
       },
       error: error => { console.log(error) }
     });
@@ -155,65 +145,41 @@ export class MassiveDownloadComponent implements OnInit {
   resetFormCreate(): void {
     this.summitFormCert = false;
     this.formDescarga.reset();
+    this.files = [];
   }
 
   setDataEmitterInput(event: Event): void {
-    let dataEmitter!: any
+    let dataEmitter!: any;
     let slug: string = (event.target as HTMLInputElement).value;
 
-
     if (slug == '') {
+      this.isReadonly = true;
       this.formDescarga.reset();
-      this.disableFileInput = true;
-      this.files = []
+      this.files = [];
       return;
     }
 
     dataEmitter = this.emitterData.find((x: any) => x.slug == slug);
     this.formDescarga.get('rfc')?.setValue(dataEmitter.rfc);
     this.slugEmitter = slug;
+    this.isReadonly = false;
   }
 
   onSelect(event: { addedFiles: any }): void {
     this.files.push(...event.addedFiles);
-    console.log(this.files)
   }
-
 
   onRemove(event: File): void {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-
-  private validateFile(file: any): any {
-    const allowedExtension = /(.*?)\.(cer)$/;
-
-    if (file.length > 1) {
-      return {
-        isValid: false,
-        message: 'Solo se tiene que cargar dos archivos en la caja.'
-      };
-    }
-
-    if (file[0].name.match(allowedExtension) == null) {
-      return {
-        isValid: false,
-        message: 'El archivo no es valido, solo es valido los .cer y key para cargar.'
-      };
-    }
-
-    return { isValid: true, message: null };
-  }
-
-
   openUrl(url: string) {
-    console.log(url)
+    // console.log(url)
     window.open(url)
   }
 
   showModalPackages(idResquestSat: string): void {
     new bootstrap.Modal(this.modalmassive.nativeElement).show();
-
 
     this._services.getMassivePackages(idResquestSat).subscribe({
       next: response => {
@@ -229,10 +195,82 @@ export class MassiveDownloadComponent implements OnInit {
 
   }
 
+  private getListMassive() {
+    this._services.getMassiveData().subscribe({
+      next: response => {
+        const result = JSON.parse(JSON.stringify(response));
+        this.dataMassive = result.data
+        this.dtTrigger.next(null);
+      },
+      error: error => { console.log(error) }
+    });
+  }
 
+  private validateFile(files: any): any {
+    const allowedExtensionCer = /(.*?)\.(cer)$/;
+    const allowedExtensionKey = /(.*?)\.(key)$/;
+    let countCer: number = 0
+    let countKey: number = 0
 
+    if (files.length == 0) {
+      return {
+        isValid: false,
+        message: 'Este campo es requerido'
+      };
+    }
 
+    if (files.length > 2) {
+      return {
+        isValid: false,
+        message: 'Solo se tiene que cargar dos archivos en la caja'
+      };
+    }
 
+    this.files.forEach((element: any) => {
+      if (element.name.match(allowedExtensionCer) != null) {
+        countCer++
+      }
 
+      if (element.name.match(allowedExtensionKey) != null) {
+        countKey++
+      }
+    });
 
+    if (countCer > 1) {
+      return {
+        isValid: false,
+        message: 'Solo se tiene que cargar un archivo .cer'
+      };
+    }
+
+    if (countKey > 1) {
+      return {
+        isValid: false,
+        message: 'Solo se tiene que cargar un archivo .key'
+      }
+    }
+
+    if (countCer == 1 && countKey != 1) {
+      return {
+        isValid: false,
+        message: 'Se tiene que cargar un archivo .key junto con un .cer'
+      }
+    }
+
+    if (countCer != 1 && countKey == 1) {
+      return {
+        isValid: false,
+        message: 'Se tiene que cargar un archivo .cer junto con un .key'
+      }
+    }
+
+    return { isValid: true, message: null };
+  }
+
+  private tableRerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next(null);
+    });
+  }
 }

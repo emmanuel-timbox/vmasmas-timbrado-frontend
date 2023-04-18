@@ -1,12 +1,14 @@
 <form [formGroup]="formDescarga" (submit)="massive()">
   <div class="row">
-    <div class="col-sm-7">
-      <div class="col-sm-12">
-        <div class="card card-outline card-danger">
-          <div class="card-header">
-            <h4>Descarga Masiva</h4>
-          </div>
-          <!-- <nav>
+
+
+    <div class="col-sm-12">
+
+      <div class="card card-outline card-danger">
+        <div class="card-header">
+          <h4>Descarga Masiva</h4>
+        </div>
+        <!-- <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                 type="button" role="tab" aria-controls="nav-home" aria-selected="true">Solicitud</button>
@@ -15,219 +17,246 @@
             </div>
           </nav> -->
 
-          <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content" id="nav-tabContent">
 
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <div class="modal-body">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="modal-body">
 
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="form-row">
 
-                <div class="form-row">
-
-                  <div class="col-sm-3 mb-2">
-                    <label>Seleccionar Emisor:</label>
-                    <select class="form-control is-valid" (change)="setDataEmitterInput($event)">
-                      <option selected value="">seleccione una opcion</option>
-                      <option *ngFor="let emitter of emitterData" value="{{emitter.slug}}"> {{emitter.bussiness_name}}
-                      </option>
-                    </select>
-                  </div>
-
-                  <div class="col-sm-3 mb-2">
-                    <label>RFC Emisor:</label>
-                    <input type="text" class="form-control is-valid" formControlName="rfc" [readonly]="true"
-                      [ngClass]="{ 'is-invalid': summitFormCert && f['rfc'].errors }">
-
-                    <div *ngIf="summitFormCert && f['rfc'].errors" class="invalid-feedback">
-                      <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
-                      <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                      <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
-                      <div *ngIf="f['rfc'].errors['pattern']">RFC no cuenta con el formato correcto</div>
-
+                    <div class="col-sm-3 mb-2">
+                      <label>Seleccionar Emisor:</label>
+                      <select class="form-control is-valid" (change)="setDataEmitterInput($event)">
+                        <option selected value="">Seleccione una opcion</option>
+                        <option *ngFor="let emitter of emitterData" value="{{emitter.slug}}"> {{emitter.bussiness_name}}
+                        </option>
+                      </select>
                     </div>
-                  </div>
 
+                    <div class="col-sm-3 mb-2">
+                      <label>RFC Emisor:</label>
+                      <input type="text" class="form-control is-valid" formControlName="rfc" [readonly]="true"
+                        [ngClass]="{ 'is-invalid': summitFormCert && f['rfc'].errors }">
 
-                  <div class="form-group col-md-3">
-                    <label>RFC solicitante</label>
-                    <input type="text" class="form-control is-valid" formControlName="RfcSolicitante"
-                      [ngClass]="{ 'is-invalid': summitFormCert && f['RfcSolicitante'].errors }">
-
-                    <div *ngIf="summitFormCert && f['RfcSolicitante'].errors" class="invalid-feedback">
-                      <div *ngIf="f['RfcSolicitante'].errors['required']">RFC del Emisor es requerido</div>
-                      <div *ngIf="f['RfcSolicitante'].errors['minlength']">RFC del Emisor no debe ser menor a 13
-                        caracteres</div>
-                      <div *ngIf="f['RfcSolicitante'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14
-                        caracteres</div>
-                      <div *ngIf="f['RfcSolicitante'].errors['pattern']">RFC no cuenta con el formato correcto</div>
-                    </div>
-                  </div>
-
-
-                  <div class="form-group col-md-3">
-                    <label>RFC Receptor</label>
-                    <input type="text" class="form-control is-valid" formControlName="RfcReceptor"
-                      [ngClass]="{ 'is-invalid': summitFormCert && f['RfcReceptor'].errors }">
-
-                    <div *ngIf="summitFormCert && f['RfcReceptor'].errors" class="invalid-feedback">
-                      <div *ngIf="f['RfcReceptor'].errors['required']">RFC del Emisor es requerido</div>
-                      <div *ngIf="f['RfcReceptor'].errors['minlength']">RFC del Emisor no debe ser menor a 13
-                        caracteres</div>
-                      <div *ngIf="f['RfcReceptor'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14
-                        caracteres</div>
-                      <div *ngIf="f['RfcReceptor'].errors['pattern']">RFC no cuenta con el formato correcto</div>
-                    </div>
-                  </div>
-
-
-                  <div class="form-group col-md-3">
-                    <label>Correo electronico</label>
-                    <input type="text" class="form-control is-valid" formControlName="correo"
-                      [ngClass]="{ 'is-invalid': summitFormCert && f['correo'].errors }">
-
-                    <div *ngIf="summitFormCert && f['correo'].errors" class="invalid-feedback">
-                      <div *ngIf="f['correo'].errors['required']">Correo es requerido</div>
-                      <div *ngIf="f['correo'].errors['maxlength']">Correo no debe ser mayor a 50 caracteres</div>
-                    </div>
-                  </div>
-
-
-                  <div class="form-group col-md-3">
-                    <label>Fecha inicial</label>
-                    <input type="datetime-local" class="form-control is-valid" formControlName="FechaInicial"
-                      [ngClass]="{ 'is-invalid': summitFormCert && f['FechaInicial'].errors }">
-
-                    <div *ngIf="summitFormCert && f['FechaInicial'].errors" class="invalid-feedback">
-                      <div *ngIf="f['FechaInicial'].errors['required']">Fecha inicial es requerido</div>
-
-                      <div *ngIf="f['FechaInicial'].errors['maxlength']">La fecha debe ser </div>
-                    </div>
-                  </div>
-
-
-                  <div class="form-group col-md-3">
-                    <label>Fecha Final</label>
-                    <input type="datetime-local" class="form-control is-valid" formControlName="FechaFinal"
-                      [ngClass]="{ 'is-invalid': summitFormCert && f['FechaFinal'].errors }">
-
-                    <div *ngIf="summitFormCert && f['FechaFinal'].errors" class="invalid-feedback">
-                      <div *ngIf="f['FechaFinal'].errors['required']">Fecha Final es requerido</div>
-
-                      <div *ngIf="f['FechaFinal'].errors['maxlength']">La fecha debe ser </div>
-                    </div>
-                  </div>
-
-
-                  <div class="form-group col-md-3">
-                    <label>Tipo solicitud:</label>
-                    <select class="form-control is-valid" formControlName="TipoSolicitud">
-                      <option selected value=''>Seleccione una opcion</option>
-                      <option value='Metadata'>Metadata</option>
-                      <option value='CFDI'>CFDI</option>
-                    </select>
-                  </div>
-
-                  <!-- <div class="form-group col-md-3">
-                    <label>Tipo CFDI</label>
-                    <select class="form-control is-valid"  (change)="showWithholdings($event)">
-                      <option selected value="">Seleccione una opcion</option>
-                      <option value='1'>CFDI</option>
-                      <option value='2'>Retenciones</option>
-                    </select>
-                  </div>  -->
-
-                  <div class="form-group col-md-3">
-                    <label>Complementos CFDI:</label>
-                    <select class="form-control is-valid" formControlName="Complemento">
-                      <option selected value =''>Seleccione una opcion</option>
-                      <option value='acreditamientoieps10'>acreditamientoieps10</option>
-                      <option value='aerolíneas'>aerolíneas</option>
-                      <option value='cartaporte10'>cartaporte10</option>
-                      <option value='cartaporte20'>cartaporte20</option>
-                      <option value='certificadodedestruccion'>certificadodedestruccion</option>
-                      <option value='cfdiregistrofiscal'>cfdiregistrofiscal</option>
-                      <option value='comercioexterior10'>comercioexterior10</option>
-                      <option value='comercioexterior11'>comercioexterior11</option>
-                      <option value='comprobante'>comprobante</option>
-                      <option value='consumodecombustibles'>consumodecombustibles</option>
-                      <option value='consumodecombustibles11'>consumodecombustibles11</option>
-                      <option value='detallista'>detallista</option>
-                      <option value='divisas'>divisas</option>
-                      <option value='donat11'>donat11</option>
-                      <option value='ecc11'>ecc11</option>
-                      <option value='ecc12'>ecc12</option>
-                      <option value='gastoshidrocarburos10'>gastoshidrocarburos10</option>
-                      <option value='iedu'>iedu</option>
-                      <option value='implocal'>implocal</option>
-                      <option value='ine11'>ine11</option>
-                      <option value='ingresoshidrocarburos'>ingresoshidrocarburos</option>
-                      <option value='leyendasfisc'>leyendasfisc</option>
-                      <option value='nomina11'>nomina11</option>
-                      <option value='nomina12'>nomina12</option>
-                      <option value='notariospublicos'>notariospublicos</option>
-                      <option value='obrasarteantiguedades'>obrasarteantiguedades</option>
-                      <option value='pagoenespecie'>pagoenespecie</option>
-                      <option value='pagos10'>pagos10</option>
-                      <option value='pagos20'>pagos20</option>
-                      <option value='pfic'>pfic</option>
-                      <option value='renovacionysustitucionvehiculos'>renovacionysustitucionvehiculos</option>
-                      <option value='servicioparcialconstruccion'>servicioparcialconstruccion</option>
-                      <option value='spei'>spei</option>
-                      <option value='terceros11'>terceros11</option>
-                      <option value='turistapasajeroextranjero'>turistapasajeroextranjero</option>
-                      <option value='valesdedespensa'>valesdedespensa</option>
-                      <option value='vehiculousado'>vehiculousado</option>
-                    </select>
-                  </div>
-
-
-                  <div class="form-group col-md-3">
-                    <label>RFC acuentaAterceros</label>
-                    <input type="text" class="form-control is-valid" formControlName="RfcACuentaTerceros"
-                      [ngClass]="{ 'is-invalid': summitFormCert && f['RfcACuentaTerceros'].errors }">
-                    <div *ngIf="summitFormCert && f['RfcACuentaTerceros'].errors" class="invalid-feedback">
-                      <div *ngIf="f['RfcACuentaTerceros'].errors['required']">RFC del Emisor es requerido</div>
-                      <div *ngIf="f['RfcACuentaTerceros'].errors['minlength']">RFC del Emisor no debe ser menor a 13
-                        caracteres</div>
-                      <div *ngIf="f['RfcACuentaTerceros'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14
-                        caracteres</div>
-                      <div *ngIf="f['RfcACuentaTerceros'].errors['pattern']">RFC no cuenta con el formato correcto
+                      <div *ngIf="summitFormCert && f['rfc'].errors" class="invalid-feedback">
+                        <div *ngIf="f['rfc'].errors['required']">RFC del Emisor es requerido</div>
+                        <div *ngIf="f['rfc'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                        <div *ngIf="f['rfc'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                        <div *ngIf="f['rfc'].errors['pattern']">RFC no cuenta con el formato correcto</div>
                       </div>
                     </div>
+
+                    <div class="form-group col-md-3">
+                      <label>RFC solicitante</label>
+                      <input type="text" class="form-control is-valid" formControlName="rfcSolicitante"
+                        [ngClass]="{ 'is-invalid': summitFormCert && f['rfcSolicitante'].errors }"
+                        [readOnly]="isReadonly">
+
+                      <div *ngIf="summitFormCert && f['rfcSolicitante'].errors" class="invalid-feedback">
+                        <div *ngIf="f['rfcSolicitante'].errors['required']">RFC del Emisor es requerido</div>
+                        <div *ngIf="f['rfcSolicitante'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                        <div *ngIf="f['rfcSolicitante'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                        <div *ngIf="f['rfcSolicitante'].errors['pattern']">RFC no cuenta con el formato correcto</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>RFC Receptor</label>
+                      <input type="text" class="form-control is-valid" formControlName="rfcReceptor"
+                        [ngClass]="{ 'is-invalid': summitFormCert && f['rfcReceptor'].errors }" [readOnly]="isReadonly">
+
+                      <div *ngIf="summitFormCert && f['rfcReceptor'].errors" class="invalid-feedback">
+                        <div *ngIf="f['rfcReceptor'].errors['required']">RFC del Emisor es requerido</div>
+                        <div *ngIf="f['rfcReceptor'].errors['minlength']"> RFC del Emisor no debe ser menor a 13 caracteres</div>
+                        <div *ngIf="f['rfcReceptor'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
+                        <div *ngIf="f['rfcReceptor'].errors['pattern']">RFC no cuenta con el formato correcto</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Correo electronico</label>
+                      <input type="text" class="form-control is-valid" formControlName="correo"
+                        [ngClass]="{ 'is-invalid': summitFormCert && f['correo'].errors }" [readOnly]="isReadonly">
+
+                      <div *ngIf="summitFormCert && f['correo'].errors" class="invalid-feedback">
+                        <div *ngIf="f['correo'].errors['required']">Correo es requerido</div>
+                        <div *ngIf="f['correo'].errors['email']">El formato del correo es incorrecto</div>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-md-3">
+                      <label>Fecha inicial</label>
+                      <input type="datetime-local" class="form-control is-valid" formControlName="fechaInicial"
+                        [ngClass]="{ 'is-invalid': summitFormCert && f['fechaInicial'].errors }" [readOnly]="isReadonly">
+
+                      <div *ngIf="summitFormCert && f['fechaInicial'].errors" class="invalid-feedback">
+                        <div *ngIf="f['fechaInicial'].errors['required']">Fecha inicial es requerido</div>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-md-3">
+                      <label>Fecha Final</label>
+                      <input type="datetime-local" class="form-control is-valid" formControlName="fechaFinal"
+                        [ngClass]="{ 'is-invalid': summitFormCert && f['fechaFinal'].errors }" [readOnly]="isReadonly">
+
+                      <div *ngIf="summitFormCert && f['fechaFinal'].errors" class="invalid-feedback">
+                        <div *ngIf="f['fechaFinal'].errors['required']">Fecha Final es requerido</div>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-md-3">
+                      <label>Tipo solicitud:</label>
+                      <select class="form-control is-valid" formControlName="tipoSolicitud"
+                        [ngClass]="{ 'is-invalid': summitFormCert && f['tipoSolicitud'].errors }" [disabled]="isReadonly">
+                        <option selected value=''>Seleccione una opcion</option>
+                        <option value='Metadata'>Metadata</option>
+                        <option value='CFDI'>CFDI</option>
+                      </select>
+
+                      <div *ngIf="summitFormCert && f['tipoSolicitud'].errors" class="invalid-feedback">
+                        <div *ngIf="f['tipoSolicitud'].errors['required']">Fecha Final es requerido</div>
+                      </div>
+                    </div>
+
+                    <!-- <div class="form-group col-md-3">
+                        <label>Tipo CFDI</label>
+                        <select class="form-control is-valid"  (change)="showWithholdings($event)">
+                          <option selected value="">Seleccione una opcion</option>
+                          <option value='1'>CFDI</option>
+                          <option value='2'>Retenciones</option>
+                        </select>
+                      </div>  -->
+
+                    <div class="form-group col-md-3">
+                      <label>Complementos de CFDI:</label>
+                      <select class="form-control is-valid" formControlName="complemento" [disabled]="isReadonly">
+                        <option selected value=''>Seleccione una opcion</option>
+                        <option value='acreditamientoieps10'>acreditamientoieps10</option>
+                        <option value='aerolíneas'>aerolíneas</option>
+                        <option value='cartaporte10'>cartaporte10</option>
+                        <option value='cartaporte20'>cartaporte20</option>
+                        <option value='certificadodedestruccion'>certificadodedestruccion</option>
+                        <option value='cfdiregistrofiscal'>cfdiregistrofiscal</option>
+                        <option value='comercioexterior10'>comercioexterior10</option>
+                        <option value='comercioexterior11'>comercioexterior11</option>
+                        <option value='comprobante'>comprobante</option>
+                        <option value='consumodecombustibles'>consumodecombustibles</option>
+                        <option value='consumodecombustibles11'>consumodecombustibles11</option>
+                        <option value='detallista'>detallista</option>
+                        <option value='divisas'>divisas</option>
+                        <option value='donat11'>donat11</option>
+                        <option value='ecc11'>ecc11</option>
+                        <option value='ecc12'>ecc12</option>
+                        <option value='gastoshidrocarburos10'>gastoshidrocarburos10</option>
+                        <option value='iedu'>iedu</option>
+                        <option value='implocal'>implocal</option>
+                        <option value='ine11'>ine11</option>
+                        <option value='ingresoshidrocarburos'>ingresoshidrocarburos</option>
+                        <option value='leyendasfisc'>leyendasfisc</option>
+                        <option value='nomina11'>nomina11</option>
+                        <option value='nomina12'>nomina12</option>
+                        <option value='notariospublicos'>notariospublicos</option>
+                        <option value='obrasarteantiguedades'>obrasarteantiguedades</option>
+                        <option value='pagoenespecie'>pagoenespecie</option>
+                        <option value='pagos10'>pagos10</option>
+                        <option value='pagos20'>pagos20</option>
+                        <option value='pfic'>pfic</option>
+                        <option value='renovacionysustitucionvehiculos'>renovacionysustitucionvehiculos</option>
+                        <option value='servicioparcialconstruccion'>servicioparcialconstruccion</option>
+                        <option value='spei'>spei</option>
+                        <option value='terceros11'>terceros11</option>
+                        <option value='turistapasajeroextranjero'>turistapasajeroextranjero</option>
+                        <option value='valesdedespensa'>valesdedespensa</option>
+                        <option value='vehiculousado'>vehiculousado</option>
+                      </select>
+                    </div>
+
+
+                    <div class="form-group col-md-3">
+                      <label>RFC a cuenta a terceros:</label>
+                      <input type="text" class="form-control is-valid" formControlName="rfcACuentaTerceros"
+                        [ngClass]="{ 'is-invalid': summitFormCert && f['rfcACuentaTerceros'].errors }"
+                        [readOnly]="isReadonly">
+
+                      <div *ngIf="summitFormCert && f['rfcACuentaTerceros'].errors" class="invalid-feedback">
+                        <div *ngIf="f['rfcACuentaTerceros'].errors['required']">RFC del Emisor es requerido</div>
+                        <div *ngIf="f['rfcACuentaTerceros'].errors['minlength']">
+                          RFC del Emisor no debe ser menor a 13 caracteres</div>
+                        <div *ngIf="f['rfcACuentaTerceros'].errors['maxlength']">
+                          RFC del Emisor no debe ser mayor a 14 caracteres
+                        </div>
+                        <div *ngIf="f['rfcACuentaTerceros'].errors['pattern']">RFC no cuenta con el formato correcto
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Tipo de comprobante:</label>
+                      <select class="form-control is-valid" formControlName="tipoComprobante" [disabled]="isReadonly">
+                        <option selected value=''>Seleccione una opcion</option>
+                        <option value='I'>Ingreso</option>
+                        <option value='E'>Egreso</option>
+                        <option value='T'>Traslado</option>
+                        <option value='N'>Nomina</option>
+                        <option value='P'>Pago</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Estado de comprobante:</label>
+                      <select class="form-control is-valid" formControlName="estadoComprobante" [disabled]="isReadonly">
+                        <option selected value=''>Seleccione una opcion</option>
+                        <option value='0'>Cancelado</option>
+                        <option value='1'>Vigente</option>
+                      </select>
+                    </div>
+
                   </div>
-
-
-                  <div class="form-group col-md-3">
-                    <label>Tipo de comprobante:</label>
-                    <select class="form-control is-valid" formControlName="TipoComprobante">
-                      <option selected value=''>Seleccione una opcion</option>
-                      <option value='I'>Ingreso</option>
-                      <option value='E'>Egreso</option>
-                      <option value='T'>Traslado</option>
-                      <option value='N'>Nomina</option>
-                      <option value='P'>Pago</option>
-                    </select>
-                  </div>
-
-
-                  <div class="form-group col-md-3">
-                    <label>Estado de comprobante:</label>
-                    <select class="form-control is-valid" formControlName="EstadoComprobante">
-                      <option selected value=''>Seleccione una opcion</option>
-                      <option value='0'>Cancelado</option>
-                      <option value='1'>Vigente</option>
-                    </select>
-                  </div>
-
-
-
-
                 </div>
+
+                <div class="col-sm-4">
+                  <div class="form-row">
+
+                    <div class="form-group col-md-12 ">
+                      <label>Contraseña</label>
+                      <input type="password" class="form-control is-valid" formControlName="password"
+                        [ngClass]="{ 'is-invalid': summitFormCert && f['password'].errors }" [readOnly]="isReadonly">
+
+                      <div *ngIf="summitFormCert && f['password'].errors" class="invalid-feedback">
+                        <div *ngIf="f['password'].errors['required']">Contraseña es requerido</div>
+                        <!-- <div *ngIf="f['password'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
+                          <div *ngIf="f['password'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div> -->
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6 col-sm-12 pb-4 ">
+                      <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".key, .cer"
+                        [disabled]="isReadonly">
+                        <ngx-dropzone-label class="text-success">Cargar llave del certificaso(.key) y
+                          (.cer)</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                      </ngx-dropzone>
+                      <div class="invalid-feedback-file" *ngIf="!isValidFile">
+                        <div>{{messageFileError}}</div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
             </div>
+          </div>
 
-            <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
               <div class="form-row">
-
 
                 <div class="form-group col-md-5">
                   <label>UUID</label>
@@ -239,7 +268,6 @@
                     <div *ngIf="f['uuid'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div>
                   </div>
                 </div>
-
 
                 <div class="form-group col-md-3">
                   <label>RFC Receptor</label>
@@ -253,58 +281,22 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div> -->
 
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Solicitud</button>
-            </div>
-
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Solicitud</button>
           </div>
+
         </div>
       </div>
+
     </div>
 
-    <div class="col-sm-5">
-      <div class="col-sm-12">
-        <div class="card card-outline card-danger">
-          <div class="card-header">
-            <h4>Certificados</h4>
-          </div>
-
-
-
-          <div class="card-body">
-            <div class="form-group col-md-6 pt-4">
-              <label>Contraseña</label>
-              <input type="password" class="form-control is-valid" formControlName="password"
-                [ngClass]="{ 'is-invalid': summitFormCert && f['password'].errors }">
-              <div *ngIf="summitFormCert && f['password'].errors" class="invalid-feedback">
-                <div *ngIf="f['password'].errors['required']">Contraseña es requerido</div>
-                <!-- <div *ngIf="f['password'].errors['minlength']">RFC del Emisor no debe ser menor a 13 caracteres</div>
-                <div *ngIf="f['password'].errors['maxlength']">RFC del Emisor no debe ser mayor a 14 caracteres</div> -->
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-sm-12 pb-4 mb-5">
-              <ngx-dropzone (change)="onSelect($event)" style="background: none" accept=".key, .cer" >
-                <ngx-dropzone-label class="text-success">Cargar llave del certificaso(.key) y (.cer)</ngx-dropzone-label>
-                <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" >
-                  <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                </ngx-dropzone-preview>
-              </ngx-dropzone>
-              <div class="invalid-feedback-file" *ngIf="files.length == 2">
-                <div>Hay que cargar el archivo .Key y .cer del RFC solicitante</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
+</form>
 
-
+<div class="row">
   <div class="col-sm-12">
     <div class="card card-outline card-danger">
       <div class="card-header">
@@ -335,7 +327,8 @@
               <td>{{massive.cantidad_paquetes}}</td>
               <td>{{massive.created_at}}</td>
               <td class="text-center">
-                <a class="btn btn-primary btn-sm mr-2" *ngIf= "massive.status == 8" (click)="showModalPackages(massive.request_id_sat) " >
+                <a class="btn btn-primary btn-sm mr-2" *ngIf="massive.status == 8"
+                  (click)="showModalPackages(massive.request_id_sat) ">
                   <i class="fas fa-cloud-download-alt"></i>
                 </a>
               </td>
@@ -346,19 +339,16 @@
       </div>
     </div>
   </div>
-</form>
-
-
-
+</div>
 
 <div #modalmassive class="modal fade" data-bs-backdrop="static" id="modal-nuevo-paquetes" tabindex="-1"
-aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered modal-lg">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h1 class="modal-title fs-5" id="modalmassive">Paquetes para descargar </h1>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalmassive">Paquetes para descargar </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
 
       <div class="modal-body">
@@ -367,15 +357,15 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
           <table datatable class="table row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead>
               <tr>
-                  <b>NOTA:</b> Los Datos Fiscales tiene que se registren deben de ser iguales a los datos del
-              Certificado que registre posteriormente.
+                <b>NOTA:</b> Los Datos Fiscales tiene que se registren deben de ser iguales a los datos del
+                Certificado que registre posteriormente.
                 <th>Enlace de Descargar</th>
               </tr>
             </thead>
             <tbody>
 
               <tr *ngFor="let dataPackages of dataPackages; let i = index">
-                <td>  <a class="btn btn-primary btn-sm mr-2"  href = {{dataPackages.rack_url}}> Paquete {{i + 1}} </a> </td>
+                <td> <a class="btn btn-primary btn-sm mr-2" href={{dataPackages.rack_url}}> Paquete {{i + 1}} </a> </td>
 
 
               </tr>
@@ -384,14 +374,6 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
         </div>
       </div>
 
+    </div>
   </div>
 </div>
-</div>
-
-
-
-
-
-
-
-
