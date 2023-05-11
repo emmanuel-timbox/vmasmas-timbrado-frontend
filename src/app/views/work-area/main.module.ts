@@ -31,6 +31,11 @@ import { PdfPreviewComponent } from './welcome/pdf-preview/pdf-preview.component
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { CompanyImageComponent } from './company-image/company-image.component';
 import { CreateXmlPayrollComponent } from './xmls/create-xml-payroll/create-xml-payroll.component';
+import { XmlDataPayrollComponent } from './xmls/create-xml-payroll/xml-data-payroll/xml-data-payroll.component';
+import { XmlDataPerceptionsComponent } from './xmls/create-xml-payroll/xml-data-perceptions/xml-data-perceptions.component';
+import { XmlDataDeductionsComponent } from './xmls/create-xml-payroll/xml-data-deductions/xml-data-deductions.component';
+import { XmlDataOtherPaymentsComponent } from './xmls/create-xml-payroll/xml-data-other-payments/xml-data-other-payments.component';
+import { XmDataReceiverPayrollComponent } from './xmls/create-xml-payroll/xm-data-receiver-payroll/xm-data-receiver-payroll.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +56,12 @@ import { CreateXmlPayrollComponent } from './xmls/create-xml-payroll/create-xml-
     MassiveDownloadComponent,
     PdfPreviewComponent,
     CompanyImageComponent,
-    CreateXmlPayrollComponent
+    CreateXmlPayrollComponent,
+    XmlDataPayrollComponent,
+    XmlDataPerceptionsComponent,
+    XmlDataDeductionsComponent,
+    XmlDataOtherPaymentsComponent,
+    XmDataReceiverPayrollComponent
   ],
   imports: [
     CommonModule,

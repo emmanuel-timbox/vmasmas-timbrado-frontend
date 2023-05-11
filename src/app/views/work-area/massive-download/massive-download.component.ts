@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { SweetAlertsService } from 'src/app/services/sweet-alert.service';
@@ -51,7 +51,6 @@ export class MassiveDownloadComponent implements OnInit {
     private _sweetAlets: SweetAlertsService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-
     this.dtOptions = {
       lengthMenu: [5, 10, 25, 50, 100],
       pageLength: 5,
@@ -63,7 +62,6 @@ export class MassiveDownloadComponent implements OnInit {
     this.getListMassive();
     this.formDescarga = this.formBuilder.group(this._services.getDataValidateMassive());
   }
-
 
   get f(): { [key: string]: AbstractControl } { return this.formDescarga.controls; }
 
@@ -93,7 +91,7 @@ export class MassiveDownloadComponent implements OnInit {
     if (!validateFiles.isValid) {
       this.messageFileError = validateFiles.message;
       this.isValidFile = validateFiles.isValid;
-      return
+      return;
     }
 
     if (this.formDescarga.invalid) { return; }
@@ -102,8 +100,8 @@ export class MassiveDownloadComponent implements OnInit {
 
     this.files.forEach((item: any) => {
       const nameSplit = item.name.split(".");
-      if (nameSplit[1] == "cer") { cerf = item }
-      if (nameSplit[1] == "key") { key = item }
+      if (nameSplit[1] == "cer") { cerf = item; }
+      if (nameSplit[1] == "key") { key = item; }
     });
 
     formData.append("cerFile", cerf);
@@ -116,7 +114,7 @@ export class MassiveDownloadComponent implements OnInit {
     formData.append('fechaFinal', this.formDescarga.value.fechaFinal + ':00');
     formData.append('tipoSolicitud', this.formDescarga.value.tipoSolicitud);
     formData.append('complemento', this.formDescarga.value.complemento);
-    formData.append('rfcACuentaTerceros', this.formDescarga.value.rfcACuentaTerceros)
+    formData.append('rfcACuentaTerceros', this.formDescarga.value.rfcACuentaTerceros);
     formData.append('tipoComprobante', this.formDescarga.value.tipoComprobante);
     formData.append('estadoComprobante', this.formDescarga.value.estadoComprobante);
     formData.append('password', this.formDescarga.value.password);
@@ -130,7 +128,7 @@ export class MassiveDownloadComponent implements OnInit {
         const result = JSON.parse(JSON.stringify(response));
         if (result.code == 200) {
           this.swal.successAlert(result.message);
-          this.dataMassive.push(result.data)
+          this.dataMassive.push(result.data);
           this.resetFormCreate();
           this.tableRerender();
         } else {
@@ -187,12 +185,11 @@ export class MassiveDownloadComponent implements OnInit {
         if (result.code == 200) {
           this.dataPackages = result.data;
         } else {
-          this._sweetAlets.infoAlert('¡Verifica!', 'No se encuentra ');
+          this._sweetAlets.infoAlert('¡Verifica!', 'No se encuentra');
         }
       },
       error: error => { console.log(error) }
     });
-
   }
 
   private getListMassive() {
@@ -209,8 +206,8 @@ export class MassiveDownloadComponent implements OnInit {
   private validateFile(files: any): any {
     const allowedExtensionCer = /(.*?)\.(cer)$/;
     const allowedExtensionKey = /(.*?)\.(key)$/;
-    let countCer: number = 0
-    let countKey: number = 0
+    let countCer: number = 0;
+    let countKey: number = 0;
 
     if (files.length == 0) {
       return {
@@ -228,11 +225,11 @@ export class MassiveDownloadComponent implements OnInit {
 
     this.files.forEach((element: any) => {
       if (element.name.match(allowedExtensionCer) != null) {
-        countCer++
+        countCer++;
       }
 
       if (element.name.match(allowedExtensionKey) != null) {
-        countKey++
+        countKey++;
       }
     });
 
@@ -247,21 +244,21 @@ export class MassiveDownloadComponent implements OnInit {
       return {
         isValid: false,
         message: 'Solo se tiene que cargar un archivo .key'
-      }
+      };
     }
 
     if (countCer == 1 && countKey != 1) {
       return {
         isValid: false,
         message: 'Se tiene que cargar un archivo .key junto con un .cer'
-      }
+      };
     }
 
     if (countCer != 1 && countKey == 1) {
       return {
         isValid: false,
         message: 'Se tiene que cargar un archivo .cer junto con un .key'
-      }
+      };
     }
 
     return { isValid: true, message: null };
@@ -273,4 +270,5 @@ export class MassiveDownloadComponent implements OnInit {
       this.dtTrigger.next(null);
     });
   }
+
 }

@@ -16,7 +16,7 @@
         <div class="col-sm-12 mb-2">
           <label>Seleccionar Emisor:</label>
           <select class="form-control is-valid" (change)="setDataEmitterInput($event)">
-            <option selected value="">seleccione una opcion</option>
+            <option selected value="">Seleccione una opcion</option>
             <option *ngFor="let emitter of emitterData" value="{{emitter.slug}}"> {{emitter.bussiness_name}} </option>
           </select>
         </div>

@@ -11,21 +11,31 @@
           <ng-wizard #ngWizardNative [config]="config" [className]="'ng-wizard-theme-default'">
 
             <ng-wizard-step [title]="'Certficado'" [description]="'Carga de Certificado del Emisor'">
+              <app-xml-certificate></app-xml-certificate>
             </ng-wizard-step>
 
             <ng-wizard-step [title]="'Comprobante'" [description]="'Nodo Comprobante'">
+              <app-xml-vaucher></app-xml-vaucher>
             </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Receptor'" [description]="'Nodo de Recptor'">
+            <ng-wizard-step [title]="'Recptor'" [description]="'Nodo Receptor'">
+              5677567
             </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Conceptos'" [description]="'Nodo de Conceptos'">
+            <ng-wizard-step [title]="'Nomina'" [description]="'Nodo datos Generales'">
+              <app-xml-data-payroll></app-xml-data-payroll>
             </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Nota'" [description]="'Agregar nota al Comprobante'">
+            <ng-wizard-step [title]="'Percepciones'" [description]="'Nodo de Percepciones'">
+              <app-xml-data-perceptions></app-xml-data-perceptions>
             </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Step 6'" [description]="'Step 6 description'" >
+             <ng-wizard-step [title]="'Deducciones'" [description]="'Nodo de Deducciones'">
+              <app-xml-data-deductions></app-xml-data-deductions>
+            </ng-wizard-step>
+
+            <ng-wizard-step [title]="'Otros Pagos'" [description]="'Nodo Otros Pagos'" >
+              <app-xml-data-other-payments></app-xml-data-other-payments>
             </ng-wizard-step>
 
           </ng-wizard>

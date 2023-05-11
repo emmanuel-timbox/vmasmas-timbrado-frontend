@@ -1,0 +1,122 @@
+<div class="row">
+
+  <div class="col-sm-12">
+    <div class="accordion" id="accordionExample" formArrayName="concepts">
+      <div class="accordion-item accordion-item-bg">
+
+
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'"
+            aria-expanded="true" [attr.aria-controls]="'collapse'">
+
+          </button>
+        </h2>
+
+        <div id="collapse" class="accordion-collapse collapse show" [attr.aria-labelledby]="'heading'"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body pt-0">
+            <div class="row pt-3">
+
+              <div class="col-sm-12">
+
+                <div class="form-row">
+
+                  <div class="form-group col-md-3 mb-0">
+                    <label class="label-color mb-0">Tipo otro pago:</label>
+                    <select class="form-control">
+                      <option value="">Seleccione alguna opcion</option>
+                      <option value="001">001</option>
+                      <option value="002">002</option>
+                      <option value="003">003</option>
+                      <option value="004">004</option>
+                      <option value="005">005</option>
+                      <option value="006">006</option>
+                      <option value="007">007</option>
+                      <option value="008">008</option>
+                      <option value="009">009</option>
+                      <option value="999">999</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-3 mb-0">
+                    <label class="label-color mb-0">Clave:</label>
+                    <input type="text" class="form-control">
+                  </div>
+
+                  <div class="form-group col-md-3 mb-0">
+                    <label class="label-color mb-0">Concepto:</label>
+                    <input type="text" class="form-control">
+                  </div>
+
+                  <div class="form-group col-md-3 mb-0">
+                    <label class="label-color mb-0">Importe:</label>
+                    <input type="text" class="form-control">
+                  </div>
+
+                </div>
+
+                <div class="form-row pt-5">
+
+                  <div class="col-sm-8">
+                    <table class="table table-striped table-hover table-sm label-color">
+                      <thead>
+                        <tr>
+                          <th class="size-row-table text-center">Saldo a favor</th>
+                          <th class="size-row-table text-center">Año</th>
+                          <th class="size-row-table text-center">Remanente saldo a favor</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+
+                    <div class="form-group col-md-12 pt-1">
+                      <a type="button" class="btn btn-secondary mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Cancelar">
+                        <i class="fas fa-minus"></i>
+                      </a>
+                      <a type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Agregar">
+                        <i class="fas fa-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <table class="table table-striped table-hover table-sm label-color">
+                      <thead>
+                        <tr>
+                          <th class="size-row-table text-center">Saldo a favor</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+
+                    <div class="form-group col-md-12 pt-1">
+                      <a type="button" class="btn btn-secondary mr-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Cancelar">
+                        <i class="fas fa-minus"></i>
+                      </a>
+                      <a type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Agregar">
+                        <i class="fas fa-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
